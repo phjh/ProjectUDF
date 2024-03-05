@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : Player
 {
     [SerializeField] Player _player;
@@ -17,15 +18,12 @@ public class PlayerMovement : Player
         set => _activeMove = value;
     }
 
-    private void Awake()
+    private void Start()
     {
         _playerStat = _player._playerStat;
         _inputReader = _player._inputReader;
         _characterController = _player._characterController;
-    }
 
-    private void Start()
-    {
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
         _currentSpeed = _playerStat.PlayerMoveSpeed;        
@@ -61,6 +59,14 @@ public class PlayerMovement : Player
         _characterController.Move(_movementVelocity);
     }
 
+    private void SetRotation()
+    {
+        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(_inputReader.AimPosition);
+        Vector2 dir = (worldMousePos - transform.position);
+        float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rotZ);
+    }
+
     private void FixedUpdate()
     {
         if (_activeMove)
@@ -68,15 +74,7 @@ public class PlayerMovement : Player
             CalculatePlayerMovement();
         }
         Move();
-
+        SetRotation();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            _playerStat.EditStat(Stats.MoveSpeed, 0.5f);
-        }
-        
-    }
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
     public InputReader _inputReader;
@@ -16,7 +15,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _playerStat = _playerStat.Clone();
+        // _playerStat = _playerStat.Clone();  =>  클로시 왜 인지 NullRef가 뜨기시작
         _characterController = GetComponent<CharacterController>();
     }
 

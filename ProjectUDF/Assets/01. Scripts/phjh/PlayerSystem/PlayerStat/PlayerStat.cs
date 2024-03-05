@@ -10,7 +10,6 @@ public enum Stats
     HP = 4
 }
 
-
 [CreateAssetMenu(fileName = "New Player Stat", menuName = "SO/Player/PlayerStat")]
 public class PlayerStat : ScriptableObject
 {
@@ -39,7 +38,7 @@ public class PlayerStat : ScriptableObject
 
     public PlayerStat Clone()
     {
-        return this;
+        return Instantiate(this);
     }
 
     public void EditStat(Stats statName, float EditingAmount)
