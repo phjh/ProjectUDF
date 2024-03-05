@@ -50,12 +50,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 			foreach (int count in NormalOreList)
 			{
 				index++;
-				Debug.Log($"{index}¹ø ±¤¼® : {count} °³");
 				if (count < NeedToUpgrade) continue;
-				if (count == NeedToUpgrade)
-				{
-					UpgradeOre((Stats)index, IncreaseValues[index]);
-				}
+				UpgradeOre((Stats)index, IncreaseValues[index]);
 			}
 		}
 		else
