@@ -3,10 +3,11 @@ using UnityEngine;
 
 public enum Stats
 {
-    Strength,
-    HP,
-    MoveSpeed,
-    AttackSpeed
+    Strength = 0,
+    Lucky = 1,
+    MoveSpeed = 2,
+    AttackSpeed = 3,
+    HP = 4
 }
 
 
@@ -17,16 +18,19 @@ public class PlayerStat : ScriptableObject
     public event Action<float> HpChanged;
     public event Action<float> MoveSpeedChanged;
     public event Action<float> AttackSpeedChanged;
+    public event Action<float> LuckyChanged;
 
     public readonly float BaseStrength;
     public readonly float BaseHP;
     public readonly float BaseMoveSpeed;
     public readonly float BaseAttackSpeed;
+    public readonly float BaseLucky;
 
     public float PlayerStrength;
     public float PlayerHP;
     public float PlayerMoveSpeed;
     public float PlayerAttackSpeed;
+    public float PlayerLucky;
 
     public void OnEnable()
     {
@@ -53,6 +57,10 @@ public class PlayerStat : ScriptableObject
                 PlayerAttackSpeed += EditingAmount;
                 AttackSpeedChanged?.Invoke(PlayerAttackSpeed);
                 break;
+            case Stats.Lucky:
+                PlayerLucky += EditingAmount;
+                LuckyChanged?.Invoke(PlayerLucky);
+                break;
         }
     }
 
@@ -62,6 +70,7 @@ public class PlayerStat : ScriptableObject
         PlayerHP = 10;
         PlayerMoveSpeed = 5;
         PlayerAttackSpeed = 1;
+        PlayerLucky = 1;
     }
 
 
