@@ -15,8 +15,10 @@ public class PlayerAim : Player
         _characterController = _player._characterController;
     }
 
-    
-
+    private void Start()
+    {
+        _attackSpeed = _playerStat.PlayerAttackSpeed;
+    }
 
     private void FixedUpdate()
     {
