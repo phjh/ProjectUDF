@@ -37,6 +37,11 @@ public class PlayerStat : ScriptableObject
         SetStatStart();
     }
 
+    public PlayerStat Clone()
+    {
+        return this;
+    }
+
     public void EditStat(Stats statName, float EditingAmount)
     {
         switch (statName)
