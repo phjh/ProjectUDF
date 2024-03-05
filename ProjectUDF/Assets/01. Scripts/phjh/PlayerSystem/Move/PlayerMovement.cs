@@ -1,24 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Player
 {
-    [SerializeField] private InputReader _inputReader;
-
-    [SerializeField] private PlayerStat _playerStat;
+    [SerializeField] Player _player;
 
     private float _currentSpeed;
-
-    private CharacterController _characterController;
-    public bool IsGround
-    {
-        get => _characterController.isGrounded;
-    }
 
     private Vector2 _inputDirection;
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
-    private Quaternion _degreeY45;
 
     private bool _activeMove = true;
     public bool ActiveMove
@@ -29,11 +19,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _degreeY45 = Quaternion.AngleAxis(45f, Vector3.up);
-        _characterController = GetComponent<CharacterController>();
+        _playerStat = _player._playerStat;
+        _inputReader = _player._inputReader;
+        _characterController = _player._characterController;
+    }
+
+    private void Start()
+    {
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
-        _currentSpeed = _playerStat.PlayerMoveSpeed;
+        _currentSpeed = _playerStat.PlayerMoveSpeed;        
     }
 
     private void OnDestroy()
@@ -53,8 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculatePlayerMovement()
     {
-        Vector2 move = _degreeY45 * new Vector2(_inputDirection.x, _inputDirection.y);
-        _movementVelocity = move * (_currentSpeed * Time.deltaTime);
+        _movementVelocity = _inputDirection * (_currentSpeed * Time.deltaTime);
     }
 
     public void StopImmediately()

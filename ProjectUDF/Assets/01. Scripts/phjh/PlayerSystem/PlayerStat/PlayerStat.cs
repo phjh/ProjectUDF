@@ -33,6 +33,19 @@ public class PlayerStat : ScriptableObject
         SetStatStart();
     }
 
+    public PlayerStat Clone()
+    {
+        return Instantiate(this);
+    }
+
+    public void SetStatStart()
+    {
+        PlayerStrength = 4;
+        PlayerHP = 10;
+        PlayerMoveSpeed = 5;
+        PlayerAttackSpeed = 1;
+    }
+
     public void EditStat(Stats statName, float EditingAmount)
     {
         switch (statName)
@@ -56,13 +69,6 @@ public class PlayerStat : ScriptableObject
         }
     }
 
-    public void SetStatStart()
-    {
-        PlayerStrength = 4;
-        PlayerHP = 10;
-        PlayerMoveSpeed = 5;
-        PlayerAttackSpeed = 1;
-    }
 
 
 }
