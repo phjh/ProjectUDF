@@ -8,6 +8,6 @@ public class MonoOre : MonoBehaviour
 	public void GetOre()
 	{
 		OreInventory.Instance.IncreaseOre(IncreaseStat, IncreaseValue);
-
+		Debug.Log(gameObject.name);
 	}
 }

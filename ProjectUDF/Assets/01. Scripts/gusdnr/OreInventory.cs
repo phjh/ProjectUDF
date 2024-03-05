@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "Ore Inventory List", menuName = "SO/Player/OreInventory")]
@@ -12,9 +13,9 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public PlayerStat status;
 
 	//Values
-	public List<int> NormalOreList = new List<int>(4){ 0, 0, 0, 0 };
-    public List<int> UpgradeOreList = new List<int>(4){ 0, 0, 0, 0 };
-	[Range(1, 5)]public List<float> IncreaseValues = new List<float>(5);
+	public List<int> NormalOreList = new List<int>(4){ 0, 0, 0, 0 }; //일반 광석 소지 개수
+    public List<int> UpgradeOreList = new List<int>(4){ 0, 0, 0, 0 }; //강화 광석 소지 개수
+	[Range(1, 5)]public List<float> IncreaseValues = new List<float>(4); //광석 강화시 추가로 얻을 능력치
 	[Range(1, 5)]public int NeedToUpgrade = 3;
 	private static int statNumber;
 
@@ -23,15 +24,14 @@ public class OreInventory : MonoSingleton<OreInventory>
 	private void Start()
 	{
         ResetOreList();
-		status = GetComponent<PlayerStat>();
 	}
 	
 	#region Methods
 
 	public void ResetOreList() //광물 목록 초기화용
 	{
-		NormalOreList.ForEach(o => { NormalOreList.Insert(o, 0); Debug.Log($"Normal {o} : 0"); });
-		UpgradeOreList.ForEach(o => { UpgradeOreList.Insert(o, 0); Debug.Log($"Upgrade {o} : 0"); });
+		NormalOreList = Enumerable.Repeat(0, 4).ToList();
+		UpgradeOreList = Enumerable.Repeat(0, 4).ToList();
 	}
 
 	public void IncreaseOre(Stats statName, float statValue) //외부 호출형 스탯 증가 함수

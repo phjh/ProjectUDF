@@ -62,6 +62,8 @@ public class PlayerStat : ScriptableObject
                 LuckyChanged?.Invoke(PlayerLucky);
                 break;
         }
+
+        Debug.Log($"[현재 스텟] | 힘 : {PlayerStrength} | 이속 : {PlayerMoveSpeed} | 공속 : {PlayerAttackSpeed} | 운 : {PlayerLucky} |");
     }
 
     public void SetStatStart()
