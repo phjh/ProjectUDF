@@ -71,6 +71,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	{
 		statNumber = (int)(statName);
 		NormalOreList[statNumber] -= NeedToUpgrade;
+		UpgradeOreList[statNumber] += 1;
 		status.EditStat(statName, statValue);
 		CheckInventory();
 	}
