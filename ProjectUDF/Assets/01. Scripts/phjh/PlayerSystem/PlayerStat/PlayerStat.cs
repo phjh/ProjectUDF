@@ -35,6 +35,7 @@ public class PlayerStat : ScriptableObject
     public void OnEnable()
     {
         SetStatStart();
+        Debug.Log("시작 시 초기화 실행");
     }
 
     public void EditStat(Stats statName, float EditingAmount)

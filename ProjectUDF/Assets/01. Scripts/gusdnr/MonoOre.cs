@@ -3,7 +3,7 @@ using UnityEngine;
 public class MonoOre : MonoBehaviour
 {
 	public Stats IncreaseStat;
-	public float IncreaseValue;
+	[Range(0, 1)]public float IncreaseValue;
 
 	public void GetOre()
 	{

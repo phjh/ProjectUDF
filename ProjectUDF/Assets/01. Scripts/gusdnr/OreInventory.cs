@@ -15,7 +15,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	//Values
 	public List<int> NormalOreList = new List<int>(4){ 0, 0, 0, 0 }; //일반 광석 소지 개수
     public List<int> UpgradeOreList = new List<int>(4){ 0, 0, 0, 0 }; //강화 광석 소지 개수
-	[Range(1, 5)]public List<float> IncreaseValues = new List<float>(4); //광석 강화시 추가로 얻을 능력치
+	[Range(0, 5)]public List<float> IncreaseValues = new List<float>(4); //광석 강화시 추가로 얻을 능력치
 	[Range(1, 5)]public int NeedToUpgrade = 3;
 	private static int statNumber;
 
@@ -40,6 +40,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 		NormalOreList[statNumber] += 1;
 
 		status.EditStat(statName, statValue);
+		CheckInventory(false, statNumber);
 	}
 
 	public void CheckInventory(bool isCheckAll = true, int index = 0) //bool값이 false일 경우, index 값만을 확인하는 인벤토리 점검 함수
@@ -59,7 +60,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 		}
 		else
 		{
-			if (NormalOreList[index] == NeedToUpgrade)
+			if (NormalOreList[index] >= NeedToUpgrade)
 			{
 				UpgradeOre((Stats)index, IncreaseValues[index]);
 			}
@@ -69,8 +70,9 @@ public class OreInventory : MonoSingleton<OreInventory>
 	private void UpgradeOre(Stats statName, float statValue)
 	{
 		statNumber = (int)(statName);
-		NormalOreList[statNumber] = 0;
+		NormalOreList[statNumber] -= NeedToUpgrade;
 		status.EditStat(statName, statValue);
+		CheckInventory();
 	}
 
 	#endregion
