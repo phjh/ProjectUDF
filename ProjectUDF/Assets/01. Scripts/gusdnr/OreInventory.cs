@@ -10,14 +10,14 @@ public class OreInventory : MonoSingleton<OreInventory>
 	#region Variables
 	
 	//Another Components
-	public PlayerStat status;
+	public PlayerStat status; //추후 플레이어가 가지고 있는 플레이어 스탯 SO 가져오는 부분 추가 필요 *****
 
 	//Values
 	public List<int> NormalOreList = new List<int>(4){ 0, 0, 0, 0 }; //일반 광석 소지 개수
     public List<int> UpgradeOreList = new List<int>(4){ 0, 0, 0, 0 }; //강화 광석 소지 개수
 	[Range(0, 5)]public List<float> IncreaseValues = new List<float>(4); //광석 강화시 추가로 얻을 능력치
-	[Range(1, 5)]public int NeedToUpgrade = 3;
-	private static int statNumber;
+	[Range(1, 5)]public int NeedToUpgrade = 3; //업그레이드에 필요한 광석 개수
+	private static int statNumber; //함수 사용시 스탯 번호를 가지고 있는 변수
 
 	#endregion
 
