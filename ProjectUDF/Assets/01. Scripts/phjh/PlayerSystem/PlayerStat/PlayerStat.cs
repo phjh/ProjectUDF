@@ -19,12 +19,6 @@ public class PlayerStat : ScriptableObject
     public event Action<float> AttackSpeedChanged;
     public event Action<float> LuckyChanged;
 
-    public readonly float BaseStrength;
-    public readonly float BaseHP;
-    public readonly float BaseMoveSpeed;
-    public readonly float BaseAttackSpeed;
-    public readonly float BaseLucky;
-
     public float PlayerStrength;
     public float PlayerHP;
     public float PlayerMoveSpeed;
@@ -39,7 +33,7 @@ public class PlayerStat : ScriptableObject
 
     public PlayerStat Clone()
     {
-        return Instantiate(this);
+        return Instantiate(this) as PlayerStat;
     }
 
     public void EditStat(Stats statName, float EditingAmount)
