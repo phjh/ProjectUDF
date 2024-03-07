@@ -6,10 +6,12 @@ using static UnityEngine.Rendering.BoolParameter;
 public class TimeManager : MonoSingleton<TimeManager>
 {
     public float NowTime { get; private set; }
-    public float MaxTime { get; private set; }
+    [SerializeField] private float MaxTime;
 
     private bool isWorkingTimer;
     public bool IsWorkingTimer => isWorkingTimer;
+
+
 
     public void ResetTimer()
     {
@@ -22,13 +24,13 @@ public class TimeManager : MonoSingleton<TimeManager>
         if(isReset) { ResetTimer(); }
     }
 
-    public void StartTimer()
+    public void StartTimer() //외부 호출용 타이머 시작 함수
     {
         isWorkingTimer = true;
         WorkingTimer();
     }
 
-    private IEnumerator WorkingTimer()
+    private IEnumerator WorkingTimer() //타이머용 코루틴
     {
         while(NowTime > 0 && isWorkingTimer)
         {
