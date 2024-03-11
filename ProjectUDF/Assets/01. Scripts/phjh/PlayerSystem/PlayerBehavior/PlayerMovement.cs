@@ -11,18 +11,9 @@ public class PlayerMovement : Player
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
 
-    private bool _activeMove = true;
-    public bool ActiveMove
-    {
-        get => _activeMove;
-        set => _activeMove = value;
-    }
-
-    private void Start()
+    protected void Start()
     {
         _playerStat = _player._playerStat;
-        _inputReader = _player._inputReader;
-        _characterController = _player._characterController;
 
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
@@ -59,14 +50,6 @@ public class PlayerMovement : Player
         _characterController.Move(_movementVelocity);
     }
 
-    private void SetRotation()
-    {
-        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(_inputReader.AimPosition);
-        Vector2 dir = (worldMousePos - transform.position);
-        float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
-    }
-
     private void FixedUpdate()
     {
         if (_activeMove)
@@ -74,7 +57,16 @@ public class PlayerMovement : Player
             CalculatePlayerMovement();
         }
         Move();
-        SetRotation();
+    }
+
+    //테스트용
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            _playerStat.EditStat(Stats.MoveSpeed, 0.5f);
+        }
+
     }
 
 }

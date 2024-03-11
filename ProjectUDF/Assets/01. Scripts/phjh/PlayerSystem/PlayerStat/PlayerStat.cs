@@ -33,9 +33,11 @@ public class PlayerStat : ScriptableObject
 
     public PlayerStat Clone()
     {
-        return Instantiate(this) as PlayerStat;
+        var returnvalue = Instantiate(this);
+        return returnvalue;
     }
 
+    //기본적으로 추가스텟이니 유의할것
     public void EditStat(Stats statName, float EditingAmount)
     {
         switch (statName)
@@ -62,7 +64,7 @@ public class PlayerStat : ScriptableObject
                 break;
         }
 
-        Debug.Log($"[현재 스텟] | 힘 : {PlayerStrength} | 이속 : {PlayerMoveSpeed} | 공속 : {PlayerAttackSpeed} | 운 : {PlayerLucky} |");
+        Debug.Log($"[현재 스텟] | 힘 : {PlayerStrength} | 이속 : {PlayerMoveSpeed} | 공속 : {PlayerAttackSpeed} | 운 : {PlayerLucky} | 체력 : {PlayerHP} |");
     }
 
     public void SetStatStart()
