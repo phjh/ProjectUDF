@@ -20,18 +20,18 @@ public class EnemyBase : PoolableMono
 	[HideInInspector] public float AttackDistance;
 	#endregion
 
-	public EnemyPatternBase[] EnemyPatternList; //적이 사용할 패턴 목록
+	public IPatternBase[] EnemyPatternList; //적이 사용할 패턴 목록
 
 	private void OnEnable()
 	{
-		EnemyPatternList = GetComponents<EnemyPatternBase>();
+		EnemyPatternList = GetComponents<IPatternBase>();
 		SettingStats();
 	}
 
 	public override void ResetPooingItem()
 	{
 		SettingStats();
-		EnemyPatternList = GetComponents<EnemyPatternBase>();
+		EnemyPatternList = GetComponents<IPatternBase>();
 	}
 
 	private void Update()
