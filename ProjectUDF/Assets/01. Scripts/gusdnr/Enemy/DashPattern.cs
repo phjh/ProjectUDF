@@ -5,7 +5,7 @@ using UnityEngine;
 public class DashPattern : MonoBehaviour
 {
     [SerializeField] private float DashSpeed;
-    [SerializeField] private float DashDistance;
+    [SerializeField] private float DashTime;
     [SerializeField] private float LockOnTime;
 
 	EnemyPatternBrain PB;
@@ -55,8 +55,8 @@ public class DashPattern : MonoBehaviour
 	private void Dash()
     {
 		isAttacking = true;
-		if ()
-
+		if (isAttacking)
+		StartCoroutine(SetStateRoutine());
 	}
 
 	public float attackMoveSpeed;
@@ -89,7 +89,7 @@ public class DashPattern : MonoBehaviour
 		{
 			this.speed = tmpSpeed;
 			this.rBody2D.velocity = attackDir.normalized * (this.speed * 3 - this.knockbackSpeed) * Time.deltaTime;
-			StartCoroutine(SetStateRoutine());
+			
 		}
 
 		if (this.TargetInDistance() && this.followEnabled && !isAttacking) this.PathFollow();
@@ -97,15 +97,12 @@ public class DashPattern : MonoBehaviour
 		Debug.Log(isAttacking);
 	}
 
-	
 
-	IEnumerator SetStateRoutine()
+
+	private	IEnumerator SetStateRoutine()
 	{
-		yield return new WaitForSeconds(0.5f);
-
-		this.speed = tmpSpeed;
+		yield return new WaitForSeconds(DashTime);
 		attackTarget = Vector2.zero;
-		this.speed = this.tmpSpeed;
 		isAttacking = false;
 		isLockOn = false;
 	}

@@ -317,7 +317,6 @@ GameObject:
   - component: {fileID: 595687416}
   - component: {fileID: 595687415}
   - component: {fileID: 595687414}
-  - component: {fileID: 595687417}
   - component: {fileID: 595687418}
   m_Layer: 2
   m_Name: TestEnemy
@@ -428,30 +427,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &595687417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595687412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5538302fa31a2ac43be5b2c64cb89e4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poolingType: 0
-  Player: {fileID: 1642537951}
-  EnemyData: {fileID: 11400000, guid: 72f54d59bcbb4484fa1b2b136629436c, type: 2}
-  isDead: 0
-  hasLineOfSight: 0
-  MovePosition: {x: 0, y: 0}
-  AttackDelay: 0
-  MovementSpeed: 0
-  SearchingRadius: 0
-  RoveRadius: 0
-  AttackDistance: 0
-  EnemyPatternList: []
 --- !u!50 &595687418
 Rigidbody2D:
   serializedVersion: 4
