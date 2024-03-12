@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyDataSO
   m_EditorClassIdentifier: 
   EnemyMaxHP: 10
-  EnemyMovementSpeed: 4
+  EnemyMovementSpeed: 0
   EnemyAttackDelay: 4
   EnemySearchingRadius: 5
   EnemyAttackDistance: 4
