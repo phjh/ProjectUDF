@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,6 +20,8 @@ public class Player : MonoBehaviour
     {
         get => _characterController.isGrounded;
     }
+
+    public Action stopImmediately;
 
     private void Awake()
     {
