@@ -18,6 +18,7 @@ public class EnemyPatternBrain : MonoBehaviour
 
 	public bool hasLineOfSight = false;
 	public bool isCanAttack = true;
+	public bool isAttacking = false;
 	public bool isInAttackRange => Vector2.Distance(EnemyPos, PlayerPos) < Base.AttackDistance;
 
 
@@ -71,5 +72,16 @@ public class EnemyPatternBrain : MonoBehaviour
 		{
 			//Active Rove Pattern or Idle
 		}
+	}
+
+	public void StartCoolDownAttack()
+	{
+		StartCoroutine(CoolDownAttack());
+	}
+
+	private IEnumerator CoolDownAttack()
+	{
+		yield return new WaitForSeconds(Base.AttackDelay);
+		isCanAttack = true;
 	}
 }
