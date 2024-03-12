@@ -9,9 +9,9 @@ public class EnemyPatternBrain : MonoBehaviour
 	public float MoveSpeed;
 
 	public GameObject Player;
-	public Vector2 EnemyPos;
-	public Vector2 LastMovePos;
-	public Vector2 PlayerPos;
+	[HideInInspector] public Vector2 EnemyPos;
+	[HideInInspector] public Vector2 LastMovePos;
+	[HideInInspector] public Vector2 PlayerPos;
 
 	public Collider2D EnemyCLD;
 	public Rigidbody2D EnemyRB;
@@ -21,6 +21,11 @@ public class EnemyPatternBrain : MonoBehaviour
 	public bool isAttacking = false;
 	public bool isInAttackRange => Vector2.Distance(EnemyPos, PlayerPos) < Base.AttackDistance;
 
+	private void Start()
+	{
+		EnemyCLD = GetComponent<Collider2D>();
+		EnemyRB = GetComponent<Rigidbody2D>();
+	}
 
 	private void Update()
 	{

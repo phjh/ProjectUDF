@@ -15,7 +15,12 @@ public class DashPattern : MonoBehaviour
 
     public GameObject Player;
 
-    void Update()
+	private void Start()
+	{
+		PB = GetComponent<EnemyPatternBrain>();
+	}
+
+	void Update()
     {
 		if (PB.isCanAttack)
 		{
@@ -43,6 +48,7 @@ public class DashPattern : MonoBehaviour
 		attackTarget = PB.LastMovePos;
 		attackDir = attackTarget - PB.EnemyPos;
 		PB.isAttacking = true;
+		Debug.Log("Lock On");
 	}
 
 	private IEnumerator SetRoveState()

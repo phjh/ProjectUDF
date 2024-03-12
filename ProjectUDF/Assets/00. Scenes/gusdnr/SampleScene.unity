@@ -318,6 +318,9 @@ GameObject:
   - component: {fileID: 595687415}
   - component: {fileID: 595687414}
   - component: {fileID: 595687418}
+  - component: {fileID: 595687421}
+  - component: {fileID: 595687420}
+  - component: {fileID: 595687419}
   m_Layer: 2
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -454,6 +457,65 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &595687419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595687412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a11b5d5e336534c95f4bb61d86e7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DashSpeed: 10
+  DashTime: 3
+  LockOnTime: 0.7
+  Player: {fileID: 1642537951}
+--- !u!114 &595687420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595687412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32807532bee3a50488044e11d72c3586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 0
+  Player: {fileID: 1642537951}
+  EnemyPos: {x: 0, y: 0}
+  LastMovePos: {x: 0, y: 0}
+  PlayerPos: {x: 0, y: 0}
+  EnemyCLD: {fileID: 595687414}
+  EnemyRB: {fileID: 595687418}
+  hasLineOfSight: 0
+  isCanAttack: 1
+  isAttacking: 0
+--- !u!114 &595687421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595687412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5538302fa31a2ac43be5b2c64cb89e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolingType: 0
+  EnemyData: {fileID: 11400000, guid: 72f54d59bcbb4484fa1b2b136629436c, type: 2}
+  isDead: 0
+  MovePosition: {x: 0, y: 0}
+  AttackDelay: 0
+  MovementSpeed: 0
+  SearchingRadius: 0
+  RoveRadius: 0
+  AttackDistance: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1276,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
