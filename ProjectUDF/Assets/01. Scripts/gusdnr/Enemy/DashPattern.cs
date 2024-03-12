@@ -6,33 +6,64 @@ public class DashPattern : MonoBehaviour
 {
     [SerializeField] private float DashSpeed;
     [SerializeField] private float DashDistance;
+    [SerializeField] private float LockOnTime;
 
-    private bool isDash = false;
+	EnemyPatternBrain PB;
+	private Vector2 dir;
+	private bool isLockOn;
+	private bool isDash = false;
 
     public GameObject Player;
 
     void Update()
     {
-        
+		dir = PB.LastMovePos - PB.EnemyPos;
+
+		if (PB.isCanAttack)
+		{
+			if (PB.isInAttackRange)
+			{
+				if (!isLockOn)
+				{
+					isLockOn = true;
+					PB.MoveSpeed = 0;
+					StartCoroutine(LockOnRoutine());
+				}
+			}
+		}
     }
 
-    private void Dash()
+	IEnumerator LockOnRoutine()
+	{
+		yield return new WaitForSeconds(LockOnTime);
+		attackTarget = PB.LastMovePos;
+		attackDir = attackTarget - PB.EnemyPos;
+	}
+
+	private void RayCast()
+	{
+		Debug.DrawRay(PB.EnemyRB.position, dir * 1.5f, new Color(0, 1, 0));
+		RaycastHit2D rayHit = Physics2D.Raycast(PB.EnemyRB.position, dir, 1.5f);
+
+		if (rayHit.collider != null)
+		{
+			scanGo = rayHit.collider.gameObject;
+		}
+		else scanGo = null;
+	}
+
+	private void Dash()
     {
-        
-    }
+		isAttacking = true;
+		if ()
+
+	}
 
 	public float attackMoveSpeed;
 	private GameObject scanGo;
 	private Vector2 attackTarget;
 	private Vector2 attackDir;
-	private bool isLockOn;
 	private bool isAttacking;
-
-
-	protected override void Start()
-	{
-		base.Start();
-	}
 
 	void FixedUpdate()
 	{
@@ -40,13 +71,13 @@ public class DashPattern : MonoBehaviour
 
 		if (this.dist < 4.0f && this.dist != 0)
 		{
-			this.RayCast();
+			RayCast();
 
-			if (this.scanGo == null || this.scanGo.tag != "Obstacles")
+			if (scanGo == null || scanGo.tag != "Obstacles")
 			{
-				if (!this.isLockOn)
+				if (!isLockOn)
 				{
-					this.isLockOn = true;
+					isLockOn = true;
 					this.speed = 0;
 					StartCoroutine(LockOnRoutine());
 					this.anim.SetInteger("State", 1);
@@ -54,51 +85,30 @@ public class DashPattern : MonoBehaviour
 			}
 		}
 
-		if (this.isAttacking)
+		if (isAttacking)
 		{
 			this.speed = tmpSpeed;
-			this.rBody2D.velocity = this.attackDir.normalized * (this.speed * 3 - this.knockbackSpeed) * Time.deltaTime;
+			this.rBody2D.velocity = attackDir.normalized * (this.speed * 3 - this.knockbackSpeed) * Time.deltaTime;
 			StartCoroutine(SetStateRoutine());
 		}
 
-		if (this.TargetInDistance() && this.followEnabled && !this.isAttacking) this.PathFollow();
+		if (this.TargetInDistance() && this.followEnabled && !isAttacking) this.PathFollow();
 
-		Debug.Log(this.isAttacking);
+		Debug.Log(isAttacking);
 	}
 
-	private void DashAttack()
-	{
-		this.isAttacking = true;
-	}
-
-	IEnumerator LockOnRoutine()
-	{
-		yield return new WaitForSeconds(0.8f);
-		this.attackTarget = this.target.transform.position;
-		this.attackDir = this.attackTarget - (Vector2)this.transform.position;
-	}
+	
 
 	IEnumerator SetStateRoutine()
 	{
 		yield return new WaitForSeconds(0.5f);
 
 		this.speed = tmpSpeed;
-		this.attackTarget = Vector2.zero;
-		this.anim.SetInteger("State", 0);
+		attackTarget = Vector2.zero;
 		this.speed = this.tmpSpeed;
-		this.isAttacking = false;
-		this.isLockOn = false;
+		isAttacking = false;
+		isLockOn = false;
 	}
 
-	private void RayCast()
-	{
-		Debug.DrawRay(this.rBody2D.position, this.dir * 1.5f, new Color(0, 1, 0));
-		RaycastHit2D rayHit = Physics2D.Raycast(this.rBody2D.position, this.dir, 1.5f);
-
-		if (rayHit.collider != null)
-		{
-			this.scanGo = rayHit.collider.gameObject;
-		}
-		else this.scanGo = null;
-	}
+	
 }

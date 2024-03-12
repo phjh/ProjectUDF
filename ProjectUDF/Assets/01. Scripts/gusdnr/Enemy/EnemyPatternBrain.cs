@@ -6,14 +6,19 @@ public class EnemyPatternBrain : MonoBehaviour
 {
     private EnemyBase Base;
 
+	public float MoveSpeed;
+
 	public GameObject Player;
-	private Vector2 EnemyPos;
-	private Vector2 LastMovePos;
-	private Vector2 PlayerPos;
+	public Vector2 EnemyPos;
+	public Vector2 LastMovePos;
+	public Vector2 PlayerPos;
+
+	public Collider2D EnemyCLD;
+	public Rigidbody2D EnemyRB;
 
 	public bool hasLineOfSight = false;
-	private bool isCanAttack = true;
-	private bool isInAttackRange => Vector2.Distance(EnemyPos, PlayerPos) < Base.AttackDistance;
+	public bool isCanAttack = true;
+	public bool isInAttackRange => Vector2.Distance(EnemyPos, PlayerPos) < Base.AttackDistance;
 
 
 	private void Update()
@@ -22,7 +27,8 @@ public class EnemyPatternBrain : MonoBehaviour
 		PlayerPos = Player.transform.position;
 		if (hasLineOfSight)
 		{
-			transform.position = Vector2.MoveTowards(EnemyPos, LastMovePos, Base.MovementSpeed * Time.deltaTime);
+			MoveSpeed = Base.MovementSpeed;
+			transform.position = Vector2.MoveTowards(EnemyPos, LastMovePos, MoveSpeed * Time.deltaTime);
 		}
 	}
 
