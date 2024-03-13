@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     public PlayerStat _playerStat;
 
+    public Action stopImmediately;
+
     [HideInInspector] public CharacterController _characterController;
 
     protected bool _activeMove = true;
@@ -21,7 +23,6 @@ public class Player : MonoBehaviour
         get => _characterController.isGrounded;
     }
 
-    public Action stopImmediately;
 
     private void Awake()
     {
