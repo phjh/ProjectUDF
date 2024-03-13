@@ -17,12 +17,15 @@ public class PlayerMovement : Player
 
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
+        stopImmediately += StopImmediately;
         _currentSpeed = _playerStat.PlayerMoveSpeed;        
     }
 
     private void OnDestroy()
     {
         _inputReader.MovementEvent -= SetMovement;
+        _playerStat.MoveSpeedChanged -= LoadMoveSpeed;
+        stopImmediately -= StopImmediately;
     }
 
     public void SetMovement(Vector2 value)

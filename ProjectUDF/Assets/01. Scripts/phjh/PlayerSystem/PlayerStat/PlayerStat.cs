@@ -73,7 +73,7 @@ public class PlayerStat : ScriptableObject
         PlayerHP = 10;
         PlayerMoveSpeed = 5;
         PlayerAttackSpeed = 1;
-        PlayerLucky = 1;
+        PlayerLucky = 99;
     }
 
 

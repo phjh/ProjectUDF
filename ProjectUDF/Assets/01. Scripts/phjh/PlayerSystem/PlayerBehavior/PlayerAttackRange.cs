@@ -1,27 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PlayerAttack))]
-public class PlayerAttackRange : Editor
+public class PlayerAttackRange : MonoBehaviour
 {
-    void OnSceneGUI()
+    [Range(0,360)]
+    [SerializeField] float fov;
+    [SerializeField] int rayCount = 2;
+    [SerializeField] float attackDistance = 5;
+
+    Vector3 origin = Vector3.zero;
+
+
+    private void OnEnable()
     {
-        PlayerAttack fow = (PlayerAttack)target;
-        Handles.color = Color.red;
-        Handles.DrawWireArc(fow.transform.position, Vector3.forward, Vector2.up, 360, fow.viewRadius);
-        Vector3 viewAngleA = Quaternion.Euler(0, 90, 90) * fow.DirFromAngle(-fow.viewAngle / 2, false);
-        Vector3 viewAngleB = Quaternion.Euler(0, 90, 90) *  fow.DirFromAngle(fow.viewAngle / 2, false);
+        float angle = -fov/2;
 
-        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleA * fow.viewRadius);
-        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.viewRadius);
+        Mesh mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+        Vector3[] vertices = new Vector3[rayCount + 2];
+        Vector2[] uv = new Vector2[vertices.Length];
+        int[] triangles = new int[rayCount * 3];
 
-        Handles.color = Color.blue;
-        foreach (Transform visible in fow.visibleTargets)
+        //vertices[0] = GetVectorFromAngle(angle + fov/rayCount/2) * attackDistance / 3;
+
+        for(int i = 0; i <= rayCount; i++)
         {
-            Handles.DrawLine(fow.transform.position, visible.transform.position);
+            origin = GetVectorFromAngle(angle + fov / rayCount / 2) * (attackDistance / 3);
+            Vector3 vertex = origin + GetVectorFromAngle(angle) * attackDistance;
+            vertices[i] = vertex;
+
+            if (i > 0)
+            {
+                triangles[(i - 1) * 3 + 0] = 0;
+                triangles[(i - 1) * 3 + 1] = i;
+                triangles[(i - 1) * 3 + 2] = i+1;
+            }
+
+            angle += fov / rayCount;
         }
+
+        mesh.vertices = vertices;
+        mesh.uv = uv;
+        mesh.triangles = triangles;
+    }
+
+
+
+    private Vector3 GetVectorFromAngle(float angle)
+    {
+        float angleRad = angle * (Mathf.PI / 180f);
+        return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
     }
 
 
