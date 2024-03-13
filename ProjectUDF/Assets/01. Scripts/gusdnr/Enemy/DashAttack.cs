@@ -25,6 +25,6 @@ public class DashAttack : MonoBehaviour, IAttack
 		// 대쉬 종료 후 속도 초기화
 		eb.EnemyRB.velocity = Vector2.zero;
 
-		// 여기에서 다양한 로직 추가 가능
+		// 여기에서 대쉬 후 처리
 	}
 }
