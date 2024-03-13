@@ -18,7 +18,6 @@ public class DashAttack : AtkPatternMono
 		if (eb != null && eb.Target != null)
 		{
 			StartCoroutine(LockOnAndDash(eb));
-			Debug.Log("Attack");
 		}
 	}
 
@@ -32,22 +31,28 @@ public class DashAttack : AtkPatternMono
 			yield return StartCoroutine(Dash(eb));
 
 			// 여기에서 대쉬 후 처리
-			eb.CooldownAttack();
+			eb.isAttacking = false;
+			eb.aiPath.isStopped = false;
+			eb.StartCoroutine("CooldownAttack");
 		}
 	}
 
 	private IEnumerator LockOn(EnemyBase eb, float delay)
 	{
+		Debug.Log("Searching...");
 		yield return new WaitForSeconds(delay);
 		TargetPos = eb.TargetPos;
 		LockOnTarget = true;
+		Debug.Log($"Lock On Target : {LockOnTarget}");
 	}
 
 	private IEnumerator Dash(EnemyBase eb)
 	{
+		Debug.Log("Start Dash");
 		Vector2 direction = (TargetPos - eb.EnemyPos).normalized; 
 		eb.EnemyRB.velocity = direction * dashSpeed; // Rigidbody2D.velocity를 이용해 이동
 		yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간 동안 대기
 		eb.EnemyRB.velocity = Vector2.zero; // 대쉬 종료 후 속도 초기화
+		Debug.Log("End Dash");
 	}
 }

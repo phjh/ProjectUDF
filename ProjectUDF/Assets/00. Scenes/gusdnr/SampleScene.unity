@@ -706,7 +706,7 @@ Transform:
   m_GameObject: {fileID: 595687412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.34, y: 1.37, z: 0}
+  m_LocalPosition: {x: -9.06, y: 3.42, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -764,7 +764,6 @@ MonoBehaviour:
   - {fileID: 595687425}
   AttackDelay: 5
   AttackDistance: 4
-  CurDistance: 5
   PathUpdateDelay: 1.5
   MovementSpeed: 4
   WanderSpeed: 1.5
@@ -782,7 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 1.3
+  radius: 1.5
   height: 2
   canMove: 1
   maxSpeed: 10
@@ -804,7 +803,7 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.6
+  slowdownDistance: 0.8
   pickNextWaypointDist: 3
   endReachedDistance: 0.2
   alwaysDrawGizmos: 1
@@ -888,7 +887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lockOnDelay: 1.5
   dashSpeed: 8
-  dashDuration: 3
+  dashDuration: 2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,7 +1616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABIIezYFygsXgIAABYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VEtz2jAQ/iuMzk3GJpBHb60hpAcSJqSTiy/CWmMNsuTRI7yG/96VbGPXnZ5Yvv1299uHfCZcmgoyq/RCc7ZUDMj3EfE2+TbqnC9woFsl1/wELeeTM1t4Eg2cd2q5Qjz2YUaVYDXPfsit8OQIQSd5rnQ5Z1tIlLEG4ZwKA+jSyvpoidB5RA74c/PkQ45ojR+8dULrKRpd0MxAWtAdtSW2tJrlZCZoWQHzkjvyXcuOp4EmsZmGEd1OfXYlBDeNFmKPVeg1oZVx2AkSGKfYWxAQ394hUADfFtYr7Ye/5bkB28jS9DjjGodU5yU/VT25kppdre2LCucrTeNx0FUnXf7jv4mDO9eqfGnrxpGvYQue7d7pMaPG9kbbh2c96WFEeyp2dCPgswD5qhZaOcnQabXzoc7AeNb9vbaWFJDtOryWOgBd9f8F+R4uoftDIni5CbOf1MBaqDDxsH7QuJ1fKDgch2lSIOpV/DbwQbf9K2ocz1wbi66mS+nlbZTTnkrmYWa+G2cTpSUEuBFdgaTCHleYxg5XOPD1yg48z9S/l6Z442ufwSAkwB0/igauldpfl2UKtV+CKd6cFVxCJ9o7XnFOiZKyvrD+TNqwtdM5zXphW8fZ36dFNo93D5TG2QQeN5PJOL/J76N4Ms3oFDZP7B4YCbfHJfZJxaoW2owHtya75BLvrP2MjBaaVuHamab7BT+VqjdyLnO1zjSAfKszXIWDxiL4MtmccRzQGqzlMuybnFMiVLYDll4TpaHT+cFqmnZZUlLxL2U9kpIkfDdS4uHrLa80fHHY++Jtsgu5/AFQSwMEFAAACAgAAEgh7NChWNVtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKShbF5YqJhskmqRZKJiVGabpqZgaGJaXKiaWqSZYpZaopSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAEgh7NgXKCxeAgAAFgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAEgh7NChWNVtAAAAeAAAAAkAJAAAAAAAAAAAAAAAqwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABjAwAAAAA=
+    dataString: UEsDBBQAAAgIAABIIeyweN2XWQIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMmS2jAQ/RVK55CyGZglt8QwTA4M1JDUXHwRVttWIUsuSWYt/j0t2caOUznRvH7d/XqRr4RLU0JilV5qzlaKAfk2Is4mX0ad8w1ONFNyyy/Qcj45s7kjUc/5oJYrxEMXZlQBVvPku8yEIwcIVpKnShcLlkGkjDUIp1QYQJdW1kVLhK4jcsKf8YsLOaM1eXLWBa2XYHRDMwFpQXfUltjSalYlE0GLEpiT3JEfWnY48zSJzTSM4OvMZVdCcNNoIfZc+l4/6Nl1yjjFvnzx0LNz4Fluncp+6DpNDdhGkqbnOdc4oDon+aHqqRXU7GtdByoqV2UWTrymOunqH/849O5Uq+KtrRsGrobNebJHjQk1tjfWPjzvSffjOVKxpzsBnznId7XUqpIMnVZXLrQyMJl3f++tRTkk+w6vpQ7Aqvz/clwPN9/9KRK82Pm5T2tgK5Sftl89aNzMTxTsD8M0KRB1Kn4b+EWz/gU1jleujUVX06V08naq0o5KFn5mrpvKRkpL8HAjugRJhT1vMI0drnDg65UdeF6peytN8cbXPoFBiIc7fhAMXBt1vC/L5Oq4ApOvKyu4hE60c7zjnCIlZX1h/Zm0YdtKpzTphWUVZ3+fFtk9PzxRGiZTeN5Np5N0nD4G4XSW0BnsXtgjMOJvj0vsk4pNLbQZD25Ndskl3ln7CRktNS39tTNNj0t+KVRv5FymaptoALmuM9yFg8Yi+CrZgnEc0Bas5dLvm1xjIlSyBxbfE8W+08XJahp3WWJS8oOyDolJ5L8ZMXHw/ZY3Gg4cjq54m+xGbn8AUEsDBBQAAAgIAABIIezQoVjVbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrRSkoWxeWKiYbJJqkWSiYlRmm6amYGhiWlyomlqkmWKWWqKUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAABIIeyweN2XWQIAABIFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABIIezQoVjVbQAAAHgAAAAJACQAAAAAAAAAAAAAAKYCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAXgMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 

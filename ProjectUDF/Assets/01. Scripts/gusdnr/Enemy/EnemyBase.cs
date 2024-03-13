@@ -99,11 +99,9 @@ public class EnemyBase : PoolableMono
 		{
 			if (isCanAttack && isInAttackRange)
 			{
-				aiPath.isStopped = true;
-				aiPath.destination = EnemyPos;
 				ActiveAttack();
 				/*
-				적 공격 패턴 진행도 : 공격 판단 시 ActiveAttack -> AtkPatternMono.DoingAttack -> DoingAttack 종료 시 CooldownAttack 실행
+				적 공격 패턴 진행도 : 공격 판단 시 ActiveAttack -> AtkPatternMono.DoingAttack(실질적 공격) -> DoingAttack 종료 시 CooldownAttack 실행
 				*/
 			}
 
@@ -136,13 +134,19 @@ public class EnemyBase : PoolableMono
 
 	private void ActiveAttack()
 	{
+		aiPath.destination = EnemyPos;
+
+		aiPath.isStopped = true;
 		isAttacking = true;
 		isCanAttack = false;
+
+		StopCoroutine(UpdatePathCoroutine());
 		DoingPattern.DoingAttack(eb);
 	}
 
 	private IEnumerator UpdatePathCoroutine()
 	{
+		Debug.Log("Update Path");
 		isUpdatingPath = true;
 
 		while (!isDead && isCanAttack && !isWandering && !isAttacking)
@@ -167,10 +171,11 @@ public class EnemyBase : PoolableMono
 
 	private IEnumerator WanderCoroutine()
 	{
+		Debug.Log("Wander Move");
 		isWandering = true;
 		aiPath.maxSpeed = WanderSpeed;
 		// 일정 시간 동안 플레이어 주변을 방황
-		float wanderTime = Random.Range(1f, 5f);
+		float wanderTime = Random.Range(0.1f, 0.5f);
 		Vector2 randomDirection = Random.insideUnitCircle.normalized * WanderRadius;
 		Vector2 targetPosition = EnemyPos + randomDirection;
 
@@ -184,8 +189,7 @@ public class EnemyBase : PoolableMono
 
 	public IEnumerator CooldownAttack()
 	{
-		isAttacking = false;
-		aiPath.isStopped = false;
+		Debug.Log("Start Attack Cooldown");
 		yield return new WaitForSeconds(AttackDelay);
 		isCanAttack = true;
 	}
