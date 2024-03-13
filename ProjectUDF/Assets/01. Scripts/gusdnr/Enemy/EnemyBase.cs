@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Pathfinding;
 using System.Collections.Generic;
+using System.Linq;
 
 public class EnemyBase : PoolableMono
 {
@@ -32,7 +33,7 @@ public class EnemyBase : PoolableMono
 	
 	private IAttack DoingPattern;
 	[Header("Attack Patterns")]
-	public List<IAttack> Patterns = new List<IAttack>();
+	public List<AtkPatternMono> Patterns = new List<AtkPatternMono>();
 	#endregion
 
 	#region Enemy Stats
@@ -62,7 +63,12 @@ public class EnemyBase : PoolableMono
 		if (seeker == null) seeker = GetComponent<Seeker>();
 		if (aiPath == null) aiPath = GetComponent<AIPath>();
 		if (seeker.pathCallback == null) seeker.pathCallback += OnPathComplete;
-
+		
+		if(Patterns.Count < 0)
+		{
+			Patterns = GetComponents<AtkPatternMono>().ToList();
+			Debug.Log("Add Attack Patterns In List");
+		}
 		DoingPattern = Patterns[0];
 		
 		isCanAttack = true;
@@ -82,14 +88,16 @@ public class EnemyBase : PoolableMono
 		{
 			//만약 공격 중이라면 취소하는 부분 추가
 			PoolManager.Instance.Push(this.gameObject.GetComponent<EnemyBase>());
+			StopAllCoroutines();
 			return;
 		}
-		else if (!isDead)
+		
+		if (!isAttacking)
 		{
 			if (isCanAttack && isInAttackRange && !isWandering)
 			{
-				if (!isAttacking) StartCoroutine(AttackCoroutine());
-				
+				aiPath.destination = EnemyPos;
+				ActiveAttack();
 			}
 
 			if (!isCanAttack && isInAttackRange)
@@ -118,11 +126,10 @@ public class EnemyBase : PoolableMono
 		if (EnemyCurHP < 0) isDead = true;
 	}
 
-	private IEnumerator AttackCoroutine()
+	private void ActiveAttack()
 	{
 		isAttacking = true;
 		DoingPattern.DoingAttack(this);
-		yield return new WaitForSeconds(AttackDelay);
 	}
 
 	private void UpdatePath() //경로 업데이트
@@ -153,5 +160,11 @@ public class EnemyBase : PoolableMono
 		isWandering = false;
 	}
 
+	public IEnumerator CooldownAttack()
+	{
+		isCanAttack = false;
+		yield return new WaitForSeconds(AttackDelay);
+		isCanAttack = true;
+	}
 	#endregion
 }
