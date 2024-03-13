@@ -15,7 +15,8 @@ public class EnemyBase : PoolableMono
 	private bool isDead;
 	private bool isCanAttack = true;
 	private bool isWandering = false;
-	
+	private bool isUpdatingPath = false;
+
 	private bool hasLineOfSight = false;
 	private bool isInAttackRange => Vector2.Distance(EnemyPos, TargetPos) < AttackDistance && hasLineOfSight;
 	
@@ -24,7 +25,7 @@ public class EnemyBase : PoolableMono
 
 	#region Enemy Components
 	public Transform Target; //추후 자동 할당하는 방식으로 수정 예정
-
+	private EnemyBase eb;
 	[HideInInspector] public Collider2D EnemyCLD;
 	[HideInInspector] public Rigidbody2D EnemyRB;
 
@@ -60,6 +61,7 @@ public class EnemyBase : PoolableMono
 	{
 		if (EnemyCLD == null) EnemyCLD = GetComponent<Collider2D>();
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
+		if (eb == null) eb = GetComponent<EnemyBase>();
 		if (seeker == null) seeker = GetComponent<Seeker>();
 		if (aiPath == null) aiPath = GetComponent<AIPath>();
 		if (seeker.pathCallback == null) seeker.pathCallback += OnPathComplete;
@@ -75,6 +77,7 @@ public class EnemyBase : PoolableMono
 		isDead = false;
 		isWandering = false;
 		isAttacking = false;
+		isUpdatingPath = false;
 
 		aiPath.maxSpeed = MovementSpeed;
 	}
@@ -105,17 +108,18 @@ public class EnemyBase : PoolableMono
 				StartCoroutine(WanderCoroutine());
 			}
 
-			if (!isInAttackRange)
+			if (!isInAttackRange && !isUpdatingPath)
 			{
-				InvokeRepeating(nameof(UpdatePath), 0f, PathUpdateDelay);
+				StartCoroutine(UpdatePathCoroutine());
 			}
 		}
 	}
 
 	private void FixedUpdate()
 	{
-		RaycastHit2D ray = Physics2D.Raycast(EnemyPos, TargetPos - EnemyPos);
-		if (ray.collider != null) hasLineOfSight = ray.collider.CompareTag("Player");
+		//전방 탐지 코드 (벽을 공격하는 것을 방지하기 위해서)
+		RaycastHit2D ray = Physics2D.Raycast(EnemyPos, TargetPos - EnemyPos); //적이 플레이어를 향해서 Ray를 쏩니다.
+		if (ray.collider != null) hasLineOfSight = ray.collider.CompareTag("Player"); //만약 Ray에 플레이어가 아닌 것이 먼저 잡혔다면 false를, 플레이어라면 true를 반환합니다.
 	}
 
 	#region Methods
@@ -129,7 +133,20 @@ public class EnemyBase : PoolableMono
 	private void ActiveAttack()
 	{
 		isAttacking = true;
-		DoingPattern.DoingAttack(this);
+		DoingPattern.DoingAttack(eb);
+	}
+
+	private IEnumerator UpdatePathCoroutine()
+	{
+		isUpdatingPath = true;
+
+		while (!isDead && isCanAttack && !isWandering)
+		{
+			UpdatePath();
+			yield return new WaitForSeconds(PathUpdateDelay);
+		}
+
+		isUpdatingPath = false;
 	}
 
 	private void UpdatePath() //경로 업데이트

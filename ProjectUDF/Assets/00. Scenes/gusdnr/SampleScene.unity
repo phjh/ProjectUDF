@@ -443,6 +443,7 @@ MonoBehaviour:
   Target: {fileID: 1642537953}
   EnemyCLD: {fileID: 0}
   EnemyRB: {fileID: 0}
+  Patterns: []
   AttackDelay: 5
   AttackDistance: 5
   CurDistance: 5
@@ -475,7 +476,7 @@ MonoBehaviour:
   repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 1
-  enableRotation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -567,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030f4aa55c5a22a4c9aadbcdea6dd248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockOnDelay: 1.5
   dashSpeed: 8
   dashDuration: 1.5
 --- !u!1 &619394800
