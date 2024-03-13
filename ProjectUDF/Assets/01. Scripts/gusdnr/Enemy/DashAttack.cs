@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,6 @@ public class DashAttack : AtkPatternMono
 			yield return StartCoroutine(Dash(eb));
 
 			// 여기에서 대쉬 후 처리
-			eb.isAttacking = false;
 			eb.CooldownAttack();
 		}
 	}

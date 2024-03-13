@@ -25,12 +25,13 @@ public class EnemyBase : PoolableMono
 
 	#region Enemy Components
 	public Transform Target; //추후 자동 할당하는 방식으로 수정 예정
-	private EnemyBase eb;
+
+	[HideInInspector] public AIPath aiPath;
 	[HideInInspector] public Collider2D EnemyCLD;
 	[HideInInspector] public Rigidbody2D EnemyRB;
 
 	private Seeker seeker;
-	private AIPath aiPath;
+	private EnemyBase eb;
 	
 	private IAttack DoingPattern;
 	[Header("Attack Patterns")]
@@ -43,7 +44,6 @@ public class EnemyBase : PoolableMono
 	[Header("Attack Stats")]
 	public float AttackDelay;
 	public float AttackDistance;
-	public float CurDistance;
 
 	[Header("Move Stats")]
 	public float PathUpdateDelay;
@@ -100,7 +100,11 @@ public class EnemyBase : PoolableMono
 			if (isCanAttack && isInAttackRange)
 			{
 				aiPath.isStopped = true;
+				aiPath.destination = EnemyPos;
 				ActiveAttack();
+				/*
+				적 공격 패턴 진행도 : 공격 판단 시 ActiveAttack -> AtkPatternMono.DoingAttack -> DoingAttack 종료 시 CooldownAttack 실행
+				*/
 			}
 
 			if (!isCanAttack && isInAttackRange)
@@ -133,6 +137,7 @@ public class EnemyBase : PoolableMono
 	private void ActiveAttack()
 	{
 		isAttacking = true;
+		isCanAttack = false;
 		DoingPattern.DoingAttack(eb);
 	}
 
@@ -179,7 +184,8 @@ public class EnemyBase : PoolableMono
 
 	public IEnumerator CooldownAttack()
 	{
-		isCanAttack = false;
+		isAttacking = false;
+		aiPath.isStopped = false;
 		yield return new WaitForSeconds(AttackDelay);
 		isCanAttack = true;
 	}
