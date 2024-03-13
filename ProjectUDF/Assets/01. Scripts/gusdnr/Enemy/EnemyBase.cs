@@ -61,7 +61,7 @@ public class EnemyBase : PoolableMono
 	{
 		if (EnemyCLD == null) EnemyCLD = GetComponent<Collider2D>();
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
-		if (eb == null) eb = GetComponent<EnemyBase>();
+		if (eb == null) eb = this;
 		if (seeker == null) seeker = GetComponent<Seeker>();
 		if (aiPath == null) aiPath = GetComponent<AIPath>();
 		if (seeker.pathCallback == null) seeker.pathCallback += OnPathComplete;
@@ -99,7 +99,7 @@ public class EnemyBase : PoolableMono
 		{
 			if (isCanAttack && isInAttackRange)
 			{
-				aiPath.destination = EnemyPos;
+				aiPath.isStopped = true;
 				ActiveAttack();
 			}
 
@@ -140,7 +140,7 @@ public class EnemyBase : PoolableMono
 	{
 		isUpdatingPath = true;
 
-		while (!isDead && isCanAttack && !isWandering)
+		while (!isDead && isCanAttack && !isWandering && !isAttacking)
 		{
 			UpdatePath();
 			yield return new WaitForSeconds(PathUpdateDelay);
@@ -151,7 +151,7 @@ public class EnemyBase : PoolableMono
 
 	private void UpdatePath() //경로 업데이트
 	{
-		if (seeker.IsDone() && !isDead && isCanAttack && !isWandering)
+		if (seeker.IsDone() && !isDead && isCanAttack && !isWandering && !isAttacking)
 			seeker.StartPath(EnemyPos, TargetPos, OnPathComplete);
 	}
 
