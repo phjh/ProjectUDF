@@ -13,6 +13,7 @@ public class DashAttack : AtkPatternMono
 
 	public override void DoingAttack(EnemyBase eb)
 	{
+		
 		if (eb != null && eb.Target != null)
 		{
 			StartCoroutine(LockOnAndDash(eb));
@@ -22,6 +23,7 @@ public class DashAttack : AtkPatternMono
 
 	private IEnumerator LockOnAndDash(EnemyBase eb)
 	{
+		LockOnTarget = false;
 		yield return StartCoroutine(LockOn(eb, lockOnDelay));
 
 		if (LockOnTarget)
@@ -30,7 +32,6 @@ public class DashAttack : AtkPatternMono
 
 			// 여기에서 대쉬 후 처리
 			eb.isAttacking = false;
-			yield return new WaitForSeconds(eb.AttackDelay);
 			eb.CooldownAttack();
 		}
 	}
@@ -48,10 +49,5 @@ public class DashAttack : AtkPatternMono
 		eb.EnemyRB.velocity = direction * dashSpeed; // Rigidbody2D.velocity를 이용해 이동
 		yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간 동안 대기
 		eb.EnemyRB.velocity = Vector2.zero; // 대쉬 종료 후 속도 초기화
-
-		// 여기에서 대쉬 후 처리
-		eb.isAttacking = false;
 	}
-
-	
 }

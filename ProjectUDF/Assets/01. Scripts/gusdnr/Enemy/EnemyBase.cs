@@ -92,9 +92,9 @@ public class EnemyBase : PoolableMono
 			return;
 		}
 		
-		if (!isAttacking)
+		if (!isAttacking && !isWandering)
 		{
-			if (isCanAttack && isInAttackRange && !isWandering)
+			if (isCanAttack && isInAttackRange)
 			{
 				aiPath.destination = EnemyPos;
 				ActiveAttack();
@@ -102,7 +102,7 @@ public class EnemyBase : PoolableMono
 
 			if (!isCanAttack && isInAttackRange)
 			{
-				if (!isWandering) StartCoroutine(WanderCoroutine());
+				StartCoroutine(WanderCoroutine());
 			}
 
 			if (!isInAttackRange)
