@@ -7,7 +7,6 @@ using System.Linq;
 public class EnemyBase : PoolableMono
 {
 	#region Enemy Base's Values
-	private Vector2 RandomPos;
 	[HideInInspector] public Vector2 TargetPos;
 	[HideInInspector] public Vector2 EnemyPos;
 	[HideInInspector] public Vector2 LastMovePos;
@@ -59,14 +58,16 @@ public class EnemyBase : PoolableMono
 
 	public override void ResetPooingItem()
 	{
+		#region Null Check when Reset
 		if (EnemyCLD == null) EnemyCLD = GetComponent<Collider2D>();
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		if (eb == null) eb = this;
 		if (seeker == null) seeker = GetComponent<Seeker>();
 		if (aiPath == null) aiPath = GetComponent<AIPath>();
 		if (seeker.pathCallback == null) seeker.pathCallback += OnPathComplete;
-		
-		if(Patterns.Count < 0)
+		#endregion
+
+		if (Patterns.Count < 0)
 		{
 			Patterns = GetComponents<AtkPatternMono>().ToList();
 			Debug.Log("Add Attack Patterns In List");
@@ -99,6 +100,7 @@ public class EnemyBase : PoolableMono
 		{
 			if (isCanAttack && isInAttackRange)
 			{
+				StopCoroutine(UpdatePathCoroutine());
 				ActiveAttack();
 				/*
 				적 공격 패턴 진행도 : 공격 판단 시 ActiveAttack -> AtkPatternMono.DoingAttack(실질적 공격) -> DoingAttack 종료 시 CooldownAttack 실행
@@ -107,6 +109,7 @@ public class EnemyBase : PoolableMono
 
 			if (!isCanAttack && isInAttackRange)
 			{
+				StopCoroutine(UpdatePathCoroutine());
 				StartCoroutine(WanderCoroutine());
 			}
 
@@ -140,19 +143,21 @@ public class EnemyBase : PoolableMono
 		isAttacking = true;
 		isCanAttack = false;
 
-		StopCoroutine(UpdatePathCoroutine());
-		DoingPattern.DoingAttack(eb);
+		if (DoingPattern != null) DoingPattern.DoingAttack(eb);
 	}
 
 	private IEnumerator UpdatePathCoroutine()
 	{
+		if (isUpdatingPath)	yield break;
+
 		Debug.Log("Update Path");
 		isUpdatingPath = true;
 
-		while (!isDead && isCanAttack && !isWandering && !isAttacking)
+		while (!isDead && !isWandering && !isAttacking)
 		{
 			UpdatePath();
 			yield return new WaitForSeconds(PathUpdateDelay);
+			if(isAttacking) break;
 		}
 
 		isUpdatingPath = false;
@@ -160,13 +165,15 @@ public class EnemyBase : PoolableMono
 
 	private void UpdatePath() //경로 업데이트
 	{
-		if (seeker.IsDone() && !isDead && isCanAttack && !isWandering && !isAttacking)
+		if (seeker.IsDone() &&
+			!isDead &&
+			!isInAttackRange)
 			seeker.StartPath(EnemyPos, TargetPos, OnPathComplete);
 	}
 
 	private void OnPathComplete(Path p) //경로 확정
 	{
-		if (!p.error && aiPath.reachedEndOfPath) aiPath.SetPath(p);
+		if (!p.error && aiPath.reachedEndOfPath && !isInAttackRange) aiPath.SetPath(p);
 	}
 
 	private IEnumerator WanderCoroutine()
@@ -175,7 +182,7 @@ public class EnemyBase : PoolableMono
 		isWandering = true;
 		aiPath.maxSpeed = WanderSpeed;
 		// 일정 시간 동안 플레이어 주변을 방황
-		float wanderTime = Random.Range(0.1f, 0.5f);
+		float wanderTime = Random.Range(0.5f, 2f);
 		Vector2 randomDirection = Random.insideUnitCircle.normalized * WanderRadius;
 		Vector2 targetPosition = EnemyPos + randomDirection;
 

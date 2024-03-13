@@ -23,6 +23,7 @@ public class DashAttack : AtkPatternMono
 
 	private IEnumerator LockOnAndDash(EnemyBase eb)
 	{
+		eb.aiPath.isStopped = false;
 		LockOnTarget = false;
 		yield return StartCoroutine(LockOn(eb, lockOnDelay));
 
@@ -32,7 +33,6 @@ public class DashAttack : AtkPatternMono
 
 			// 여기에서 대쉬 후 처리
 			eb.isAttacking = false;
-			eb.aiPath.isStopped = false;
 			eb.StartCoroutine("CooldownAttack");
 		}
 	}
@@ -43,16 +43,16 @@ public class DashAttack : AtkPatternMono
 		yield return new WaitForSeconds(delay);
 		TargetPos = eb.TargetPos;
 		LockOnTarget = true;
-		Debug.Log($"Lock On Target : {LockOnTarget}");
+		Debug.Log($"Lock On Target: {LockOnTarget}");
 	}
 
 	private IEnumerator Dash(EnemyBase eb)
 	{
 		Debug.Log("Start Dash");
-		Vector2 direction = (TargetPos - eb.EnemyPos).normalized; 
-		eb.EnemyRB.velocity = direction * dashSpeed; // Rigidbody2D.velocity를 이용해 이동
-		yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간 동안 대기
-		eb.EnemyRB.velocity = Vector2.zero; // 대쉬 종료 후 속도 초기화
+		Vector2 direction = (TargetPos - eb.EnemyPos).normalized;
+		eb.aiPath.destination = TargetPos; // A*에 목적지 설정
+		yield return new WaitForSeconds(dashDuration); // 일정 시간 동안 대쉬 진행
+		eb.aiPath.maxSpeed = 0f; //속도를 0으로 해 정지
 		Debug.Log("End Dash");
 	}
 }
