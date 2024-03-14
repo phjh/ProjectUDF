@@ -55,7 +55,7 @@ public class PlayerMovement : Player
 
     private void FixedUpdate()
     {
-        if (_activeMove)
+        if (_player.ActiveMove)
         {
             CalculatePlayerMovement();
         }

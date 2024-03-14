@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerAttack : Player
 {
@@ -9,6 +10,9 @@ public class PlayerAttack : Player
     [SerializeField] GameObject _rightattackRange;
 
     public float ChargeTime = 1.6f;
+    public float stiffenTime = 0.4f; //경직시간
+
+    bool IsAttacking = false;
 
     float ResentDamage;
 
@@ -19,9 +23,9 @@ public class PlayerAttack : Player
         ResentDamage = _playerStat.PlayerStrength;
     }
 
-    public float NormalAttack()
+    public IEnumerator NormalAttack()
     {
-        float damage = _playerStat.PlayerStrength;
+        float damage = _playerStat.PlayerStrength * 4/5;
         if(Random.Range(0,100) < _playerStat.PlayerLucky)
         {
             damage = ResentDamage * 1.3f;
@@ -29,7 +33,8 @@ public class PlayerAttack : Player
         }
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10)/10;
-        return damage;
+        yield return new WaitForSeconds(1.6f/ 2 / _playerStat.PlayerAttackSpeed);
+        IsAttacking = false;
     }
 
     public IEnumerator ChargingAttack()
@@ -45,7 +50,7 @@ public class PlayerAttack : Player
         }
 
         pressTime = Mathf.Clamp(pressTime, 0, ChargeTime);
-        factor = Mathf.Lerp(0f, 0.4f, pressTime * 5 / 4) + 1;
+        factor = Mathf.Lerp(-0.2f, 0.2f, pressTime / ChargeTime) + 1;
         Debug.Log($"time : {pressTime},  factor : {factor}");
 
         float damage;
@@ -61,28 +66,30 @@ public class PlayerAttack : Player
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10) / 10;
 
-        stopImmediately?.Invoke();
+        _player.GetComponentInParent<PlayerMovement>().StopImmediately();
         _player.ActiveMove = false;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         _player.ActiveMove = true;
-
-
+        yield return new WaitForSeconds(5f / 2 / _playerStat.PlayerAttackSpeed);
+        IsAttacking = false;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !IsAttacking)
         {
+            IsAttacking = true;
             _range.gameObject.SetActive(true);
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            NormalAttack();
+            StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !IsAttacking)
         {
+            IsAttacking = true;
             StartCoroutine(ChargingAttack());
             _rightattackRange.gameObject.SetActive(true);
         }
@@ -90,7 +97,6 @@ public class PlayerAttack : Player
         {
             _rightattackRange.gameObject.SetActive(false);
         }
+
     }
-
-
 }
