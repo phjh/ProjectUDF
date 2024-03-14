@@ -1776,6 +1776,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   _characterController: {fileID: 0}
+  IsAttacking: 0
   _player: {fileID: 1837271118}
 --- !u!4 &1399312740
 Transform:
@@ -2234,6 +2235,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   _characterController: {fileID: 0}
+  IsAttacking: 0
 --- !u!70 &1528673194
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3156,6 +3158,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   _characterController: {fileID: 0}
+  IsAttacking: 0
   _player: {fileID: 1837271118}
   _range: {fileID: 1943007197}
   _rightattackRange: {fileID: 576968361}
@@ -3177,6 +3180,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   _characterController: {fileID: 0}
+  IsAttacking: 0
   _player: {fileID: 1837271118}
 --- !u!1 &1781863694
 GameObject:
@@ -3509,6 +3513,7 @@ GameObject:
   - component: {fileID: 1837271120}
   - component: {fileID: 1837271119}
   - component: {fileID: 1837271118}
+  - component: {fileID: 1837271125}
   m_Layer: 7
   m_Name: Player (miner)
   m_TagString: Player
@@ -3531,6 +3536,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   _characterController: {fileID: 0}
+  IsAttacking: 0
 --- !u!70 &1837271119
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3698,6 +3704,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1399312740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1837271125
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837271117}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f1ff6565c3ac8a246b0783967c7d28c3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1856662408
 GameObject:
   m_ObjectHideFlags: 0
