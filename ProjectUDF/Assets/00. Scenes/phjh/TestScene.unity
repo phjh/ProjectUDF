@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: cf346bc87d179f142ab06b991e9beb3c, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: dd327934287b54746be6c1bd605974b7, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -937,7 +937,7 @@ MonoBehaviour:
   disableRenderingOnOverride: 1
   updateTiming: 1
   unscaledTime: 0
-  _animationName: stading_f
+  _animationName: back
   loop: 1
   timeScale: 1
 --- !u!23 &1956191120
@@ -960,7 +960,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 634659badd304ed4c97141dbcdee2197, type: 2}
+  - {fileID: 2100000, guid: 7038e58be6d675140b87d0b2c3760424, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1302,6 +1302,7 @@ MonoBehaviour:
   _range: {fileID: 1542039600}
   _rightattackRange: {fileID: 116476673}
   ChargeTime: 1.6
+  stiffenTime: 0.4
 --- !u!1001 &2126607213
 PrefabInstance:
   m_ObjectHideFlags: 0

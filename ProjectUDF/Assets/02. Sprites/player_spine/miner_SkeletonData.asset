@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: miner_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 958d9c76f0bd5bd44a3d122ea1e6d8b0, type: 2}
+  - {fileID: 11400000, guid: f742ab94d957e204c95f0a8a357e9b8a, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: a97a1aec185716d4b8c85cf1394cd77f, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: c0b5145c71c601a4ca30ec54fd130e44, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 47b61f7a93004aa4f8eb908a9d7661c0, type: 2}
+  controller: {fileID: 0}
