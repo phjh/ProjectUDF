@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/00. Scenes/phjh/TestScene.unity
-    guid: 52893a9a5072fbd4cbf6db3398ef6bac
+    path: Assets/00. Scenes/phjh/PerformScene.unity
+    guid: c2c1d512e555deb4c8a2bab5de51adb0
   m_configObjects: {}

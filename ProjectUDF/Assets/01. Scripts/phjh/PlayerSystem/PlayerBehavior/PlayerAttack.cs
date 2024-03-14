@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,26 +9,31 @@ public class PlayerAttack : Player
 {
     [SerializeField] Player _player;
     [SerializeField] PlayerAttackRange _range;
+
+    #region 차징공격 관련
+
     [SerializeField] GameObject _rightattackRange;
+
+    CircleCollider2D _rightAtkcol;
+
+    #endregion
 
     public float ChargeTime = 1.6f;
     public float stiffenTime = 0.4f; //경직시간
 
-    bool IsAttacking = false;
-
-    float ResentDamage;
+    public float ResentDamage;
 
     protected void Start()
     {
-
         _playerStat = _player._playerStat;
         ResentDamage = _playerStat.PlayerStrength;
+        _rightAtkcol = _rightattackRange.GetComponent<CircleCollider2D>();
     }
 
     public IEnumerator NormalAttack()
     {
         float damage = _playerStat.PlayerStrength * 4/5;
-        if(Random.Range(0,100) < _playerStat.PlayerLucky)
+        if(UnityEngine.Random.Range(0,100) < _playerStat.PlayerLucky)
         {
             damage = ResentDamage * 1.3f;
             Debug.Log("!!!!!!damage : " + damage);
@@ -34,7 +41,7 @@ public class PlayerAttack : Player
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10)/10;
         yield return new WaitForSeconds(1.6f/ 2 / _playerStat.PlayerAttackSpeed);
-        IsAttacking = false;
+        _player.IsAttacking = false;
     }
 
     public IEnumerator ChargingAttack()
@@ -54,7 +61,7 @@ public class PlayerAttack : Player
         Debug.Log($"time : {pressTime},  factor : {factor}");
 
         float damage;
-        if (Random.Range(0, 100) < _playerStat.PlayerLucky)
+        if (UnityEngine.Random.Range(0, 100) < _playerStat.PlayerLucky)
         {
             damage = ResentDamage * 1.3f * factor;
             Debug.Log("!!!!!!damage : " + damage);
@@ -66,19 +73,22 @@ public class PlayerAttack : Player
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10) / 10;
 
+        _rightAtkcol.enabled = true;
         _player.GetComponentInParent<PlayerMovement>().StopImmediately();
         _player.ActiveMove = false;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
+        _rightattackRange.gameObject.SetActive(false);
+        _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
         yield return new WaitForSeconds(5f / 2 / _playerStat.PlayerAttackSpeed);
-        IsAttacking = false;
+        _player.IsAttacking = false;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && !IsAttacking)
+        if (Input.GetMouseButton(0) && !_player.IsAttacking)
         {
-            IsAttacking = true;
+            _player.IsAttacking = true;
             _range.gameObject.SetActive(true);
         }
         else if(Input.GetMouseButtonUp(0))
@@ -87,15 +97,14 @@ public class PlayerAttack : Player
             _range.gameObject.SetActive(false);
         }
 
-        if (Input.GetMouseButtonDown(1) && !IsAttacking)
+        if (Input.GetMouseButtonDown(1) && !_player.IsAttacking)
         {
-            IsAttacking = true;
+            _player.IsAttacking = true;
             StartCoroutine(ChargingAttack());
             _rightattackRange.gameObject.SetActive(true);
         }
         else if (Input.GetMouseButtonUp(1))
         {
-            _rightattackRange.gameObject.SetActive(false);
         }
 
     }

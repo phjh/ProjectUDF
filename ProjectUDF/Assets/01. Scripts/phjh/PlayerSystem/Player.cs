@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public CharacterController _characterController;
 
+    public bool IsAttacking = false;
+
     protected bool _activeMove = true;
     public bool ActiveMove
     {
