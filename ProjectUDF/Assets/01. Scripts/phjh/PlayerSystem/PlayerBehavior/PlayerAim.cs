@@ -21,7 +21,10 @@ public class PlayerAim : Player
 
     private void FixedUpdate()
     {
-        SetRotation();
+        //if (!_player.IsAttacking)
+        {
+            SetRotation();
+        }
     }
 
 }
