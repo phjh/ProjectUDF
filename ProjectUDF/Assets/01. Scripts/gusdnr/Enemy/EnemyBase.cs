@@ -103,6 +103,7 @@ public class EnemyBase : PoolableMono
 		{
 			if (isCanAttack && isInAttackRange)
 			{
+				aiPath.destination = EnemyPos;
 				StopCoroutine(UpdatePathCoroutine());
 				StopCoroutine(WanderCoroutine());
 				ActiveAttack();
@@ -115,7 +116,7 @@ public class EnemyBase : PoolableMono
 				StopCoroutine(UpdatePathCoroutine());
 				StartCoroutine(WanderCoroutine());
 			}
-			else if (!isInAttackRange && !isUpdatingPath)
+			else if (!isUpdatingPath)
 			{
 				StopCoroutine(WanderCoroutine());
 				StartCoroutine(UpdatePathCoroutine());
@@ -140,8 +141,6 @@ public class EnemyBase : PoolableMono
 
 	private void ActiveAttack()
 	{
-		aiPath.destination = EnemyPos;
-
 		aiPath.isStopped = true;
 		isAttacking = true;
 		isCanAttack = false;
@@ -181,7 +180,6 @@ public class EnemyBase : PoolableMono
 	{
 		Debug.Log("Wander Move");
 		isWandering = true;
-		aiPath.maxSpeed = MovementSpeed;
 		// 일정 시간 동안 플레이어 주변을 방황
 		float wanderTime = Random.Range(0.5f, 2f);
 		Vector2 randomDirection = Random.insideUnitCircle.normalized * WanderRadius;
@@ -191,13 +189,13 @@ public class EnemyBase : PoolableMono
 
 		yield return new WaitForSeconds(wanderTime);
 
-		aiPath.maxSpeed = MovementSpeed;
 		isWandering = false;
 	}
 
 	public IEnumerator CooldownAttack()
 	{
 		Debug.Log("Start Attack Cooldown");
+		aiPath.maxSpeed = MovementSpeed;
 		yield return new WaitForSeconds(AttackDelay);
 		isCanAttack = true;
 	}

@@ -6,18 +6,18 @@ using UnityEngine.EventSystems;
 
 public class DashAttack : AtkPatternMono
 {
-	[SerializeField] private float lockOnDelay = 1.5f;
-	[SerializeField] private float dashSpeed = 8f; // 돌진 속도
-	[SerializeField] private float dashDuration = 1.5f;
+	[SerializeField] private float lockOnDelay;
+	[SerializeField] private float dashSpeed; // 돌진 속도
+	[SerializeField] private float dashDuration;
 
 	private Vector2 TargetPos;
 	private bool LockOnTarget;
 
 	public override void DoingAttack(EnemyBase eb)
 	{
-		
 		if (eb != null && eb.Target != null)
 		{
+			eb.aiPath.destination = eb.EnemyPos;
 			StartCoroutine(LockOnAndDash(eb));
 		}
 	}
@@ -61,21 +61,22 @@ public class DashAttack : AtkPatternMono
 	private IEnumerator Dash(EnemyBase eb)
 	{
 		Debug.Log("Start Dash");
+		eb.aiPath.maxSpeed = dashSpeed;
 		Vector2 direction = (TargetPos - eb.EnemyPos).normalized;
-		Vector2 validDestination = FindNearestPosition(eb.EnemyPos + direction * 10f);
 		float elapsedTime = 0f;
+		float dashTime = dashDuration / 2f;
 
 		while (elapsedTime < dashDuration)
 		{
-			// 부드럽게 이동하는 대신, 더 자주 업데이트하여 더 빠르게 이동
-			eb.aiPath.destination = Vector2.Lerp(eb.EnemyPos, validDestination, elapsedTime / dashDuration);
+			eb.aiPath.destination = Vector2.Lerp(eb.EnemyPos, FindNearestPosition(eb.EnemyPos + direction * 2f), elapsedTime / dashTime) + direction * dashSpeed * Time.deltaTime;
 			yield return null;
-			elapsedTime += Time.deltaTime * dashSpeed; // 대쉬 속도 적용
+			elapsedTime += Time.deltaTime;
 		}
 
-		eb.aiPath.destination = eb.EnemyPos; //목적지를 현재 자신의 위치로 지정해 정지
+		eb.aiPath.destination = eb.EnemyPos; // 목적지를 현재 자신의 위치로 지정해 정지
 		Debug.Log("End Dash");
 	}
+
 
 	private Vector2 FindNearestPosition(Vector2 targetPosition)
 	{

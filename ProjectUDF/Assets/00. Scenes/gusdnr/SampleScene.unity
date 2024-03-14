@@ -709,6 +709,7 @@ MonoBehaviour:
   EnemyRB: {fileID: 0}
   Patterns:
   - {fileID: 595687425}
+  MaxHP: 0
   AttackDelay: 5
   AttackRadius: 5
   PathUpdateDelay: 1.5
@@ -797,8 +798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnDelay: 4
-  dashSpeed: 20
-  dashDuration: 1.5
+  dashSpeed: 10
+  dashDuration: 1
 --- !u!58 &595687426
 CircleCollider2D:
   m_ObjectHideFlags: 0
