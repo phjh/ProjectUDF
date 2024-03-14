@@ -39,6 +39,9 @@ public class EnemyBase : PoolableMono
 	#region Enemy Stats
 	private float EnemyCurHP { get; set; }
 
+	[Header("Normal Stats")]
+	public float MaxHP;
+
 	[Header("Attack Stats")]
 	public float AttackDelay;
 	public float AttackRadius;
@@ -77,7 +80,8 @@ public class EnemyBase : PoolableMono
 		isWandering = false;
 		isAttacking = false;
 		isUpdatingPath = false;
-
+		
+		EnemyCurHP = MaxHP;
 		aiPath.maxSpeed = MovementSpeed;
 	}
 
@@ -89,7 +93,8 @@ public class EnemyBase : PoolableMono
 		if (isDead)
 		{
 			//만약 공격 중이라면 취소하는 부분 추가
-			PoolManager.Instance.Push(this.gameObject.GetComponent<EnemyBase>());
+			Destroy(gameObject);
+			//PoolManager.Instance.Push(this.gameObject.GetComponent<EnemyBase>());
 			StopAllCoroutines();
 			return;
 		}
