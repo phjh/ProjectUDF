@@ -11,7 +11,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	
 	//Another Components
 	public PlayerStat status; //추후 플레이어가 가지고 있는 플레이어 스탯 SO 가져오는 부분 추가 필요 *****
-
+	public int MaxOreInvnetory = 7;
 	//Values
 	public List<int> NormalOreList = new List<int>(4){ 0, 0, 0, 0 }; //일반 광석 소지 개수
     public List<int> UpgradeOreList = new List<int>(4){ 0, 0, 0, 0 }; //강화 광석 소지 개수
