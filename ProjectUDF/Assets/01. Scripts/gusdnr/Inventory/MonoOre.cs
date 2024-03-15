@@ -3,11 +3,11 @@ using UnityEngine;
 public class MonoOre : MonoBehaviour
 {
 	public Stats IncreaseStat;
-	[Range(0, 1)]public float IncreaseValue;
+	public float IncreaseValue = 3;
 
 	public void GetOre()
 	{
-		OreInventory.Instance.IncreaseOre(IncreaseStat, IncreaseValue);
+		OreInventory.Instance.AddOre(IncreaseStat, IncreaseValue);
 		Debug.Log(gameObject.name);
 	}
 }

@@ -1,5 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using static Spine.Unity.Examples.BasicPlatformerController;
 
 public enum Stats
 {
@@ -19,17 +23,37 @@ public class PlayerStat : ScriptableObject
     public event Action<float> AttackSpeedChanged;
     public event Action<float> LuckyChanged;
 
-    public float PlayerStrength;
-    public float PlayerHP;
-    public float PlayerMoveSpeed;
-    public float PlayerAttackSpeed;
-    public float PlayerLucky;
+    [Header("Player's Stats")]
+    public Stat Strength;
+    public Stat HP;
+    public Stat MoveSpeed;
+    public Stat AttackSpeed;
+    public Stat Lucky;
 
     public void OnEnable()
     {
-        SetStatStart();
-        Debug.Log("시작 시 초기화 실행");
-    }
+        Debug.Log("컴파일 시 초기화 실행");
+		if (_fieldInfoDictionary == null)
+		{
+			_fieldInfoDictionary = new Dictionary<Stats, FieldInfo>();
+		}
+		_fieldInfoDictionary.Clear();
+
+		Type characterStatType = typeof(PlayerStat);
+		foreach (Stats statType in Enum.GetValues(typeof(Stats)))
+		{
+			FieldInfo statField = characterStatType.GetField(statType.ToString());
+
+			if (statField == null)
+			{
+				Debug.LogError($"There are no stat! error : {statType.ToString()}");
+			}
+			else
+			{
+				_fieldInfoDictionary.Add(statType, statField);
+			}
+		}
+	}
 
     public PlayerStat Clone()
     {
@@ -37,44 +61,57 @@ public class PlayerStat : ScriptableObject
         return returnvalue;
     }
 
-    //기본적으로 추가스텟이니 유의할것
-    public void EditStat(Stats statName, float EditingAmount)
-    {
-        switch (statName)
-        {
-            case Stats.Strength:
-                PlayerStrength += EditingAmount;
-                StrengthChanged?.Invoke(PlayerStrength);
-                break;
-            case Stats.HP:
-                PlayerHP += EditingAmount;
-                HpChanged?.Invoke(PlayerHP);
-                break;
-            case Stats.MoveSpeed:
-                PlayerMoveSpeed += EditingAmount;
-                MoveSpeedChanged?.Invoke(PlayerMoveSpeed);
-                break;
-            case Stats.AttackSpeed:
-                PlayerAttackSpeed += EditingAmount;
-                AttackSpeedChanged?.Invoke(PlayerAttackSpeed);
-                break;
-            case Stats.Lucky:
-                PlayerLucky += EditingAmount;
-                LuckyChanged?.Invoke(PlayerLucky);
-                break;
-        }
+	protected Dictionary<Stats, FieldInfo> _fieldInfoDictionary;
 
-        Debug.Log($"[현재 스텟] | 힘 : {PlayerStrength} | 이속 : {PlayerMoveSpeed} | 공속 : {PlayerAttackSpeed} | 운 : {PlayerLucky} | 체력 : {PlayerHP} |");
-    }
+	protected Player _owner;
+	public void SetOwner(Player owner)
+	{
+		_owner = owner;
+	}
 
-    public void SetStatStart()
-    {
-        PlayerStrength = 4;
-        PlayerHP = 10;
-        PlayerMoveSpeed = 6;
-        PlayerAttackSpeed = 1;
-        PlayerLucky = 10;
-    }
+	public void IncreaseStatBy(int modifyValue, float duration, Stats statType)
+	{
+		_owner.StartCoroutine(StatModifyCoroutine(modifyValue, duration, statType));
+	}
 
+	protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stats statType)
+	{
+		Stat target = GetStatByType(statType);
+		target.AddModifier(modifyValue);
+		yield return new WaitForSeconds(duration);
+		target.RemoveModifier(modifyValue);
+	}
 
+	public Stat GetStatByType(Stats type)
+	{
+		return _fieldInfoDictionary[type].GetValue(this) as Stat;
+	}
+
+	//기본적으로 추가스텟이니 유의할것
+	public void EditStat(Stats statName, float EditingAmount)
+	{
+		switch (statName)
+		{
+			case Stats.Strength:
+				Strength.SetValue(EditingAmount);
+				StrengthChanged?.Invoke(Strength.realValue);
+				break;
+			case Stats.HP:
+				HP.SetValue(EditingAmount);
+				HpChanged?.Invoke(HP.realValue);
+				break;
+			case Stats.MoveSpeed:
+				MoveSpeed.SetValue(EditingAmount);
+				MoveSpeedChanged?.Invoke(MoveSpeed.realValue);
+				break;
+			case Stats.AttackSpeed:
+				AttackSpeed.SetValue(EditingAmount);
+				AttackSpeedChanged?.Invoke(AttackSpeed.realValue);
+				break;
+			case Stats.Lucky:
+				Lucky.SetValue(EditingAmount);
+				LuckyChanged?.Invoke(Lucky.realValue);
+				break;
+		}
+	}
 }

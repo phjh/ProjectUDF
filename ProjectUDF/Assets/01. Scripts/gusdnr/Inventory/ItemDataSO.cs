@@ -10,6 +10,13 @@ public struct ItemStatusPair
 	public bool isPersent;
 }
 
+[System.Serializable]
+public struct ItemCollect
+{
+	public ItemDataSO ItemData;
+	public bool IsThisCollect;
+}
+
 [CreateAssetMenu(fileName = "Empty Item Data", menuName = "SO/Player/ItemSO")]
 public class ItemDataSO : ScriptableObject
 {
