@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [Serializable]
 public class Stat
@@ -8,6 +9,13 @@ public class Stat
 	[SerializeField] private float baseValue;
 	[HideInInspector] public float realValue;
 	public List<float> modifiers = new List<float>();
+	public float persentValue = 0; //능력치 증가용 %수치
+
+	public void ResetValue() //게임 오버나 초기값으로 재 세팅용 변수
+	{
+		realValue = baseValue;
+		persentValue = 0;
+	}
 
 	public float GetValue()
 	{
@@ -27,6 +35,7 @@ public class Stat
 	public void SetDefaultValue(float value) //게임 시작시 가장 초기 값 세팅
 	{
 		baseValue = value;
+		persentValue = 0;
 		realValue = baseValue;
 	}
 
