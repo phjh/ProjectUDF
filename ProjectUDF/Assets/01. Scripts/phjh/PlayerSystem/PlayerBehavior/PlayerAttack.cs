@@ -26,21 +26,21 @@ public class PlayerAttack : Player
     protected void Start()
     {
         _playerStat = _player._playerStat;
-        ResentDamage = _playerStat.PlayerStrength;
+        ResentDamage = _playerStat.Strength.GetValue();
         _rightAtkcol = _rightattackRange.GetComponent<CircleCollider2D>();
     }
 
     public IEnumerator NormalAttack()
     {
-        float damage = _playerStat.PlayerStrength * 4/5;
-        if(UnityEngine.Random.Range(0,100) < _playerStat.PlayerLucky)
+        float damage = _playerStat.Strength.GetValue() * 4/5;
+        if(UnityEngine.Random.Range(0,100) < _playerStat.Lucky.GetValue())
         {
             damage = ResentDamage * 1.3f;
             Debug.Log("!!!!!!damage : " + damage);
         }
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10)/10;
-        yield return new WaitForSeconds(1.6f/ 2 / _playerStat.PlayerAttackSpeed);
+        yield return new WaitForSeconds(1.6f/ 2 / _playerStat.AttackSpeed.GetValue());
         _player.IsAttacking = false;
     }
 
@@ -61,14 +61,14 @@ public class PlayerAttack : Player
         Debug.Log($"time : {pressTime},  factor : {factor}");
 
         float damage;
-        if (UnityEngine.Random.Range(0, 100) < _playerStat.PlayerLucky)
+        if (UnityEngine.Random.Range(0, 100) < _playerStat.Lucky.GetValue())
         {
             damage = ResentDamage * 1.3f * factor;
             Debug.Log("!!!!!!damage : " + damage);
         }
         else
         {
-            damage = _playerStat.PlayerStrength * factor;
+            damage = _playerStat.Strength.GetValue() * factor;
         }
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10) / 10;
@@ -80,7 +80,7 @@ public class PlayerAttack : Player
         _rightattackRange.gameObject.SetActive(false);
         _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
-        yield return new WaitForSeconds(5f / 2 / _playerStat.PlayerAttackSpeed);
+        yield return new WaitForSeconds(5f / 2 / _playerStat.AttackSpeed.GetValue());
         _player.IsAttacking = false;
     }
 

@@ -55,7 +55,7 @@ public class PlayerStat : ScriptableObject
 		}
 	}
 
-    public PlayerStat Clone()
+    public PlayerStat Clone() //Player 스탯을 복제 후, 돌려준다.
     {
         var returnvalue = Instantiate(this);
         return returnvalue;
@@ -93,23 +93,23 @@ public class PlayerStat : ScriptableObject
 		switch (statName)
 		{
 			case Stats.Strength:
-				Strength.SetValue(EditingAmount);
+				Strength.SetRealValue(EditingAmount);
 				StrengthChanged?.Invoke(Strength.realValue);
 				break;
 			case Stats.HP:
-				HP.SetValue(EditingAmount);
+				HP.SetRealValue(EditingAmount);
 				HpChanged?.Invoke(HP.realValue);
 				break;
 			case Stats.MoveSpeed:
-				MoveSpeed.SetValue(EditingAmount);
+				MoveSpeed.SetRealValue(EditingAmount);
 				MoveSpeedChanged?.Invoke(MoveSpeed.realValue);
 				break;
 			case Stats.AttackSpeed:
-				AttackSpeed.SetValue(EditingAmount);
+				AttackSpeed.SetRealValue(EditingAmount);
 				AttackSpeedChanged?.Invoke(AttackSpeed.realValue);
 				break;
 			case Stats.Lucky:
-				Lucky.SetValue(EditingAmount);
+				Lucky.SetRealValue(EditingAmount);
 				LuckyChanged?.Invoke(Lucky.realValue);
 				break;
 		}
