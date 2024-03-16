@@ -18,7 +18,7 @@ public class PlayerMovement : Player
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
         stopImmediately += StopImmediately;
-        _currentSpeed = _playerStat.PlayerMoveSpeed;        
+        _currentSpeed = _playerStat.MoveSpeed.GetValue();        
     }
 
     private void OnDestroy()

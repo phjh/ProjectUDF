@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using static Spine.Unity.Examples.BasicPlatformerController;
 
 public enum Stats
 {
@@ -29,6 +28,8 @@ public class PlayerStat : ScriptableObject
     public Stat MoveSpeed;
     public Stat AttackSpeed;
     public Stat Lucky;
+
+	protected Dictionary<Stats, FieldInfo> _fieldInfoDictionary;
 
     public void OnEnable()
     {
@@ -61,7 +62,6 @@ public class PlayerStat : ScriptableObject
         return returnvalue;
     }
 
-	protected Dictionary<Stats, FieldInfo> _fieldInfoDictionary;
 
 	protected Player _owner;
 	public void SetOwner(Player owner)
@@ -69,24 +69,39 @@ public class PlayerStat : ScriptableObject
 		_owner = owner;
 	}
 
-	public void IncreaseStatBy(int modifyValue, float duration, Stats statType)
-	{
-		_owner.StartCoroutine(StatModifyCoroutine(modifyValue, duration, statType));
-	}
-
-	protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stats statType)
-	{
-		Stat target = GetStatByType(statType);
-		target.AddModifier(modifyValue);
-		yield return new WaitForSeconds(duration);
-		target.RemoveModifier(modifyValue);
-	}
-
 	public Stat GetStatByType(Stats type)
 	{
 		return _fieldInfoDictionary[type].GetValue(this) as Stat;
 	}
 
+	public void IncreaseStatBy(int modifyValue, float duration, Stats statType) //버프형 값 적용
+	{
+		_owner.StartCoroutine(StatModifyCoroutine(modifyValue, duration, statType));
+	}
+
+	protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stats statType, bool IsFixed = false)
+	{
+		Stat target = GetStatByType(statType);
+		target.AddModifier(modifyValue, IsFixed);
+		yield return new WaitForSeconds(duration);
+		target.RemoveModifier(modifyValue, IsFixed);
+	}
+
+	#region 플레이어 능력치 증가 구분
+
+	public void ModifyStatToPersent(Stats statType, float value)
+	{
+		GetStatByType(statType).AddModifier(value);
+	}
+
+	public void ModifyStatToFixedValue(Stats statType, float value)
+	{
+		GetStatByType(statType).AddModifier(value);
+	}
+
+	#endregion
+
+	
 	//기본적으로 추가스텟이니 유의할것
 	public void EditStat(Stats statName, float EditingAmount)
 	{
