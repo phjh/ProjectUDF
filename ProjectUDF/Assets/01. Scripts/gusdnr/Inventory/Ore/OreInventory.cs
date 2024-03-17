@@ -26,7 +26,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	{
         ResetOreList();
 	}
-	
+
 	#region Methods
 
 	public void ResetOreList() //광물 목록 초기화용
@@ -35,6 +35,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 		GemStoneList = Enumerable.Repeat(0, 4).ToList();
 	}
 
+	#region Add Methods
+
 	public void AddOre(Stats statName, float statValue) //외부 호출형 스탯 증가 함수
 	{
 		int statNumber = (int)statName;
@@ -42,14 +44,26 @@ public class OreInventory : MonoSingleton<OreInventory>
 		{
 			OreList[statNumber] += 1;
 
-			status.EditStat(statName, statValue);
+			status.EditModifierStatToFixed(statName, statValue);
 			CheckOreCount(false, statNumber);
 		}
-		else
+		else if(CheckCount() >= MaxInInvnetory && OreList[statNumber] != 2)
 		{
-			status.EditStat(statName, 1);
+			status.EditModifierStatToFixed(statName, 1);
 		}
 	}
+
+	private void AddGemStone(Stats statName)
+	{
+		statNumber = (int)statName;
+		OreList[statNumber] -= NeedToUpgrade;
+		GemStoneList[statNumber] += 1;
+		status.EditModifierStatToFixed(statName, 5);
+		status.EditModifierStatToPersent(statName, 2);
+		CheckOreCount();
+	}
+
+	#endregion
 
 	public void CheckOreCount(bool isCheckAll = true, int index = 0) // bool값이 false일 경우, index 값만을 확인하는 인벤토리 점검 함수
 	{
@@ -57,25 +71,16 @@ public class OreInventory : MonoSingleton<OreInventory>
 		{
 			for (int i = 0; i < OreList.Count; i++)
 			{
-				if (OreList[i] >= NeedToUpgrade) AddGemStone((Stats)i, IncreaseValues[i]);
+				if (OreList[i] >= NeedToUpgrade) AddGemStone((Stats)i);
 			}
 		}
 		else
 		{
 			if (OreList[index] >= NeedToUpgrade)
 			{
-				AddGemStone((Stats)index, IncreaseValues[index]);
+				AddGemStone((Stats)index);
 			}
 		}
-	}
-
-	private void AddGemStone(Stats statName, float statValue)
-	{
-		statNumber = (int)(statName);
-		OreList[statNumber] -= NeedToUpgrade;
-		GemStoneList[statNumber] += 1;
-		status.EditStat(statName, statValue);
-		CheckOreCount();
 	}
 
 	private int CheckCount()

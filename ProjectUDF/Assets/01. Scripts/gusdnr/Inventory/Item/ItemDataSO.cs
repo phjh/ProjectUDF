@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct ItemStatusPair
+public class ItemStatusData
 {
 	public Stats UsingStat;
-	public float StatValue;
-	public bool isPersent;
+	public float StatValue = 0;
+	public bool isPersent = false;
 }
 
 [System.Serializable]
@@ -26,5 +26,5 @@ public class ItemDataSO : ScriptableObject
 	public string ItemDescription;
 
 	[Header("아이템 실 적용 능력치")]
-	public List<ItemStatusPair> StatusDatas = new List<ItemStatusPair>();
+	public List<ItemStatusData> StatusDatas = new List<ItemStatusData>();
 }

@@ -23,8 +23,8 @@ public class PlayerStat : ScriptableObject
     public event Action<float> LuckyChanged;
 
     [Header("Player's Stats")]
-    public Stat Strength;
     public Stat HP;
+    public Stat Strength;
     public Stat MoveSpeed;
     public Stat AttackSpeed;
     public Stat Lucky;
@@ -62,7 +62,6 @@ public class PlayerStat : ScriptableObject
         return returnvalue;
     }
 
-
 	protected Player _owner;
 	public void SetOwner(Player owner)
 	{
@@ -87,46 +86,12 @@ public class PlayerStat : ScriptableObject
 		target.RemoveModifier(modifyValue, IsFixed);
 	}
 
-	#region 플레이어 능력치 증가 구분
+	#region 플레이어 능력치 변경 함수
 
-	public void ModifyStatToPersent(Stats statType, float value)
+	public void EditModifierStat(Stats statType, float value, bool isPersent)
 	{
-		GetStatByType(statType).AddModifier(value);
-	}
-
-	public void ModifyStatToFixedValue(Stats statType, float value)
-	{
-		GetStatByType(statType).AddModifier(value);
+		GetStatByType(statType).AddModifier(value, isPersent);
 	}
 
 	#endregion
-
-	
-	//기본적으로 추가스텟이니 유의할것
-	public void EditStat(Stats statName, float EditingAmount)
-	{
-		switch (statName)
-		{
-			case Stats.Strength:
-				Strength.SetRealValue(EditingAmount);
-				StrengthChanged?.Invoke(Strength.realValue);
-				break;
-			case Stats.HP:
-				HP.SetRealValue(EditingAmount);
-				HpChanged?.Invoke(HP.realValue);
-				break;
-			case Stats.MoveSpeed:
-				MoveSpeed.SetRealValue(EditingAmount);
-				MoveSpeedChanged?.Invoke(MoveSpeed.realValue);
-				break;
-			case Stats.AttackSpeed:
-				AttackSpeed.SetRealValue(EditingAmount);
-				AttackSpeedChanged?.Invoke(AttackSpeed.realValue);
-				break;
-			case Stats.Lucky:
-				Lucky.SetRealValue(EditingAmount);
-				LuckyChanged?.Invoke(Lucky.realValue);
-				break;
-		}
-	}
 }

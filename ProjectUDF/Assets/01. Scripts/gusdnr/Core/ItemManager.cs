@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemInventory : MonoBehaviour
+public class ItemManager : MonoSingleton<ItemManager>
 {
-    public ItemDataSO[] InventoryArray;
-
+	public ItemDataSO[] InventoryArray;
 
 	private void OnEnable()
 	{
-		if(InventoryArray == null) Debug.Log("Item Array is null");
+		if (InventoryArray == null) Debug.Log("Item Array is null");
 		InventoryArray = Resources.LoadAll<ItemDataSO>("ItemDatas");
 	}
 }
