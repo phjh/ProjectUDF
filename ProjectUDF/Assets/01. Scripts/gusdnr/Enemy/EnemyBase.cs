@@ -68,7 +68,7 @@ public class EnemyBase : PoolableMono
 		if (seeker.pathCallback == null) seeker.pathCallback += OnPathComplete;
 		#endregion
 
-		if (Patterns.Count < 0)
+		if (Patterns.Count < 0) //패턴 개수가 0개보다 적을 때 패턴 리스트 할당
 		{
 			Patterns = GetComponents<AtkPatternMono>().ToList();
 			Debug.Log("Add Attack Patterns In List");
