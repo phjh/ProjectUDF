@@ -11,6 +11,8 @@ public class PlayerMovement : Player
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
 
+    Rigidbody2D _rigidbody;
+
     protected void Start()
     {
         _playerStat = _player._playerStat;
@@ -18,7 +20,14 @@ public class PlayerMovement : Player
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
         stopImmediately += StopImmediately;
-        _currentSpeed = _playerStat.MoveSpeed.GetValue();        
+        _currentSpeed = _playerStat.MoveSpeed.GetValue();
+        _inputReader.DodgeEvent += Dodge;
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    void Dodge()
+    {
+
     }
 
     private void OnDestroy()
@@ -67,7 +76,7 @@ public class PlayerMovement : Player
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            _playerStat.EditStat(Stats.MoveSpeed, 0.5f);
+            _playerStat.IncreaseStatBy(1, 0, Stats.MoveSpeed);
         }
 
     }
