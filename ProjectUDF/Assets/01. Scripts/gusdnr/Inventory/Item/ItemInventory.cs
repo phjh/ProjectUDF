@@ -14,16 +14,18 @@ public class ItemInventory : MonoBehaviour
 
 	public void AddItemInInventory(ItemDataSO data)
     {
+		ItemManager.Instance.CollectItem(data);
         CollectItems.Add(data);
+		ReadingData(data);
     }
 
 	private void ReadingData(ItemDataSO data)
 	{
-		List<ItemStatusData> itemData = data.StatusDatas;
+		List<ItemStatusData> statusData = data.StatusDatas;
 		ItemStatusData editData;
-		for (int i = 0; i < itemData.Count; i++)
+		for (int i = 0; i < statusData.Count; i++)
 		{
-			editData = itemData[i];
+			editData = statusData[i];
 			status.EditModifierStat(editData.UsingStat, editData.StatValue, editData.isPersent);
 		}
 	}

@@ -16,24 +16,26 @@ public enum Stats
 [CreateAssetMenu(fileName = "New Player Stat", menuName = "SO/Player/PlayerStat")]
 public class PlayerStat : ScriptableObject
 {
-    public event Action<float> StrengthChanged;
-    public event Action<float> HpChanged;
-    public event Action<float> MoveSpeedChanged;
-    public event Action<float> AttackSpeedChanged;
-    public event Action<float> LuckyChanged;
+	public event Action<float> StrengthChanged;
+	public event Action<float> HpChanged;
+	public event Action<float> MoveSpeedChanged;
+	public event Action<float> AttackSpeedChanged;
+	public event Action<float> LuckyChanged;
 
-    [Header("Player's Stats")]
-    public Stat HP;
-    public Stat Strength;
-    public Stat MoveSpeed;
-    public Stat AttackSpeed;
-    public Stat Lucky;
+	[Header("Player's Stats")]
+	public int MaxHP;
+	private int curHP;
+	public int CurHP { get; set; }
+	public Stat Strength;
+	public Stat MoveSpeed;
+	public Stat AttackSpeed;
+	public Stat Lucky;
 
 	protected Dictionary<Stats, FieldInfo> _fieldInfoDictionary;
 
-    public void OnEnable()
-    {
-        Debug.Log("컴파일 시 초기화 실행");
+	public void OnEnable()
+	{
+		Debug.Log("컴파일 시 초기화 실행");
 		if (_fieldInfoDictionary == null)
 		{
 			_fieldInfoDictionary = new Dictionary<Stats, FieldInfo>();
@@ -56,16 +58,17 @@ public class PlayerStat : ScriptableObject
 		}
 	}
 
-    public PlayerStat Clone() //Player 스탯을 복제 후, 돌려준다.
-    {
-        var returnvalue = Instantiate(this);
-        return returnvalue;
-    }
+	public PlayerStat Clone() //Player 스탯을 복제 후, 돌려준다.
+	{
+		var returnvalue = Instantiate(this);
+		return returnvalue;
+	}
 
 	protected Player _owner;
 	public void SetOwner(Player owner)
 	{
 		_owner = owner;
+		ResetHP();
 	}
 
 	public Stat GetStatByType(Stats type)
@@ -78,7 +81,7 @@ public class PlayerStat : ScriptableObject
 		_owner.StartCoroutine(StatModifyCoroutine(modifyValue, duration, statType));
 	}
 
-	protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stats statType, bool IsFixed = false)
+	protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stats statType, bool IsFixed = false) //버프 코루틴
 	{
 		Stat target = GetStatByType(statType);
 		target.AddModifier(modifyValue, IsFixed);
@@ -88,9 +91,21 @@ public class PlayerStat : ScriptableObject
 
 	#region 플레이어 능력치 변경 함수
 
-	public void EditModifierStat(Stats statType, float value, bool isPersent)
+	public void EditModifierStat(Stats statType, float value, bool isPersent = false)
 	{
 		GetStatByType(statType).AddModifier(value, isPersent);
+	}
+
+	public void ResetHP()
+	{
+		curHP = MaxHP;
+	}
+
+	public void EditPlayerHP(int value)
+	{
+		curHP += value;
+		if (curHP > MaxHP) { curHP = MaxHP; }
+		if(curHP <= 0) {  } //플레이어 쪽에서 죽는 이벤트 실행
 	}
 
 	#endregion

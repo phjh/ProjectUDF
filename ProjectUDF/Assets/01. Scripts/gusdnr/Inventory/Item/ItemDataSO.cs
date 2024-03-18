@@ -20,11 +20,19 @@ public struct ItemCollect
 [CreateAssetMenu(fileName = "Empty Item Data", menuName = "SO/Player/ItemSO")]
 public class ItemDataSO : ScriptableObject
 {
+	[HideInInspector] public bool isCollect = false;
+
 	[Header("아이템 정보")]
-	public string ItemID = "999";
+	public int ItemID = 999;
 	public string ItemName;
 	public string ItemDescription;
+	public bool isHidden = false;
 
 	[Header("아이템 실 적용 능력치")]
 	public List<ItemStatusData> StatusDatas = new List<ItemStatusData>();
+
+	public void CollectItem()
+	{
+
+	}
 }
