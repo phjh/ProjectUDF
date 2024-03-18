@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "OreData", menuName = "SO/DataSO/OreSO")]
+public class OreSO : ScriptableObject
+{
+    [Header("Ore Infomation")]
+    public string OreName = "Empty";
+    public string desc = "Empty";
+
+    [Header("Ore Increase Stat")]
+    public Stats stats;
+    public int value;
+}
