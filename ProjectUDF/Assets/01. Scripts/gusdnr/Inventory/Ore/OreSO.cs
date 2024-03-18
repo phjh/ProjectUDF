@@ -7,7 +7,7 @@ public class OreSO : ScriptableObject
 {
     [Header("Ore Infomation")]
     public string OreName = "Empty";
-    public string desc = "Empty";
+    public string OreDesc = "Empty";
 
     [Header("Ore Increase Stat")]
     public Stats stats;
