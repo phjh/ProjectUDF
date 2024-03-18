@@ -1,7 +1,27 @@
 using Spine.Unity;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum MoveAnimationList
+{
+    FrontIdle = 0,
+    RightfrontIdle = 1,
+    RightIdle = 2,
+    RightupIdle = 3,
+    UpIdle = 4,
+    LeftupIdle = 5,
+    LeftIdle = 6,
+    LeftfrontIdle =7,
+    FrontMove = 8,
+    FrontrightMove = 9,
+    RightMove = 10,
+    RightupMove = 11,
+    UpMove = 12,
+    LeftupMove = 13,
+    LeftMove = 14,
+    LeftfrontMove = 15
+
+}
 
 public class PlayerAnimation : Player
 {
@@ -9,9 +29,17 @@ public class PlayerAnimation : Player
 
     SkeletonAnimation skeletonAnimation;
 
-        #region SpineAnimations
+    #region SpineAnimations
 
-        [SpineAnimation]
+    [SpineAnimation]
+    public List<string> MoveAnimations;
+
+
+
+    [SpineAnimation]
+    public string Idle;
+
+    [SpineAnimation]
     public string moverightAnimation;
 
     [SpineAnimation]
@@ -37,7 +65,7 @@ public class PlayerAnimation : Player
 
     #endregion
 
-    private Vector2 _inputDirection;
+    public Vector2 _inputDirection;
 
     protected void Start()
     {
@@ -51,9 +79,40 @@ public class PlayerAnimation : Player
         _inputDirection = value;
     }
 
+    public void SetMoveAnimation()
+    {
+        if (_inputDirection == Vector2.zero)
+        {
+            skeletonAnimation.AnimationName = Idle;
+            return;
+        }
+
+        bool isRight = _inputDirection.x > 0;
+        bool isUp = _inputDirection.y > 0;
+
+         if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
+        { 
+            skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
+        }
+        else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
+        {
+            skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
+        }
+        else if (isRight)
+        {
+            skeletonAnimation.AnimationName = isUp ? moverightupAnimation : moverightdownAnimation;
+        }
+        else if(!isRight)
+        {
+            skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
+        }
+
+
+    }
+
     private void FixedUpdate()
     {
-
+        SetMoveAnimation();
     }
 
 }

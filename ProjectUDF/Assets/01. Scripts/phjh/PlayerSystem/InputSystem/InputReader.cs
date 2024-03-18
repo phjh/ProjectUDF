@@ -8,6 +8,7 @@ public class InputReader : ScriptableObject, IPlayerActions
 {
     public event Action<Vector2> MovementEvent;
     public event Action AttackEvent;
+    public event Action DodgeEvent;
 
     public Vector2 AimPosition { get; private set; } //마우스는 이벤트방식이 아니기 때문에
     private Controls _playerInputAction; //싱글톤으로 사용할 녀석
@@ -37,5 +38,10 @@ public class InputReader : ScriptableObject, IPlayerActions
     public void OnAttack(InputAction.CallbackContext context)
     {
         AttackEvent?.Invoke();
+    }
+
+    public void OnDodge(InputAction.CallbackContext context)
+    {
+        DodgeEvent?.Invoke();
     }
 }
