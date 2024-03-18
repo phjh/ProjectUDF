@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : Player
 {
     [SerializeField] Player _player;
@@ -50,7 +49,8 @@ public class PlayerMovement : Player
 
     private void Move()
     {
-        _characterController.Move(_movementVelocity);
+        _rigidbody.velocity = _movementVelocity;
+        //_characterController.Move(_movementVelocity);
     }
 
     private void FixedUpdate()

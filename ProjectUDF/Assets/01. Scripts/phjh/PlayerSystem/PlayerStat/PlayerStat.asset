@@ -12,8 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491ffc8035083c446a69c4c9e297f22d, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  PlayerStrength: 4
-  PlayerHP: 10
-  PlayerMoveSpeed: 5
-  PlayerAttackSpeed: 1
-  PlayerLucky: 25
+  MaxHP: 0
+  Strength:
+    baseValue: 3
+    realValue: 0
+    fixedModifiers: []
+    persentedModifiers: []
+  MoveSpeed:
+    baseValue: 1000
+    realValue: 0
+    fixedModifiers: []
+    persentedModifiers: []
+  AttackSpeed:
+    baseValue: 0
+    realValue: 0
+    fixedModifiers: []
+    persentedModifiers: []
+  Lucky:
+    baseValue: 3
+    realValue: 0
+    fixedModifiers: []
+    persentedModifiers: []
+  HP:
+    baseValue: 0
+    realValue: 0
+    fixedModifiers: []
+    persentedModifiers: []
