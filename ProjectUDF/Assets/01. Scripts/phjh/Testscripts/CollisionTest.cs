@@ -9,7 +9,7 @@ public class CollisionTest : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             PlayerStat stat = collision.transform.GetComponent<Player>()._playerStat;
-            stat.EditStat(Stats.HP, -1);
+            stat.EditPlayerHP(-1);
             Destroy(this.gameObject);
         }
 

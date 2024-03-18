@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5055e589349962b4b8a1b15988ac47c3, type: 3}
+  m_Name: 003_SupportHammer
+  m_EditorClassIdentifier: 
+  ItemID: 003
+  ItemName: "\uCC44\uAD11\uC6A9 \uB9DD\uCE58"
+  ItemDescription: "\uB54C\uB9B0 \uACF3 \uB354 \uC314\uAC8C \uB54C\uB9AC\uAE30"
+  StatusDatas:
+  - UsingStat: 0
+    StatValue: 5
+    isPersent: 0
+  - UsingStat: 3
+    StatValue: 1
+    isPersent: 1
