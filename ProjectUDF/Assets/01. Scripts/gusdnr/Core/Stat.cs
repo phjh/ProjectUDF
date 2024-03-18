@@ -12,28 +12,28 @@ public class Stat
 	public float GetValue()
 	{
 		float finalValue = baseValue;
-		for (int i = 0; i < fixedModifiers.Count; ++i)
+		for (int i = 0; i < fixedModifiers.Count; i++)
 		{
 			finalValue += fixedModifiers[i];
 		}
-		for (int i = 0; i < persentedModifiers.Count; ++i)
+		for (int i = 0; i < persentedModifiers.Count; i++)
 		{
 			finalValue *= 1 + (persentedModifiers[i] * 0.01f);
 		}
 		return finalValue;
 	}
 
-	public void SetRealValue(float finalValue) //������ �������� �ʴ� �� ���� �� ����
+	public void SetRealValue(float finalValue) //Set None Buff Stat value
 	{
 		baseValue = finalValue;
 	}
 
-	public void SetDefaultValue(float value) //���� ���۽� ���� �ʱ� �� ����
+	public void SetDefaultValue(float value) //When Game Started, Set DefalutValue
 	{
 		baseValue = value;
 	}
 
-	public void AddModifier(float value, bool IsPersent = false) //Stat �ɷ�ġ ���� ��ġ�� Modifiers ����Ʈ�� �߰��� �� ����
+	public void AddModifier(float value, bool IsPersent = false) //Add Stat Modifier Values
 	{
 		if (value != 0)
 		{
@@ -42,7 +42,7 @@ public class Stat
 		}
 	}
 
-	public void RemoveModifier(float value, bool IsPersent = false) //Modifiers ����Ʈ���� value ���� ������ �� �����ϱ�
+	public void RemoveModifier(float value, bool IsPersent = false) //Modifiers Remoce to value in list
 	{
 		if (value != 0)
 		{
