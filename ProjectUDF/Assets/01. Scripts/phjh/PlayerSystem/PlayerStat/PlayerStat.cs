@@ -45,8 +45,8 @@ public class PlayerStat : ScriptableObject
 		Type characterStatType = typeof(PlayerStat);
 		foreach (Stats statType in Enum.GetValues(typeof(Stats)))
 		{
+			if(statType == Stats.HP) break;
 			FieldInfo statField = characterStatType.GetField(statType.ToString());
-
 			if (statField == null)
 			{
 				Debug.LogError($"There are no stat! error : {statType.ToString()}");
