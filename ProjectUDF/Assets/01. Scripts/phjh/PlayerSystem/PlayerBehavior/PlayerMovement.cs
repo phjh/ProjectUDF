@@ -67,7 +67,7 @@ public class PlayerMovement : Player
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            _playerStat.EditStat(Stats.MoveSpeed, 0.5f);
+            _playerStat.EditModifierStat(Stats.MoveSpeed, 0.5f);
         }
 
     }

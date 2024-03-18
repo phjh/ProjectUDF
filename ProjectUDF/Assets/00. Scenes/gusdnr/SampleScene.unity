@@ -1057,6 +1057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1050577568}
   - component: {fileID: 1050577567}
+  - component: {fileID: 1050577569}
   m_Layer: 0
   m_Name: TimeManager
   m_TagString: Untagged
@@ -1076,7 +1077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2432e28c838ba48bd667cf3f59ed2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTime: 0
+  MaxTime: 90
 --- !u!4 &1050577568
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,6 +1093,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1050577569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050577566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2e18dc822967346bd5cc31ca1d0e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInventory: {fileID: 0}
+  InventoryArray: []
 --- !u!1 &1174007762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,14 +1152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
-  MaxOreInvnetory: 7
-  NormalOreList: 00000000000000000000000000000000
-  UpgradeOreList: 00000000000000000000000000000000
-  IncreaseValues:
-  - 3
-  - 2
-  - 2
-  - 2
+  MaxInInvnetory: 7
+  OreList: 00000000000000000000000000000000
+  GemStoneList: 00000000000000000000000000000000
   NeedToUpgrade: 3
 --- !u!1 &1249332376
 GameObject:
@@ -2141,6 +2151,8 @@ GameObject:
   - component: {fileID: 1642537954}
   - component: {fileID: 1642537956}
   - component: {fileID: 1642537957}
+  - component: {fileID: 1642537958}
+  - component: {fileID: 1642537959}
   m_Layer: 7
   m_Name: TestPlayer
   m_TagString: Player
@@ -2304,6 +2316,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1642537958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642537951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2cea02584f72e940a43e994602e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectItems: []
+--- !u!114 &1642537959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642537951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173b62d073917b940946a96f9159f70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: {fileID: 0}
+  MaxInInvnetory: 7
+  OreList: 00000000000000000000000000000000
+  GemStoneList: 00000000000000000000000000000000
+  NeedToUpgrade: 3
 --- !u!1 &1768865097
 GameObject:
   m_ObjectHideFlags: 0
