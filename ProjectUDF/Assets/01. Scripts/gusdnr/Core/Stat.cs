@@ -24,7 +24,7 @@ public class Stat
 		}
 		for (int i = 0; i < persentedModifiers.Count; ++i)
 		{
-			finalValue *= persentedModifiers[i] * 0.01f;
+			finalValue *= 1 + persentedModifiers[i] * 0.01f;
 		}
 		return finalValue;
 	}
