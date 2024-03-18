@@ -23,17 +23,17 @@ public class Stat
 		return finalValue;
 	}
 
-	public void SetRealValue(float finalValue) //¹öÇÁ°¡ Á¸ÀçÇÏÁö ¾Ê´Â ½Ç Àû¿ë °ª ¼¼ÆÃ
+	public void SetRealValue(float finalValue) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		baseValue = finalValue;
 	}
 
-	public void SetDefaultValue(float value) //°ÔÀÓ ½ÃÀÛ½Ã °¡Àå ÃÊ±â °ª ¼¼ÆÃ
+	public void SetDefaultValue(float value) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		baseValue = value;
 	}
 
-	public void AddModifier(float value, bool IsPersent = false) //Stat ´É·ÂÄ¡ Áõ°¡ ¼öÄ¡¸¦ Modifiers ¸®½ºÆ®¿¡ Ãß°¡ÇØ ÈÄ Àû¿ë
+	public void AddModifier(float value, bool IsPersent = false) //Stat ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Modifiers ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		if (value != 0)
 		{
@@ -42,7 +42,7 @@ public class Stat
 		}
 	}
 
-	public void RemoveModifier(float value, bool IsPersent = false) //Modifiers ¸®½ºÆ®¿¡¼­ value °ªÀÌ Á¸ÀçÇÒ ¶§ »èÁ¦ÇÏ±â
+	public void RemoveModifier(float value, bool IsPersent = false) //Modifiers ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ value ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	{
 		if (value != 0)
 		{

@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
 
     public Action stopImmediately;
 
-    [HideInInspector] public CharacterController _characterController;
-
     public bool IsAttacking = false;
 
     protected bool _activeMove = true;
@@ -20,15 +18,8 @@ public class Player : MonoBehaviour
         set => _activeMove = value;
     }
 
-    public bool IsGround
-    {
-        get => _characterController.isGrounded;
-    }
-
-
     private void Awake()
     {
         _playerStat = _playerStat.Clone(); 
-        _characterController = GetComponent<CharacterController>();
     }
 }
