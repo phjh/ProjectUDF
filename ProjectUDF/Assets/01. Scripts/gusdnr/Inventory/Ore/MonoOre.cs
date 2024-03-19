@@ -1,12 +1,14 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
+using UnityEngine.UI;
 
 public class MonoOre : MonoBehaviour
 {
 	[Header("UI Components")]
 	public TMP_Text NameText;
 	public TMP_Text DescText;
+	public Image OreImage;
+	public Button LinkedBtn;
 
 	[Header("SO Values")]
 	public OreSO[] OreDatas;
@@ -30,13 +32,24 @@ public class MonoOre : MonoBehaviour
 
 	public void ResetOre()
 	{
-		int resetTempSO = Random.Range(0, OreDatas.Length);
-		while (resetTempSO == tempSO)
+		float successRate = Random.value;
+		if( successRate <= 0.3f) //추후 재채광 성공 확률로 치환 예정
 		{
-			resetTempSO = Random.Range(0, OreDatas.Length);
+			int resetTempSO = Random.Range(0, OreDatas.Length);
+			while (resetTempSO == tempSO)
+			{
+				resetTempSO = Random.Range(0, OreDatas.Length);
+			}
+			tempSO = resetTempSO;
+			SetData();
 		}
-		tempSO = resetTempSO;
-		SetData();
+		else
+		{
+			OreImage.color = new Vector4(1, 1, 1, 0);
+			NameText.text = string.Empty;
+			DescText.text = "재 채광에 실패해버렸다...";
+			LinkedBtn.interactable = false;
+		}
 	}
 
 	public void SetData()
