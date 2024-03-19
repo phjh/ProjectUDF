@@ -17,14 +17,14 @@ public enum OreList
 [CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")]
 public class Room : ScriptableObject
 {
+    [Header("방 정보들")]
     public int id;
     public int monsterWaves;
-    
     public List<int> numberOfMonsters;
     
     [Header("몬스터 리스트")]
     public List<GameObject> spawnMonsterList;
-    [Header("생성될 몬스터 리스트")]
+    [HideInInspector]
     public List<GameObject> spawnMonster;
     //건들면 안됨
 
@@ -64,6 +64,7 @@ public class MapInfoSO : ScriptableObject
     public int numberOfRooms; //보스방 제외
 
     public List<Room> roomLists; //방 리스트들
+    [HideInInspector]
     public List<Room> floorRoomInfo; //이번 층에서 나올 방들
 
     
@@ -82,6 +83,10 @@ public class MapInfoSO : ScriptableObject
             for(int i = 0; i < numberOfRooms; i++)
             {
                 int rand = Random.Range(0, roomLists.Count);
+                while(i !=0 && floorRoomInfo[i-1].id == roomLists[rand].id)
+                {
+                    rand = Random.Range(0, roomLists.Count);
+                }
                 floorRoomInfo.Add(roomLists[rand].CloneAndSetting());
             }
         });

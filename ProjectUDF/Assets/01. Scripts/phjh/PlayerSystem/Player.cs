@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public bool IsAttacking = false;
 
     protected bool _activeMove = true;
+
+    public bool _isdodgeing = false;
+    public bool _canDodge = true;
+
     public bool ActiveMove
     {
         get => _activeMove;

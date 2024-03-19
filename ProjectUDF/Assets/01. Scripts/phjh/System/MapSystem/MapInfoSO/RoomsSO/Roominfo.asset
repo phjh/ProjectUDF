@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Roominfo
   m_EditorClassIdentifier: Assembly-CSharp::Room
   id: 0
-  monsterWaves: 3
-  numberOfMonsters: 000000000000000000000000
-  spawnMonsterList:
-  - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+  monsterWaves: 0
+  numberOfMonsters: 
+  spawnMonsterList: []
   spawnMonster: []

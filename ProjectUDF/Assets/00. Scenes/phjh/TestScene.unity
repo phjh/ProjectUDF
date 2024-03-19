@@ -614,7 +614,10 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 1
   _player: {fileID: 1956191124}
+  lastinputDir: {x: 0, y: -1}
 --- !u!50 &1041966974
 Rigidbody2D:
   serializedVersion: 4
@@ -917,6 +920,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
 --- !u!114 &1956191125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,6 +937,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
   _player: {fileID: 1956191124}
   IdleAnimations:
   - idle_f
@@ -951,6 +958,11 @@ MonoBehaviour:
   - walk_sb_l
   - walk_s_l
   - walk_sf_l
+  leftAttackAnimation: 
+  rightAttackAnimation: 
+  DodgeAnimation: 
+  hitAniAnimation: 
+  dieAnimation: 
   _inputDirection: {x: 0, y: 0}
 --- !u!1 &2017967023
 GameObject:
@@ -1052,6 +1064,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
 --- !u!1 &2113449762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1117,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
   _player: {fileID: 1956191124}
 --- !u!114 &2113449765
 MonoBehaviour:
@@ -1119,6 +1135,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
   _player: {fileID: 1956191124}
   _range: {fileID: 1542039600}
   _rightattackRange: {fileID: 116476673}

@@ -1,5 +1,8 @@
+using DG.Tweening;
+using System.Collections;
 using System.Data.Common;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : Player
 {
@@ -12,7 +15,7 @@ public class PlayerMovement : Player
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
 
-    private Rigidbody2D _rigidbody;
+    public Vector2 lastinputDir = Vector2.down;
 
     protected void Start()
     {
@@ -36,7 +39,22 @@ public class PlayerMovement : Player
 
     public void Dodge()
     {
+        if (!_canDodge || !_player.ActiveMove) return;
+        _canDodge = false;
+        Debug.Log("a");
+        StartCoroutine(doDodge());
+    }
 
+    IEnumerator doDodge()
+    {
+        _player._isdodgeing = true;
+        _player.ActiveMove = false;
+        _rigidbody.velocity = lastinputDir * _currentSpeed * 1.6f;
+        yield return new WaitForSeconds(0.5f);
+        _player.ActiveMove = true;
+        _player._isdodgeing = false;
+        yield return new WaitForSeconds(3f);
+        _canDodge = true;
     }
 
     public void SetMovement(Vector2 value)
@@ -52,6 +70,8 @@ public class PlayerMovement : Player
     private void CalculatePlayerMovement()
     {
         _movementVelocity = _inputDirection * _currentSpeed;
+        if (_inputDirection != Vector2.zero)
+            lastinputDir = _inputDirection;
     }
 
     public void StopImmediately()
@@ -68,10 +88,9 @@ public class PlayerMovement : Player
     private void FixedUpdate()
     {
         if (_player.ActiveMove)
-        {
             CalculatePlayerMovement();
-        }
-        Move();
+        if (!_player._isdodgeing)
+            Move();
     }
 
     //테스트용

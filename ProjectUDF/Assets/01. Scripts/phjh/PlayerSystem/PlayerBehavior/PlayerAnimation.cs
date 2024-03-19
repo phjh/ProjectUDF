@@ -30,6 +30,21 @@ public class PlayerAnimation : Player
     [SpineAnimation]
     public List<string> MoveAnimations;
 
+    [SpineAnimation]
+    public string leftAttackAnimation;
+    
+    [SpineAnimation]
+    public string rightAttackAnimation;
+
+    [SpineAnimation]
+    public string DodgeAnimation;
+
+    [SpineAnimation]
+    public string hitAniAnimation;
+
+    [SpineAnimation]
+    public string dieAnimation;
+
     #endregion
 
     public Vector2 _inputDirection;
@@ -41,12 +56,17 @@ public class PlayerAnimation : Player
         _inputReader.MovementEvent += SetMovement;
     }
 
+    private void OnDestroy()
+    {
+        _inputReader.MovementEvent -= SetMovement;
+    }
+
     public void SetMovement(Vector2 value)
     {
         _inputDirection = value;
     }
 
-    public void SetMoveAnimation()
+    public void SetAnimation()
     {
         if (_inputDirection == Vector2.zero)
         {
@@ -83,8 +103,7 @@ public class PlayerAnimation : Player
 
     private void FixedUpdate()
     {
-        if(_player.ActiveMove)
-            SetMoveAnimation();
+        SetAnimation();
     }
 
 }

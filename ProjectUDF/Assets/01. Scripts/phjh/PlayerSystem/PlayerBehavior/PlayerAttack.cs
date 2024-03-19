@@ -85,14 +85,24 @@ public class PlayerAttack : Player
         _player.IsAttacking = false;
     }
 
+    [Obsolete]
     private void Update()
     {
+        if (_player._isdodgeing)
+        {
+            StopAllCoroutines();
+            _range.gameObject.SetActive(false);
+            _rightattackRange.SetActive(false);
+            _player.IsAttacking = false;
+            return;
+        }
+
         if (Input.GetMouseButton(0) && !_player.IsAttacking)
         {
             _player.IsAttacking = true;
             _range.gameObject.SetActive(true);
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if(Input.GetMouseButtonUp(0) && _range.gameObject.active == true)
         {
             StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
@@ -103,9 +113,6 @@ public class PlayerAttack : Player
             _player.IsAttacking = true;
             StartCoroutine(ChargingAttack());
             _rightattackRange.gameObject.SetActive(true);
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
         }
 
     }

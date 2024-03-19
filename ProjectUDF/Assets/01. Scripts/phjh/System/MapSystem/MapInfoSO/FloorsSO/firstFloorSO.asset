@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe7de4bcf91a25419bc1485d4844119, type: 3}
   m_Name: firstFloorSO
   m_EditorClassIdentifier: 
-  monsterWaves: 0
-  numberOfMonster: 
-  spawnMonsterList: []
-  Ores: []
+  numberOfRooms: 0
+  roomLists: []
+  floorRoomInfo: []
