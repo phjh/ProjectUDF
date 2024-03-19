@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealOreData
   m_EditorClassIdentifier: 
   OreName: "\uB9D8\uC554"
-  OreDesc: "\uB9E4\uB048\uD55C \uCD08\uB85D\uC0C9 \uAD11\uC11D\uD68D\uB4DD \uC2DC
-    \uC0AC\uB77C\uC9C0\uBA70 \uCCB4\uB825\uC774 \uD68C\uBCF5\uB41C\uB2E4."
+  OreDesc: "\uB9E4\uB048\uD55C \uCD08\uB85D\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
+    \uD761\uC218\uD574 \uCCB4\uB825\uC744 1 \uC5BB\uB294\uB2E4."
   stats: 4
   value: 1

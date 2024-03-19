@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MoveSpeedOreData
   m_EditorClassIdentifier: 
   OreName: "\uD0A4\uC2DC\uBC84"
-  OreDesc: "\uB208\uBD80\uC2DC\uAC8C \uBE5B\uB098\uB294 \uC740\uC0C9 \uAD11\uC11D\uD68D\uB4DD
+  OreDesc: "\uB208\uBD80\uC2DC\uAC8C \uBE5B\uB098\uB294 \uC740\uC0C9 \uAD11\uC11D,\uD68D\uB4DD
     \uC2DC \uC774\uB3D9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD55C\uB2E4."
   stats: 2
   value: 3

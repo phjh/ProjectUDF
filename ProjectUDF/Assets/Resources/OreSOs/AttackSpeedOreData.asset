@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackSpeedOreData
   m_EditorClassIdentifier: 
   OreName: "\uAD6C\uC774\uB204\uC2A4"
-  OreDesc: "\uC2E0\uBE44\uD55C \uBCF4\uB77C\uC0C9 \uAD11\uC11D\uD68D\uB4DD \uC2DC
+  OreDesc: "\uC2E0\uBE44\uD55C \uBCF4\uB77C\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
     \uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD55C\uB2E4."
   stats: 3
   value: 3

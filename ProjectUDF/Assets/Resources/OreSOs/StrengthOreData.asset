@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StrengthOreData
   m_EditorClassIdentifier: 
   OreName: "\uC2A4\uD2B8\uB85C\uC6B4"
-  OreDesc: "\uAC15\uB82C\uD55C \uBE68\uAC04\uC0C9 \uAD11\uC11D\uD68D\uB4DD \uC2DC
+  OreDesc: "\uAC15\uB82C\uD55C \uBE68\uAC04\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
     \uACF5\uACA9\uB825\uC774 \uC99D\uAC00\uD55C\uB2E4."
   stats: 0
   value: 3
