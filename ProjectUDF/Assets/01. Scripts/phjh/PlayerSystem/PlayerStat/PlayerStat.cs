@@ -16,8 +16,8 @@ public enum Stats
 [CreateAssetMenu(fileName = "New Player Stat", menuName = "SO/Player/PlayerStat")]
 public class PlayerStat : ScriptableObject
 {
+	public static event Action HpChanged;
 	public event Action<float> StrengthChanged;
-	public event Action<float> HpChanged;
 	public event Action<float> MoveSpeedChanged;
 	public event Action<float> AttackSpeedChanged;
 	public event Action<float> LuckyChanged;
@@ -105,6 +105,8 @@ public class PlayerStat : ScriptableObject
 	{
 		curHP += value;
 		if (curHP > MaxHP) { curHP = MaxHP; }
+		else { HpChanged?.Invoke(); }
+
 		if(curHP <= 0) {  } //플레이어 쪽에서 죽는 이벤트 실행
 	}
 

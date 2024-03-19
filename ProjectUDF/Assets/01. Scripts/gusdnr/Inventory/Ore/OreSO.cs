@@ -12,4 +12,5 @@ public class OreSO : ScriptableObject
     [Header("Ore Increase Stat")]
     public Stats stats;
     public int value;
+    public int valuePersent;
 }

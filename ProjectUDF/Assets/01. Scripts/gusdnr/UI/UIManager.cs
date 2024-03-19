@@ -1,5 +1,5 @@
 using DG.Tweening;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +8,11 @@ public class UIManager : MonoSingleton<UIManager>
 	public GameObject miningCanvas;
 	public List<GameObject> Cards;
 
+	public static event EventHandler OnResearchEnd;
+
 	private void Start()
 	{
-		ShowCards();
+		//ShowCards();
 	}
 
 	public void ShowCards()
@@ -26,4 +28,6 @@ public class UIManager : MonoSingleton<UIManager>
 	{
 		miningCanvas?.SetActive(false);
 	}
+
+
 }
