@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -12,16 +13,59 @@ public enum OreList
     End =5
 }
 
-[CreateAssetMenu(fileName = "RandomMapInfoSO", menuName = "SO/Map/RandomMapInfo")]
+
+[CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")]
+public class Room : ScriptableObject
+{
+    public int id;
+    public int monsterWaves;
+    
+    public List<int> numberOfMonsters;
+    
+    [Header("몬스터 리스트")]
+    public List<GameObject> spawnMonsterList;
+    [Header("생성될 몬스터 리스트")]
+    public List<GameObject> spawnMonster;
+    //건들면 안됨
+
+    public Room CloneAndSetting()
+    {
+        var a = Instantiate(this);
+        a.GenerateRandomMonsterSpawnInfo();
+        return a;
+    }
+
+    private async void GenerateRandomMonsterSpawnInfo()
+    {
+        if(numberOfMonsters.Count != monsterWaves)
+        {
+            Debug.LogError("값 틀림 : monsterWaves");
+            return;
+        }
+        await Task.Run(() =>
+        {
+            for (int i = 0; i < monsterWaves; i++)
+            {
+                int a = numberOfMonsters[i];
+                for (int j = 0; j < a; j++)
+                {
+                    int rand = Random.Range(0,spawnMonsterList.Count);
+                    spawnMonster.Add(spawnMonsterList[rand]);
+                }
+            }
+        });
+    }
+    
+}
+
+[CreateAssetMenu(fileName = "RandomFloorInfoSO", menuName = "SO/Map/RandomFloorInfo")]
 public class MapInfoSO : ScriptableObject
 {
-    public int monsterWaves;
-    //waveMonsters[nowWave][spawn enemies]
-    public List<List<GameObject>> waveMonsters;
-    public List<int> numberOfMonster;
-    public List<GameObject> spawnMonsterList;
-    //광물들 
-    public List<GameObject> Ores;
+    public int numberOfRooms; //보스방 제외
+
+    public List<Room> roomLists; //방 리스트들
+    public List<Room> floorRoomInfo; //이번 층에서 나올 방들
+
     
     public MapInfoSO CloneAndSetting()
     {
@@ -30,24 +74,18 @@ public class MapInfoSO : ScriptableObject
         return clone;
     }
 
-    public async void GenerateRandomMapInfoSO()
+    private async void GenerateRandomMapInfoSO()
     {
         Debug.Log("Start Map Info Generating");
-        await Task.Run(()=>{
-            for(int nowwave = 0;nowwave< monsterWaves; nowwave++) //웨이브 수 만큼 반복
+        await Task.Run(() =>
+        {
+            for(int i = 0; i < numberOfRooms; i++)
             {
-                for(int monsters = 0; monsters < numberOfMonster.Count; monsters++)
-                {
-                    int rand = Random.Range(0,spawnMonsterList.Count);
-                    waveMonsters[nowwave].Add(spawnMonsterList[rand]);
-                }
-                for(int i = 0; i < 3; i++ )
-                {
-                    int rand = Random.Range(0, (int)OreList.End);
-                    Ores.Add(Ores[rand]);
-                }
+                int rand = Random.Range(0, roomLists.Count);
+                floorRoomInfo.Add(roomLists[rand].CloneAndSetting());
             }
         });
+        //여기 보스방 고정을 넣고싶다면 넣으면 된다
         Debug.Log("Susscessful Map Info Generated!");
     }
 

@@ -20,7 +20,6 @@ public class MapSystem : MonoSingleton<MapSystem>
     public int leftRooms = 0;
     public int leftMonsters = 0;
 
-
     public void StageFlow()
     {
         for(int i=0;i<StageInfo.Count;i++)

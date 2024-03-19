@@ -15,26 +15,17 @@ MonoBehaviour:
   MaxHP: 0
   Strength:
     baseValue: 3
-    realValue: 0
     fixedModifiers: []
     persentedModifiers: []
   MoveSpeed:
-    baseValue: 1000
-    realValue: 0
+    baseValue: 10
     fixedModifiers: []
     persentedModifiers: []
   AttackSpeed:
     baseValue: 0
-    realValue: 0
     fixedModifiers: []
     persentedModifiers: []
   Lucky:
     baseValue: 3
-    realValue: 0
-    fixedModifiers: []
-    persentedModifiers: []
-  HP:
-    baseValue: 0
-    realValue: 0
     fixedModifiers: []
     persentedModifiers: []

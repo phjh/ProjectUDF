@@ -40,7 +40,7 @@ public class PlayerAttack : Player
         }
         Debug.Log("damage : " + damage);
         ResentDamage = Mathf.Ceil(damage * 10)/10;
-        yield return new WaitForSeconds(1.6f/ 2 / _playerStat.AttackSpeed.GetValue());
+        yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
     }
 
@@ -52,7 +52,8 @@ public class PlayerAttack : Player
         while (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1))
         {
             pressTime += 0.05f;
-            _rightattackRange.transform.localScale = new Vector3(Mathf.Lerp(0, ChargeTime, pressTime) + 1, Mathf.Lerp(0, ChargeTime, pressTime) + 1, 1);
+            float scale = Mathf.Lerp(0, ChargeTime, pressTime) / 2 + 1;
+            _rightattackRange.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForSeconds(0.05f);
         }
 
@@ -80,7 +81,7 @@ public class PlayerAttack : Player
         _rightattackRange.gameObject.SetActive(false);
         _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
-        yield return new WaitForSeconds(5f / 2 / _playerStat.AttackSpeed.GetValue());
+        yield return new WaitForSeconds(5f / 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
     }
 

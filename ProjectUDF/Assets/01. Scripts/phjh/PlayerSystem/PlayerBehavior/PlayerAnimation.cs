@@ -2,25 +2,16 @@ using Spine.Unity;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MoveAnimationList
+public enum MoveDirectionList
 {
-    FrontIdle = 0,
-    RightfrontIdle = 1,
-    RightIdle = 2,
-    RightupIdle = 3,
-    UpIdle = 4,
-    LeftupIdle = 5,
-    LeftIdle = 6,
-    LeftfrontIdle =7,
-    FrontMove = 8,
-    FrontrightMove = 9,
-    RightMove = 10,
-    RightupMove = 11,
-    UpMove = 12,
-    LeftupMove = 13,
-    LeftMove = 14,
-    LeftfrontMove = 15
-
+    Front = 0,
+    Rightfront = 1,
+    Right = 2,
+    RightBack = 3,
+    Back = 4,
+    LeftBack = 5,
+    Left = 6,
+    Leftfront = 7,
 }
 
 public class PlayerAnimation : Player
@@ -29,39 +20,15 @@ public class PlayerAnimation : Player
 
     SkeletonAnimation skeletonAnimation;
 
+    MoveDirectionList lastMoveDirection;
+
     #region SpineAnimations
 
     [SpineAnimation]
+    public List<string> IdleAnimations;
+
+    [SpineAnimation]
     public List<string> MoveAnimations;
-
-
-
-    [SpineAnimation]
-    public string Idle;
-
-    [SpineAnimation]
-    public string moverightAnimation;
-
-    [SpineAnimation]
-    public string moveleftAnimation;
-
-    [SpineAnimation]
-    public string moveupAnimation;
-
-    [SpineAnimation]
-    public string movedownAnimation;
-
-    [SpineAnimation]
-    public string moverightupAnimation;
-
-    [SpineAnimation]
-    public string moveleftupAnimation;
-
-    [SpineAnimation]
-    public string moverightdownAnimation;
-
-    [SpineAnimation]
-    public string moveleftdownAnimation;
 
     #endregion
 
@@ -83,7 +50,7 @@ public class PlayerAnimation : Player
     {
         if (_inputDirection == Vector2.zero)
         {
-            skeletonAnimation.AnimationName = Idle;
+            skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
             return;
         }
 
@@ -91,28 +58,33 @@ public class PlayerAnimation : Player
         bool isUp = _inputDirection.y > 0;
 
          if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
-        { 
-            skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
+            //skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
         }
         else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
         {
-            skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
+            lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
+            //skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
         }
         else if (isRight)
         {
-            skeletonAnimation.AnimationName = isUp ? moverightupAnimation : moverightdownAnimation;
+            lastMoveDirection = isUp ? MoveDirectionList.RightBack : MoveDirectionList.Rightfront;
+            //skeletonAnimation.AnimationName = isUp ? moverightupAnimation : moverightdownAnimation;
         }
         else if(!isRight)
         {
-            skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
+            lastMoveDirection = isUp ? MoveDirectionList.LeftBack : MoveDirectionList.Leftfront;
+            //skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
         }
 
-
+         skeletonAnimation.AnimationName = MoveAnimations[(int)lastMoveDirection];
     }
 
     private void FixedUpdate()
     {
-        SetMoveAnimation();
+        if(_player.ActiveMove)
+            SetMoveAnimation();
     }
 
 }

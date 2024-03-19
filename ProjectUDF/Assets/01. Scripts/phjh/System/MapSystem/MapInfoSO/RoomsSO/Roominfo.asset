@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Roominfo
+  m_EditorClassIdentifier: Assembly-CSharp::Room
+  id: 0
+  monsterWaves: 3
+  numberOfMonsters: 000000000000000000000000
+  spawnMonsterList:
+  - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+  spawnMonster: []

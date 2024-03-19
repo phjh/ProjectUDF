@@ -1,3 +1,4 @@
+using System.Data.Common;
 using UnityEngine;
 
 public class PlayerMovement : Player
@@ -10,6 +11,8 @@ public class PlayerMovement : Player
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
 
+    private Rigidbody2D _rigidbody;
+
     protected void Start()
     {
         _playerStat = _player._playerStat;
@@ -17,6 +20,8 @@ public class PlayerMovement : Player
         _inputReader.MovementEvent += SetMovement;
         _playerStat.MoveSpeedChanged += LoadMoveSpeed;
         stopImmediately += StopImmediately;
+        _inputReader.DodgeEvent += Dodge;
+        _rigidbody = GetComponent<Rigidbody2D>();
         _currentSpeed = _playerStat.MoveSpeed.GetValue();        
     }
 
@@ -25,6 +30,12 @@ public class PlayerMovement : Player
         _inputReader.MovementEvent -= SetMovement;
         _playerStat.MoveSpeedChanged -= LoadMoveSpeed;
         stopImmediately -= StopImmediately;
+        _inputReader.DodgeEvent -= Dodge;
+    }
+
+    public void Dodge()
+    {
+
     }
 
     public void SetMovement(Vector2 value)
@@ -39,7 +50,7 @@ public class PlayerMovement : Player
 
     private void CalculatePlayerMovement()
     {
-        _movementVelocity = _inputDirection * (_currentSpeed * Time.deltaTime);
+        _movementVelocity = _inputDirection * _currentSpeed;
     }
 
     public void StopImmediately()
