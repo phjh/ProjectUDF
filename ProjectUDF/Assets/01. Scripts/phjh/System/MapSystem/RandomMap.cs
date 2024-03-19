@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class RandomMap : MonoBehaviour
 {
+    [SerializeField]
+    List<MapInfoSO> floors;
+
+    int nowfloor = 0;
+
+    private void Start()
+    {
+        floors[nowfloor].CloneAndSetting();
+    }
 
     private void OnEnable()
     {
