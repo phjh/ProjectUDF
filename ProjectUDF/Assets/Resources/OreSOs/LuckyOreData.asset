@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339217327c6ec0b42ae1c5c38315f001, type: 3}
+  m_Name: LuckyOreData
+  m_EditorClassIdentifier: 
+  OreName: "\uD3EC\uD230"
+  OreDesc: "\uC601\uB871\uD55C \uB178\uB780\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
+    \uD589\uC6B4\uC774 \uC99D\uAC00\uD55C\uB2E4."
+  stats: 1
+  value: 3

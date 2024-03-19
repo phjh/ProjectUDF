@@ -4,8 +4,9 @@ using UnityEngine;
 public class PlayerMovement : Player
 {
     [SerializeField] Player _player;
+    private Rigidbody2D _rigidbody; 
 
-    private float _currentSpeed;
+	private float _currentSpeed;
 
     private Vector2 _inputDirection;
     private Vector3 _movementVelocity;

@@ -17,7 +17,7 @@ public struct ItemCollect
 	public bool IsThisCollect;
 }
 
-[CreateAssetMenu(fileName = "Empty Item Data", menuName = "SO/Player/ItemSO")]
+[CreateAssetMenu(fileName = "Empty Item Data", menuName = "SO/DataSO/ItemSO")]
 public class ItemDataSO : ScriptableObject
 {
 	[HideInInspector] public bool isCollect = false;
