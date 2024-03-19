@@ -47,7 +47,7 @@ public class MonoOre : MonoBehaviour
 		{
 			OreImage.color = new Vector4(1, 1, 1, 0);
 			NameText.text = string.Empty;
-			DescText.text = "Àç Ã¤±¤¿¡ ½ÇÆÐÇØ¹ö·È´Ù...";
+			DescText.text = string.Empty;
 			LinkedBtn.interactable = false;
 		}
 	}
