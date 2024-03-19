@@ -17,4 +17,9 @@ public class PushButtonEffect : MonoBehaviour
 			//시퀀스 작동이 끝났을 때 실행할 것
 		});
 	}
+
+	public void DisableButton()
+	{
+		gameObject.SetActive(false);
+	}
 }

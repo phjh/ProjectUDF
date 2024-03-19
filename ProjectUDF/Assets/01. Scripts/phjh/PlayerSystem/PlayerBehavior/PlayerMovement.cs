@@ -12,8 +12,6 @@ public class PlayerMovement : Player
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
 
-    private Rigidbody2D _rigidbody;
-
     protected void Start()
     {
         _playerStat = _player._playerStat;

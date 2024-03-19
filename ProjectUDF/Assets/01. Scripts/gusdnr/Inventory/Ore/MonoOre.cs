@@ -20,21 +20,7 @@ public class MonoOre : MonoBehaviour
 		Debug.Log($"Random Ore Setting Complete : {CardOreSO}");
 	}
 
-	private void Start()
-	{
-		StartCoroutine("ResetTest");
-	}
 	#region 외부 호출용 함수들
-
-	private IEnumerator ResetTest()
-	{
-		for (int i = 0; i < 100; i++)
-		{
-			ResetOre();
-			yield return new WaitForSeconds(0.1f);
-		}
-	}
-
 	private int tempSO = 0;
 	private void SetRandomOre()
 	{
