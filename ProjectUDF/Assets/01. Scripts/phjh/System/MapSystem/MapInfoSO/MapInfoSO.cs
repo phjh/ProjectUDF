@@ -10,7 +10,7 @@ public class MapInfoSO : ScriptableObject
     public int numberOfRooms; //보스방 제외
 
     public List<RoomInfoSO> roomLists; //방 리스트들
-    [HideInInspector]
+    //[HideInInspector]
     public List<RoomInfoSO> floorRoomInfo; //이번 층에서 나올 방들
 
     
@@ -18,6 +18,7 @@ public class MapInfoSO : ScriptableObject
     {
         var clone = Instantiate(this);
         clone.GenerateRandomMapInfoSO();
+        Debug.Log(clone);
         return clone;
     }
 

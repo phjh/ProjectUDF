@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   monsterWaves: 2
-  numberOfMonsters: 0400000002000000
-  spawnMonsterList: []
+  numberOfMonsters: 0800000006000000
+  spawnMonsterList:
+  - {fileID: 1657760043003656654, guid: 30351b57998940047a26f836f07b9384, type: 3}
+  - {fileID: 8244991511647508531, guid: c8823dd21a91ed54b975248c2ff357c2, type: 3}
+  - {fileID: 8244991511647508531, guid: c8823dd21a91ed54b975248c2ff357c2, type: 3}
   spawnMonster: []

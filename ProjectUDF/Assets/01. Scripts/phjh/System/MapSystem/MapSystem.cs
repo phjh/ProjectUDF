@@ -7,33 +7,40 @@ public class MapSystem : MonoSingleton<MapSystem>
     public List<MapInfoSO> StageInfo;
 
     //층 따라 시작되는 이벤트
-    public event Action StageStartEvent;
-    public event Action StageClearEvent;
+    public event Action FloorStartEvent; //1번
+    public event Action FloorClearEvent; //2번
 
     //방 마다 시작되는 이벤트
-    public event Action MapStartEvent;
-    public event Action MapClearEvent;
+    public event Action MapStartEvent;  //3번
+    public event Action MapClearEvent;  //4번
 
     //몬스터 웨이브 깰때마다 시작되는 이벤트
-    public event Action MonsterWaveClearEvent;
+    public event Action MonsterWaveClearEvent;  //5번
 
-    public int leftRooms = 0;
-    public int leftMonsters = 0;
 
-    public void StageFlow()
+    public void ActionInvoker(int thing)
     {
-        for(int i=0;i<StageInfo.Count;i++)
+        switch (thing)
         {
-            //MapStartEvent?.Invoke();
-            //MonsterWaveClearEvent?.Invoke();
-            //MapClearEvent?.Invoke();
-
+            case 1:
+                FloorStartEvent?.Invoke();
+                break;
+            case 2:
+                FloorClearEvent?.Invoke(); 
+                break;
+            case 3:
+                MapStartEvent?.Invoke();
+                break;
+            case 4:
+                MapClearEvent?.Invoke();
+                break;
+            case 5:
+                MonsterWaveClearEvent?.Invoke();
+                break;
+            default:
+                break;
         }
-        //여기서 보스방으로 가는 로직 짜기
-
 
     }
-
-
 
 }
