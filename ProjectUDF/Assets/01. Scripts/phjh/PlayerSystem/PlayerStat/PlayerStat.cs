@@ -16,8 +16,8 @@ public enum Stats
 [CreateAssetMenu(fileName = "New Player Stat", menuName = "SO/Player/PlayerStat")]
 public class PlayerStat : ScriptableObject
 {
+	public static event Action HpChanged;
 	public event Action<float> StrengthChanged;
-	public event Action<float> HpChanged;
 	public event Action<float> MoveSpeedChanged;
 	public event Action<float> AttackSpeedChanged;
 	public event Action<float> LuckyChanged;
@@ -25,7 +25,8 @@ public class PlayerStat : ScriptableObject
 	[Header("Player's Stats")]
 	public int MaxHP;
 	private int curHP;
-	public int CurHP { get; set; }
+	public int CurHP
+	{ get { return curHP;} set{ curHP = value; } }
 	public Stat Strength;
 	public Stat MoveSpeed;
 	public Stat AttackSpeed;
@@ -36,6 +37,7 @@ public class PlayerStat : ScriptableObject
 	public void OnEnable()
 	{
 		Debug.Log("컴파일 시 초기화 실행");
+
 		if (_fieldInfoDictionary == null)
 		{
 			_fieldInfoDictionary = new Dictionary<Stats, FieldInfo>();
@@ -98,13 +100,15 @@ public class PlayerStat : ScriptableObject
 
 	public void ResetHP()
 	{
-		curHP = MaxHP;
+		CurHP = MaxHP;
 	}
 
 	public void EditPlayerHP(int value)
 	{
 		curHP += value;
 		if (curHP > MaxHP) { curHP = MaxHP; }
+		else { HpChanged?.Invoke(); }
+
 		if(curHP <= 0) {  } //플레이어 쪽에서 죽는 이벤트 실행
 	}
 

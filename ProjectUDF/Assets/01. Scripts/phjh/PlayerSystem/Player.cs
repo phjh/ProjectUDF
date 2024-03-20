@@ -24,6 +24,19 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _playerStat = _playerStat.Clone(); 
+        _playerStat = _playerStat.Clone();
+        _playerStat.SetOwner(this);
     }
+
+	private void Update()
+	{
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _playerStat.EditPlayerHP(-1);
+        }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _playerStat.EditPlayerHP(1);
+        }
+	}
 }
