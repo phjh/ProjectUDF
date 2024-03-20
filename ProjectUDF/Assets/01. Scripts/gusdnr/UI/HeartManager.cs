@@ -25,24 +25,20 @@ public class HeartManager : MonoBehaviour
 	private void Start()
 	{
 		playerStat = player._playerStat;
+
+		int heartToMake = playerStat.MaxHP;
+		for (int i = 0; i < heartToMake; i++)
+		{
+			CreateEmptyHearts();
+		}
 		DrawHearts();
 	}
 
 	public void DrawHearts()
 	{
-		ClearHearts();
-
-		float maxHealthRemainder = playerStat.MaxHP % 2; //홀수일 경우 하트가 하나 덜 생성되는 것을 방지
-		int heartToMake = (int)(playerStat.MaxHP / 2 + maxHealthRemainder);
-		
-		for(int i = 0; i < heartToMake; i++)
-		{
-			CreateEmptyHearts();
-		}
-
 		for(int i = 0; i < hearts.Count; i++)
 		{
-			int heartStatusRemainder = (int)Mathf.Clamp(playerStat.CurHP - (i * 2), 0, 2);
+			int heartStatusRemainder = (int)Mathf.Clamp(playerStat.CurHP - i, 0 , 1);
 			hearts[i].SetHeartImage((UIHeartState)heartStatusRemainder);
 		}
 	}
@@ -51,6 +47,7 @@ public class HeartManager : MonoBehaviour
 	{
 		GameObject newHeart = Instantiate(HeartPrefab);
 		newHeart.transform.SetParent(gameObject.transform);
+		newHeart.name = newHeart.name.Replace("(Clone)", "");
 		int heartIndex = hearts.Count;
 
 		if(heartIndex == 0)
@@ -73,13 +70,5 @@ public class HeartManager : MonoBehaviour
 		HeartState newHeartState = newHeart.GetComponent<HeartState>();
 		newHeartState.SetHeartImage(UIHeartState.Empty);
 		hearts.Add(newHeartState);
-	}
-
-	public void ClearHearts()
-	{
-		foreach(Transform t in transform)
-		{
-			Destroy(t.gameObject);
-		}
 	}
 }

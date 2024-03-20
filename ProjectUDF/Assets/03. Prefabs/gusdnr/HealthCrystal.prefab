@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   full: {fileID: 21300000, guid: e4a566c57228cea449de9d1288439d43, type: 3}
-  half: {fileID: 21300000, guid: 22ab10a4262b30b49b82b263d904e90c, type: 3}
   empty: {fileID: 21300000, guid: 0097d3b777c8619409a9ee2fb04d3cc2, type: 3}
 --- !u!114 &2210049324556794770
 MonoBehaviour:
@@ -75,7 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
