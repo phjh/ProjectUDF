@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _playerStat = _playerStat.Clone(); 
+        _playerStat = _playerStat.Clone();
+        _playerStat.SetOwner(this);
     }
 }

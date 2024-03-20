@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491ffc8035083c446a69c4c9e297f22d, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  MaxHP: 0
+  MaxHP: 6
   Strength:
     baseValue: 3
     fixedModifiers: []

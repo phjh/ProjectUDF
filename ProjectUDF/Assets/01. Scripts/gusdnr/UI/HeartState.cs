@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum UIHeartState
 {
@@ -12,11 +13,11 @@ public enum UIHeartState
 public class HeartState : MonoBehaviour
 {
 	[SerializeField] private Sprite full, half, empty;
-	private SpriteRenderer heartImage;
+	private Image heartImage;
 
 	private void Awake()
 	{
-		heartImage = GetComponent<SpriteRenderer>();
+		heartImage = GetComponent<Image>();
 	}
 
 	public void SetHeartImage(UIHeartState status)

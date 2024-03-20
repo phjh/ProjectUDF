@@ -25,7 +25,8 @@ public class PlayerStat : ScriptableObject
 	[Header("Player's Stats")]
 	public int MaxHP;
 	private int curHP;
-	public int CurHP { get; set; }
+	public int CurHP
+	{ get { return curHP;} set{ curHP = value; } }
 	public Stat Strength;
 	public Stat MoveSpeed;
 	public Stat AttackSpeed;
@@ -36,6 +37,7 @@ public class PlayerStat : ScriptableObject
 	public void OnEnable()
 	{
 		Debug.Log("컴파일 시 초기화 실행");
+
 		if (_fieldInfoDictionary == null)
 		{
 			_fieldInfoDictionary = new Dictionary<Stats, FieldInfo>();
@@ -98,7 +100,7 @@ public class PlayerStat : ScriptableObject
 
 	public void ResetHP()
 	{
-		curHP = MaxHP;
+		CurHP = MaxHP;
 	}
 
 	public void EditPlayerHP(int value)

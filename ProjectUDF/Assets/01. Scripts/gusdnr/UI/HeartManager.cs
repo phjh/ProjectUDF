@@ -5,7 +5,8 @@ using UnityEngine;
 public class HeartManager : MonoBehaviour
 {
     [SerializeField] private GameObject HeartPrefab;
-    [SerializeField] private PlayerStat playerStat;
+    [SerializeField] private Player player;
+	private PlayerStat playerStat;
     [SerializeField] private float xSpacing;
     [SerializeField] private float ySpacing;
 
@@ -23,6 +24,7 @@ public class HeartManager : MonoBehaviour
 
 	private void Start()
 	{
+		playerStat = player._playerStat;
 		DrawHearts();
 	}
 

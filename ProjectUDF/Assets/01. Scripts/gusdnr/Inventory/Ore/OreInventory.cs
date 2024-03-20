@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//[CreateAssetMenu(fileName = "Ore Inventory List", menuName = "SO/Player/OreInventory")]
 public class OreInventory : MonoSingleton<OreInventory>
 {
 	#region Variables
 
 	//Another Components
-	public PlayerStat status; //추후 플레이어가 가지고 있는 플레이어 스탯 SO 가져오는 부분 추가 필요 *****
+	public Player player;
+	private PlayerStat status; //추후 플레이어가 가지고 있는 플레이어 스탯 SO 가져오는 부분 추가 필요 *****
 
 	//Values
 	public int MaxInInvnetory = 7; //광석 소지 개수
@@ -23,6 +23,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	private void Start()
 	{
+		status = player._playerStat;
 		ResetOreList();
 	}
 
