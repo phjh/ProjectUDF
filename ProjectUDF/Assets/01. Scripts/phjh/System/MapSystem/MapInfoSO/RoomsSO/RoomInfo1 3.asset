@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Roominfo
-  m_EditorClassIdentifier: Assembly-CSharp::Room
-  id: 0
-  monsterWaves: 3
-  numberOfMonsters: 000000000000000000000000
+  m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
+  m_Name: RoomInfo1 3
+  m_EditorClassIdentifier: 
+  id: 3
+  monsterWaves: 2
+  numberOfMonsters: 0800000007000000
   spawnMonsterList:
+  - {fileID: -8653719598885068355, guid: 2e7313e7d403a2541a9b716d18d8dc03, type: 3}
+  - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
   - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
   spawnMonster: []

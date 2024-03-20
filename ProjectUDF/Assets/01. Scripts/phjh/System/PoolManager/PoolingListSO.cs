@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum PoolingType
 {
-
+    Monster,
+    monster2,
+    item
 }
 
 [Serializable]

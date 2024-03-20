@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
+  m_Name: RoomInfo1 5
+  m_EditorClassIdentifier: 
+  id: 5
+  monsterWaves: 2
+  numberOfMonsters: 0800000006000000
+  spawnMonsterList:
+  - {fileID: 1657760043003656654, guid: 30351b57998940047a26f836f07b9384, type: 3}
+  - {fileID: 8244991511647508531, guid: c8823dd21a91ed54b975248c2ff357c2, type: 3}
+  - {fileID: 8244991511647508531, guid: c8823dd21a91ed54b975248c2ff357c2, type: 3}
+  spawnMonster: []

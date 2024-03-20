@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545138e867fcbd34abe67ff3cc6d3d8b, type: 3}
   m_Name: Pooling List
   m_EditorClassIdentifier: 
-  list: []
+  list:
+  - type: 0
+    prefab: {fileID: -8852433299532665753, guid: 30351b57998940047a26f836f07b9384, type: 3}
+    count: 20
+  - type: 0
+    prefab: {fileID: 7647687750372263126, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    count: 20

@@ -257,6 +257,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAtk: {fileID: 2113449765}
+--- !u!1 &447204363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447204365}
+  - component: {fileID: 447204364}
+  - component: {fileID: 447204366}
+  m_Layer: 0
+  m_Name: MapSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &447204364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447204363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1d389b3e803094f8c14f6ef0c566bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floors:
+  - {fileID: 11400000, guid: c16faea073099a540825229e2ce4e18d, type: 2}
+  nowFloor: 0
+  nowRoom: 0
+  nowWave: 0
+  leftMonsters: 0
+--- !u!4 &447204365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447204363}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.83789814, y: -6.144791, z: -1.4633974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &447204366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447204363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13c5c2c81e257845a40054366fea3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StageInfo: []
 --- !u!1 &666719546
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +678,10 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 1
   _player: {fileID: 1956191124}
+  lastinputDir: {x: 0, y: -1}
 --- !u!50 &1041966974
 Rigidbody2D:
   serializedVersion: 4
@@ -917,6 +984,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
 --- !u!114 &1956191125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,6 +1001,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
   _player: {fileID: 1956191124}
   IdleAnimations:
   - idle_f
@@ -951,6 +1022,11 @@ MonoBehaviour:
   - walk_sb_l
   - walk_s_l
   - walk_sf_l
+  leftAttackAnimation: 
+  rightAttackAnimation: 
+  DodgeAnimation: 
+  hitAniAnimation: 
+  dieAnimation: 
   _inputDirection: {x: 0, y: 0}
 --- !u!1 &2017967023
 GameObject:
@@ -1052,6 +1128,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
 --- !u!1 &2113449762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1181,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
   _player: {fileID: 1956191124}
 --- !u!114 &2113449765
 MonoBehaviour:
@@ -1119,6 +1199,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 0
   _player: {fileID: 1956191124}
   _range: {fileID: 1542039600}
   _rightattackRange: {fileID: 116476673}
@@ -1348,3 +1430,4 @@ SceneRoots:
   - {fileID: 2126607213}
   - {fileID: 1041966972}
   - {fileID: 6247912544196443669}
+  - {fileID: 447204365}

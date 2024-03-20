@@ -26,7 +26,6 @@ public class PoolManager
             Debug.LogError("Prefab doesnt exist on pool");
             return null;
         }
-
         PoolableMono item = _pools[type].Pop();
         item.ResetPooingItem();
         return item;
