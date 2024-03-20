@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RandomMap : MonoBehaviour
@@ -54,7 +55,8 @@ public class RandomMap : MonoBehaviour
         int i = 0;
         foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonster)
         {
-            monsters.transform.position = spawnPos[i];
+            PoolableObjectTest obj = monsters.GetComponent<PoolableObjectTest>();
+            obj.CustomInstantiate(spawnPos[i]);
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
             //스폰 정보 없애기
             spawnPos.Remove(i);
