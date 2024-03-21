@@ -793,7 +793,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53bf343fbca31c347b7b9b048109b6b6, type: 2}
   - {fileID: 11400000, guid: 1f7bbac246bccec41a13729883a29c0a, type: 2}
   - {fileID: 11400000, guid: e13383081ed472f48bee2f04378b2eac, type: 2}
-  CardOreSO: {fileID: 0}
+  CurOreData: {fileID: 0}
 --- !u!1 &8244991511647508531
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +820,7 @@ RectTransform:
   m_GameObject: {fileID: 8244991511647508531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2634438188918846366}

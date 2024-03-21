@@ -15,7 +15,7 @@ public class DashAttack : AtkPatternMono
 
 	public override void DoingAttack(EnemyBase eb)
 	{
-		if (eb != null && eb.Target != null)
+		if (eb != null && eb.target != null)
 		{
 			eb.aiPath.destination = eb.EnemyPos;
 			StartCoroutine(LockOnAndDash(eb));

@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingleton<GameManager>
 {
+	#region Pool
+	[Header("Pool Managing Values")]
     [SerializeField]
-    PoolingListSO poollistSO;
+    private PoolingListSO poollistSO;
+    [SerializeField]
+    private Transform _poolingTrm;
+	#endregion
 
-    [SerializeField]
-    Transform _poolingTrm;
+	public Player player;
 
     private void Awake()
     {
@@ -16,6 +20,11 @@ public class GameManager : MonoBehaviour
         foreach (var obj in poollistSO.list)
         {
             PoolManager.Instance.CreatePool(obj.prefab, obj.type, obj.count);
+        }
+
+        if(player == null)
+        {
+            player = FindObjectOfType<Player>().GetComponent<Player>();
         }
     }
 

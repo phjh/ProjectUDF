@@ -3,6 +3,7 @@ using UnityEngine;
 using Pathfinding;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class EnemyBase : PoolableMono
 {
@@ -22,7 +23,7 @@ public class EnemyBase : PoolableMono
 	#endregion
 
 	#region Enemy Components
-	public Transform Target; //추후 자동 할당하는 방식으로 수정 예정
+	private Transform target; //추후 자동 할당하는 방식으로 수정 예정
 
 	[HideInInspector] public AIPath aiPath;
 	[HideInInspector] public Collider2D EnemyCLD;
@@ -66,6 +67,7 @@ public class EnemyBase : PoolableMono
 		if (seeker == null) seeker = GetComponent<Seeker>();
 		if (aiPath == null) aiPath = GetComponent<AIPath>();
 		if (seeker.pathCallback == null) seeker.pathCallback += OnPathComplete;
+		if(target == null) target = GameManager.Instance.player.transform;
 		#endregion
 
 		if (Patterns.Count < 0) //패턴 개수가 0개보다 적을 때 패턴 리스트 할당
@@ -88,15 +90,12 @@ public class EnemyBase : PoolableMono
 	private void Update()
 	{
 		EnemyPos = transform.position;
-		TargetPos = Target.position;
+		TargetPos = target.position;
 
 		if (isDead)
 		{
-			//만약 공격 중이라면 취소하는 부분 추가
-			Destroy(gameObject);
-			//PoolManager.Instance.Push(this.gameObject.GetComponent<EnemyBase>());
 			StopAllCoroutines();
-			return;
+			PoolManager.Instance.Push(this.gameObject.GetComponent<EnemyBase>());
 		}
 		
 		if (!isAttacking && !isWandering)

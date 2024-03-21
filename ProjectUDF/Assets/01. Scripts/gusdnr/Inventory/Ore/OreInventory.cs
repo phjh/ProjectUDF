@@ -9,7 +9,6 @@ public class OreInventory : MonoSingleton<OreInventory>
 	#region Variables
 
 	//Another Components
-	public Player player;
 	private PlayerStat status; //추후 플레이어가 가지고 있는 플레이어 스탯 SO 가져오는 부분 추가 필요 *****
 
 	//Values
@@ -23,7 +22,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	private void Start()
 	{
-		status = player._playerStat;
+		status = GameManager.Instance.player._playerStat;
 		ResetOreList();
 	}
 

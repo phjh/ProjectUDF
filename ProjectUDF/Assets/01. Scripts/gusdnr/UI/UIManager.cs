@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-	[SerializeField] private GameObject OreCard;
-	public GameObject miningCanvas;
+	[Header("UI Objects")]
+	public GameObject ScreenFilter;
 	public List<GameObject> Cards;
+
+	private int failCount = 0;
 
 	public static event EventHandler OnResearchEnd;
 
@@ -18,7 +20,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void ShowCards()
 	{
-		miningCanvas?.SetActive(true);
+		failCount = 0;
+		ScreenFilter?.SetActive(true);
 		for (int i = 0; i < Cards.Count; i++)
 		{
 			Cards[i].GetComponent<PanelHandler>().Show();
@@ -27,10 +30,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void HideCards()
 	{
-		miningCanvas?.SetActive(false);
+		ScreenFilter?.SetActive(false);
 	}
-
-	public int failCount = 0;
 
 	public void CountFail()
 	{

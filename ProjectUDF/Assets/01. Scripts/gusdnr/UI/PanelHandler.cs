@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class PanelHandler : MonoBehaviour
 {
-	private void OnEnable()
+	protected bool isActive;
+
+	private void Start()
 	{
 		DOTween.Init();
-		// transform 의 scale 값을 모두 0.1f로 변경합니다.
 		transform.localScale = Vector3.one * 0.1f;
 		UIManager.Instance.Cards.Add(gameObject);
 		gameObject.SetActive(false);
+		isActive = false;
 	}
 
 	public void Show()
 	{
 		gameObject.SetActive(true);
-		
+		isActive = true;
+
 		// DOTween 함수를 차례대로 수행하게 해줍니다.
 		var seq = DOTween.Sequence();
 
@@ -39,7 +42,7 @@ public class PanelHandler : MonoBehaviour
 
 		seq.Play().OnComplete(() =>
 		{
-			UIManager.Instance.Cards.Remove(gameObject);
+			isActive = false;
 			gameObject.SetActive(false);
 			UIManager.Instance.HideCards();
 		});
@@ -60,12 +63,13 @@ public class PanelHandler : MonoBehaviour
 		// 여기서는 닫기 애니메이션이 완료된 후 객체를 비활성화 합니다.
 		seq.Play().OnComplete(() =>
 		{
-            UIManager.Instance.Cards.Remove(gameObject);
+			isActive = false;
 			if(UIManager.Instance.Cards != null) UIManager.Instance.Cards.ForEach(x =>
 			{
-				x.GetComponent<PanelHandler>().HideDefault();
+				PanelHandler handler = x.GetComponent<PanelHandler>();
+				if(handler.isActive) HideDefault();
 			});
 			gameObject.SetActive(false);
-        });
+		});
 	}
 }

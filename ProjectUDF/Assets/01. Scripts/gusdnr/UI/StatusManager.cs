@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StatusManager : MonoBehaviour
 {
-    [SerializeField] private Player player;
 	private PlayerStat playerStat;
 
 	[Header("HP UI Value")]
@@ -26,7 +25,7 @@ public class StatusManager : MonoBehaviour
 
 	private void Start()
 	{
-		playerStat = player._playerStat;
+		playerStat = GameManager.Instance.player._playerStat;
 
 		int heartToMake = playerStat.MaxHP;
 		for (int i = 0; i < heartToMake; i++)
