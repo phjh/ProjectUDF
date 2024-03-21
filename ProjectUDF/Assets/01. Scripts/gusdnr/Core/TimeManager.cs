@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,9 +9,17 @@ public class TimeManager : MonoSingleton<TimeManager>
     public float NowTime;
     [SerializeField] private float MaxTime;
 
-    [SerializeField]TMP_Text TimerText;
+    public TMP_Text TimerText;
     private bool isWorkingTimer;
-    public bool IsWorkingTimer => isWorkingTimer;
+    public bool IsWorkingTimer
+    {
+        get { return  isWorkingTimer; }
+        set { isWorkingTimer = value; }
+    }
+
+	public event Action OnTimerEnd;
+
+	private Coroutine timerCoroutine;
 
 	private void Start()
 	{
@@ -18,37 +27,45 @@ public class TimeManager : MonoSingleton<TimeManager>
 	}
 
 	public void ResetTimer()
-    {
-        NowTime = MaxTime;
-    }
+	{
+		NowTime = MaxTime;
+		DisplayTime(NowTime);
+		StopTimer(false);
+	}
 
-    public void StopTimer(bool isReset = true, bool isStop = true) //타이머 정지 (리셋할 것인가? 정지하는 것인가?)
-    {
-        isWorkingTimer = !isStop;
-        if(isReset) { ResetTimer(); }
-    }
+	public void StopTimer(bool isReset = true)
+	{
+		IsWorkingTimer = false;
+		if(timerCoroutine != null) StopCoroutine(timerCoroutine);
+		if (isReset) { ResetTimer(); }
+	}
 
-    public void StartTimer() //외부 호출용 타이머 시작 함수
+	public void StartTimer() //외부 호출용 타이머 시작 함수
     {
-        isWorkingTimer = true;
-        if(!isWorkingTimer) StartCoroutine(WorkingTimer());
-    }
+		if (!IsWorkingTimer)
+		{
+			IsWorkingTimer = true;
+			timerCoroutine = StartCoroutine(WorkingTimer());
+		}
+	}
 
     private IEnumerator WorkingTimer() //타이머용 코루틴
     {
-        while(NowTime > 0 && isWorkingTimer)
+        while(NowTime > 0)
         {
-            if(IsWorkingTimer == false) yield break;
+			if (!IsWorkingTimer) // IsWorkingTimer가 false일 때 타이머 종료
+			{
+				StopTimer(true);
+				yield break;
+			}
+
 			NowTime -= Time.deltaTime;
 			DisplayTime(NowTime);
 
-            if(NowTime <= 0)
-            {
-                StopTimer();
-            }
-        }
+			yield return null;
+		}
+		OnTimerEnd?.Invoke();
 		StopTimer(true);
-		yield return null;
     }
 
 	private void DisplayTime(float timeToDisplay) //보여줄 시간 텍스트화
@@ -57,7 +74,6 @@ public class TimeManager : MonoSingleton<TimeManager>
 		var m = t0 / 60; //분 단위 값
 		var s = (t0 - m * 60); //초 단위 값
 		var ms = (int)((timeToDisplay - t0) * 100); //밀리세컨드 앞 2자리
-
-		TimerText.text = $"[{m:00}:{s:00}:{ms:00}]";
+		TimerText.text = $"[ {m:00} : {s:00} : {ms:00} ]";
 	}
 }
