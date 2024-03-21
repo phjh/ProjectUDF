@@ -12,14 +12,14 @@ public class MonoOre : MonoBehaviour
 
 	[Header("SO Values")]
 	public OreSO[] OreDatas;
-	public OreSO CardOreSO;
+	public OreSO CurOreData;
 
-	public void GetOre() => OreInventory.Instance.AddOre(CardOreSO.stats, CardOreSO.value);
+	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stats, CurOreData.value);
 
 	private void OnEnable()
 	{
 		SetRandomOre();
-		Debug.Log($"Random Ore Setting Complete : {CardOreSO}");
+		Debug.Log($"Random Ore Setting Complete : {CurOreData}");
 	}
 
 	#region 외부 호출용 함수들
@@ -54,12 +54,12 @@ public class MonoOre : MonoBehaviour
 
 	public void SetData()
 	{
-		CardOreSO = OreDatas[tempSO];
+		CurOreData = OreDatas[tempSO];
 		#region 설명 문자열 단행 추가
-		string desc = CardOreSO.OreDesc;
+		string desc = CurOreData.OreDesc;
 		desc = desc.Replace(",", "\n");
 		#endregion
-		NameText.text = CardOreSO.OreName;
+		NameText.text = CurOreData.OreName;
 		DescText.text = desc;
 	}
 

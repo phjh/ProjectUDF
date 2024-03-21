@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvnetoryUIManager : MonoBehaviour
+public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject OrePrefab;
+    [SerializeField] private RectTransform OreParent;
     
+    public List<GameObject> OrePrefabList;
+
     private void AddOreIcon()
     {
         GameObject newOre = Instantiate(OrePrefab);
@@ -13,4 +16,13 @@ public class InvnetoryUIManager : MonoBehaviour
         newOre.transform.localPosition = Vector3.zero;
     }
 
+    public void Show()
+    {
+
+    }
+
+    public void Close()
+    {
+
+    }
 }

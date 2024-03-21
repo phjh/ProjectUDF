@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &193776666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &255820144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -541,7 +541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &277059650
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1448,7 +1448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &757133256
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8386,6 +8386,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 1
 --- !u!1 &1684802412
 GameObject:
   m_ObjectHideFlags: 0
@@ -8406,7 +8408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1684802413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8970,7 +8972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1802058398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9164,7 +9166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1810453755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9211,7 +9213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1840742360
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9238,7 +9240,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840742359}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -9373,7 +9375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2004040110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9582,7 +9584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2135662634
 RectTransform:
   m_ObjectHideFlags: 0
