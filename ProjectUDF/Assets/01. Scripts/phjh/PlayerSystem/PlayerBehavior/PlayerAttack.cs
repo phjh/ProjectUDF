@@ -77,10 +77,13 @@ public class PlayerAttack : Player
         _rightAtkcol.enabled = true;
         _player.GetComponentInParent<PlayerMovement>().StopImmediately();
         _player.ActiveMove = false;
-        yield return new WaitForSeconds(0.2f);
+        PlayerAim aim = GetComponent<PlayerAim>();
+        aim.enabled = false;
+        yield return new WaitForSeconds(0.4f);
         _rightattackRange.gameObject.SetActive(false);
         _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
+        aim.enabled = true;
         yield return new WaitForSeconds(5f / 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
     }

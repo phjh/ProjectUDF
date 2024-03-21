@@ -18,7 +18,7 @@ MonoBehaviour:
     fixedModifiers: []
     persentedModifiers: []
   MoveSpeed:
-    baseValue: 10
+    baseValue: 4
     fixedModifiers: []
     persentedModifiers: []
   AttackSpeed:

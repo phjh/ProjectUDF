@@ -77,15 +77,15 @@ public class PlayerAnimation : Player
         bool isRight = _inputDirection.x > 0;
         bool isUp = _inputDirection.y > 0;
 
-         if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
-        {
-            lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
-            //skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
-        }
-        else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
+        if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
         {
             lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
             //skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
+        }
+        else if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
+            //skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
         }
         else if (isRight)
         {

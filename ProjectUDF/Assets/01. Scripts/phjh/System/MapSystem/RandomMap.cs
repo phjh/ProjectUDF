@@ -55,7 +55,7 @@ public class RandomMap : MonoBehaviour
         {
             spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 25), Random.Range(0, 25)));
         }
-
+             
         Debug.Log($"spawnPos Count : {spawnPos.Count},   monsters count : {nowFloor.floorRoomInfo[nowRoom].spawnMonster.Count} ");
 
         int i = 0;
@@ -63,8 +63,7 @@ public class RandomMap : MonoBehaviour
         {
             if (monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
                 obj.CustomInstantiate(spawnPos[i],obj.poolingType);
-            else
-                Debug.LogError($"obj : nul, {monsters.name}");
+             
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
             //스폰 정보 없애기
             spawnPos.Remove(i);
