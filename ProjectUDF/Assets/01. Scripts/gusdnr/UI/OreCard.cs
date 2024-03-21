@@ -2,15 +2,19 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 
-public class PanelHandler : MonoBehaviour
+public class OreCard : MonoBehaviour
 {
 	protected bool isActive;
 
-	private void Start()
+	[SerializeField] private GameObject ResetBtn;
+
+	private void Awake()
 	{
 		DOTween.Init();
 		transform.localScale = Vector3.one * 0.1f;
+		UIManager.Instance.Cards.Add(this);
 		gameObject.SetActive(false);
+		ResetBtn.SetActive(false);
 		isActive = false;
 	}
 
@@ -25,8 +29,10 @@ public class PanelHandler : MonoBehaviour
 		// DOScale 의 첫 번째 파라미터는 목표 Scale 값, 두 번째는 시간입니다.
 		seq.Append(transform.DOScale(1.3f, 0.3f));
 		seq.Append(transform.DOScale(1f, 0.2f));
-
-		seq.Play();
+		
+		seq.Play().OnComplete(() => {
+			ResetBtn.SetActive(true);
+		});
 	}
 
 	public void HideDefault()

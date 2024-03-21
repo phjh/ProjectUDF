@@ -8,8 +8,7 @@ public class UIManager : MonoSingleton<UIManager>
 {
 	[Header("UI Objects")]
 	public GameObject ScreenFilter;
-	public GameObject CardContainer;
-	public List<PanelHandler> Cards;
+	public List<OreCard> Cards;
 
 	private int failCount = 0;
 
@@ -17,7 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void Start()
 	{
-		Cards = CardContainer.transform.GetComponentsInChildren<PanelHandler>().ToList();
+		
 	}
 
 	public void ShowCards()
@@ -26,7 +25,7 @@ public class UIManager : MonoSingleton<UIManager>
 		ScreenFilter?.SetActive(true);
 		for (int i = 0; i < Cards.Count; i++)
 		{
-			Cards[i].GetComponent<PanelHandler>().Show();
+			Cards[i].GetComponent<OreCard>().Show();
 		}
 	}
 
@@ -43,7 +42,7 @@ public class UIManager : MonoSingleton<UIManager>
 		{
 			for (int i = 0; i < Cards.Count; i++)
 			{
-				Cards[i].GetComponent<PanelHandler>().HideDefault();
+				Cards[i].GetComponent<OreCard>().HideDefault();
 			}
 		}
 	}
