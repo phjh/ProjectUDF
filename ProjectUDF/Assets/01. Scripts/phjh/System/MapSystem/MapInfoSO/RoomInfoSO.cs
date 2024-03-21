@@ -8,6 +8,9 @@ public class RoomInfoSO : ScriptableObject
     [Header("방 정보들")]
     public int id;
     public int monsterWaves;
+    public GameObject MapPrefab;
+
+    [Header("웨이브별 나오는 몬스터 수")]
     public List<int> numberOfMonsters;
 
     [Header("몬스터 리스트")]
@@ -19,12 +22,20 @@ public class RoomInfoSO : ScriptableObject
     public RoomInfoSO CloneAndSetting()
     {
         var a = Instantiate(this);
-        a.GenerateRandomMonsterSpawnInfo();
+        a.GenerateMonsterInfo();
         Debug.Log(a);
         return a;
     }
 
-    private void GenerateRandomMonsterSpawnInfo()
+    public RoomInfoSO CloneAndSettingRandom()
+    {
+        var a = Instantiate(this);
+        a.GenerateRandomMonsterInfo();
+        Debug.Log(a);
+        return a;
+    }
+
+    private void GenerateRandomMonsterInfo()
     {
         if (numberOfMonsters.Count != monsterWaves)
         {
@@ -42,12 +53,17 @@ public class RoomInfoSO : ScriptableObject
         }
     }
 
+    public void GenerateMonsterInfo()
+    {
+
+    }
+
     public void DebugMonsters()
     {
         int i = 0;
         for(int a = 0; a < numberOfMonsters.Count; a++)
         {
-            string str = "";
+            string str = "\n";
             str += this.name + "\n";
             int l = numberOfMonsters[a];
             for(int b = 0; b < l; b++)

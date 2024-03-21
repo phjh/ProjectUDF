@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class MapSystem : MonoSingleton<MapSystem>
 {
     //보스를 제외한 한 층의 정보를 담고있다 (각 방의 정보)
-    public List<MapInfoSO> StageInfo;
+    //public List<MapInfoSO> StageInfo;
 
     //층 따라 시작되는 이벤트
     public event Action FloorStartEvent; //1번

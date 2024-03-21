@@ -9,9 +9,9 @@ public class PoolableObjectTest : PoolableMono
 
     }
 
-    public void CustomInstantiate(Vector2 pos)
+    public void CustomInstantiate(Vector2 pos,PoolingType type)
     {
-        PoolManager.Instance.Pop(PoolingType.Monster);
-        transform.position = pos;
+        PoolableMono poolItem = PoolManager.Instance.Pop(type);
+        poolItem.transform.position = pos;
     }
 }

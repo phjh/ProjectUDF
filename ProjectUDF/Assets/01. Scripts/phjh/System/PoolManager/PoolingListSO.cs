@@ -6,6 +6,7 @@ public enum PoolingType
 {
     Monster,
     monster2,
+    monster3,
     item
 }
 
