@@ -10,7 +10,6 @@ public class PanelHandler : MonoBehaviour
 	{
 		DOTween.Init();
 		transform.localScale = Vector3.one * 0.1f;
-		UIManager.Instance.Cards.Add(gameObject);
 		gameObject.SetActive(false);
 		isActive = false;
 	}
@@ -66,8 +65,7 @@ public class PanelHandler : MonoBehaviour
 			isActive = false;
 			if(UIManager.Instance.Cards != null) UIManager.Instance.Cards.ForEach(x =>
 			{
-				PanelHandler handler = x.GetComponent<PanelHandler>();
-				if(handler.isActive) HideDefault();
+				if(x.isActive) x.HideDefault();
 			});
 			gameObject.SetActive(false);
 		});

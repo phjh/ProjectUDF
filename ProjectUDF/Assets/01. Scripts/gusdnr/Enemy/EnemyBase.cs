@@ -23,7 +23,7 @@ public class EnemyBase : PoolableMono
 	#endregion
 
 	#region Enemy Components
-	private Transform target; //추후 자동 할당하는 방식으로 수정 예정
+	public Transform target; //추후 자동 할당하는 방식으로 수정 예정
 
 	[HideInInspector] public AIPath aiPath;
 	[HideInInspector] public Collider2D EnemyCLD;

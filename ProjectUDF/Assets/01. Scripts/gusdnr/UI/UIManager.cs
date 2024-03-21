@@ -1,13 +1,15 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
 	[Header("UI Objects")]
 	public GameObject ScreenFilter;
-	public List<GameObject> Cards;
+	public GameObject CardContainer;
+	public List<PanelHandler> Cards;
 
 	private int failCount = 0;
 
@@ -15,7 +17,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void Start()
 	{
-		ShowCards();
+		Cards = CardContainer.transform.GetComponentsInChildren<PanelHandler>().ToList();
 	}
 
 	public void ShowCards()
