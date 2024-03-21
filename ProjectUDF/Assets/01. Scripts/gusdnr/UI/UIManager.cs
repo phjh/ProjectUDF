@@ -11,6 +11,13 @@ public class UIManager : MonoSingleton<UIManager>
 	public List<OreCard> Cards;
 
 	private int failCount = 0;
+	
+	private bool isActivePopUp;
+	public bool IsActivePopUp
+	{
+		get { return isActivePopUp; }
+		set { isActivePopUp = value; }
+	}
 
 	public static event EventHandler OnResearchEnd;
 

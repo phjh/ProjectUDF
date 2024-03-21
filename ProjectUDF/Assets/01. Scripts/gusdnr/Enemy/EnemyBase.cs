@@ -17,7 +17,7 @@ public class EnemyBase : PoolableMono
 	private bool isUpdatingPath = false;
 
 	private bool hasLineOfSight = false;
-	private bool isInAttackRange => Vector2.Distance(EnemyPos, TargetPos) < AttackRadius && hasLineOfSight;
+	private bool isInAttackRange => Vector2.Distance(EnemyPos, TargetPos) < MaxAttackRadius && Vector2.Distance(EnemyPos, TargetPos) > MinAttackRadius && hasLineOfSight;
 	
 	[HideInInspector] public bool isAttacking = false;
 	#endregion
@@ -45,7 +45,8 @@ public class EnemyBase : PoolableMono
 
 	[Header("Attack Stats")]
 	public float AttackDelay;
-	public float AttackRadius;
+	public float MinAttackRadius;
+	public float MaxAttackRadius;
 
 	[Header("Move Stats")]
 	public float PathUpdateDelay;
@@ -203,7 +204,8 @@ public class EnemyBase : PoolableMono
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, AttackRadius);
+		Gizmos.DrawWireSphere(transform.position, MinAttackRadius);
+		Gizmos.DrawWireSphere(transform.position, MaxAttackRadius);
 	}
 
 

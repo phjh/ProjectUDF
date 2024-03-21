@@ -40,7 +40,11 @@ public class Player : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.V))
         {
-            UIManager.Instance.ShowCards();
+            TimeManager.Instance.StartTimer();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            TimeManager.Instance.StopTimer();
         }
 	}
 }

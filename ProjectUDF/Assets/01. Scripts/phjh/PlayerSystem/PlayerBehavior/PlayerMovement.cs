@@ -41,7 +41,6 @@ public class PlayerMovement : Player
     {
         if (!_canDodge || !_player.ActiveMove) return;
         _canDodge = false;
-        Debug.Log("a");
         StartCoroutine(doDodge());
     }
 

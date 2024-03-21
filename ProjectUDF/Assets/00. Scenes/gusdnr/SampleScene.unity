@@ -810,7 +810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &335722528
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1146,7 +1146,8 @@ MonoBehaviour:
   - {fileID: 595687425}
   MaxHP: 10
   AttackDelay: 5
-  AttackRadius: 5
+  MinAttackRadius: 0
+  MaxAttackRadius: 0
   PathUpdateDelay: 1
   MovementSpeed: 3
   WanderRadius: 1
@@ -3797,6 +3798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxTime: 90
+  TimerText: {fileID: 1245684842}
 --- !u!4 &1050577568
 Transform:
   m_ObjectHideFlags: 0
@@ -4660,7 +4662,8 @@ MonoBehaviour:
   - {fileID: 1408259189}
   MaxHP: 10
   AttackDelay: 5
-  AttackRadius: 5
+  MinAttackRadius: 0
+  MaxAttackRadius: 0
   PathUpdateDelay: 1
   MovementSpeed: 3
   WanderRadius: 1
@@ -8958,7 +8961,8 @@ MonoBehaviour:
   - {fileID: 1791893982}
   MaxHP: 10
   AttackDelay: 5
-  AttackRadius: 5
+  MinAttackRadius: 0
+  MaxAttackRadius: 0
   PathUpdateDelay: 1
   MovementSpeed: 3
   WanderRadius: 1
