@@ -44,8 +44,8 @@ public class RandomMap : MonoBehaviour
     {
         Dictionary<int, Vector2> spawnPos = new();
         MapInfoSO nowFloor = floors[this.nowFloor];
-        leftMonsters = nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowRoom];
-        while (spawnPos.Count <= nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave] + 1)
+        leftMonsters = nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave];
+        while (spawnPos.Count <= nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave] + 2)
         {
             spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 25), Random.Range(0, 25)));
         }
@@ -55,8 +55,12 @@ public class RandomMap : MonoBehaviour
         int i = 0;
         foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonster)
         {
+            //if(!monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj2))
+            //{
+            //    Debug.LogWarning($"obj : {obj2.name}");
+            //}
             PoolableObjectTest obj = monsters.GetComponent<PoolableObjectTest>();
-            obj.CustomInstantiate(spawnPos[i]);
+            obj.CustomInstantiate(spawnPos[i],obj.poolingType);
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
             //스폰 정보 없애기
             spawnPos.Remove(i);

@@ -5,6 +5,7 @@ public class PoolManager
 {
     public static PoolManager Instance;
 
+    [SerializeField]
     private Dictionary<PoolingType, Pool<PoolableMono>> _pools = new Dictionary<PoolingType, Pool<PoolableMono>>();
 
     private Transform _trmParent;
@@ -16,6 +17,7 @@ public class PoolManager
     public void CreatePool(PoolableMono prefab, PoolingType poolingType, int count = 10)
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, poolingType, _trmParent, count);
+        Debug.Log('a');
         _pools.Add(poolingType, pool);
     }
 

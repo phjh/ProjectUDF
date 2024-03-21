@@ -16,7 +16,7 @@ MonoBehaviour:
   monsterWaves: 2
   numberOfMonsters: 0600000009000000
   spawnMonsterList:
-  - {fileID: -8653719598885068355, guid: 2e7313e7d403a2541a9b716d18d8dc03, type: 3}
-  - {fileID: -8653719598885068355, guid: 2e7313e7d403a2541a9b716d18d8dc03, type: 3}
-  - {fileID: -8653719598885068355, guid: 2e7313e7d403a2541a9b716d18d8dc03, type: 3}
+  - {fileID: 3469863099141652256, guid: a1188d32532bf9b45949380ea602f79b, type: 3}
+  - {fileID: 1657760043003656654, guid: 30351b57998940047a26f836f07b9384, type: 3}
+  - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
   spawnMonster: []

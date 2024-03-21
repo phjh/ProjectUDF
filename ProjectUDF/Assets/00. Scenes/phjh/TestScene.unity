@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 447204365}
   - component: {fileID: 447204364}
   - component: {fileID: 447204366}
+  - component: {fileID: 447204367}
   m_Layer: 0
   m_Name: MapSystem
   m_TagString: Untagged
@@ -321,6 +322,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StageInfo: []
+--- !u!114 &447204367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447204363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da4e31238f4ad64b8bdbf8fcea09e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
+  _poolingTrm: {fileID: 447204365}
 --- !u!1 &666719546
 GameObject:
   m_ObjectHideFlags: 0
