@@ -8386,6 +8386,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
   IsAttacking: 0
+  _isdodgeing: 0
+  _canDodge: 1
 --- !u!1 &1684802412
 GameObject:
   m_ObjectHideFlags: 0

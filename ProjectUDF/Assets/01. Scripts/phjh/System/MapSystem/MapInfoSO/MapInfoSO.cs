@@ -13,13 +13,36 @@ public class MapInfoSO : ScriptableObject
     //[HideInInspector]
     public List<RoomInfoSO> floorRoomInfo; //이번 층에서 나올 방들
 
-    
     public MapInfoSO CloneAndSetting()
+    {
+        var clone = Instantiate(this);
+        clone.GenerateMapInfoSO();
+        Debug.Log(clone);
+        return clone;
+    }
+
+    public MapInfoSO CloneAndSettingRandom()
     {
         var clone = Instantiate(this);
         clone.GenerateRandomMapInfoSO();
         Debug.Log(clone);
         return clone;
+    }
+
+    private void GenerateMapInfoSO()
+    {
+        Debug.Log("Start Map Info Generating");
+        for (int i = 0; i < numberOfRooms; i++)
+        {
+            int rand = Random.Range(0, roomLists.Count);
+            while (i != 0 && floorRoomInfo[i - 1].id == roomLists[rand].id)
+            {
+                rand = Random.Range(0, roomLists.Count);
+            }
+            floorRoomInfo.Add(roomLists[rand].CloneAndSetting());
+        }
+        //여기 보스방 고정을 넣고싶다면 넣으면 된다
+        Debug.Log("Susscessful Map Info Generated!");
     }
 
     private void GenerateRandomMapInfoSO()
@@ -32,7 +55,7 @@ public class MapInfoSO : ScriptableObject
             {
                 rand = Random.Range(0, roomLists.Count);
             }
-            floorRoomInfo.Add(roomLists[rand].CloneAndSetting());
+            floorRoomInfo.Add(roomLists[rand].CloneAndSettingRandom());
         }
         //여기 보스방 고정을 넣고싶다면 넣으면 된다
         Debug.Log("Susscessful Map Info Generated!");

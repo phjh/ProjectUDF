@@ -40,7 +40,7 @@ public class PlayerAnimation : Player
     public string DodgeAnimation;
 
     [SpineAnimation]
-    public string hitAniAnimation;
+    public string hitAnimation;
 
     [SpineAnimation]
     public string dieAnimation;

@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Pathfinding;
 
 public class RandomMap : MonoBehaviour
 {
     [SerializeField]
     List<MapInfoSO> floors;
+
+    [SerializeField]
+    NavGraph groundScan;
+
+    private GameObject nowMap;
 
     public int nowFloor = 0;
     public int nowRoom = 0;
@@ -15,7 +20,8 @@ public class RandomMap : MonoBehaviour
 
     private void Start()
     {
-        floors[nowFloor] = floors[nowFloor].CloneAndSetting();
+        floors[nowFloor] = floors[nowFloor].CloneAndSettingRandom();
+        nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
     }
 
     private void Update()
@@ -55,12 +61,10 @@ public class RandomMap : MonoBehaviour
         int i = 0;
         foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonster)
         {
-            //if(!monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj2))
-            //{
-            //    Debug.LogWarning($"obj : {obj2.name}");
-            //}
-            PoolableObjectTest obj = monsters.GetComponent<PoolableObjectTest>();
-            obj.CustomInstantiate(spawnPos[i],obj.poolingType);
+            if (monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
+                obj.CustomInstantiate(spawnPos[i],obj.poolingType);
+            else
+                Debug.LogError($"obj : nul, {monsters.name}");
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
             //스폰 정보 없애기
             spawnPos.Remove(i);
@@ -71,7 +75,6 @@ public class RandomMap : MonoBehaviour
             //대충 여기서 웨이브보다 많이 스폰시 break
         }
         nowWave++;
-
     }
 
 
@@ -84,13 +87,19 @@ public class RandomMap : MonoBehaviour
             nowRoom++;
             MapSystem.Instance.ActionInvoker(4);
             nowWave = 0;
+            Destroy(nowMap.gameObject);
+            if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
+                nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
         }
-        if(nowRoom == floors[nowFloor].floorRoomInfo.Count)
+        if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
         {
             nowFloor++;
             MapSystem.Instance.ActionInvoker(2);
             nowRoom = 0;
+
         }
+        if (groundScan != null)
+            groundScan.Scan();
     }
 
     //탈출구 랜덤스폰 
@@ -103,7 +112,7 @@ public class RandomMap : MonoBehaviour
     //층 마다 생성
     void StageGenerate()
     {
-        MapInfoSO newMap = floors[0].CloneAndSetting();
+        MapInfoSO newMap = floors[0].CloneAndSettingRandom();
         floors.Add(newMap);
     }
 
