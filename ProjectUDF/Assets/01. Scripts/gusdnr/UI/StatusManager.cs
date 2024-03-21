@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartManager : MonoBehaviour
+public class StatusManager : MonoBehaviour
 {
-    [SerializeField] private GameObject HeartPrefab;
     [SerializeField] private Player player;
 	private PlayerStat playerStat;
+
+	[Header("HP UI Value")]
+    [SerializeField] private GameObject HeartPrefab;
     [SerializeField] private float xSpacing;
     [SerializeField] private float ySpacing;
-
     private List<HeartState> hearts = new List<HeartState>();
+
 
 	private void OnEnable()
 	{
@@ -33,6 +35,8 @@ public class HeartManager : MonoBehaviour
 		}
 		DrawHearts();
 	}
+
+	#region 체력 부분 스크립트
 
 	public void DrawHearts()
 	{
@@ -71,4 +75,6 @@ public class HeartManager : MonoBehaviour
 		newHeartState.SetHeartImage(UIHeartState.Empty);
 		hearts.Add(newHeartState);
 	}
+
+	#endregion
 }

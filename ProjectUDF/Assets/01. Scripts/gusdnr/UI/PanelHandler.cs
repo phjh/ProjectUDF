@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PanelHandler : MonoBehaviour
@@ -15,7 +16,7 @@ public class PanelHandler : MonoBehaviour
 	public void Show()
 	{
 		gameObject.SetActive(true);
-
+		
 		// DOTween 함수를 차례대로 수행하게 해줍니다.
 		var seq = DOTween.Sequence();
 

@@ -1,9 +1,13 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using Random = UnityEngine.Random;
 
 public class MonoOre : MonoBehaviour
 {
+	public static event Action FailToResearch;
+
 	[Header("UI Components")]
 	public TMP_Text NameText;
 	public TMP_Text DescText;
@@ -27,11 +31,13 @@ public class MonoOre : MonoBehaviour
 	private void SetRandomOre()
 	{
 		tempSO = Random.Range(0, OreDatas.Length);
+		if(FailToResearch == null) FailToResearch += UIManager.Instance.CountFail;
 		SetData();
 	}
 
 	public void ResetOre()
 	{
+		Debug.Log("Reset Call");
 		float successRate = Random.value;
 		if( successRate <= 0.3f) //추후 재채광 성공 확률로 치환 예정
 		{
@@ -45,6 +51,7 @@ public class MonoOre : MonoBehaviour
 		}
 		else
 		{
+			FailToResearch?.Invoke();
 			OreImage.color = new Vector4(1, 1, 1, 0);
 			NameText.text = string.Empty;
 			DescText.text = string.Empty;

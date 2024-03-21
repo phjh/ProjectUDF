@@ -12,7 +12,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void Start()
 	{
-		//ShowCards();
+		ShowCards();
 	}
 
 	public void ShowCards()
@@ -29,5 +29,19 @@ public class UIManager : MonoSingleton<UIManager>
 		miningCanvas?.SetActive(false);
 	}
 
+	public int failCount = 0;
 
+	public void CountFail()
+	{
+		failCount += 1;
+		Debug.Log(failCount);
+		if(failCount == 3)
+		{
+			for (int i = 0; i < Cards.Count; i++)
+			{
+				Cards[i].GetComponent<PanelHandler>().HideDefault();
+			}
+		}
+	}
+	
 }
