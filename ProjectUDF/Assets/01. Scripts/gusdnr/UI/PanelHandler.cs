@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PanelHandler : MonoBehaviour
 {
-	private void Awake()
+	private void OnEnable()
 	{
 		DOTween.Init();
 		// transform 의 scale 값을 모두 0.1f로 변경합니다.
@@ -57,7 +57,7 @@ public class PanelHandler : MonoBehaviour
 
 		// OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면
 		// { } 안에 있는 코드가 수행된다는 의미입니다.
-		// 여기서는 닫기 애니메이션이 완료된 후 객첼르 비활성화 합니다.
+		// 여기서는 닫기 애니메이션이 완료된 후 객체를 비활성화 합니다.
 		seq.Play().OnComplete(() =>
 		{
             UIManager.Instance.Cards.Remove(gameObject);

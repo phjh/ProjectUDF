@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+	[SerializeField] private GameObject OreCard;
 	public GameObject miningCanvas;
 	public List<GameObject> Cards;
 

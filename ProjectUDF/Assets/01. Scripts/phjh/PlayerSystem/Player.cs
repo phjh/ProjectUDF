@@ -38,5 +38,9 @@ public class Player : MonoBehaviour
         {
             _playerStat.EditPlayerHP(1);
         }
+        if(Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            UIManager.Instance.ShowCards();
+        }
 	}
 }
