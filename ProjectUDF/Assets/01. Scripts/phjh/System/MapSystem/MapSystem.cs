@@ -1,5 +1,14 @@
 using System;
-using System.Collections.Generic;
+
+public enum MapEvents
+{
+    FloorStart = 1,
+    FloorClear = 2,
+    MapStart =3,
+    MapClear = 4,
+    WaveClear = 5,
+    MonsterKill = 6
+}
 
 public class MapSystem : MonoSingleton<MapSystem>
 {
@@ -16,11 +25,11 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     //몬스터 웨이브 깰때마다 시작되는 이벤트
     public event Action MonsterWaveClearEvent;  //5번
+    public event Action MonsterKilledEvent; //6번
 
-
-    public void ActionInvoker(int thing)
+    public void ActionInvoker(MapEvents e)
     {
-        switch (thing)
+        switch ((int)e)
         {
             case 1:
                 FloorStartEvent?.Invoke();
@@ -36,6 +45,9 @@ public class MapSystem : MonoSingleton<MapSystem>
                 break;
             case 5:
                 MonsterWaveClearEvent?.Invoke();
+                break;
+            case 6:
+                MonsterKilledEvent?.Invoke();
                 break;
             default:
                 break;

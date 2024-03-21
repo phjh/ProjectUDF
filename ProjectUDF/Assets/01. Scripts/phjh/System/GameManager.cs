@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingleton<GameManager>
 {
+    public Player player;
+
     [SerializeField]
     PoolingListSO poollistSO;
 
     [SerializeField]
     Transform _poolingTrm;
+
+    public float Strength;
+    public float Lucky;
+    public float AttackSpeed;
+    public float MoveSpeed;
 
     private void Awake()
     {

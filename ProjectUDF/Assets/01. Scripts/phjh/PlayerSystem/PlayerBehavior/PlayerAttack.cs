@@ -32,14 +32,8 @@ public class PlayerAttack : Player
 
     public IEnumerator NormalAttack()
     {
-        float damage = _playerStat.Strength.GetValue() * 4/5;
-        if(UnityEngine.Random.Range(0,100) < _playerStat.Lucky.GetValue())
-        {
-            damage = ResentDamage * 1.3f;
-            Debug.Log("!!!!!!damage : " + damage);
-        }
+        float damage = CalculateDamage(0.8f);
         Debug.Log("damage : " + damage);
-        ResentDamage = Mathf.Ceil(damage * 10)/10;
         yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
     }
@@ -61,29 +55,24 @@ public class PlayerAttack : Player
         factor = Mathf.Lerp(-0.2f, 0.2f, pressTime / ChargeTime) + 1;
         Debug.Log($"time : {pressTime},  factor : {factor}");
 
-        float damage;
-        if (UnityEngine.Random.Range(0, 100) < _playerStat.Lucky.GetValue())
-        {
-            damage = ResentDamage * 1.3f * factor;
-            Debug.Log("!!!!!!damage : " + damage);
-        }
-        else
-        {
-            damage = _playerStat.Strength.GetValue() * factor;
-        }
+        float damage = CalculateDamage(factor);
         Debug.Log("damage : " + damage);
-        ResentDamage = Mathf.Ceil(damage * 10) / 10;
 
         _rightAtkcol.enabled = true;
         _player.GetComponentInParent<PlayerMovement>().StopImmediately();
         _player.ActiveMove = false;
         PlayerAim aim = GetComponent<PlayerAim>();
         aim.enabled = false;
+        PoolableMono poolItem = PoolManager.Instance.Pop(PoolingType.ChargeAttackEffect);
+        poolItem.transform.position = _rightattackRange.transform.position;
+        poolItem.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(0.4f);
         _rightattackRange.gameObject.SetActive(false);
         _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
         aim.enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        PoolManager.Instance.Push(poolItem);
         yield return new WaitForSeconds(5f / 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
     }
@@ -118,5 +107,21 @@ public class PlayerAttack : Player
             _rightattackRange.gameObject.SetActive(true);
         }
 
+    }
+
+    public float CalculateDamage(float factor)
+    {
+        float damage = 0;
+        if (UnityEngine.Random.Range(0, 100) < GameManager.Instance.Lucky)
+        {
+            damage = ResentDamage * 1.3f * factor;
+            Debug.Log("!!!!!!damage : " + damage);
+        }
+        else
+        {
+            damage = GameManager.Instance.Strength * factor;
+        }
+        ResentDamage = Mathf.Ceil(damage * 10) / 10;
+        return damage;
     }
 }

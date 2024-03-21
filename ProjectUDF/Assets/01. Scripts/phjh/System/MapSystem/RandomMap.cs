@@ -31,18 +31,26 @@ public class RandomMap : MonoBehaviour
             floors[nowFloor].floorRoomInfo[0].DebugMonsters();
             SetNextMonsterWaves();
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            MobKilledEvent();
+        }
     }
 
     private void OnEnable()
     {
         MapSystem.Instance.FloorClearEvent += StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent += SetNextMonsterWaves;
+        MapSystem.Instance.MapStartEvent += ReloadStats;
+        MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
 
     private void OnDisable()
     {
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent -= SetNextMonsterWaves;
+        MapSystem.Instance.MapStartEvent -= ReloadStats;
+        MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
 
     //몬스터 소환하는 메서드
@@ -53,7 +61,7 @@ public class RandomMap : MonoBehaviour
         leftMonsters = nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave];
         while (spawnPos.Count <= nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave] + 2)
         {
-            spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 25), Random.Range(0, 25)));
+            spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 10), Random.Range(0, 10)));
         }
              
         Debug.Log($"spawnPos Count : {spawnPos.Count},   monsters count : {nowFloor.floorRoomInfo[nowRoom].spawnMonster.Count} ");
@@ -63,6 +71,11 @@ public class RandomMap : MonoBehaviour
         {
             if (monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
                 obj.CustomInstantiate(spawnPos[i],obj.poolingType);
+            else
+            {
+                Debug.LogWarning(monsters.name + $"({monsters.GetInstanceID()})" + "was not spawned");
+                nowWave++;
+            }
              
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
             //스폰 정보 없애기
@@ -83,18 +96,20 @@ public class RandomMap : MonoBehaviour
         SpawnMonsters();
         if(nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves)
         {
+            MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
             nowRoom++;
-            MapSystem.Instance.ActionInvoker(4);
             nowWave = 0;
             Destroy(nowMap.gameObject);
             if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
                 nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
+            MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
         }
         if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
         {
+            MapSystem.Instance.ActionInvoker(MapEvents.FloorClear);
             nowFloor++;
-            MapSystem.Instance.ActionInvoker(2);
             nowRoom = 0;
+            MapSystem.Instance.ActionInvoker(MapEvents.FloorStart);
 
         }
         if (groundScan != null)
@@ -115,5 +130,21 @@ public class RandomMap : MonoBehaviour
         floors.Add(newMap);
     }
 
+    void ReloadStats()
+    {
+        GameManager.Instance.Lucky = GameManager.Instance.player._playerStat.Lucky.GetValue();
+        GameManager.Instance.Strength = GameManager.Instance.player._playerStat.Strength.GetValue();
+        GameManager.Instance.MoveSpeed = GameManager.Instance.player._playerStat.MoveSpeed.GetValue();
+        GameManager.Instance.AttackSpeed = GameManager.Instance.player._playerStat.AttackSpeed.GetValue();
+    }
+
+    void MobKilledEvent()
+    {
+        leftMonsters--;
+        if(leftMonsters == 0)
+        {
+            MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
+        }
+    }
 
 }

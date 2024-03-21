@@ -34,7 +34,7 @@ public class PlayerAnimation : Player
     public string leftAttackAnimation;
     
     [SpineAnimation]
-    public string rightAttackAnimation;
+    public List<string> rightAttackAnimation;
 
     [SpineAnimation]
     public string DodgeAnimation;
@@ -68,14 +68,23 @@ public class PlayerAnimation : Player
 
     public void SetAnimation()
     {
+        bool isRight = _inputDirection.x > 0;
+        bool isUp = _inputDirection.y > 0;
+
+        if (_player.IsAttacking)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                skeletonAnimation.AnimationName = rightAttackAnimation[(int)lastMoveDirection];
+                return;
+            }
+            
+        }
         if (_inputDirection == Vector2.zero)
         {
             skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
             return;
         }
-
-        bool isRight = _inputDirection.x > 0;
-        bool isUp = _inputDirection.y > 0;
 
         if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
         {

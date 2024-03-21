@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     {
         _playerStat = _playerStat.Clone();
         _playerStat.SetOwner(this);
+        GameManager.Instance.player = this;
     }
 
 	private void Update()

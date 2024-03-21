@@ -7,7 +7,9 @@ public enum PoolingType
     Monster,
     monster2,
     monster3,
-    item
+    item,
+    ChargeAttackEffect,
+
 }
 
 [Serializable]
