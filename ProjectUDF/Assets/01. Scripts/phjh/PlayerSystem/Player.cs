@@ -40,11 +40,11 @@ public class Player : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.V))
         {
-            TimeManager.Instance.StartTimer();
+            InventoryUIManager.Instance.Show();
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            TimeManager.Instance.StopTimer();
-        }
+			InventoryUIManager.Instance.Close();
+		}
 	}
 }
