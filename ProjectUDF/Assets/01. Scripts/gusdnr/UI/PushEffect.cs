@@ -10,17 +10,17 @@ public class PushEffect : MonoBehaviour
 		var seq = DOTween.Sequence();
 
 		seq.Append(transform.DOScale(0.75f, 0.1f));
-		seq.Append(transform.DOScale(1.2f, 0.2f));
-		seq.Append(transform.DOScale(1f, 0.1f));
+		seq.Append(transform.DOScale(2.9f, 0.1f));
+		seq.Append(transform.DOScale(2.4f, 0.2f));
 
 		seq.Play().OnComplete(() => {
 			DisableButton();
-			transform.localScale = new Vector3(2.4f, 2.4f, 2.4f);
 		});
 	}
 
 	public void DisableButton()
 	{
 		gameObject.SetActive(false);
+		transform.localScale = new Vector3(2.4f, 2.4f, 2.4f);
 	}
 }

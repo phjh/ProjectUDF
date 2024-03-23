@@ -7,6 +7,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	[SerializeField] private GameObject OrePrefab;
 	[SerializeField] private RectTransform OreParent;
 	[SerializeField] private GameObject Background;
+	[SerializeField] private GameObject Pocket;
 
 	public List<GameObject> IconList;
 
@@ -35,14 +36,16 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	public void Show()
 	{
 		Background.SetActive(true);
+		Pocket.SetActive(true);
 		SetOreList();
 	}
 
 	public void Close()
 	{
-		Background.SetActive(false);
-		for(int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
+		for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 		IconList.Clear();
+		Pocket.SetActive(false);
+		Background.SetActive(false);
 	}
 
 	#region Methods
@@ -65,13 +68,14 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	private void AddOreIcon(OreSO data) //Make Ore Icon Image
 	{
 		GameObject newOre = Instantiate(OrePrefab);
-		Debug.Log(newOre.name);
-		newOre.transform.SetParent(OreParent);
-		newOre.transform.position = Vector3.zero;
-		IconList.Add(newOre);
-
 		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
 		soHoledr.SettingOreData(data);
+
+		newOre.transform.SetParent(OreParent);
+		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
+		newOre.transform.localPosition = Vector3.zero;
+		IconList.Add(newOre);
+
 	}
 
 	#endregion

@@ -13,8 +13,8 @@ public class OreCard : MonoBehaviour
 		DOTween.Init();
 		transform.localScale = Vector3.one * 0.1f;
 		UIManager.Instance.Cards.Add(this);
-		gameObject.SetActive(false);
 		ResetBtn.SetActive(false);
+		gameObject.SetActive(false);
 		isActive = false;
 	}
 
@@ -49,6 +49,7 @@ public class OreCard : MonoBehaviour
 		{
 			isActive = false;
 			gameObject.SetActive(false);
+			ResetBtn.SetActive(false);
 			UIManager.Instance.HideCards();
 		});
 	}
@@ -74,6 +75,7 @@ public class OreCard : MonoBehaviour
 				if(x.isActive) x.HideDefault();
 			});
 			gameObject.SetActive(false);
+			ResetBtn.SetActive(false);
 		});
 	}
 }
