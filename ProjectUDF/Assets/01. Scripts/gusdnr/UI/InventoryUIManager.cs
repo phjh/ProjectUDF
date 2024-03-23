@@ -8,7 +8,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	[SerializeField] private RectTransform OreParent;
 	[SerializeField] private GameObject Background;
 
-	public List<GameObject> OrePrefabList;
+	public List<GameObject> IconList;
 
 	public List<OreSO> OreDatas;
 	public List<OreSO> GemDatas;
@@ -24,7 +24,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 
 	private void SetOreList()
 	{
-		OrePrefabList.Clear();
+		IconList.Clear();
 		InOreList = OreInventory.Instance.OreList;
 		CalculateInventory(InOreList, OreDatas);
 
@@ -41,11 +41,8 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	public void Close()
 	{
 		Background.SetActive(false);
-		OrePrefabList?.ForEach(prefab => 
-		{
-			OrePrefabList.Remove(prefab);
-			Destroy(prefab);
-		});
+		for(int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
+		IconList.Clear();
 	}
 
 	#region Methods
@@ -71,7 +68,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 		Debug.Log(newOre.name);
 		newOre.transform.SetParent(OreParent);
 		newOre.transform.position = Vector3.zero;
-		OrePrefabList.Add(newOre);
+		IconList.Add(newOre);
 
 		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
 		soHoledr.SettingOreData(data);
