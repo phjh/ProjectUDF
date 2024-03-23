@@ -30,21 +30,6 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _playerStat.EditPlayerHP(-1);
-        }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            _playerStat.EditPlayerHP(1);
-        }
-        if(Input.GetKeyDown(KeyCode.V))
-        {
-            InventoryUIManager.Instance.Show();
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-			InventoryUIManager.Instance.Close();
-		}
+        
 	}
 }
