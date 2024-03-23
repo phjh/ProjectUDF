@@ -9,13 +9,13 @@ public class PushEffect : MonoBehaviour
 	{
 		var seq = DOTween.Sequence();
 
-		seq.Append(transform.DOScale(0.75f, 0.2f));
-		seq.Append(transform.DOScale(1.05f, 0.3f));
+		seq.Append(transform.DOScale(0.75f, 0.1f));
+		seq.Append(transform.DOScale(1.2f, 0.2f));
 		seq.Append(transform.DOScale(1f, 0.1f));
 
 		seq.Play().OnComplete(() => {
 			DisableButton();
-			transform.localScale = Vector3.one;
+			transform.localScale = new Vector3(2.4f, 2.4f, 2.4f);
 		});
 	}
 

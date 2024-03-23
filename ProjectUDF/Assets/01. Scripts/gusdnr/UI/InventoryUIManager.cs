@@ -13,48 +13,23 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	public List<OreSO> OreDatas;
 	public List<OreSO> GemDatas;
 
+	private List<int> InOreList;
+	private List<int> InGemList;
+
+
 	private void Start()
 	{
 		SetOreList();
-		Close();
-	}
-
-	private void AddOreIcon(OreSO data)
-	{
-		GameObject newOre = Instantiate(OrePrefab);
-		newOre.transform.SetParent(OreParent);
-		newOre.transform.localPosition = Vector3.zero;
-		OrePrefabList.Add(newOre);
-
-		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
-		soHoledr.SettingOreData(data);
 	}
 
 	private void SetOreList()
 	{
 		OrePrefabList.Clear();
-		for (int i = 0; i < 4; i++)
-		{
-			int createPrefabCount = OreInventory.Instance.OreList[i];
-			if (createPrefabCount == 0)
-			{
-				for (int j = 0; j < createPrefabCount; j++)
-				{
-					AddOreIcon(OreDatas[i]);
-				}
-			}
-		}
-		for (int i = 0; i < 4; i++)
-		{
-			int createPrefabCount = OreInventory.Instance.GemList[i];
-			if (createPrefabCount != 0)
-			{
-				for (int j = 0; j < createPrefabCount; j++)
-				{
-					AddOreIcon(GemDatas[i]);
-				}
-			}
-		}
+		InOreList = OreInventory.Instance.OreList;
+		CalculateInventory(InOreList, OreDatas);
+
+		InGemList = OreInventory.Instance.GemList;
+		CalculateInventory(InGemList, GemDatas);
 	}
 
 	public void Show()
@@ -72,4 +47,36 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 			Destroy(prefab);
 		});
 	}
+
+	#region Methods
+
+	private void CalculateInventory(List<int> baseList, List<OreSO> dataList) //Calculate To In OreInventoryList
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			int createPrefabCount = baseList[i];
+			if (createPrefabCount != 0)
+			{
+				for (int j = 0; j < createPrefabCount; j++)
+				{
+					AddOreIcon(dataList[i]);
+				}
+			}
+		}
+	}
+
+	private void AddOreIcon(OreSO data) //Make Ore Icon Image
+	{
+		GameObject newOre = Instantiate(OrePrefab);
+		Debug.Log(newOre.name);
+		newOre.transform.SetParent(OreParent);
+		newOre.transform.position = Vector3.zero;
+		OrePrefabList.Add(newOre);
+
+		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
+		soHoledr.SettingOreData(data);
+	}
+
+	#endregion
+
 }

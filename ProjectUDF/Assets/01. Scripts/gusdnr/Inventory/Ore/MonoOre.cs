@@ -40,7 +40,7 @@ public class MonoOre : MonoBehaviour
 	public void ResetOre()
 	{
 		float successRate = Random.value;
-		if( successRate <= 0.3f) //추후 재채광 성공 확률로 치환 예정
+		if( successRate <= 0.8f) //추후 재채광 성공 확률로 치환 예정
 		{
 			int resetTempSO = Random.Range(0, OreDatas.Length);
 			while (resetTempSO == tempSO)
