@@ -14,7 +14,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	//Values
 	public int MaxInInvnetory = 7; //광석 소지 개수
 	public List<int> OreList = new List<int>(4) { 0, 0, 0, 0 }; //일반 광석 소지 개수
-	public List<int> GemStoneList = new List<int>(4) { 0, 0, 0, 0 }; //강화 광석 소지 개수
+	public List<int> GemList = new List<int>(4) { 0, 0, 0, 0 }; //강화 광석 소지 개수
 	[Range(1, 5)] public int NeedToUpgrade = 3; //업그레이드에 필요한 광석 개수
 
 	private static int statNumber; //함수 사용시 스탯 번호를 가지고 있는 변수
@@ -31,7 +31,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public void ResetOreList() //광물 목록 초기화용
 	{
 		OreList = Enumerable.Repeat(0, 4).ToList();
-		GemStoneList = Enumerable.Repeat(0, 4).ToList();
+		GemList = Enumerable.Repeat(0, 4).ToList();
 	}
 
 	#region Add Methods
@@ -63,7 +63,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	{
 		statNumber = (int)statName;
 		OreList[statNumber] -= NeedToUpgrade;
-		GemStoneList[statNumber] += 1;
+		GemList[statNumber] += 1;
 		status.EditModifierStat(statName, 5);
 		status.EditModifierStat(statName, 2, true);
 		CheckOreCount();
@@ -92,7 +92,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	private int CheckCount()
 	{
 		int NormalOreCount = OreList.Sum();
-		int UpgradeOreCount = GemStoneList.Sum();
+		int UpgradeOreCount = GemList.Sum();
 		return NormalOreCount + UpgradeOreCount;
 	}
 
