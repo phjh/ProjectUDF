@@ -6,10 +6,13 @@ using Pathfinding;
 public class RandomMap : MonoBehaviour
 {
     [SerializeField]
-    List<MapInfoSO> floors;
+    private List<MapInfoSO> floors;
 
     [SerializeField]
-    NavGraph groundScan;
+    private NavGraph groundScan;
+
+    [SerializeField]
+    private ParticleSystem dirtEffect;
 
     private GameObject nowMap;
 
@@ -39,6 +42,11 @@ public class RandomMap : MonoBehaviour
         if(Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[nowRoom].timeLimit)
         {
             Debug.Log("Time over");
+        }
+        else
+        {
+            float spawnRate = Time.time - roomStartTime - 30f;
+            var emission = dirtEffect.emission;
         }
     }
 
@@ -136,8 +144,6 @@ public class RandomMap : MonoBehaviour
         MapInfoSO newMap = floors[0].CloneAndSettingRandom();
         floors.Add(newMap);
     }
-
-
 
     void MobKilledEvent()
     {

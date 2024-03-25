@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SceneList
+public enum GameResults
 {
-
+    Timeout = 0
 }
 
 public class GameManager : MonoSingleton<GameManager>
@@ -16,6 +16,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     [SerializeField]
     Transform _poolingTrm;
+
+    GameResults results;
 
     public float Strength;
     public float Lucky;
