@@ -17,6 +17,7 @@ public class RandomMap : MonoBehaviour
     public int nowRoom = 0;
     public int nowWave = 0;
     public int leftMonsters = 0;
+    public float roomStartTime = 0;
 
     private void Start()
     {
@@ -35,13 +36,18 @@ public class RandomMap : MonoBehaviour
         {
             MobKilledEvent();
         }
+        if(Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[nowRoom].timeLimit)
+        {
+            Debug.Log("Time over");
+        }
     }
 
     private void OnEnable()
     {
         MapSystem.Instance.FloorClearEvent += StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent += SetNextMonsterWaves;
-        MapSystem.Instance.MapStartEvent += ReloadStats;
+        MapSystem.Instance.MapStartEvent += GameManager.Instance.ReloadStats;
+        MapSystem.Instance.MapStartEvent += SetRoomTimer;
         MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
 
@@ -49,7 +55,8 @@ public class RandomMap : MonoBehaviour
     {
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent -= SetNextMonsterWaves;
-        MapSystem.Instance.MapStartEvent -= ReloadStats;
+        MapSystem.Instance.MapStartEvent -= GameManager.Instance.ReloadStats;
+        MapSystem.Instance.MapStartEvent -= SetRoomTimer;
         MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
 
@@ -130,13 +137,7 @@ public class RandomMap : MonoBehaviour
         floors.Add(newMap);
     }
 
-    void ReloadStats()
-    {
-        GameManager.Instance.Lucky = GameManager.Instance.player._playerStat.Lucky.GetValue();
-        GameManager.Instance.Strength = GameManager.Instance.player._playerStat.Strength.GetValue();
-        GameManager.Instance.MoveSpeed = GameManager.Instance.player._playerStat.MoveSpeed.GetValue();
-        GameManager.Instance.AttackSpeed = GameManager.Instance.player._playerStat.AttackSpeed.GetValue();
-    }
+
 
     void MobKilledEvent()
     {
@@ -147,4 +148,5 @@ public class RandomMap : MonoBehaviour
         }
     }
 
+    void SetRoomTimer() => roomStartTime = Time.time;
 }

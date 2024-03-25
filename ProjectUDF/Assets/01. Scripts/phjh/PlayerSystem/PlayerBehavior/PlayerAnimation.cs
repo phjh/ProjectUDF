@@ -71,14 +71,19 @@ public class PlayerAnimation : Player
         bool isRight = _inputDirection.x > 0;
         bool isUp = _inputDirection.y > 0;
 
-        if (_player.IsAttacking)
+        if (_player.CanAttack && _player.IsAttacking)
         {
             if (Input.GetMouseButton(1))
             {
                 skeletonAnimation.AnimationName = rightAttackAnimation[(int)lastMoveDirection];
-                return;
+                skeletonAnimation.timeScale = 0f;
             }
-            
+            else
+            {
+                skeletonAnimation.timeScale = 1f;
+                Debug.Log("???");
+            }
+            return;
         }
         if (_inputDirection == Vector2.zero)
         {
