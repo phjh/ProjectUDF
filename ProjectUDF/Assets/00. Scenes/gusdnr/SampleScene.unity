@@ -3194,7 +3194,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1050577568}
   - component: {fileID: 1050577567}
-  - component: {fileID: 1050577569}
   - component: {fileID: 1050577570}
   - component: {fileID: 1050577571}
   m_Layer: 0
@@ -3234,20 +3233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1050577569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050577566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef2e18dc822967346bd5cc31ca1d0e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInventory: {fileID: 1642537958}
-  InventoryArray: []
 --- !u!114 &1050577570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3277,6 +3262,7 @@ MonoBehaviour:
   poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
   _poolingTrm: {fileID: 1050577568}
   player: {fileID: 1642537959}
+  InventoryArray: []
 --- !u!1 &1083731619
 GameObject:
   m_ObjectHideFlags: 0
@@ -8294,7 +8280,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OrePrefab: {fileID: 5946013628519930447, guid: 6bd540a759e1f3447b14ac5dce9d56e4, type: 3}
   OreParent: {fileID: 1810453755}
-  Background: {fileID: 840310252}
   Pocket: {fileID: 24232903}
   IconList: []
   OreDatas:

@@ -30,9 +30,4 @@ public class ItemDataSO : ScriptableObject
 
 	[Header("아이템 실 적용 능력치")]
 	public List<ItemStatusData> StatusDatas = new List<ItemStatusData>();
-
-	public void CollectItem()
-	{
-
-	}
 }

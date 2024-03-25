@@ -15,7 +15,7 @@ public class ItemInventory : MonoBehaviour
 
 	public void AddItemInInventory(ItemDataSO data)
     {
-		ItemManager.Instance.CollectItem(data);
+		GameManager.Instance.CollectItem(data);
         CollectItems.Add(data);
 		ReadingData(data);
     }
