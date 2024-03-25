@@ -29,6 +29,18 @@ public class OreDataHolder : MonoBehaviour
 
 	public void PrintOreDesc()
 	{
-		InventoryUIManager.Instance.
+		InventoryUIManager.Instance.OreName.text = $"{HoldingData.OreName}";
+		string desc = "";
+		switch(HoldingData.stats)
+		{
+			case Stats.Strength: desc = "힘 "; break;
+			case Stats.Lucky: desc = "행운 "; break;
+			case Stats.MoveSpeed: desc = "이동 속도 "; break;
+			case Stats.AttackSpeed: desc = "공격 속도 "; break;
+			default: break;
+		}
+		desc += $"[{HoldingData.value} 증가]";
+		if(HoldingData.valuePersent != 0) desc += $" [{HoldingData.valuePersent}% 증가]";
+		InventoryUIManager.Instance.OreDesc.text = desc;
 	}
 }
