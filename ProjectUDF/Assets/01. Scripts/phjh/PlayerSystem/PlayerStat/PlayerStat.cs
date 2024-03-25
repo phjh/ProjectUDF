@@ -17,10 +17,11 @@ public enum Stats
 public class PlayerStat : ScriptableObject
 {
 	public static event Action HpChanged;
-	public event Action<float> StrengthChanged;
-	public event Action<float> MoveSpeedChanged;
-	public event Action<float> AttackSpeedChanged;
-	public event Action<float> LuckyChanged;
+	public static event Action OnDeadPlayer;
+	public event Action<float> OnStrengthChanged;
+	public event Action<float> OnMoveSpeedChanged;
+	public event Action<float> OnAttackSpeedChanged;
+	public event Action<float> OnLuckyChanged;
 
 	[Header("Player's Stats")]
 	public int MaxHP;
@@ -109,7 +110,7 @@ public class PlayerStat : ScriptableObject
 		if (curHP > MaxHP) { curHP = MaxHP; }
 		else { HpChanged?.Invoke(); }
 
-		if(curHP <= 0) {  } //플레이어 쪽에서 죽는 이벤트 실행
+		if(curHP <= 0) { OnDeadPlayer?.Invoke(); } //플레이어 쪽에서 죽는 이벤트 실행
 	}
 
 	#endregion

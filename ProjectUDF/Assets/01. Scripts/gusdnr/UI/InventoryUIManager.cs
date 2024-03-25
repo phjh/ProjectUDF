@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 {
+	[Header("Need To Run")]
 	[SerializeField] private GameObject OrePrefab;
 	[SerializeField] private RectTransform OreParent;
-	[SerializeField] private GameObject Background;
 	[SerializeField] private GameObject Pocket;
 
-	public List<GameObject> IconList;
-
+	[HideInInspector] public List<GameObject> IconList;
+	[Header("Data List")]
 	public List<OreSO> OreDatas;
 	public List<OreSO> GemDatas;
 
-	private List<int> InOreList;
-	private List<int> InGemList;
+	private List<int> InOreList; //실제 리스트 할당
+	private List<int> InGemList; //실제 리스트 할당
+	private bool isOpenUI = false;
 
-
-	private void Start()
+	private void Awake()
 	{
 		SetOreList();
+		isOpenUI = false;
 	}
 
 	private void SetOreList()
@@ -35,17 +36,25 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 
 	public void Show()
 	{
-		Background.SetActive(true);
-		Pocket.SetActive(true);
-		SetOreList();
+		if (isOpenUI == false)
+		{
+			UIManager.Instance.SetScreenFilter(true);
+			Pocket.SetActive(true);
+			SetOreList();
+			isOpenUI = true;
+		}
 	}
 
 	public void Close()
 	{
-		for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
-		IconList.Clear();
-		Pocket.SetActive(false);
-		Background.SetActive(false);
+		if (isOpenUI == true)
+		{
+			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
+			IconList.Clear();
+			Pocket.SetActive(false);
+			UIManager.Instance.SetScreenFilter(false);
+			isOpenUI = false;
+		}
 	}
 
 	#region Methods
@@ -73,7 +82,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 
 		newOre.transform.SetParent(OreParent);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
-		newOre.transform.localPosition = Vector3.zero;
+		newOre.transform.localPosition = new Vector3(Random.Range(-200, 200), 0, 0);
 		IconList.Add(newOre);
 
 	}

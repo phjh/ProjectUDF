@@ -21,15 +21,17 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public static event EventHandler OnResearchEnd;
 
-	private void Start()
+	private void Awake()
 	{
-		
+		SetScreenFilter(false);
 	}
+
+	#region Mining UI
 
 	public void ShowCards()
 	{
 		failCount = 0;
-		ScreenFilter?.SetActive(true);
+		SetScreenFilter(true);
 		for (int i = 0; i < Cards.Count; i++)
 		{
 			Cards[i].GetComponent<OreCard>().Show();
@@ -38,7 +40,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void HideCards()
 	{
-		ScreenFilter?.SetActive(false);
+		SetScreenFilter(false);
 	}
 
 	public void CountFail()
@@ -53,5 +55,16 @@ public class UIManager : MonoSingleton<UIManager>
 			}
 		}
 	}
-	
+
+	#endregion
+
+	#region Public Method
+
+	public void SetScreenFilter(bool isActive)
+	{
+		ScreenFilter?.SetActive(isActive);
+	}
+
+	#endregion
+
 }

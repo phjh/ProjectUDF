@@ -15,7 +15,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public Player player;
 
-    private void Awake()
+	private void Awake()
     {
         PoolManager.Instance = new PoolManager(_poolingTrm);
         foreach (var obj in poollistSO.list)
@@ -27,6 +27,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             player = FindObjectOfType<Player>().GetComponent<Player>();
         }
-    }
+
+	}
     
 }

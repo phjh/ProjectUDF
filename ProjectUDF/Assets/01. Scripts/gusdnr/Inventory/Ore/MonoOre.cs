@@ -63,6 +63,7 @@ public class MonoOre : MonoBehaviour
 	public void SetData()
 	{
 		CurOreData = OreDatas[tempSO];
+		OreImage.sprite = CurOreData.OreSprite;
 		#region 설명 문자열 단행 추가
 		string desc = CurOreData.OreDesc;
 		desc = desc.Replace(",", "\n");

@@ -17,22 +17,22 @@ public class PlayerMovement : Player
 
     public Vector2 lastinputDir = Vector2.down;
 
-    protected void Start()
+    protected void OnEnable()
     {
         _playerStat = _player._playerStat;
 
         _inputReader.MovementEvent += SetMovement;
-        _playerStat.MoveSpeedChanged += LoadMoveSpeed;
+        _playerStat.OnMoveSpeedChanged += LoadMoveSpeed;
         stopImmediately += StopImmediately;
         _inputReader.DodgeEvent += Dodge;
         _rigidbody = GetComponent<Rigidbody2D>();
         _currentSpeed = _playerStat.MoveSpeed.GetValue();        
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _inputReader.MovementEvent -= SetMovement;
-        _playerStat.MoveSpeedChanged -= LoadMoveSpeed;
+        _playerStat.OnMoveSpeedChanged -= LoadMoveSpeed;
         stopImmediately -= StopImmediately;
         _inputReader.DodgeEvent -= Dodge;
     }

@@ -1,0 +1,1170 @@
+fileFormatVersion: 2
+guid: 64e0ec36c289a3c4d8a1e7d2fcabda43
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_0
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 2079
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d11623054c6055a4897cc37b66420113
+      internalID: -2023580693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_1
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 2079
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90afea9c9c0907c439ff60dab1f09eeb
+      internalID: -322427256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_2
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 2079
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9119288b2d6c53d4bb2b147a75224980
+      internalID: -1731980153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_3
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 2079
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec1221c237b50af4385aac3b9268cd3f
+      internalID: -1264519309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_4
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 2122
+        width: 182
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adde9f8193f5e9c48822d96d04d54398
+      internalID: 652434747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_5
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 2122
+        width: 182
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c5f84cef0be0745af4ae79f40d1897
+      internalID: 1097078719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_6
+      rect:
+        serializedVersion: 2
+        x: 1627
+        y: 2122
+        width: 184
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a6eeb1f82d13124a95355c7ba196853
+      internalID: 2043958580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_7
+      rect:
+        serializedVersion: 2
+        x: 1850
+        y: 2122
+        width: 184
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c347207296f6dab47adc37f4b376a187
+      internalID: 509664117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_8
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 1774
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba04ac88ad3df5f4e92dced56240856e
+      internalID: 289684229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_9
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 1774
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3743d304da7b33141b1d3eeb007e31d5
+      internalID: -1880467801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_10
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 1774
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43b042cca93b07d4ab57be7893471f2c
+      internalID: 943059669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_11
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 1774
+        width: 149
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04cecf6cabfd81242a109ff9960b0057
+      internalID: -1715305799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_12
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 1817
+        width: 182
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56a444b52a034674897a49c75aec8a73
+      internalID: 1123496982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_13
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 1817
+        width: 182
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bdf9be0e1cd5e2488712e209e2827ef
+      internalID: -2048570201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_14
+      rect:
+        serializedVersion: 2
+        x: 1627
+        y: 1817
+        width: 184
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6261b9d79a35cb4887829b73a558ffc
+      internalID: 1606295283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_15
+      rect:
+        serializedVersion: 2
+        x: 1850
+        y: 1817
+        width: 183
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c54e7fc9361894cb645f59fc926cb0
+      internalID: 1562960310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_16
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 1268
+        width: 151
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a1a3adb88e91fd4cb2cfde435ef2f75
+      internalID: -249254653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_17
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 1268
+        width: 153
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 346edf78be1f5f043a29dc2303dd4764
+      internalID: 1197398147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_18
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 1268
+        width: 151
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9535f3190652d8d4b87f37822065235a
+      internalID: 1668745760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_19
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1268
+        width: 153
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 746e08c08c82653468a08bf2758549dd
+      internalID: -1829132502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_20
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 1252
+        width: 147
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e29d1222d93103409fb18cdb86407dc
+      internalID: 1733880145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_21
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 1252
+        width: 147
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c7fc2435a1567044b03be7fc6ff9f07
+      internalID: -1789412468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_22
+      rect:
+        serializedVersion: 2
+        x: 1641
+        y: 1252
+        width: 146
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540facb748aa4554088321c8cb8c8412
+      internalID: 1500957425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_23
+      rect:
+        serializedVersion: 2
+        x: 1867
+        y: 1252
+        width: 146
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c058feca9ab49a640a0590dff8ec58a5
+      internalID: -2933678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_24
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 945
+        width: 151
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c66295b95a0817e49946fdaf8b4b5f93
+      internalID: 2096027860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_25
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 945
+        width: 153
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00faeb131a0a9504995b4089097d3da4
+      internalID: 1677620788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_26
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 945
+        width: 151
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49af74b49ad0df1428cd6c93019921b4
+      internalID: -1626547617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_27
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 945
+        width: 153
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74a073bdf303df1449df94e1f0c9a91f
+      internalID: 696416591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_28
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 929
+        width: 147
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9875f1b4e0b44f241adb020b2927037a
+      internalID: -1698450668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_29
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 929
+        width: 147
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13723daa414aa4745aaa5216e9ee0155
+      internalID: -2100770898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_30
+      rect:
+        serializedVersion: 2
+        x: 1641
+        y: 929
+        width: 146
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99881910679d3e044bdc2aa3e8100c95
+      internalID: -68490423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_31
+      rect:
+        serializedVersion: 2
+        x: 1867
+        y: 929
+        width: 146
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 309040cd44bf2764d927488b4b7a2e3c
+      internalID: 1178792294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_32
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 473
+        width: 182
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6397f7150a4b9f0429912a5a3ec39516
+      internalID: -1545753881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_33
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 473
+        width: 183
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b3f6d3063005c848a65ca14ba459250
+      internalID: 208136299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_34
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 473
+        width: 182
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c2382f11f19a845805645c5bd096aa
+      internalID: 1948873557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_35
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 473
+        width: 184
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0573d5e3a7c06445907df43fa529183
+      internalID: -362253218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_36
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 450
+        width: 150
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c663bfa43dee6f4cad5cdee41a7e440
+      internalID: -341187630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_37
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 450
+        width: 149
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f915c24cdf26e41a02857c089f2a7f
+      internalID: -2129200706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_38
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 450
+        width: 149
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afd93119d99a3bb4bb3be4320914fbcc
+      internalID: 1982688232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_39
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 450
+        width: 149
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d39c882a8144f44593cb149561c1b73
+      internalID: 16236925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_40
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 150
+        width: 182
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de24978d43738cb41b6f7878bde9f7f0
+      internalID: -966868141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_41
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 150
+        width: 183
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afab5c41b15c8bc4b8b15877bc57bfcf
+      internalID: 303729613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_42
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 150
+        width: 182
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae5f4bc882b6614998ccb01e3348eca
+      internalID: 20282206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_43
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 150
+        width: 184
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c15337f84463a4f498da5a437f780fb0
+      internalID: 1211791098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_44
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 127
+        width: 150
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ace7d6b4bd1f4408c41f36691941c4
+      internalID: -1807555339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_45
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 127
+        width: 149
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb10fca54d359984f84ce7e5d8e2d5fa
+      internalID: 1582956940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_46
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 127
+        width: 149
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a559f9c72146c484595d3621c2275548
+      internalID: 165076413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gem_Pack_All_In_One_47
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 127
+        width: 149
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93abcbb6d9b40e5488d11aea2e8eebe8
+      internalID: -1213366222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Gem_Pack_All_In_One_0: -2023580693
+      Gem_Pack_All_In_One_1: -322427256
+      Gem_Pack_All_In_One_10: 943059669
+      Gem_Pack_All_In_One_11: -1715305799
+      Gem_Pack_All_In_One_12: 1123496982
+      Gem_Pack_All_In_One_13: -2048570201
+      Gem_Pack_All_In_One_14: 1606295283
+      Gem_Pack_All_In_One_15: 1562960310
+      Gem_Pack_All_In_One_16: -249254653
+      Gem_Pack_All_In_One_17: 1197398147
+      Gem_Pack_All_In_One_18: 1668745760
+      Gem_Pack_All_In_One_19: -1829132502
+      Gem_Pack_All_In_One_2: -1731980153
+      Gem_Pack_All_In_One_20: 1733880145
+      Gem_Pack_All_In_One_21: -1789412468
+      Gem_Pack_All_In_One_22: 1500957425
+      Gem_Pack_All_In_One_23: -2933678
+      Gem_Pack_All_In_One_24: 2096027860
+      Gem_Pack_All_In_One_25: 1677620788
+      Gem_Pack_All_In_One_26: -1626547617
+      Gem_Pack_All_In_One_27: 696416591
+      Gem_Pack_All_In_One_28: -1698450668
+      Gem_Pack_All_In_One_29: -2100770898
+      Gem_Pack_All_In_One_3: -1264519309
+      Gem_Pack_All_In_One_30: -68490423
+      Gem_Pack_All_In_One_31: 1178792294
+      Gem_Pack_All_In_One_32: -1545753881
+      Gem_Pack_All_In_One_33: 208136299
+      Gem_Pack_All_In_One_34: 1948873557
+      Gem_Pack_All_In_One_35: -362253218
+      Gem_Pack_All_In_One_36: -341187630
+      Gem_Pack_All_In_One_37: -2129200706
+      Gem_Pack_All_In_One_38: 1982688232
+      Gem_Pack_All_In_One_39: 16236925
+      Gem_Pack_All_In_One_4: 652434747
+      Gem_Pack_All_In_One_40: -966868141
+      Gem_Pack_All_In_One_41: 303729613
+      Gem_Pack_All_In_One_42: 20282206
+      Gem_Pack_All_In_One_43: 1211791098
+      Gem_Pack_All_In_One_44: -1807555339
+      Gem_Pack_All_In_One_45: 1582956940
+      Gem_Pack_All_In_One_46: 165076413
+      Gem_Pack_All_In_One_47: -1213366222
+      Gem_Pack_All_In_One_5: 1097078719
+      Gem_Pack_All_In_One_6: 2043958580
+      Gem_Pack_All_In_One_7: 509664117
+      Gem_Pack_All_In_One_8: 289684229
+      Gem_Pack_All_In_One_9: -1880467801
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

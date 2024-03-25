@@ -6,6 +6,7 @@ using UnityEngine;
 public class OreSO : ScriptableObject
 {
     [Header("Ore Infomation")]
+    public Sprite OreSprite = null;
     public string OreName = "Empty";
     public string OreDesc = "Empty";
 

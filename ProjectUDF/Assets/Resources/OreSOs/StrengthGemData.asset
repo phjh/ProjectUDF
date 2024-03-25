@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339217327c6ec0b42ae1c5c38315f001, type: 3}
   m_Name: StrengthGemData
   m_EditorClassIdentifier: 
+  OreSprite: {fileID: -1720295295, guid: f9c1dea55535f6d4a94d576fc11ac74d, type: 3}
   OreName: "\uC2A4\uD2B8\uB85C\uC6B4 \uC6D0\uC11D"
   OreDesc: "\uBCF4\uB2E4 \uBD89\uC740 \uC0C9\uC758 \uC6D0\uC11D,\uD68D\uB4DD \uC2DC
     \uACF5\uACA9\uB825\uC774 \uC99D\uAC00\uD55C\uB2E4."

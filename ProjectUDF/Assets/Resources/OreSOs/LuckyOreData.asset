@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339217327c6ec0b42ae1c5c38315f001, type: 3}
   m_Name: LuckyOreData
   m_EditorClassIdentifier: 
+  OreSprite: {fileID: 21300000, guid: 5c69ff72b1d507d40a1611d12022f5cc, type: 3}
   OreName: "\uD3EC\uD230"
   OreDesc: "\uC601\uB871\uD55C \uB178\uB780\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
     \uD589\uC6B4\uC774 \uC99D\uAC00\uD55C\uB2E4."
   stats: 1
   value: 3
+  valuePersent: 0

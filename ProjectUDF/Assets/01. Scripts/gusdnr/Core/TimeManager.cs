@@ -21,6 +21,16 @@ public class TimeManager : MonoSingleton<TimeManager>
 
 	private Coroutine timerCoroutine;
 
+	private void OnEnable()
+	{
+		PlayerStat.OnDeadPlayer += ResetTimer;
+	}
+
+	private void OnDisable()
+	{
+		PlayerStat.OnDeadPlayer -= ResetTimer;
+	}
+
 	private void Start()
 	{
 		ResetTimer();
