@@ -63,7 +63,7 @@ public class PlayerAttack : Player
         _player.ActiveMove = false;
         PlayerAim aim = GetComponent<PlayerAim>();
         aim.enabled = false;
-        PoolableMono poolItem = PoolManager.Instance.Pop(PoolingType.ChargeAttackEffect);
+        EffectPoolableMono poolItem = PoolManager.Instance.Pop(EffectPoolingType.ChargeAttackEffect);
         poolItem.transform.position = _rightattackRange.transform.position;
         poolItem.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(0.4f);

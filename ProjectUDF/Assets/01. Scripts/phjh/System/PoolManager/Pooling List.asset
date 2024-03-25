@@ -12,16 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545138e867fcbd34abe67ff3cc6d3d8b, type: 3}
   m_Name: Pooling List
   m_EditorClassIdentifier: 
-  list:
+  PoolObjtectList:
   - type: 0
     prefab: {fileID: -8852433299532665753, guid: 30351b57998940047a26f836f07b9384, type: 3}
     count: 20
+    name: ' Test3'
+    description: "\uD14C\uC2A4\uD2B8\uC6A9 \uD30C\uB780 \uC0AC\uAC01\uD615"
   - type: 1
     prefab: {fileID: 7647687750372263126, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
     count: 20
+    name: Triangle
+    description: "\uBE68\uAC04 \uC0BC\uAC01\uD615"
   - type: 2
     prefab: {fileID: 2100141836858056051, guid: a1188d32532bf9b45949380ea602f79b, type: 3}
     count: 20
-  - type: 4
-    prefab: {fileID: 6186106607540891732, guid: 0525519b6aa40454caae8e015f129db0, type: 3}
+    name: BabyGolem
+    description: "\uBBF8\uB2C8\uACE8\uB818!"
+  PoolEffectLists:
+  - type: 0
+    prefab: {fileID: 8784949252116314618, guid: 0525519b6aa40454caae8e015f129db0, type: 3}
     count: 20
+    name: ChargeAttackEffect
+    description: "\uC6B0\uD074\uB9AD(\uCC28\uC9D5)\uACF5\uACA9 \uC774\uD399"

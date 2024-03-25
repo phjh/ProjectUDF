@@ -20,7 +20,11 @@ public class GameManager : MonoSingleton<GameManager>
     private void Awake()
     {
         PoolManager.Instance = new PoolManager(_poolingTrm);
-        foreach (var obj in poollistSO.list)
+        foreach (var obj in poollistSO.PoolObjtectList)
+        {
+            PoolManager.Instance.CreatePool(obj.prefab, obj.type, obj.count);
+        }
+        foreach (var obj in poollistSO.PoolEffectLists)
         {
             PoolManager.Instance.CreatePool(obj.prefab, obj.type, obj.count);
         }
