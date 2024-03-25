@@ -277,7 +277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &24232904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -371,31 +371,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 24232908}
-    m_ColliderPaths:
-    - - X: 2722413312
-        Y: -946705920
-      - X: 2673541376
-        Y: 3224711936
-      - X: 2249388544
-        Y: 3219909632
-      - X: 2178543616
-        Y: -2550843904
-      - X: -2130493184
-        Y: -2523012352
-      - X: -2179786496
-        Y: 3214713088
-      - X: -2687322112
-        Y: 3246152448
-      - X: -2742062336
-        Y: -829497984
-      - X: -2737896704
-        Y: -3169738496
-      - X: -3375244
-        Y: -3230884608
-      - X: 2686303744
-        Y: -3235675392
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 268.63034, y: -323.56754}
@@ -3676,7 +3652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1147247183
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8575,7 +8551,9 @@ MonoBehaviour:
   OrePrefab: {fileID: 5946013628519930447, guid: 6bd540a759e1f3447b14ac5dce9d56e4, type: 3}
   OreParent: {fileID: 1810453755}
   Pocket: {fileID: 24232903}
+  OreNameObj: {fileID: 692314958}
   OreName: {fileID: 692314960}
+  OreDescObj: {fileID: 16526823}
   OreDesc: {fileID: 16526825}
   IconList: []
   OreDatas:
