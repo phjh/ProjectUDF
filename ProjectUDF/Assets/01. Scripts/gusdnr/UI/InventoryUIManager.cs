@@ -12,9 +12,8 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	[SerializeField] private GameObject Pocket;
 
 	[Header("Desc")]
-	[SerializeField] private GameObject OreNameObj;
+	[SerializeField] private GameObject OreInfo;
 	public TMP_Text OreName;
-	[SerializeField] private GameObject OreDescObj;
 	public TMP_Text OreDesc;
 
 	[HideInInspector] public List<GameObject> IconList;
@@ -29,8 +28,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	private void Awake()
 	{
 		SetOreList();
-		OreNameObj.SetActive(false);
-		OreDescObj.SetActive(false);
+		OreInfo.SetActive(false);
 		isOpenUI = false;
 	}
 
@@ -50,8 +48,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 		{
 			UIManager.Instance.SetScreenFilter(true);
 			Pocket.SetActive(true);
-			OreNameObj.SetActive(true);
-			OreDescObj.SetActive(true);
+			OreInfo.SetActive(true);
 			SetOreList();
 			isOpenUI = true;
 		}
@@ -64,8 +61,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			Pocket.SetActive(false);
-			OreNameObj.SetActive(false);
-			OreDescObj.SetActive(false);
+			OreInfo.SetActive(false);
 			UIManager.Instance.SetScreenFilter(false);
 			isOpenUI = false;
 		}
