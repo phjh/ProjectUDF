@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryUIManager : MonoSingleton<InventoryUIManager>
@@ -9,10 +11,16 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	[SerializeField] private RectTransform OreParent;
 	[SerializeField] private GameObject Pocket;
 
+	[Header("Desc Area")]
+	public TMP_Text OreName;
+	public TMP_Text OreDesc;
+
 	[HideInInspector] public List<GameObject> IconList;
 	[Header("Data List")]
 	public List<OreSO> OreDatas;
 	public List<OreSO> GemDatas;
+
+	public event Action OnClickedIcon;
 
 	private List<int> InOreList; //실제 리스트 할당
 	private List<int> InGemList; //실제 리스트 할당
@@ -82,7 +90,7 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 
 		newOre.transform.SetParent(OreParent);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
-		newOre.transform.localPosition = new Vector3(Random.Range(-200, 200), 0, 0);
+		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-200, 200), 0, 0);
 		IconList.Add(newOre);
 
 	}
