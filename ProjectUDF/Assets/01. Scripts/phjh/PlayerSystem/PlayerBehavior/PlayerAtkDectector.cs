@@ -8,6 +8,7 @@ public class PlayerAtkDectector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Enemy") && collision.TryGetComponent<EnemyBase>(out EnemyBase enemy))
         {
             Debug.Log("@@@@@trigger damage : " + _playerAtk.ResentDamage);

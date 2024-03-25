@@ -7,6 +7,8 @@ public class PoolManager
 
     [SerializeField]
     private Dictionary<PoolingType, Pool<PoolableMono>> _pools = new Dictionary<PoolingType, Pool<PoolableMono>>();
+    [SerializeField]
+    private Dictionary<EffectPoolingType, EffectSystem<EffectPoolableMono>> _effectPools = new Dictionary<EffectPoolingType, EffectSystem<EffectPoolableMono>>();
 
     private Transform _trmParent;
     public PoolManager(Transform trmParent)
@@ -38,6 +40,32 @@ public class PoolManager
         if(resetParent)
             obj.transform.parent = _trmParent;
         _pools[obj.poolingType].Push(obj);
+    }
+
+    public void CreatePool(EffectPoolableMono prefab, EffectPoolingType poolingType, int count = 10)
+    {
+        EffectSystem<EffectPoolableMono> pool = new EffectSystem<EffectPoolableMono>(prefab, poolingType, _trmParent, count);
+        Debug.Log('a');
+        _effectPools.Add(poolingType, pool);
+    }
+
+    public EffectPoolableMono Pop(EffectPoolingType type)
+    {
+        if (!_effectPools.ContainsKey(type))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        EffectPoolableMono item = _effectPools[type].Pop();
+        item.ResetPooingItem();
+        return item;
+    }
+
+    public void Push(EffectPoolableMono obj, bool resetParent = false)
+    {
+        if (resetParent)
+            obj.transform.parent = _trmParent;
+        _effectPools[obj.poolingType].Push(obj);
     }
 
 }

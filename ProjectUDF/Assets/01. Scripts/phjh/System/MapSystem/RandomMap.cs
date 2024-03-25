@@ -6,10 +6,13 @@ using Pathfinding;
 public class RandomMap : MonoBehaviour
 {
     [SerializeField]
-    List<MapInfoSO> floors;
+    private List<MapInfoSO> floors;
 
     [SerializeField]
-    NavGraph groundScan;
+    private NavGraph groundScan;
+
+    [SerializeField]
+    private ParticleSystem dirtEffect;
 
     private GameObject nowMap;
 
@@ -17,6 +20,7 @@ public class RandomMap : MonoBehaviour
     public int nowRoom = 0;
     public int nowWave = 0;
     public int leftMonsters = 0;
+    public float roomStartTime = 0;
 
     private void Start()
     {
@@ -31,18 +35,37 @@ public class RandomMap : MonoBehaviour
             floors[nowFloor].floorRoomInfo[0].DebugMonsters();
             SetNextMonsterWaves();
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            MobKilledEvent();
+        }
+        if(Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[nowRoom].timeLimit)
+        {
+            Debug.Log("Time over");
+        }
+        else
+        {
+            float spawnRate = Time.time - roomStartTime - 30f;
+            var emission = dirtEffect.emission;
+        }
     }
 
     private void OnEnable()
     {
         MapSystem.Instance.FloorClearEvent += StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent += SetNextMonsterWaves;
+        MapSystem.Instance.MapStartEvent += GameManager.Instance.ReloadStats;
+        MapSystem.Instance.MapStartEvent += SetRoomTimer;
+        MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
 
     private void OnDisable()
     {
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent -= SetNextMonsterWaves;
+        MapSystem.Instance.MapStartEvent -= GameManager.Instance.ReloadStats;
+        MapSystem.Instance.MapStartEvent -= SetRoomTimer;
+        MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
 
     //몬스터 소환하는 메서드
@@ -53,7 +76,7 @@ public class RandomMap : MonoBehaviour
         leftMonsters = nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave];
         while (spawnPos.Count <= nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave] + 2)
         {
-            spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 25), Random.Range(0, 25)));
+            spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 10), Random.Range(0, 10)));
         }
              
         Debug.Log($"spawnPos Count : {spawnPos.Count},   monsters count : {nowFloor.floorRoomInfo[nowRoom].spawnMonster.Count} ");
@@ -63,6 +86,11 @@ public class RandomMap : MonoBehaviour
         {
             if (monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
                 obj.CustomInstantiate(spawnPos[i],obj.poolingType);
+            else
+            {
+                Debug.LogWarning(monsters.name + $"({monsters.GetInstanceID()})" + "was not spawned");
+                nowWave++;
+            }
              
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
             //스폰 정보 없애기
@@ -83,18 +111,20 @@ public class RandomMap : MonoBehaviour
         SpawnMonsters();
         if(nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves)
         {
+            MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
             nowRoom++;
-            MapSystem.Instance.ActionInvoker(4);
             nowWave = 0;
             Destroy(nowMap.gameObject);
             if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
                 nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
+            MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
         }
         if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
         {
+            MapSystem.Instance.ActionInvoker(MapEvents.FloorClear);
             nowFloor++;
-            MapSystem.Instance.ActionInvoker(2);
             nowRoom = 0;
+            MapSystem.Instance.ActionInvoker(MapEvents.FloorStart);
 
         }
         if (groundScan != null)
@@ -115,5 +145,14 @@ public class RandomMap : MonoBehaviour
         floors.Add(newMap);
     }
 
+    void MobKilledEvent()
+    {
+        leftMonsters--;
+        if(leftMonsters == 0)
+        {
+            MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
+        }
+    }
 
+    void SetRoomTimer() => roomStartTime = Time.time;
 }

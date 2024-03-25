@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     public bool IsAttacking = false;
 
+    public bool CanAttack = true;
+
     protected bool _activeMove = true;
 
     public bool _isdodgeing = false;
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
     {
         _playerStat = _playerStat.Clone();
         _playerStat.SetOwner(this);
+        GameManager.Instance.player = this;
     }
 
 	private void Update()

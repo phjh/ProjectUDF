@@ -32,16 +32,11 @@ public class PlayerAttack : Player
 
     public IEnumerator NormalAttack()
     {
-        float damage = _playerStat.Strength.GetValue() * 4/5;
-        if(UnityEngine.Random.Range(0,100) < _playerStat.Lucky.GetValue())
-        {
-            damage = ResentDamage * 1.3f;
-            Debug.Log("!!!!!!damage : " + damage);
-        }
+        float damage = CalculateDamage(0.8f);
         Debug.Log("damage : " + damage);
-        ResentDamage = Mathf.Ceil(damage * 10)/10;
         yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
+        _player.CanAttack = true;
     }
 
     public IEnumerator ChargingAttack()
@@ -58,34 +53,31 @@ public class PlayerAttack : Player
         }
 
         pressTime = Mathf.Clamp(pressTime, 0, ChargeTime);
-        factor = Mathf.Lerp(-0.2f, 0.2f, pressTime / ChargeTime) + 1;
+        factor = Mathf.Lerp(0f, 0.4f, pressTime / ChargeTime) + 0.8f;
         Debug.Log($"time : {pressTime},  factor : {factor}");
 
-        float damage;
-        if (UnityEngine.Random.Range(0, 100) < _playerStat.Lucky.GetValue())
-        {
-            damage = ResentDamage * 1.3f * factor;
-            Debug.Log("!!!!!!damage : " + damage);
-        }
-        else
-        {
-            damage = _playerStat.Strength.GetValue() * factor;
-        }
+        float damage = CalculateDamage(factor);
         Debug.Log("damage : " + damage);
-        ResentDamage = Mathf.Ceil(damage * 10) / 10;
 
         _rightAtkcol.enabled = true;
         _player.GetComponentInParent<PlayerMovement>().StopImmediately();
         _player.ActiveMove = false;
         PlayerAim aim = GetComponent<PlayerAim>();
         aim.enabled = false;
+
+        GameManager.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform, 0.4f);
+
         yield return new WaitForSeconds(0.4f);
+
+        _player.CanAttack = false;
         _rightattackRange.gameObject.SetActive(false);
         _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
         aim.enabled = true;
+
         yield return new WaitForSeconds(5f / 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
+        _player.CanAttack = true;
     }
 
     [Obsolete]
@@ -93,7 +85,8 @@ public class PlayerAttack : Player
     {
         if (_player._isdodgeing)
         {
-            StopAllCoroutines();
+            StopCoroutine(NormalAttack());
+            StopCoroutine(ChargingAttack());
             _range.gameObject.SetActive(false);
             _rightattackRange.SetActive(false);
             _player.IsAttacking = false;
@@ -102,11 +95,12 @@ public class PlayerAttack : Player
 
         if (Input.GetMouseButton(0) && !_player.IsAttacking)
         {
-            _player.IsAttacking = true;
             _range.gameObject.SetActive(true);
         }
         else if(Input.GetMouseButtonUp(0) && _range.gameObject.active == true)
         {
+            _player.IsAttacking = true;
+            _player.CanAttack = false;
             StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
         }
@@ -118,5 +112,21 @@ public class PlayerAttack : Player
             _rightattackRange.gameObject.SetActive(true);
         }
 
+    }
+
+    public float CalculateDamage(float factor)
+    {
+        float damage = 0;
+        if (UnityEngine.Random.Range(0, 100) < GameManager.Instance.Lucky)
+        {
+            damage = ResentDamage * 1.3f * factor;
+            Debug.Log("!!!!!!damage : " + damage);
+        }
+        else
+        {
+            damage = GameManager.Instance.Strength * factor;
+        }
+        ResentDamage = Mathf.Ceil(damage * 10) / 10;
+        return damage;
     }
 }

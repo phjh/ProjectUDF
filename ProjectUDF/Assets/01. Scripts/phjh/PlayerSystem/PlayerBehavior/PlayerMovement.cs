@@ -11,6 +11,7 @@ public class PlayerMovement : Player
 
 	private float _currentSpeed;
 
+    private CapsuleCollider2D _colider;
     private Vector2 _inputDirection;
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
@@ -27,6 +28,7 @@ public class PlayerMovement : Player
         _inputReader.DodgeEvent += Dodge;
         _rigidbody = GetComponent<Rigidbody2D>();
         _currentSpeed = _playerStat.MoveSpeed.GetValue();        
+        _colider = GetComponent<CapsuleCollider2D>();
     }
 
     private void OnDisable()
@@ -44,15 +46,17 @@ public class PlayerMovement : Player
         StartCoroutine(doDodge());
     }
 
-    IEnumerator doDodge()
+    IEnumerator DoDodge()
     {
         _player._isdodgeing = true;
         _player.ActiveMove = false;
-        _rigidbody.velocity = lastinputDir * _currentSpeed * 1.6f;
+        _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
+        _colider.enabled = false;
         yield return new WaitForSeconds(0.5f);
+        _colider.enabled = true;
         _player.ActiveMove = true;
         _player._isdodgeing = false;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(Mathf.Clamp(3f - _playerStat.GetStatByType(Stats.MoveSpeed).GetValue() / 10f, 1, 3));
         _canDodge = true;
     }
 

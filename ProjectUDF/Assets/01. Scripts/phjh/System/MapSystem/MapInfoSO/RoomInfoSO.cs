@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class RoomInfoSO : ScriptableObject
     public int id;
     public int monsterWaves;
     public GameObject MapPrefab;
+    public float timeLimit = 60;
 
     [Header("웨이브별 나오는 몬스터 수")]
     public List<int> numberOfMonsters;
