@@ -11,12 +11,6 @@ public class OreDataHolder : MonoBehaviour
 	private void Awake()
 	{
 		HolderImage = GetComponent<Image>();
-		InventoryUIManager.Instance.OnClickedIcon += PrintOreDesc;
-	}
-
-	private void OnDestroy()
-	{
-		InventoryUIManager.Instance.OnClickedIcon -= PrintOreDesc;
 	}
 
 	public void SettingOreData(OreSO OreData)
@@ -33,14 +27,14 @@ public class OreDataHolder : MonoBehaviour
 		string desc = "";
 		switch(HoldingData.stats)
 		{
-			case Stats.Strength: desc = "힘 "; break;
-			case Stats.Lucky: desc = "행운 "; break;
-			case Stats.MoveSpeed: desc = "이동 속도 "; break;
-			case Stats.AttackSpeed: desc = "공격 속도 "; break;
+			case Stats.Strength: desc = "힘"; break;
+			case Stats.Lucky: desc = "행운"; break;
+			case Stats.MoveSpeed: desc = "이동 속도"; break;
+			case Stats.AttackSpeed: desc = "공격 속도"; break;
 			default: break;
 		}
-		desc += $"[{HoldingData.value} 증가]";
-		if(HoldingData.valuePersent != 0) desc += $" [{HoldingData.valuePersent}% 증가]";
+		desc += $"\n[{HoldingData.value} 증가]";
+		if(HoldingData.valuePersent != 0) desc += $"\n[{HoldingData.valuePersent}% 증가]";
 		InventoryUIManager.Instance.OreDesc.text = desc;
 	}
 }

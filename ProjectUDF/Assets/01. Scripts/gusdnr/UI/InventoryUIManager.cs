@@ -11,16 +11,16 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	[SerializeField] private RectTransform OreParent;
 	[SerializeField] private GameObject Pocket;
 
-	[Header("Desc Area")]
+	[Header("Desc")]
+	[SerializeField] private GameObject OreNameObj;
 	public TMP_Text OreName;
+	[SerializeField] private GameObject OreDescObj;
 	public TMP_Text OreDesc;
 
 	[HideInInspector] public List<GameObject> IconList;
 	[Header("Data List")]
 	public List<OreSO> OreDatas;
 	public List<OreSO> GemDatas;
-
-	public event Action OnClickedIcon;
 
 	private List<int> InOreList; //실제 리스트 할당
 	private List<int> InGemList; //실제 리스트 할당
@@ -29,6 +29,8 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 	private void Awake()
 	{
 		SetOreList();
+		OreNameObj.SetActive(false);
+		OreDescObj.SetActive(false);
 		isOpenUI = false;
 	}
 
@@ -48,6 +50,8 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 		{
 			UIManager.Instance.SetScreenFilter(true);
 			Pocket.SetActive(true);
+			OreNameObj.SetActive(true);
+			OreDescObj.SetActive(true);
 			SetOreList();
 			isOpenUI = true;
 		}
@@ -60,6 +64,8 @@ public class InventoryUIManager : MonoSingleton<InventoryUIManager>
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			Pocket.SetActive(false);
+			OreNameObj.SetActive(false);
+			OreDescObj.SetActive(false);
 			UIManager.Instance.SetScreenFilter(false);
 			isOpenUI = false;
 		}
