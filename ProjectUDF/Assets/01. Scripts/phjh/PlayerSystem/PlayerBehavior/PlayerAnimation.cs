@@ -22,6 +22,9 @@ public class PlayerAnimation : Player
 
     MoveDirectionList lastMoveDirection;
 
+    [SerializeField]
+    PlayerAim aim;
+
     #region SpineAnimations
 
     [SpineAnimation]
@@ -47,6 +50,8 @@ public class PlayerAnimation : Player
 
     #endregion
 
+    
+
     public Vector2 _inputDirection;
 
     protected void Start()
@@ -71,27 +76,11 @@ public class PlayerAnimation : Player
         bool isRight = _inputDirection.x > 0;
         bool isUp = _inputDirection.y > 0;
 
-        if (_player.CanAttack && _player.IsAttacking)
+        if(_inputDirection == Vector2.zero)
         {
-            if (Input.GetMouseButton(1))
-            {
-                skeletonAnimation.AnimationName = rightAttackAnimation[(int)lastMoveDirection];
-                skeletonAnimation.timeScale = 0f;
-            }
-            else
-            {
-                skeletonAnimation.timeScale = 1f;
-                Debug.Log("???");
-            }
-            return;
+            //다른곳 바라보지 않게 막는용
         }
-        if (_inputDirection == Vector2.zero)
-        {
-            skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
-            return;
-        }
-
-        if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
+        else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
         {
             lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
             //skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
@@ -112,7 +101,34 @@ public class PlayerAnimation : Player
             //skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
         }
 
-         skeletonAnimation.AnimationName = MoveAnimations[(int)lastMoveDirection];
+        if (_player.CanAttack && _player.IsAttacking)
+        {
+            skeletonAnimation.AnimationName = rightAttackAnimation[aim.Angle];
+            if (Input.GetMouseButton(1))
+            {
+                skeletonAnimation.AnimationName = rightAttackAnimation[(int)lastMoveDirection];
+                skeletonAnimation.timeScale = 0f;
+            }
+            else
+            {
+                skeletonAnimation.timeScale = 1.2f;
+                Debug.Log("???");
+            }
+            return;
+        }
+
+        if (_inputDirection == Vector2.zero)
+        {
+            skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
+            return;
+        }
+
+        skeletonAnimation.AnimationName = MoveAnimations[(int)lastMoveDirection];
+    }
+
+    public void SetAttackDirection()
+    {
+
     }
 
     private void FixedUpdate()

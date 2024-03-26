@@ -6,6 +6,8 @@ public class PlayerAim : Player
 {
     [SerializeField] Player _player;
 
+    public int Angle;
+
     protected void Start()
     {
         _playerStat = _player._playerStat;
@@ -17,6 +19,13 @@ public class PlayerAim : Player
         Vector2 dir = (worldMousePos - transform.position);
         float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
+
+        int angle = (int)((rotZ + 90) / 22.5f);
+        if (angle < 0)
+        {
+            angle = 15 + angle;
+        }
+        Angle = (angle + 1) / 2;
     }
 
     private void FixedUpdate()

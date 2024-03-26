@@ -65,9 +65,10 @@ public class PlayerAttack : Player
         PlayerAim aim = GetComponent<PlayerAim>();
         aim.enabled = false;
 
-        GameManager.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform, 0.4f);
-
         yield return new WaitForSeconds(0.4f);
+
+        EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform.position, 0.4f);
+        EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect2, _rightattackRange.transform.position + Vector3.up/2, 0.2f);
 
         _player.CanAttack = false;
         _rightattackRange.gameObject.SetActive(false);
@@ -90,17 +91,18 @@ public class PlayerAttack : Player
             _range.gameObject.SetActive(false);
             _rightattackRange.SetActive(false);
             _player.IsAttacking = false;
+            _player.CanAttack = true;
             return;
         }
 
         if (Input.GetMouseButton(0) && !_player.IsAttacking)
         {
             _range.gameObject.SetActive(true);
+            _player.CanAttack = false;
         }
         else if(Input.GetMouseButtonUp(0) && _range.gameObject.active == true)
         {
             _player.IsAttacking = true;
-            _player.CanAttack = false;
             StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
         }
@@ -129,4 +131,5 @@ public class PlayerAttack : Player
         ResentDamage = Mathf.Ceil(damage * 10) / 10;
         return damage;
     }
+
 }

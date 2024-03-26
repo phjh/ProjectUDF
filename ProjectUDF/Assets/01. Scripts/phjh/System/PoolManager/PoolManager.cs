@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager
+public class PoolManager 
 {
     public static PoolManager Instance;
 
     [SerializeField]
     private Dictionary<PoolingType, Pool<PoolableMono>> _pools = new Dictionary<PoolingType, Pool<PoolableMono>>();
     [SerializeField]
-    private Dictionary<EffectPoolingType, EffectSystem<EffectPoolableMono>> _effectPools = new Dictionary<EffectPoolingType, EffectSystem<EffectPoolableMono>>();
+    private Dictionary<EffectPoolingType, EffectPool<EffectPoolableMono>> _effectPools = new Dictionary<EffectPoolingType, EffectPool<EffectPoolableMono>>();
 
     private Transform _trmParent;
     public PoolManager(Transform trmParent)
@@ -44,7 +45,7 @@ public class PoolManager
 
     public void CreatePool(EffectPoolableMono prefab, EffectPoolingType poolingType, int count = 10)
     {
-        EffectSystem<EffectPoolableMono> pool = new EffectSystem<EffectPoolableMono>(prefab, poolingType, _trmParent, count);
+        EffectPool<EffectPoolableMono> pool = new EffectPool<EffectPoolableMono>(prefab, poolingType, _trmParent, count);
         Debug.Log('a');
         _effectPools.Add(poolingType, pool);
     }
@@ -61,11 +62,11 @@ public class PoolManager
         return item;
     }
 
+
     public void Push(EffectPoolableMono obj, bool resetParent = false)
     {
         if (resetParent)
             obj.transform.parent = _trmParent;
         _effectPools[obj.poolingType].Push(obj);
     }
-
 }

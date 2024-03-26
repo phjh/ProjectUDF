@@ -31,6 +31,11 @@ MonoBehaviour:
   PoolEffectLists:
   - type: 0
     prefab: {fileID: 8784949252116314618, guid: 0525519b6aa40454caae8e015f129db0, type: 3}
-    count: 20
+    count: 10
     name: ChargeAttackEffect
+    description: "\uC6B0\uD074\uB9AD(\uCC28\uC9D5)\uACF5\uACA9 \uC774\uD399"
+  - type: 1
+    prefab: {fileID: -3628239746751925479, guid: d87cdfe7cb4030242858b9679fb07545, type: 3}
+    count: 10
+    name: ChargeAttackEffect2
     description: "\uC6B0\uD074\uB9AD(\uCC28\uC9D5)\uACF5\uACA9 \uC774\uD399"
