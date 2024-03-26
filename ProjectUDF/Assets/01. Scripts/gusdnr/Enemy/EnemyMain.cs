@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable
+public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerCheckable
 {
 	public float MaxHealth { get; set; }
 	public float CurrentHealth { get; set; }
 	public Rigidbody2D EnemyRB { get; set; }
 	public bool IsFacingRight { get; set; } = true;
-	
+
+
+	public bool IsAggroed { get; set; }
+	public bool IsWithStrikingDistance { get; set; }
+
 	private bool isDead;
 
 	#region State Machine Variables
@@ -108,6 +112,18 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable
 		EnemyMove
 	}
 
+	#endregion
+
+	#region Distance Check
+	public void SetAggroStatus(bool aggroStatus)
+	{
+		IsAggroed = aggroStatus;
+	}
+
+	public void SetStrikingDistance(bool isWithStrikingDistance)
+	{
+		IsWithStrikingDistance = isWithStrikingDistance;
+	}
 	#endregion
 
 	#endregion

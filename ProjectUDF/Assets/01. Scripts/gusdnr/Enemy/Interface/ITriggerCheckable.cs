@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITriggerCheckable : MonoBehaviour
+public interface ITriggerCheckable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    bool IsAggroed { get; set; }
+    bool IsWithStrikingDistance { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void SetAggroStatus(bool aggroStatus);
+    void SetStrikingDistance(bool isWithStrikingDistance);
 }
