@@ -35,7 +35,7 @@ public class EnemyChaseState : EnemyState
 
 		enemy.MoveEnemy(moveDirection * enemy.ChasingSpeed);
 
-		if (enemy.IsWithStrikingDistance)
+		if (enemy.IsWithStrikingDistance && enemy.canAttack)
 		{
 			enemy.MoveEnemy(Vector2.zero);
 			enemy.StateMachine.ChangeState(enemy.AttackState);

@@ -20,7 +20,6 @@ public class EnemyAttackState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
-
 		// 원하는 공격 패턴 선택 및 실행
 		if (attackPatterns.Count > 0)
 		{
@@ -30,7 +29,7 @@ public class EnemyAttackState : EnemyState
 		else
 		{
 			Debug.LogWarning("No attack patterns found in the enemy object.");
-			enemyStateMachine.ChangeState(new EnemyIdleState(enemy, enemyStateMachine));
+			enemyStateMachine.ChangeState(enemy.IdleState);
 		}
 	}
 
@@ -48,6 +47,7 @@ public class EnemyAttackState : EnemyState
 
 	private IEnumerator AttackRoutine(EnemyAttackPatternBase attackPattern)
 	{
+		enemy.canAttack = false;
 		attackPattern.ExecuteAttack(); // 공격 패턴 실행
 
 		// 여기서 공격이 끝날 때까지 대기
@@ -57,6 +57,7 @@ public class EnemyAttackState : EnemyState
 		}
 
 		// 공격이 끝나면 다른 상태로 전환
-		enemyStateMachine.ChangeState(new EnemyIdleState(enemy, enemyStateMachine));
+		enemyStateMachine.ChangeState(enemy.IdleState);
+		enemy.StartCoroutine(enemy.StartAttackCooldown());
 	}
 }

@@ -4259,6 +4259,8 @@ MonoBehaviour:
   lockOnDelay: 4
   dashSpeed: 10
   dashDuration: 1
+  TargetPos: {x: 0, y: 0}
+  LockOnTarget: 0
 --- !u!114 &1408259190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4350,7 +4352,7 @@ MonoBehaviour:
   EnemyCLD: {fileID: 0}
   EnemyRB: {fileID: 0}
   Patterns:
-  - {fileID: 1408259189}
+  - {fileID: 0}
   MaxHP: 10
   AttackDelay: 5
   MinAttackRadius: 0
@@ -8564,6 +8566,8 @@ MonoBehaviour:
   lockOnDelay: 4
   dashSpeed: 10
   dashDuration: 1
+  TargetPos: {x: 0, y: 0}
+  LockOnTarget: 0
 --- !u!114 &1791893983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8655,7 +8659,7 @@ MonoBehaviour:
   EnemyCLD: {fileID: 0}
   EnemyRB: {fileID: 0}
   Patterns:
-  - {fileID: 1791893982}
+  - {fileID: 0}
   MaxHP: 10
   AttackDelay: 5
   MinAttackRadius: 0

@@ -13,7 +13,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	public bool IsAggroed { get; set; }
 	public bool IsWithStrikingDistance { get; set; }
 
-	private bool isDead;
+	private bool isDead = false;
 
 	#region State Machine Variables
 
@@ -26,15 +26,23 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	#endregion
 
 	#region Idle Variables
+	[Header("Idle Variables")]
 	public float RandomMovementRange = 5f;
 	public float RandomMovementSpeed = 2f;
 	public float MaxMoveTime = 4f;
 	#endregion
 
-	#region ChasingValue
+	#region Chase Variables
+	[Header("Chase Variables")]
 	public float AggroRadius = 7f;
 	public float StrikingRadius = 3f;
 	public float ChasingSpeed = 2.5f;
+	#endregion
+
+	#region Attack Variables
+	[Header("Attack Variables")]
+	public float AttackCoolTime = 3f;
+	public bool canAttack = true;
 	#endregion
 
 	private void Awake()
@@ -60,6 +68,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 		CurrentHealth = MaxHealth;
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		isDead = false;
+		canAttack = true;
 		StateMachine.Initialize(IdleState);
 	}
 
@@ -75,6 +84,12 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 
 	#region Methods
 
+	public IEnumerator StartAttackCooldown()
+	{
+		yield return new WaitForSeconds(AttackCoolTime);
+		canAttack = true;
+	}
+
 	#region Manage Health/Die
 	public void Damage(float damageAmount)
 	{
@@ -85,6 +100,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	public void Die()
 	{
 		isDead = true;
+		PoolManager.Instance.Push(this);
 	}
 	#endregion
 
