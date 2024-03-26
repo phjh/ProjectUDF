@@ -13,7 +13,6 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	public bool IsAggroed { get; set; }
 	public bool IsWithStrikingDistance { get; set; }
 
-	private bool isDead = false;
 
 	#region State Machine Variables
 
@@ -23,6 +22,12 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	public EnemyChaseState ChaseState { get; set; }
 	public EnemyAttackState AttackState { get; set; }
 
+	#endregion
+
+	#region Stat Variables
+	[Header("Stats")]
+	public float maxHealth = 30f;
+	public bool isDead = false;
 	#endregion
 
 	#region Idle Variables
@@ -65,6 +70,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 
 	public override void ResetPooingItem()
 	{
+		MaxHealth = maxHealth;
 		CurrentHealth = MaxHealth;
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		isDead = false;

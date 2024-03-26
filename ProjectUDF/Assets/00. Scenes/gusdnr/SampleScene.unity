@@ -996,12 +996,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingType: 0
-  RandomMovementRange: 5
+  maxHealth: 30
+  isDead: 0
+  RandomMovementRange: 3
   RandomMovementSpeed: 5
-  MaxMoveTime: 4
-  AggroRadius: 12
-  StrikingRadius: 5
-  ChasingSpeed: 7
+  MaxMoveTime: 2
+  AggroRadius: 50
+  StrikingRadius: 7
+  ChasingSpeed: 10
   AttackCoolTime: 10
   canAttack: 1
 --- !u!114 &595687428
@@ -1016,8 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189b8e1ecd3444e4483e6a166514f475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 10
-  dashTime: 2
+  dashSpeed: 20
+  dashTime: 1
   lockOnTime: 3
 --- !u!1 &619394800
 GameObject:
@@ -4274,11 +4276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030f4aa55c5a22a4c9aadbcdea6dd248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOnDelay: 4
-  dashSpeed: 10
-  dashDuration: 1
-  TargetPos: {x: 0, y: 0}
-  LockOnTarget: 0
 --- !u!114 &1408259190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8316,7 +8313,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &1642537958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8581,11 +8578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030f4aa55c5a22a4c9aadbcdea6dd248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOnDelay: 4
-  dashSpeed: 10
-  dashDuration: 1
-  TargetPos: {x: 0, y: 0}
-  LockOnTarget: 0
 --- !u!114 &1791893983
 MonoBehaviour:
   m_ObjectHideFlags: 0
