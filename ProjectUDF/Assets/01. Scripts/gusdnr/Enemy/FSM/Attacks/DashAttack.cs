@@ -19,7 +19,7 @@ public class DashAttack : EnemyAttackPatternBase
 
 	public override void ExecuteAttack()
 	{
-		attackCoroutine = enemy.StartCoroutine(OnDash());
+		attackCoroutine = StartCoroutine(OnDash());
 	}
 
 	public override bool IsAttackFinished()
@@ -43,7 +43,15 @@ public class DashAttack : EnemyAttackPatternBase
 	private IEnumerator LockOn()
 	{
 		yield return new WaitForSeconds(lockOnTime);
-		target = GameManager.Instance.player.transform;
-		lockOn = true;
+		if (GameManager.Instance.player != null)
+		{
+			target = GameManager.Instance.player.transform;
+			lockOn = true;
+		}
+		else
+		{
+			Debug.LogError("Player object not found in GameManager.");
+			StopCoroutine(OnDash());
+		}
 	}
 }

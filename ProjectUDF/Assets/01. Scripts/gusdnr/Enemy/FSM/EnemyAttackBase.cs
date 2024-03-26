@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyAttackPatternBase
+public abstract class EnemyAttackPatternBase : MonoBehaviour
 {
 	protected EnemyMain enemy;
 
