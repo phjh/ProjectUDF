@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class UITestRunner : MonoBehaviour
 {
-	// Start is called before the first frame update
 	void Start()
     {
 		
 	}
 
-    // Update is called once per frame
     void Update()
     {
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -24,6 +22,14 @@ public class UITestRunner : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.B))
 		{
 			InventoryUIManager.Instance.Close();
+		}
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			TimeManager.Instance.StartTimer();
+		}
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			TimeManager.Instance.StopTimer();
 		}
 	}
 }

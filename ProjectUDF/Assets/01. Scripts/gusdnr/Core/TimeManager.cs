@@ -75,7 +75,7 @@ public class TimeManager : MonoSingleton<TimeManager>
 			yield return null;
 		}
 		OnTimerEnd?.Invoke();
-		StopTimer(true);
+		StopTimer(false);
     }
 
 	private void DisplayTime(float timeToDisplay) //보여줄 시간 텍스트화
