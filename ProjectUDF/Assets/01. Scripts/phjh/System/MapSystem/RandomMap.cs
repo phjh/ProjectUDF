@@ -26,6 +26,7 @@ public class RandomMap : MonoBehaviour
     {
         floors[nowFloor] = floors[nowFloor].CloneAndSettingRandom();
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
+        dirtEffect.Play();
     }
 
     private void Update()
@@ -39,14 +40,19 @@ public class RandomMap : MonoBehaviour
         {
             MobKilledEvent();
         }
-        if(Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[nowRoom].timeLimit)
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            roomStartTime -= 10;
+        }
+        if (Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[nowRoom].timeLimit)
         {
             Debug.Log("Time over");
         }
         else
         {
-            float spawnRate = Time.time - roomStartTime - 30f;
+            float spawnRate = Time.time - roomStartTime - 40f;
             var emission = dirtEffect.emission;
+            emission.rateOverTime = Mathf.Lerp(0, 20f, spawnRate / 40f);
         }
     }
 
@@ -55,7 +61,7 @@ public class RandomMap : MonoBehaviour
         MapSystem.Instance.FloorClearEvent += StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent += SetNextMonsterWaves;
         MapSystem.Instance.MapStartEvent += GameManager.Instance.ReloadStats;
-        MapSystem.Instance.MapStartEvent += SetRoomTimer;
+        MapSystem.Instance.MapStartEvent += RoomEffectInit;
         MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
 
@@ -64,7 +70,7 @@ public class RandomMap : MonoBehaviour
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent -= SetNextMonsterWaves;
         MapSystem.Instance.MapStartEvent -= GameManager.Instance.ReloadStats;
-        MapSystem.Instance.MapStartEvent -= SetRoomTimer;
+        MapSystem.Instance.MapStartEvent -= RoomEffectInit;
         MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
 
@@ -138,6 +144,15 @@ public class RandomMap : MonoBehaviour
 
     }
 
+    void RoomEffectInit()
+    {
+        dirtEffect.Stop();
+        roomStartTime = Time.time;
+        var em = dirtEffect.emission;
+        em.rateOverTime = 0;
+        dirtEffect.Play();
+    }
+
     //Ãþ ¸¶´Ù »ý¼º
     void StageGenerate()
     {
@@ -154,5 +169,4 @@ public class RandomMap : MonoBehaviour
         }
     }
 
-    void SetRoomTimer() => roomStartTime = Time.time;
 }

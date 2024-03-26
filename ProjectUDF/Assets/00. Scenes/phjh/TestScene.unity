@@ -338,6 +338,7 @@ MonoBehaviour:
   player: {fileID: 1041966973}
   poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
   _poolingTrm: {fileID: 447204365}
+  InventoryArray: []
   Strength: 0
   Lucky: 0
   AttackSpeed: 0
@@ -5743,7 +5744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 85d0dba98424656408c4f019ce598af9, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 95f84c3dd42335f4cb7adef83c9e9b19, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -5791,7 +5792,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 19ca881847861604dbd5960186096727, type: 2}
+  - {fileID: 2100000, guid: cf18cafc53d88bd4a9d13559020d969f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5876,16 +5877,16 @@ MonoBehaviour:
   - walk_sb_l
   - walk_s_l
   - walk_sf_l
-  leftAttackAnimation: 
+  leftAttackAnimation: pickaxe_swing_f
   rightAttackAnimation:
   - pickaxe_break_f
-  - walk_sf_r
-  - pickaxe_break_s_l
-  - walk_sb_r
+  - pickaxe_idle_sf_r
+  - pickaxe_break_s_r
+  - pickaxe_idle_sb_r
   - pickaxe_break_b
-  - walk_sb_l
+  - pickaxe_idle_sb_l
   - pickaxe_break_s_l
-  - walk_sf_l
+  - pickaxe_idle_sf_l
   DodgeAnimation: 
   hitAnimation: 
   dieAnimation: 

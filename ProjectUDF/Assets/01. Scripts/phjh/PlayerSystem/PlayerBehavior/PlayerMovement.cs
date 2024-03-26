@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Data.Common;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -56,9 +57,11 @@ public class PlayerMovement : Player
         _colider.enabled = true;
         _player.ActiveMove = true;
         _player._isdodgeing = false;
-        yield return new WaitForSeconds(Mathf.Clamp(3f - _playerStat.GetStatByType(Stats.MoveSpeed).GetValue() / 10f, 1, 3));
+        yield return new WaitForSeconds(DodgeCooltime());
         _canDodge = true;
     }
+
+    public float DodgeCooltime() => Mathf.Clamp(3f - GameManager.Instance.MoveSpeed / 10, 1, 3);
 
     public void SetMovement(Vector2 value)
     {

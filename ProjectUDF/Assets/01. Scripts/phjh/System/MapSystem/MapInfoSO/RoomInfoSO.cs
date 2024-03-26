@@ -10,7 +10,7 @@ public class RoomInfoSO : ScriptableObject
     public int id;
     public int monsterWaves;
     public GameObject MapPrefab;
-    public float timeLimit = 60;
+    public float timeLimit = 100;
 
     [Header("웨이브별 나오는 몬스터 수")]
     public List<int> numberOfMonsters;

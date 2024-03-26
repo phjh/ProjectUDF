@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 5
   monsterWaves: 2
   MapPrefab: {fileID: 4778392591593195873, guid: 190bb7facd96ede46918875092adde64, type: 3}
+  timeLimit: 100
   numberOfMonsters: 0800000006000000
   spawnMonsterList:
   - {fileID: 1657760043003656654, guid: 30351b57998940047a26f836f07b9384, type: 3}
