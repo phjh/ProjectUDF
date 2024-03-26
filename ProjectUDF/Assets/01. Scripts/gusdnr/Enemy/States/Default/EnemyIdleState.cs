@@ -7,8 +7,6 @@ public class EnemyIdleState : EnemyState
 	private Vector3 _targetPos;
 	private Vector3 _direction;
 
-	public float MaxMoveTime;
-
 	private bool endTimer = false;
 	private Coroutine timerCoroutine;
 
@@ -67,7 +65,7 @@ public class EnemyIdleState : EnemyState
 	{
 		endTimer = false;
 		float curTime = 0;
-		while (MaxMoveTime > curTime)
+		while (enemy.MaxMoveTime > curTime)
 		{
 			curTime += Time.deltaTime;
 			yield return null;

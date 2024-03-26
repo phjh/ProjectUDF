@@ -6,12 +6,14 @@ public class EnemyAggroCheck : MonoBehaviour
 {
     public GameObject PlayerTarget { get; set; }
     private EnemyMain _enemy;
+	private CircleCollider2D Sensor;
 
-	private void OnEnable()
+	private void Start()
 	{
 		PlayerTarget = GameManager.Instance.player.gameObject;
-
-		if(_enemy == null) _enemy = GetComponent<EnemyMain>();
+		if(_enemy == null) _enemy = GetComponentInParent<EnemyMain>();
+		if(Sensor == null) Sensor = GetComponent<CircleCollider2D>();
+		Sensor.radius = _enemy.AggroRadius;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

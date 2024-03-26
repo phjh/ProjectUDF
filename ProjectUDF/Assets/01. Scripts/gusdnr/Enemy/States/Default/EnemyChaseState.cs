@@ -33,10 +33,11 @@ public class EnemyChaseState : EnemyState
 
 		Vector2 moveDirection = (_playerTransform.position - enemy.transform.position).normalized;
 
-		enemy.MoveEnemy(moveDirection * _movementSpeed);
+		enemy.MoveEnemy(moveDirection * enemy.ChasingSpeed);
 
 		if (enemy.IsWithStrikingDistance)
 		{
+			enemy.MoveEnemy(Vector2.zero);
 			enemy.StateMachine.ChangeState(enemy.AttackState);
 		}
 	}

@@ -895,6 +895,7 @@ GameObject:
   - component: {fileID: 595687416}
   - component: {fileID: 595687418}
   - component: {fileID: 595687426}
+  - component: {fileID: 595687427}
   m_Layer: 2
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -981,6 +982,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!114 &595687427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595687412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc8202730712c14180fdd0237ad4410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolingType: 0
+  RandomMovementRange: 5
+  RandomMovementSpeed: 5
+  MaxMoveTime: 4
+  AggroRadius: 12
+  StrikingRadius: 5
+  ChasingSpeed: 7
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4391,6 +4411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1429902574}
   - component: {fileID: 1429902575}
+  - component: {fileID: 1429902576}
   m_Layer: 2
   m_Name: Aggro
   m_TagString: Untagged
@@ -4442,12 +4463,24 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 12
+--- !u!114 &1429902576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429902573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0c2aa164d7ba84786cfb6a7df48d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1434261356
 GameObject:
   m_ObjectHideFlags: 0
@@ -4458,6 +4491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1434261357}
   - component: {fileID: 1434261358}
+  - component: {fileID: 1434261359}
   m_Layer: 2
   m_Name: StrikingDistance
   m_TagString: Untagged
@@ -4509,12 +4543,24 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 4
+--- !u!114 &1434261359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434261356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7791ed6639867b449b9c647f7c42ec68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1474405223
 GameObject:
   m_ObjectHideFlags: 0

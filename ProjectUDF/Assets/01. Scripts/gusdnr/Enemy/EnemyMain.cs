@@ -28,9 +28,16 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	#region Idle Variables
 	public float RandomMovementRange = 5f;
 	public float RandomMovementSpeed = 2f;
+	public float MaxMoveTime = 4f;
 	#endregion
 
-	private void OnEnable()
+	#region ChasingValue
+	public float AggroRadius = 7f;
+	public float StrikingRadius = 3f;
+	public float ChasingSpeed = 2.5f;
+	#endregion
+
+	private void Awake()
 	{
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
@@ -43,6 +50,11 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 		AttackState = new EnemyAttackState(this, StateMachine);
 	}
 
+	private void Start()
+	{
+		ResetPooingItem();
+	}
+
 	public override void ResetPooingItem()
 	{
 		CurrentHealth = MaxHealth;
@@ -53,12 +65,12 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 
 	private void Update()
 	{
-		StateMachine?.CurrentEnemyState.FrameUpdate();
+		StateMachine.CurrentEnemyState.FrameUpdate();
 	}
 
 	private void FixedUpdate()
 	{
-		StateMachine?.CurrentEnemyState.PhtsicsUpdate();
+		StateMachine.CurrentEnemyState.PhtsicsUpdate();
 	}
 
 	#region Methods
