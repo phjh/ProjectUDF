@@ -6,25 +6,38 @@ using UnityEngine;
 
 public enum GameResults
 {
-    Timeout = 0
+    Timeout = 0,
 }
 
 public class GameManager : MonoSingleton<GameManager>
 {
+	#region Pooling
+	[Header("Pooling")]
+	[SerializeField]
+	private PoolingListSO poollistSO;
+	[SerializeField]
+	private Transform _poolingTrm;
+	#endregion
+
+	#region Player Info
+	[Header("Player")]
     public Player player;
 
-    [SerializeField]
-    private PoolingListSO poollistSO;
-    [SerializeField]
-    private Transform _poolingTrm;
+	[Header("Player Stat")]
+	public float Strength;
+	public float Lucky;
+	public float AttackSpeed;
+	public float MoveSpeed;
+	#endregion
 
-
-    [Header("Item Manage")]
+	[Header("Item Manage")]
     public ItemDataSO[] InventoryArray;
     private List<ItemDataSO> DropItemList = new List<ItemDataSO>();
     private ItemInventory playerInventory;
 
-    private void OnEnable()
+	private GameResults results;
+
+	private void OnEnable()
     {
         if (InventoryArray == null) Debug.Log("Item Array is null");
         InventoryArray = Resources.LoadAll<ItemDataSO>("ItemDatas");
@@ -37,13 +50,6 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
     }
-
-    GameResults results;
-
-    public float Strength;
-    public float Lucky;
-    public float AttackSpeed;
-    public float MoveSpeed;
 
     private void Awake()
     {
