@@ -1,4 +1,6 @@
+using Spine;
 using Spine.Unity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +27,8 @@ public class PlayerAnimation : Player
     [SerializeField]
     PlayerAim aim;
 
+    public List<AnimationReferenceAsset> chargingAttack;
+
     #region SpineAnimations
 
     [SpineAnimation]
@@ -34,10 +38,13 @@ public class PlayerAnimation : Player
     public List<string> MoveAnimations;
 
     [SpineAnimation]
-    public string leftAttackAnimation;
+    public List<string> leftAttackAnimations;
     
     [SpineAnimation]
-    public List<string> rightAttackAnimation;
+    public List<string> rightAttackAnimations;
+
+    [SpineAnimation]
+    public List<string> PickaxeIdleAnimations;
 
     [SpineAnimation]
     public string DodgeAnimation;
@@ -50,7 +57,7 @@ public class PlayerAnimation : Player
 
     #endregion
 
-    
+    int aimAngle = 0;
 
     public Vector2 _inputDirection;
 
@@ -59,11 +66,13 @@ public class PlayerAnimation : Player
         _playerStat = _player._playerStat;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         _inputReader.MovementEvent += SetMovement;
+        StartCoroutine(animation());
     }
 
-    private void OnDestroy()
+    IEnumerator animation()
     {
-        _inputReader.MovementEvent -= SetMovement;
+        yield return animation();
+        yield return new WaitForSeconds(0.8f);
     }
 
     public void SetMovement(Vector2 value)
@@ -71,7 +80,7 @@ public class PlayerAnimation : Player
         _inputDirection = value;
     }
 
-    public void SetAnimation()
+    void SetAnimation()
     {
         bool isRight = _inputDirection.x > 0;
         bool isUp = _inputDirection.y > 0;
@@ -103,15 +112,15 @@ public class PlayerAnimation : Player
 
         if (_player.CanAttack && _player.IsAttacking)
         {
-            skeletonAnimation.AnimationName = rightAttackAnimation[aim.Angle];
             if (Input.GetMouseButton(1))
             {
-                skeletonAnimation.AnimationName = rightAttackAnimation[(int)lastMoveDirection];
-                skeletonAnimation.timeScale = 0f;
+                aimAngle = aim.Angle;
+                skeletonAnimation.AnimationState.SetAnimation(1, chargingAttack[aimAngle], true);
             }
             else
             {
-                skeletonAnimation.timeScale = 1.2f;
+                skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
+                skeletonAnimation.AnimationState.AddAnimation(0, PickaxeIdleAnimations[aimAngle], true, 0);
                 Debug.Log("???");
             }
             return;
@@ -119,21 +128,11 @@ public class PlayerAnimation : Player
 
         if (_inputDirection == Vector2.zero)
         {
-            skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
+            skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], true);
             return;
         }
 
-        skeletonAnimation.AnimationName = MoveAnimations[(int)lastMoveDirection];
-    }
-
-    public void SetAttackDirection()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-        SetAnimation();
+        skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], true);
     }
 
 }

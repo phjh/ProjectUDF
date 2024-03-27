@@ -68,7 +68,7 @@ public class PlayerAttack : Player
         yield return new WaitForSeconds(0.4f);
 
         EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform.position, 0.4f);
-        EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect2, _rightattackRange.transform.position + Vector3.up/2, 0.2f);
+        EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect2, _rightattackRange.transform.position + Vector3.up / 2, 0.2f);
 
         _player.CanAttack = false;
         _rightattackRange.gameObject.SetActive(false);
@@ -107,7 +107,7 @@ public class PlayerAttack : Player
             _range.gameObject.SetActive(false);
         }
 
-        if (Input.GetMouseButtonDown(1) && !_player.IsAttacking)
+        if (Input.GetMouseButtonDown(1) && !_player.IsAttacking && _player.CanAttack)
         {
             _player.IsAttacking = true;
             StartCoroutine(ChargingAttack());
