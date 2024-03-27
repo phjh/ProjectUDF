@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class EnemyCooldownState : EnemyState
 {
-	public EnemyCooldownState(EnemyMain enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
-	{
-	}
 
 	public override void EnterState()
 	{

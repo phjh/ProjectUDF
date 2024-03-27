@@ -5,6 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Normal Chase", menuName = "SO/State/Chase/Normal")]
 public class NormalChaseState :EnemyState 
 {
+	public float movementSpeed;
+
+	public override void Initialize(EnemyMain enemy, EnemyStateMachine stateMachine)
+	{
+		base.Initialize(enemy, stateMachine);
+	}
+
 	public override void EnterState()
 	{
 		base.EnterState();
@@ -18,11 +25,14 @@ public class NormalChaseState :EnemyState
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
-	}
+		Vector2 moveDirection = (enemy.Target.position - enemy.transform.position).normalized;
+		enemy.MoveEnemy(moveDirection * movementSpeed);
 
-	public override void Initialize(EnemyMain enemy, EnemyStateMachine stateMachine)
-	{
-		base.Initialize(enemy, stateMachine);
+		if (enemy.IsWithStrikingDistance)
+		{
+			enemy.MoveEnemy(Vector2.zero);
+			enemy.StateMachine.ChangeState(enemy.AttackState);
+		}
 	}
 
 	public override void PhtsicsUpdate()

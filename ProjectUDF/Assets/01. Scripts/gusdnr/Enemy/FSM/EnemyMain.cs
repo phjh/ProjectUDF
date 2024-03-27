@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMain : PoolableMono
@@ -9,8 +8,8 @@ public class EnemyMain : PoolableMono
 	public float MaxHealth { get; set; }
 	public float CurrentHealth { get; set; }
 	public Rigidbody2D EnemyRB { get; set; }
+	public Transform Target { get; set; }
 	public bool IsFacingRight { get; set; } = true;
-
 	public bool IsWithStrikingDistance { get; set; }
 	public bool IsAttackCooldown { get; set; }
 	#endregion
@@ -20,7 +19,7 @@ public class EnemyMain : PoolableMono
 
 	[Header("State Configuration")]
 	public EnemyState ChaseState;
-	public List<EnemyState> AttackStates;
+	public EnemyState AttackState;
 	public EnemyState CooldownState;
 	#endregion
 
@@ -58,7 +57,7 @@ public class EnemyMain : PoolableMono
 		Debug.LogError("Null CooldownState");
 		if(ChaseState == null)
 		Debug.LogError("Null ChaseState");
-		if(AttackStates == null)
+		if(AttackState == null)
 		Debug.LogError("Null AttackStates");
 	}
 
@@ -71,6 +70,7 @@ public class EnemyMain : PoolableMono
 	{
 		MaxHealth = maxHealth;
 		CurrentHealth = MaxHealth;
+		Target = GameManager.Instance.player.transform;
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		isDead = false;
 		canAttack = true;

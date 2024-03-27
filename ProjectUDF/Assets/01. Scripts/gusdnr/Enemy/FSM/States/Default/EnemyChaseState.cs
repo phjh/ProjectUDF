@@ -7,11 +7,6 @@ public class EnemyChaseState : EnemyState
 	private Transform _playerTransform;
 	public float _movementSpeed = 2.5f;
 
-	public EnemyChaseState(EnemyMain enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
-	{
-		_playerTransform = GameManager.Instance.player.transform;
-	}
-
 	public override void AnimationTriggerEvent(EnemyMain.AnimationTriggerType triggerType)
 	{
 		base.AnimationTriggerEvent(triggerType);
@@ -35,7 +30,7 @@ public class EnemyChaseState : EnemyState
 		if (enemy.IsWithStrikingDistance && enemy.canAttack)
 		{
 			enemy.MoveEnemy(Vector2.zero);
-			enemy.StateMachine.ChangeState(enemy.AttackStates[0]);
+			enemy.StateMachine.ChangeState(enemy.AttackState);
 		}
 	}
 
