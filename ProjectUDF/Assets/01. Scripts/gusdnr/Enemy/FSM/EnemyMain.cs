@@ -19,9 +19,9 @@ public class EnemyMain : PoolableMono
 	public EnemyStateMachine StateMachine { get; set; }
 
 	[Header("State Configuration")]
-	public EnemyChaseState ChaseState;
-	public EnemyAttackState AttackState;
-	public EnemyCooldownState CooldownState;
+	public EnemyState ChaseState;
+	public List<EnemyState> AttackStates;
+	public EnemyState CooldownState;
 	#endregion
 
 	#region Stat Variables
@@ -58,8 +58,8 @@ public class EnemyMain : PoolableMono
 		Debug.LogError("Null CooldownState");
 		if(ChaseState == null)
 		Debug.LogError("Null ChaseState");
-		if(AttackState == null)
-		Debug.LogError("Null AttackState");
+		if(AttackStates == null)
+		Debug.LogError("Null AttackStates");
 	}
 
 	private void Start()
@@ -74,7 +74,7 @@ public class EnemyMain : PoolableMono
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		isDead = false;
 		canAttack = true;
-		StateMachine.Initialize(ChaseState);
+		StateMachine.Initialize(ChaseState, this);
 	}
 
 	private void Update()
