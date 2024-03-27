@@ -7,9 +7,8 @@ public class NormalChaseState :EnemyState
 {
 	public float movementSpeed;
 
-	public override void Initialize(EnemyMain enemy, EnemyStateMachine stateMachine)
+	public NormalChaseState(EnemyMain enemy, EnemyStateMachine stateMachine) : base(enemy, stateMachine)
 	{
-		base.Initialize(enemy, stateMachine);
 	}
 
 	public override void EnterState()

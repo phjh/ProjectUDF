@@ -995,15 +995,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingType: 0
-  ChaseState: {fileID: 11400000, guid: 4d7988d5b6367f44e8494144c22cd6f3, type: 2}
-  AttackState: {fileID: 11400000, guid: 31e87f7de37e3224f97cd3168794fb9a, type: 2}
-  CooldownState: {fileID: 11400000, guid: 28ba1266c7528a3448e695115237b7ed, type: 2}
+  ChaseState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
+  AttackState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
+  CooldownState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
   maxHealth: 30
   isDead: 0
   RandomMovementRange: 5
   RandomMovementSpeed: 2
   MaxMoveTime: 4
-  AggroRadius: 7
   StrikingRadius: 3
   ChasingSpeed: 2.5
   AttackCoolTime: 3

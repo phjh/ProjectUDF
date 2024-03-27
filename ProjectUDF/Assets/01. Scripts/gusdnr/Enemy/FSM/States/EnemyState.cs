@@ -2,13 +2,14 @@ using UnityEngine;
 
 public abstract class EnemyState : ScriptableObject
 {
-	public EnemyMain enemy;
+	protected EnemyMain enemy;
 	protected EnemyStateMachine enemyStateMachine;
 
-	public virtual void Initialize(EnemyMain enemy, EnemyStateMachine stateMachine)
+	public EnemyState(EnemyMain enemy, EnemyStateMachine stateMachine)
 	{
 		this.enemy = enemy;
-		this.enemyStateMachine = stateMachine;
+		enemyStateMachine = stateMachine;
+		Debug.Log(this.enemy.name);
 	}
 
 	public virtual void EnterState() { }
@@ -18,4 +19,10 @@ public abstract class EnemyState : ScriptableObject
 	public virtual void PhtsicsUpdate() { }
 
 	public virtual void AnimationTriggerEvent(EnemyMain.AnimationTriggerType triggerType) { }
+
+	public EnemyState Clone() //적 패턴 SO를 복제 후, 돌려준다.
+	{
+		var returnvalue = Instantiate(this);
+		return returnvalue;
+	}
 }

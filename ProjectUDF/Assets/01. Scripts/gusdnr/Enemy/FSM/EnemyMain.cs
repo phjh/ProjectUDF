@@ -53,10 +53,16 @@ public class EnemyMain : PoolableMono
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
 
-		if(CooldownState == null)
-		Debug.LogError("Null CooldownState");
-		if(ChaseState == null)
+		
+		ChaseState = ChaseState.Clone();
+		if (ChaseState == null)
 		Debug.LogError("Null ChaseState");
+
+		CooldownState = CooldownState.Clone();
+		if (CooldownState == null)
+		Debug.LogError("Null CooldownState");
+
+		AttackState = AttackState.Clone();
 		if(AttackState == null)
 		Debug.LogError("Null AttackStates");
 	}
@@ -91,7 +97,9 @@ public class EnemyMain : PoolableMono
 
 	public IEnumerator StartAttackCooldown()
 	{
+		IsAttackCooldown = true;
 		yield return new WaitForSeconds(AttackCoolTime);
+		IsAttackCooldown = false;
 		canAttack = true;
 	}
 

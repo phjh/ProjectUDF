@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class EnemyCooldownState : EnemyState
 {
+	public EnemyCooldownState(EnemyMain enemy, EnemyStateMachine stateMachine) : base(enemy, stateMachine)
+	{
+	}
 
 	public override void EnterState()
 	{
 		base.EnterState();
-		enemy.IsWithStrikingDistance = false;
-		enemy.IsAttackCooldown = true;
 
 		enemy.StartCoroutine(enemy.StartAttackCooldown());
 	}
