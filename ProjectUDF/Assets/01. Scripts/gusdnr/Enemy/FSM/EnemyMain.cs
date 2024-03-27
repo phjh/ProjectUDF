@@ -1,27 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerCheckable
+public class EnemyMain : PoolableMono
 {
+	#region World Variables
 	public float MaxHealth { get; set; }
 	public float CurrentHealth { get; set; }
 	public Rigidbody2D EnemyRB { get; set; }
 	public bool IsFacingRight { get; set; } = true;
 
-
-	public bool IsAggroed { get; set; }
 	public bool IsWithStrikingDistance { get; set; }
-
+	public bool IsAttackCooldown { get; set; }
+	#endregion
 
 	#region State Machine Variables
-
 	public EnemyStateMachine StateMachine { get; set; }
 
-	public EnemyIdleState IdleState { get; set; }
-	public EnemyChaseState ChaseState { get; set; }
-	public EnemyAttackState AttackState { get; set; }
-
+	[Header("State Configuration")]
+	public EnemyChaseState ChaseState;
+	public EnemyAttackState AttackState;
+	public EnemyCooldownState CooldownState;
 	#endregion
 
 	#region Stat Variables
@@ -30,7 +30,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	public bool isDead = false;
 	#endregion
 
-	#region Idle Variables
+	#region Wander Variables
 	[Header("Idle Variables")]
 	public float RandomMovementRange = 5f;
 	public float RandomMovementSpeed = 2f;
@@ -39,7 +39,6 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 
 	#region Chase Variables
 	[Header("Chase Variables")]
-	public float AggroRadius = 7f;
 	public float StrikingRadius = 3f;
 	public float ChasingSpeed = 2.5f;
 	#endregion
@@ -55,12 +54,12 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
 
-		if(IdleState == null)
-		IdleState = new EnemyIdleState(this, StateMachine);
+		if(CooldownState == null)
+		Debug.LogError("Null CooldownState");
 		if(ChaseState == null)
-		ChaseState = new EnemyChaseState(this, StateMachine);
+		Debug.LogError("Null ChaseState");
 		if(AttackState == null)
-		AttackState = new EnemyAttackState(this, StateMachine);
+		Debug.LogError("Null AttackState");
 	}
 
 	private void Start()
@@ -75,17 +74,17 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		isDead = false;
 		canAttack = true;
-		StateMachine.Initialize(IdleState);
+		StateMachine.Initialize(ChaseState);
 	}
 
 	private void Update()
 	{
-		StateMachine.CurrentEnemyState.FrameUpdate();
+		StateMachine.CurrentState.FrameUpdate();
 	}
 
 	private void FixedUpdate()
 	{
-		StateMachine.CurrentEnemyState.PhtsicsUpdate();
+		StateMachine.CurrentState.PhtsicsUpdate();
 	}
 
 	#region Methods
@@ -106,6 +105,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	public void Die()
 	{
 		isDead = true;
+		StateMachine.CurrentState.ExitState();
 		PoolManager.Instance.Push(this);
 	}
 	#endregion
@@ -137,7 +137,7 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	#region Animation Triggers
 	private void AnimationTriggerEvent(AnimationTriggerType triggerType)
 	{
-		StateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
+		StateMachine.CurrentState.AnimationTriggerEvent(triggerType);
 	}
 
 	public enum AnimationTriggerType
@@ -149,11 +149,6 @@ public class EnemyMain : PoolableMono, IDamageable, IEnemyMoveable, ITriggerChec
 	#endregion
 
 	#region Distance Check
-	public void SetAggroStatus(bool aggroStatus)
-	{
-		IsAggroed = aggroStatus;
-	}
-
 	public void SetStrikingDistance(bool isWithStrikingDistance)
 	{
 		IsWithStrikingDistance = isWithStrikingDistance;

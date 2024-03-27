@@ -9,10 +9,10 @@ public class PlayerAtkDectector : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Enemy") && collision.TryGetComponent<EnemyBase>(out EnemyBase enemy))
+        if (collision.CompareTag("Enemy") && collision.TryGetComponent<EnemyMain>(out EnemyMain enemy))
         {
             Debug.Log("@@@@@trigger damage : " + _playerAtk.ResentDamage);
-            enemy.GetDamage(_playerAtk.ResentDamage);
+            enemy.Damage(_playerAtk.ResentDamage);
         }
     }
     

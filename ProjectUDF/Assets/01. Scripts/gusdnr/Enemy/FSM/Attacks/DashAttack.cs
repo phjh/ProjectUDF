@@ -1,8 +1,8 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashAttack : EnemyAttackPatternBase
+public class DashAttack : AttackPatternBase
 {
 	private Coroutine attackCoroutine;
 
@@ -60,7 +60,8 @@ public class DashAttack : EnemyAttackPatternBase
 		{
 			Debug.LogError("Player object not found in GameManager.");
 			if (attackCoroutine != null) // null 검사 추가
-				StopCoroutine(OnDash());
+				enemy.StopCoroutine(OnDash());
 		}
 	}
 }
+*/

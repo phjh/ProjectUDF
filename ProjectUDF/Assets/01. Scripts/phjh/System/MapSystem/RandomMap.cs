@@ -1,15 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
-
 public class RandomMap : MonoBehaviour
 {
     [SerializeField]
     private List<MapInfoSO> floors;
-
-    [SerializeField]
-    private NavGraph groundScan;
 
     [SerializeField]
     private ParticleSystem dirtEffect;
@@ -133,8 +128,6 @@ public class RandomMap : MonoBehaviour
             MapSystem.Instance.ActionInvoker(MapEvents.FloorStart);
 
         }
-        if (groundScan != null)
-            groundScan.Scan();
     }
 
     //Å»Ãâ±¸ ·£´ý½ºÆù 
