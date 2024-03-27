@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum EffectPoolingType
 {
-
     ChargeAttackEffect,
+    ChargeAttackEffect2,
     ItemGettingEffect,
 }
 
@@ -15,14 +15,14 @@ public abstract class EffectPoolableMono : MonoBehaviour
     public abstract void ResetPooingItem();
 }
 
-class EffectSystem<T> where T : EffectPoolableMono
+class EffectPool<T> where T : EffectPoolableMono
 {
     private Stack<T> _pool = new Stack<T>();
     private T _prefab; //오리지날 저장
     private Transform _parent;
     private EffectPoolingType _poolingType;
 
-    public EffectSystem(T prefab, EffectPoolingType poolingType, Transform parent, int count = 10)
+    public EffectPool(T prefab, EffectPoolingType poolingType, Transform parent, int count = 10)
     {
         _prefab = prefab;
         _parent = parent;
@@ -59,5 +59,19 @@ class EffectSystem<T> where T : EffectPoolableMono
     {
         obj.gameObject.SetActive(false);
         _pool.Push(obj);
+    }
+}
+
+public class EffectSystem : MonoSingleton<EffectSystem>
+{
+    public void EffectInvoker(EffectPoolingType type, Vector3 targetPos, float waitDuration) => StartCoroutine(EffectInvoke(type, targetPos, waitDuration));
+
+    private IEnumerator EffectInvoke(EffectPoolingType type, Vector3 targetPos, float waitDuration)
+    {
+        EffectPoolableMono poolItem = PoolManager.Instance.Pop(type);
+        poolItem.transform.position = targetPos;
+        poolItem.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(waitDuration);
+        PoolManager.Instance.Push(poolItem);
     }
 }

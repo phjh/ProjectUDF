@@ -1,4 +1,6 @@
+using Spine;
 using Spine.Unity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +24,11 @@ public class PlayerAnimation : Player
 
     MoveDirectionList lastMoveDirection;
 
+    [SerializeField]
+    PlayerAim aim;
+
+    public List<AnimationReferenceAsset> chargingAttack;
+
     #region SpineAnimations
 
     [SpineAnimation]
@@ -31,10 +38,13 @@ public class PlayerAnimation : Player
     public List<string> MoveAnimations;
 
     [SpineAnimation]
-    public string leftAttackAnimation;
+    public List<string> leftAttackAnimations;
     
     [SpineAnimation]
-    public List<string> rightAttackAnimation;
+    public List<string> rightAttackAnimations;
+
+    [SpineAnimation]
+    public List<string> PickaxeIdleAnimations;
 
     [SpineAnimation]
     public string DodgeAnimation;
@@ -47,6 +57,8 @@ public class PlayerAnimation : Player
 
     #endregion
 
+    int aimAngle = 0;
+
     public Vector2 _inputDirection;
 
     protected void Start()
@@ -54,11 +66,13 @@ public class PlayerAnimation : Player
         _playerStat = _player._playerStat;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         _inputReader.MovementEvent += SetMovement;
+        StartCoroutine(animation());
     }
 
-    private void OnDestroy()
+    IEnumerator animation()
     {
-        _inputReader.MovementEvent -= SetMovement;
+        yield return animation();
+        yield return new WaitForSeconds(0.8f);
     }
 
     public void SetMovement(Vector2 value)
@@ -66,32 +80,16 @@ public class PlayerAnimation : Player
         _inputDirection = value;
     }
 
-    public void SetAnimation()
+    void SetAnimation()
     {
         bool isRight = _inputDirection.x > 0;
         bool isUp = _inputDirection.y > 0;
 
-        if (_player.CanAttack && _player.IsAttacking)
+        if(_inputDirection == Vector2.zero)
         {
-            if (Input.GetMouseButton(1))
-            {
-                skeletonAnimation.AnimationName = rightAttackAnimation[(int)lastMoveDirection];
-                skeletonAnimation.timeScale = 0f;
-            }
-            else
-            {
-                skeletonAnimation.timeScale = 1f;
-                Debug.Log("???");
-            }
-            return;
+            //다른곳 바라보지 않게 막는용
         }
-        if (_inputDirection == Vector2.zero)
-        {
-            skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
-            return;
-        }
-
-        if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
+        else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
         {
             lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
             //skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
@@ -112,12 +110,29 @@ public class PlayerAnimation : Player
             //skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
         }
 
-         skeletonAnimation.AnimationName = MoveAnimations[(int)lastMoveDirection];
-    }
+        if (_player.CanAttack && _player.IsAttacking)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                aimAngle = aim.Angle;
+                skeletonAnimation.AnimationState.SetAnimation(1, chargingAttack[aimAngle], true);
+            }
+            else
+            {
+                skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
+                skeletonAnimation.AnimationState.AddAnimation(0, PickaxeIdleAnimations[aimAngle], true, 0);
+                Debug.Log("???");
+            }
+            return;
+        }
 
-    private void FixedUpdate()
-    {
-        SetAnimation();
+        if (_inputDirection == Vector2.zero)
+        {
+            skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], true);
+            return;
+        }
+
+        skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], true);
     }
 
 }
