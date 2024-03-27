@@ -5938,14 +5938,14 @@ MonoBehaviour:
   _player: {fileID: 1956191124}
   aim: {fileID: 2113449764}
   chargingAttack:
-  - {fileID: 11400000, guid: 879d36b4229d0d74db0116a0bd326eb2, type: 2}
-  - {fileID: 11400000, guid: 879d36b4229d0d74db0116a0bd326eb2, type: 2}
-  - {fileID: 11400000, guid: 99eb9d1ebfad7fc48b101bcaf212cb8e, type: 2}
-  - {fileID: 11400000, guid: 879d36b4229d0d74db0116a0bd326eb2, type: 2}
-  - {fileID: 11400000, guid: d106586723869d24abee35b39cc13567, type: 2}
-  - {fileID: 11400000, guid: 879d36b4229d0d74db0116a0bd326eb2, type: 2}
-  - {fileID: 11400000, guid: 57064ff39982593488ab1461664ff988, type: 2}
-  - {fileID: 11400000, guid: 879d36b4229d0d74db0116a0bd326eb2, type: 2}
+  - {fileID: 11400000, guid: bc15de82ffd71a741a2d159cb14bfbd0, type: 2}
+  - {fileID: 11400000, guid: bc15de82ffd71a741a2d159cb14bfbd0, type: 2}
+  - {fileID: 11400000, guid: 7351bb3d6d80d1f4b8024bb59da37e0e, type: 2}
+  - {fileID: 11400000, guid: 7351bb3d6d80d1f4b8024bb59da37e0e, type: 2}
+  - {fileID: 11400000, guid: 8f4817c11f60d784794dc434fd69507b, type: 2}
+  - {fileID: 11400000, guid: 8f4817c11f60d784794dc434fd69507b, type: 2}
+  - {fileID: 11400000, guid: 32793b70bbfe6a44c953cd21a9d645bd, type: 2}
+  - {fileID: 11400000, guid: 32793b70bbfe6a44c953cd21a9d645bd, type: 2}
   IdleAnimations:
   - idle_f
   - idle_sf_r
@@ -5962,10 +5962,18 @@ MonoBehaviour:
   - walk_sb_r
   - walk_b
   - walk_sb_l
-  - walk_s_l
+  - walk_s_l2
   - walk_sf_l
   leftAttackAnimations: []
-  rightAttackAnimations: []
+  rightAttackAnimations:
+  - pickaxe_break_f
+  - pickaxe_break_f
+  - pickaxe_break_s_r
+  - pickaxe_break_s_r
+  - pickaxe_break_b
+  - pickaxe_break_b
+  - pickaxe_break_s_l
+  - pickaxe_break_s_l
   PickaxeIdleAnimations: []
   DodgeAnimation: 
   hitAnimation: 
