@@ -343,6 +343,8 @@ MonoBehaviour:
   AttackSpeed: 0
   MoveSpeed: 0
   InventoryArray: []
+  gameState: 0
+  gameResult: 0
 --- !u!1 &602159172
 GameObject:
   m_ObjectHideFlags: 0
@@ -5744,7 +5746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 95f84c3dd42335f4cb7adef83c9e9b19, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b72ceb75a1aaf584c93c45a775eed493, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -5792,7 +5794,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cf18cafc53d88bd4a9d13559020d969f, type: 2}
+  - {fileID: 2100000, guid: 066e095fade516d4dbc27c9f74830b74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5859,6 +5861,8 @@ MonoBehaviour:
   _isdodgeing: 0
   _canDodge: 0
   _player: {fileID: 1956191124}
+  aim: {fileID: 0}
+  chargingAttack: []
   IdleAnimations:
   - idle_f
   - idle_sf_r
@@ -5877,16 +5881,9 @@ MonoBehaviour:
   - walk_sb_l
   - walk_s_l
   - walk_sf_l
-  leftAttackAnimation: pickaxe_swing_f
-  rightAttackAnimation:
-  - pickaxe_break_f
-  - pickaxe_idle_sf_r
-  - pickaxe_break_s_r
-  - pickaxe_idle_sb_r
-  - pickaxe_break_b
-  - pickaxe_idle_sb_l
-  - pickaxe_break_s_l
-  - pickaxe_idle_sf_l
+  leftAttackAnimations: []
+  rightAttackAnimations: []
+  PickaxeIdleAnimations: []
   DodgeAnimation: 
   hitAnimation: 
   dieAnimation: 
@@ -6049,6 +6046,7 @@ MonoBehaviour:
   _isdodgeing: 0
   _canDodge: 0
   _player: {fileID: 1956191124}
+  Angle: 0
 --- !u!114 &2113449765
 MonoBehaviour:
   m_ObjectHideFlags: 0
