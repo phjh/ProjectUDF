@@ -66,14 +66,8 @@ public class PlayerAnimation : Player
         _playerStat = _player._playerStat;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         _inputReader.MovementEvent += SetMovement;
-        StartCoroutine(animation());
     }
 
-    IEnumerator animation()
-    {
-        yield return animation();
-        yield return new WaitForSeconds(0.8f);
-    }
 
     public void SetMovement(Vector2 value)
     {
@@ -119,6 +113,7 @@ public class PlayerAnimation : Player
             }
             else
             {
+                skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
                 skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
                 skeletonAnimation.AnimationState.AddAnimation(0, PickaxeIdleAnimations[aimAngle], true, 0);
                 Debug.Log("???");
@@ -128,11 +123,16 @@ public class PlayerAnimation : Player
 
         if (_inputDirection == Vector2.zero)
         {
-            skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], true);
+            skeletonAnimation.AnimationName = IdleAnimations[(int)lastMoveDirection];
             return;
         }
 
-        skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], true);
+        skeletonAnimation.AnimationName = MoveAnimations[(int)lastMoveDirection];
+    }
+
+    private void FixedUpdate()
+    {
+        SetAnimation();
     }
 
 }

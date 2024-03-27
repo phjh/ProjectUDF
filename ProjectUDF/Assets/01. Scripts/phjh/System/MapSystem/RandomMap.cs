@@ -24,7 +24,7 @@ public class RandomMap : MonoBehaviour
 
     private void Start()
     {
-        floors[nowFloor] = floors[nowFloor].CloneAndSettingRandom();
+        floors[nowFloor] = floors[nowFloor].CloneAndSetting();
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
         dirtEffect.Play();
     }
@@ -77,30 +77,22 @@ public class RandomMap : MonoBehaviour
     //몬스터 소환하는 메서드
     void SpawnMonsters()
     {
-        Dictionary<int, Vector2> spawnPos = new();
         MapInfoSO nowFloor = floors[this.nowFloor];
         leftMonsters = nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave];
-        while (spawnPos.Count <= nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave] + 2)
-        {
-            spawnPos.Add(spawnPos.Count, new Vector2(Random.Range(0, 10), Random.Range(0, 10)));
-        }
-             
-        Debug.Log($"spawnPos Count : {spawnPos.Count},   monsters count : {nowFloor.floorRoomInfo[nowRoom].spawnMonster.Count} ");
 
         int i = 0;
-        foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonster)
+        foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonsters)
         {
-            if (monsters.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
-                obj.CustomInstantiate(spawnPos[i],obj.poolingType);
+            if (monsters.monsterObj.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
+                obj.CustomInstantiate(monsters.monsterPos,obj.poolingType);
             else
             {
-                Debug.LogWarning(monsters.name + $"({monsters.GetInstanceID()})" + "was not spawned");
+                Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not spawned");
                 nowWave++;
             }
              
-            Debug.Log($"i : {i + 1}, monsterpos : {monsters.transform.position}");
+            Debug.Log($"i : {i + 1}, monsterpos : {monsters.monsterObj.transform.position}");
             //스폰 정보 없애기
-            spawnPos.Remove(i);
             i++;
             if(i >= leftMonsters)
                 break;
