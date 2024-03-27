@@ -82,6 +82,7 @@ public class PlayerAnimation : Player
     IEnumerator SetAnimation()
     {
         float time = 0;
+        float fixedTime = 0.02f;
         while (true)
         {
             if(time > 0.8f)
@@ -90,7 +91,7 @@ public class PlayerAnimation : Player
             }
             else
             {
-                time += 0.03f;
+                time += fixedTime;
             }
 
             bool isRight = _inputDirection.x > 0;
@@ -135,11 +136,11 @@ public class PlayerAnimation : Player
                 else
                 {
                     Debug.Log("???");
-                    skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
-                    skeletonAnimation.AnimationState.SetAnimation(1, rightAttackAnimations[aimAngle], false);
-                    yield return new WaitForSeconds(0.4f);
+                    skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false).AnimationStart = 0.3f;
+                    skeletonAnimation.AnimationState.SetAnimation(1, rightAttackAnimations[aimAngle], false).AnimationStart = 0.3f;
+                    yield return new WaitForSeconds(fixedTime * 15);
                 }
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(fixedTime);
                 continue;
             }
 
@@ -148,16 +149,15 @@ public class PlayerAnimation : Player
                 skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[(int)lastMoveDirection] , false).AnimationStart = time;
                 if (!(_player.CanAttack && _player.IsAttacking))
                     skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[aimAngle], false).AnimationStart = time;
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(fixedTime);
                 continue;
             }
 
+            skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
             if (!(_player.CanAttack && _player.IsAttacking))
                 skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            else
-                skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
 
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(fixedTime);
         }
     }
 

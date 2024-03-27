@@ -101,7 +101,6 @@ public class RandomMap : MonoBehaviour
     //몬스터 웨이브 클리어 세팅
     void SetNextMonsterWaves()
     {
-        SpawnMonsters();
         if(nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves)
         {
             MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
@@ -118,8 +117,8 @@ public class RandomMap : MonoBehaviour
             nowFloor++;
             nowRoom = 0;
             MapSystem.Instance.ActionInvoker(MapEvents.FloorStart);
-
         }
+        SpawnMonsters();
     }
 
     //탈출구 랜덤스폰 
@@ -131,6 +130,8 @@ public class RandomMap : MonoBehaviour
 
     void RoomEffectInit()
     {
+        TimeManager.Instance.NowTime = floors[nowFloor].floorRoomInfo[nowRoom].timeLimit;
+        TimeManager.Instance.StartTimer();
         dirtEffect.Stop();
         roomStartTime = Time.time;
         var em = dirtEffect.emission;

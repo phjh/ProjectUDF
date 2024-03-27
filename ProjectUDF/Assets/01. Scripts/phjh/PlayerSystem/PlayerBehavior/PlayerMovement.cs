@@ -52,9 +52,7 @@ public class PlayerMovement : Player
         _player._isdodgeing = true;
         _player.ActiveMove = false;
         _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
-        _colider.enabled = false;
         yield return new WaitForSeconds(0.5f);
-        _colider.enabled = true;
         _player.ActiveMove = true;
         _player._isdodgeing = false;
         yield return new WaitForSeconds(DodgeCooltime());
@@ -106,6 +104,14 @@ public class PlayerMovement : Player
         {
             _playerStat.EditModifierStat(Stats.MoveSpeed, 0.5f);
         }
+
+    }
+
+    public void GetDamage()
+    {
+        if (_isdodgeing)
+            return;
+
 
     }
 

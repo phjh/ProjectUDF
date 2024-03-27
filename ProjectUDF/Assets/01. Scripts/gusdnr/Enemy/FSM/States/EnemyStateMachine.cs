@@ -5,8 +5,9 @@ public class EnemyStateMachine
 	public EnemyState CurrentState { get; private set; }
 
 	public void Initialize(EnemyState startingState, EnemyMain enemy)
-	{
-		startingState.Initialize(enemy, this);
+    {
+        Debug.Log("123");
+        startingState.Initialize(enemy, this);
 		CurrentState = startingState;
 		CurrentState?.EnterState();
 	}
