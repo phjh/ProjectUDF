@@ -14,11 +14,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   monsterWaves: 3
-  MapPrefab: {fileID: 4778392591593195873, guid: 190bb7facd96ede46918875092adde64, type: 3}
+  MapPrefab: {fileID: 8708210958227143556, guid: b3cf4fe0dd7195b48b61522534badc3e, type: 3}
   timeLimit: 100
   numberOfMonsters: 05000000070000000a000000
   spawnMonsterList:
   - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
   - {fileID: 1657760043003656654, guid: 30351b57998940047a26f836f07b9384, type: 3}
   - {fileID: -8653719598885068355, guid: 2e7313e7d403a2541a9b716d18d8dc03, type: 3}
-  spawnMonster: []
+  spawnMonsters:
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}
+  - monsterObj: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    monsterPos: {x: 10, y: 10}

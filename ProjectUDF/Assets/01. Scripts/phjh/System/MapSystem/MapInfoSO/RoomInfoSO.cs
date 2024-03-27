@@ -1,7 +1,14 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
+
+[Serializable]
+public struct MonsterInfo 
+{
+    public GameObject monsterObj;
+    public Vector2 monsterPos;
+}
+
 
 [CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")]
 public class RoomInfoSO : ScriptableObject
@@ -19,12 +26,10 @@ public class RoomInfoSO : ScriptableObject
     public List<GameObject> spawnMonsterList; //소환 가능성있는 몬스터들
     //[HideInInspector]
     //건들면 안됨
-    public List<GameObject> spawnMonster; //소환될 몬스터들
-
+    public List<MonsterInfo> spawnMonsters; //소환될 몬스터들
     public RoomInfoSO CloneAndSetting()
     {
         var a = Instantiate(this);
-        a.GenerateMonsterInfo();
         Debug.Log(a);
         return a;
     }
@@ -49,15 +54,13 @@ public class RoomInfoSO : ScriptableObject
             int a = numberOfMonsters[i];
             for (int j = 0; j < a; j++)
             {
-                int rand = Random.Range(0, spawnMonsterList.Count);
-                spawnMonster.Add(spawnMonsterList[rand]); 
+                int rand = UnityEngine.Random.Range(0, spawnMonsterList.Count);
+                MonsterInfo monster;
+                monster.monsterObj = spawnMonsterList[rand];
+                monster.monsterPos = new Vector2(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(0, 10));
+                spawnMonsters.Add(monster);
             }
         }
-    }
-
-    public void GenerateMonsterInfo()
-    {
-
     }
 
     public void DebugMonsters()
@@ -70,7 +73,7 @@ public class RoomInfoSO : ScriptableObject
             int l = numberOfMonsters[a];
             for(int b = 0; b < l; b++)
             {
-                str += spawnMonster[i] + " | ";
+                str += spawnMonsters[i] + " | ";
                 i++;
             }
             Debug.Log($"{str} __ {a}번째 웨이브 몹");
