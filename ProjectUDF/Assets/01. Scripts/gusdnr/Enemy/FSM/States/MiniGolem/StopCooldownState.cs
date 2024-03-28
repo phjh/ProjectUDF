@@ -9,14 +9,14 @@ public class StopCooldownState : EnemyState
 
 	public override EnemyState Clone()
 	{
-		StopCooldownState clone = (StopCooldownState)Clone();
-		clone.CooldownCoroutine = null;
+		StopCooldownState clone = Clone() as StopCooldownState;
 		return clone;
 	}
 
 	public override void EnterState()
 	{
 		base.EnterState();
+		enemy.StopAllCoroutines();
 		CooldownCoroutine = enemy.StartCoroutine(enemy.StartCooldown());
 		enemy.ERender.color = new Vector4(1, 1, 1, 0.5f);
 	}

@@ -7,9 +7,9 @@ public class NormalChaseState : EnemyState
 
 	public override EnemyState Clone()
 	{
-		NormalChaseState clone = (NormalChaseState)CloneBase();
+		NormalChaseState clone = CloneBase() as NormalChaseState;
 		// 추가적인 초기화가 필요한 경우 여기서 설정
-		clone.movementSpeed = this.movementSpeed;
+		clone.movementSpeed = movementSpeed;
 		return clone;
 	}
 
@@ -36,8 +36,4 @@ public class NormalChaseState : EnemyState
 		}
 	}
 
-	public override void PhtsicsUpdate()
-	{
-		base.PhtsicsUpdate();
-	}
 }

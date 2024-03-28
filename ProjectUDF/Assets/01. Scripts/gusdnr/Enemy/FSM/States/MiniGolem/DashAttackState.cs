@@ -14,15 +14,11 @@ public class DashAttackState : EnemyState
 
 	public override EnemyState Clone()
 	{
-		DashAttackState clone = (DashAttackState)Clone();
+		DashAttackState clone = Clone() as DashAttackState;
 		// 추가적인 초기화가 필요한 경우 여기서 설정
 		clone.DashSpeed = DashSpeed;
 		clone.DashTime = DashTime;
 		clone.LockOnTime = LockOnTime;
-
-		clone.LockOnCoroutine = null;
-		clone.AttackCoroutine = null;
-		clone.Direction = Vector2.zero;
 		return clone;
 	}
 

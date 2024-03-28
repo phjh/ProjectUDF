@@ -55,23 +55,23 @@ public class EnemyMain : PoolableMono
 	{
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
-
-		SettingState(ChaseState);
-		SettingState(CooldownState);
-		SettingState(AttackState);
-	}
-
-	private void SettingState(EnemyState state)
-	{
-		state.Initialize(this, StateMachine);
-		state = state.Clone();
-		if (state == null)
-			Debug.LogError("Null state detected.");
 	}
 
 	private void Start()
 	{
 		ResetPooingItem();
+
+		ChaseState.Initialize(this, StateMachine);
+		ChaseState = ChaseState.Clone();
+		if (ChaseState == null) Debug.LogError("Chase state is Null");
+
+		AttackState.Initialize(this, StateMachine);
+		AttackState = AttackState.Clone();
+		if (AttackState == null) Debug.LogError("Attack state is Null");
+
+		CooldownState.Initialize(this, StateMachine);
+		CooldownState = CooldownState.Clone();
+		if (CooldownState == null) Debug.LogError("Cooldown state is Null");
 	}
 
 	public override void ResetPooingItem()
