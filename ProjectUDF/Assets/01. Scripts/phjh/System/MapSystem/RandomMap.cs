@@ -132,13 +132,13 @@ public class RandomMap : MonoBehaviour
 
     }
 
-    void RoomTimerInit()
+    public void RoomTimerInit()
     {
         TimeManager.Instance.NowTime = floors[nowFloor].floorRoomInfo[nowRoom].timeLimit;
         TimeManager.Instance.StartTimer();
     }
 
-    void RoomEffectInit()
+    public void RoomEffectInit()
     {
         dirtEffect.Stop();
         roomStartTime = Time.time;

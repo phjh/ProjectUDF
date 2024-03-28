@@ -2,47 +2,53 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-	[Header("UI Objects")]
+	#region UI Objects
+	[Header("Default")]
 	public GameObject ScreenFilter;
-	public List<OreCard> Cards;
 
+	[Header("Ore Inventory")]
+	public GameObject OreInfo;
+	public GameObject OrePrefab;
+	public RectTransform OreParent;
+	public GameObject Pocket;
+
+	[Header("Ore Desc")]
+	public TMP_Text OreName;
+	public TMP_Text OreDesc;
+	#endregion
+
+	#region Ore Inventory
+	[Header("Data List")]
+	public List<OreSO> OreDatas;
+	public List<OreSO> GemDatas;
+	[HideInInspector] public List<GameObject> IconList;
+	[HideInInspector] public List<OreCard> Cards;
+
+	private List<int> InOreList; //실제 리스트 할당
+	private List<int> InGemList; //실제 리스트 할당
+	private bool IsOnInventoryUI = false;
+	#endregion
+
+	#region Mining
 	private int failCount = 0;
-	
-	private bool isActivePopUp;
-	public bool IsActivePopUp
-	{
-		get { return isActivePopUp; }
-		set { isActivePopUp = value; }
-	}
-
+	public bool IsActivePopUp {	get; set; } = false;
 	public static event EventHandler OnResearchEnd;
+	#endregion
 
 	private void Awake()
 	{
+		SetOreList();
+		OreInfo.SetActive(false);
+		IsOnInventoryUI = false;
 		SetScreenFilter(false);
 	}
 
 	#region Mining UI
-
-	public void ShowCards()
-	{
-		failCount = 0;
-		SetScreenFilter(true);
-		for (int i = 0; i < Cards.Count; i++)
-		{
-			Cards[i].GetComponent<OreCard>().Show();
-		}
-	}
-
-	public void HideCards()
-	{
-		SetScreenFilter(false);
-	}
-
 	public void CountFail()
 	{
 		failCount += 1;
@@ -55,10 +61,96 @@ public class UIManager : MonoSingleton<UIManager>
 			}
 		}
 	}
+	#endregion
+
+	#region Ore Pocket UI
+
+	private void SetOreList() //Setting Ores
+	{
+		IconList.Clear();
+		InOreList = OreInventory.Instance.OreList;
+		CalculateInventory(InOreList, OreDatas);
+
+		InGemList = OreInventory.Instance.GemList;
+		CalculateInventory(InGemList, GemDatas);
+	}
+
+	private void CalculateInventory(List<int> baseList, List<OreSO> dataList) //Calculate To In OreInventoryList
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			int createPrefabCount = baseList[i];
+			if (createPrefabCount != 0)
+			{
+				for (int j = 0; j < createPrefabCount; j++)
+				{
+					AddOreIcon(dataList[i]);
+				}
+			}
+		}
+	}
+
+	private void AddOreIcon(OreSO data) //Make Ore Icon Image
+	{
+		GameObject newOre = Instantiate(OrePrefab);
+		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
+		soHoledr.SettingOreData(data);
+
+		newOre.transform.SetParent(OreParent);
+		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
+		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-200, 200), 0, 0);
+		IconList.Add(newOre);
+
+	}
 
 	#endregion
 
-	#region Public Method
+	#region Manage UI
+	public void ShowInventory()
+	{
+		if (IsOnInventoryUI == false && IsActivePopUp == false)
+		{
+			SetScreenFilter(true);
+			Pocket.SetActive(true);
+			OreInfo.SetActive(true);
+			SetOreList();
+			IsOnInventoryUI = true;
+		}
+	}
+
+	public void CloseInvnetory(bool OtherUIOn = false)
+	{
+		if (IsOnInventoryUI == true || (OtherUIOn == true && IsOnInventoryUI == true))
+		{
+			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
+			IconList.Clear();
+			Pocket.SetActive(false);
+			OreInfo.SetActive(false);
+			SetScreenFilter(false);
+			IsOnInventoryUI = false;
+		}
+	}
+
+	public void ShowMining()
+	{
+		IsActivePopUp = true;
+		CloseInvnetory(IsActivePopUp);
+		failCount = 0;
+		SetScreenFilter(IsActivePopUp);
+		for (int i = 0; i < Cards.Count; i++)
+		{
+			Cards[i].GetComponent<OreCard>().Show();
+		}
+	}
+
+	public void CloseMining()
+	{
+		IsActivePopUp = false;
+		SetScreenFilter(IsActivePopUp);
+	}
+	#endregion
+
+	#region Methods
 
 	public void SetScreenFilter(bool isActive)
 	{
@@ -66,5 +158,4 @@ public class UIManager : MonoSingleton<UIManager>
 	}
 
 	#endregion
-
 }

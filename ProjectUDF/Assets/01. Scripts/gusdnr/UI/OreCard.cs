@@ -50,7 +50,7 @@ public class OreCard : MonoBehaviour
 			isActive = false;
 			gameObject.SetActive(false);
 			ResetBtn.SetActive(false);
-			UIManager.Instance.HideCards();
+			UIManager.Instance.CloseMining();
 		});
 	}
 

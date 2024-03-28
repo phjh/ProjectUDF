@@ -13,7 +13,7 @@ public class UITestRunner : MonoBehaviour
     {
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
-			UIManager.Instance.ShowCards();
+			UIManager.Instance.ShowMining();
 		}
 		if (Input.GetKeyDown(KeyCode.V))
 		{

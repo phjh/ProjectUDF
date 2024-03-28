@@ -8,13 +8,14 @@ public enum GameStates
 {
 	Lobby = 0,
 	Play = 1,
-	Pause = 2,
-	End = 3,
+	NonPauseUIOn = 2,
+	PauseUIOn = 3,
+	End = 4,
 }
 
 public enum GameResults
 {
-	None = 0,
+	Play = 0,
 	TimeOut = 1,
 	DiePlayer = 2,
 }
@@ -45,8 +46,10 @@ public class GameManager : MonoSingleton<GameManager>
 	private List<ItemDataSO> DropItemList = new List<ItemDataSO>();
 	private ItemInventory playerInventory;
 
+	#region In Game Flow
 	public GameStates gameState;
 	public GameResults gameResult;
+	#endregion
 
 	private void OnEnable()
 	{
@@ -121,7 +124,7 @@ public class GameManager : MonoSingleton<GameManager>
 	public void UpdateResult(GameResults SetResult)
 	{
 		gameResult = SetResult;
-		if(gameResult != GameResults.None) UpdateState(GameStates.End);
+		if(gameResult != GameResults.Play) UpdateState(GameStates.End);
 	}
 
 	#endregion

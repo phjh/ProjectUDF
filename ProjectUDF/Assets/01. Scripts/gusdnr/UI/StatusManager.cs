@@ -25,6 +25,12 @@ public class StatusManager : MonoBehaviour
 
 	private void Start()
 	{
+		SettingHearts();
+	}
+
+	#region 체력 부분 스크립트
+	public void SettingHearts()
+	{
 		playerStat = GameManager.Instance.player._playerStat;
 
 		int heartToMake = playerStat.MaxHP;
@@ -34,8 +40,6 @@ public class StatusManager : MonoBehaviour
 		}
 		DrawHearts();
 	}
-
-	#region 체력 부분 스크립트
 
 	public void DrawHearts()
 	{
