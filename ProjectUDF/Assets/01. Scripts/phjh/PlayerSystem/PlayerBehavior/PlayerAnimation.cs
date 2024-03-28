@@ -220,5 +220,4 @@ public class PlayerAnimation : Player
         if (!(_player.CanAttack && _player.IsAttacking))
             skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
     }
-
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum EffectPoolingType
 {
+    LeftAttackEffect,
     ChargeAttackEffect,
     ChargeAttackEffect2,
     ItemGettingEffect,
@@ -65,11 +66,23 @@ class EffectPool<T> where T : EffectPoolableMono
 public class EffectSystem : MonoSingleton<EffectSystem>
 {
     public void EffectInvoker(EffectPoolingType type, Vector3 targetPos, float waitDuration) => StartCoroutine(EffectInvoke(type, targetPos, waitDuration));
+    public void EffectInvoker(EffectPoolingType type, Vector3 targetPos, float waitDuration, float rot, Vector3 rotTransform) => StartCoroutine(EffectInvoke(type, targetPos, waitDuration, rot, rotTransform));
 
     private IEnumerator EffectInvoke(EffectPoolingType type, Vector3 targetPos, float waitDuration)
     {
         EffectPoolableMono poolItem = PoolManager.Instance.Pop(type);
         poolItem.transform.position = targetPos;
+        poolItem.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(waitDuration);
+        PoolManager.Instance.Push(poolItem);
+    }
+
+    private IEnumerator EffectInvoke(EffectPoolingType type, Vector3 targetPos, float waitDuration, float rot, Vector3 rotTransform)
+    {
+        EffectPoolableMono poolItem = PoolManager.Instance.Pop(type);
+        poolItem.transform.position = targetPos;
+        poolItem.transform.rotation = Quaternion.Euler(0,0,rot);
+        poolItem.transform.position += Quaternion.Euler(0, 0, rot) * rotTransform;
         poolItem.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(waitDuration);
         PoolManager.Instance.Push(poolItem);
