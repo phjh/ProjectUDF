@@ -4,7 +4,7 @@ public class EnemyStateMachine
 {
 	public EnemyState CurrentState { get; private set; }
 
-	public void Initialize(EnemyState startingState, EnemyMain enemy)
+	public void Initialize(EnemyState startingState)
 	{
 		CurrentState = startingState;
 		CurrentState?.EnterState();

@@ -10,12 +10,13 @@ public class EnemyMain : PoolableMono
 	public bool IsFacingRight { get; set; } = true;
 	public bool IsWithStrikingDistance { get; set; }
 	public bool IsAttackCooldown { get; set; }
+	public bool IsDead { get; set; } = false;
 	#endregion
 
 	#region Enemy Components
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
-	public SpriteRenderer ERender { get; set; }
+	public SpriteRenderer EnemySR { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -30,7 +31,6 @@ public class EnemyMain : PoolableMono
 	#region Stat Variables
 	[Header("Stats")]
 	public float maxHealth = 30f;
-	public bool isDead = false;
 	public float attackCoolTime = 1f;
 	#endregion
 
@@ -80,10 +80,10 @@ public class EnemyMain : PoolableMono
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
-		if(ERender == null) ERender = GetComponentInChildren<SpriteRenderer>();
-		isDead = false;
+		if(EnemySR == null) EnemySR = GetComponentInChildren<SpriteRenderer>();
+		IsDead = false;
 		canAttack = true;
-		StateMachine.Initialize(ChaseState, this);
+		StateMachine.Initialize(ChaseState);
 	}
 
 	private void Update()
@@ -115,7 +115,7 @@ public class EnemyMain : PoolableMono
 
 	public void Die()
 	{
-		isDead = true;
+		IsDead = true;
 		StateMachine.CurrentState.ExitState();
 		PoolManager.Instance.Push(this);
 	}

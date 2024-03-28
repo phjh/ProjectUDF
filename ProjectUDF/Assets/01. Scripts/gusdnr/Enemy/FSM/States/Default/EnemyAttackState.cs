@@ -38,7 +38,7 @@ public abstract class EnemyAttackState : EnemyState
 		}
 
 		// 공격이 끝나면 다른 상태로 전환
-		if (!enemy.isDead) // 적이 살아 있는지 확인
+		if (!enemy.IsDead) // 적이 살아 있는지 확인
 		{
 			enemyStateMachine.ChangeState(enemy.CooldownState);
 		}

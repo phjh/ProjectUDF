@@ -15,3 +15,6 @@ MonoBehaviour:
   DashSpeed: 15
   DashTime: 3
   LockOnTime: 2
+  WhatIsObstacle:
+    serializedVersion: 2
+    m_Bits: 512

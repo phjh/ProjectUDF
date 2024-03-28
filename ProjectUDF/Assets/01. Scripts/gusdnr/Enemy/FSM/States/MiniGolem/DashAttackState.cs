@@ -7,6 +7,7 @@ public class DashAttackState : EnemyState
 	public float DashSpeed;
 	public float DashTime;
 	public float LockOnTime;
+	public LayerMask WhatIsObstacle;
 
 	private Coroutine LockOnCoroutine;
 	private Coroutine AttackCoroutine;
@@ -19,6 +20,7 @@ public class DashAttackState : EnemyState
 		clone.DashSpeed = DashSpeed;
 		clone.DashTime = DashTime;
 		clone.LockOnTime = LockOnTime;
+		clone.WhatIsObstacle = WhatIsObstacle;
 		return clone;
 	}
 
@@ -26,7 +28,7 @@ public class DashAttackState : EnemyState
 	{
 		base.EnterState();
 		enemy.StopAllCoroutines();
-		AttackCoroutine = enemy.StartCoroutine(DashAttack());
+		AttackCoroutine = enemy.StartCoroutine(Dash());
 		//공격 순서
 		//AttackCoroutine 작동 / LockOnCoroutine 종료 대기 -> LockOnCoroutine 작동 -> 돌진 방향 지정
 		//-> LockOnCoroutine 종료 -> 일정 시간 동안 돌진 실행 -> 시간 경과 후 적 이동 속도 0으로 변경해 정지
@@ -35,44 +37,58 @@ public class DashAttackState : EnemyState
 
 	public override void ExitState()
 	{
-		enemy.MoveEnemy(Vector2.zero);
 		base.ExitState();
+		enemy.MoveEnemy(Vector2.zero);
+		if (AttackCoroutine != null)
+		{
+			enemy.StopCoroutine(AttackCoroutine);
+			AttackCoroutine = null;
+		}
 	}
 
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
-        if (AttackCoroutine == null)
+		if (AttackCoroutine == null)
         {
+			Debug.Log("End Attackcoroutine");
+			enemy.StopAllCoroutines();
             enemy.StateMachine.ChangeState(enemy.CooldownState);
         }
     }
 
-	private IEnumerator DashAttack()
+	private IEnumerator Dash()
 	{
-		Debug.Log("Start AttackCoroutine");
 		enemy.canAttack = false;
 		LockOnCoroutine = enemy.StartCoroutine(LockOnTarget());
 		
 		yield return LockOnCoroutine;
 
-		Debug.Log("Start Dash");
 		float time = 0;
-		while(time <= DashTime)
+		RaycastHit2D hit;
+
+		while (time <= DashTime)
 		{
+			hit = Physics2D.Raycast(enemy.transform.position, Direction, 0.8f, WhatIsObstacle);
+
+			// Ray가 어떤 물체와 충돌하면서 정지해야 합니다.
+			if (hit.collider != null)
+			{
+				enemy.MoveEnemy(Vector2.zero);
+				break;
+			}
+
 			enemy.MoveEnemy(Direction * DashSpeed);
 			time += Time.deltaTime;
 			yield return null;
 		}
-		Debug.Log("End Dash");
 		enemy.MoveEnemy(Vector2.zero);
+		AttackCoroutine = null;
 	}
 
 	private IEnumerator LockOnTarget()
 	{
-		Debug.Log("Start LockOn");
 		yield return new WaitForSeconds(LockOnTime);
 		Direction = (enemy.Target.position - enemy.transform.position).normalized;
-		Debug.Log($"End LockOn : [{Direction.x}] [{Direction.y}]");
 	}
 }
