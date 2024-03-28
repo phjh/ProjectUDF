@@ -13,7 +13,7 @@ public class PushEffect : MonoBehaviour
 
 		seq.Append(transform.DOScale(0.75f, 0.1f));
 		seq.Append(transform.DOScale(2.9f, 0.1f));
-		seq.Append(transform.DOScale(2.4f, 0.2f));
+		seq.Append(transform.DOScale(2.4f, 0.1f));
 
 		seq.Play().OnComplete(() => {
 			DisableButton();
