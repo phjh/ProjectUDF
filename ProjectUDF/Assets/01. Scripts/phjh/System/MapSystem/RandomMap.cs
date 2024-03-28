@@ -22,6 +22,8 @@ public class RandomMap : MonoBehaviour
         floors[nowFloor] = floors[nowFloor].CloneAndSetting();
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
         dirtEffect.Play();
+        MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
+        MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
     }
 
     private void Update()
@@ -55,7 +57,8 @@ public class RandomMap : MonoBehaviour
     {
         MapSystem.Instance.FloorClearEvent += StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent += SetNextMonsterWaves;
-        MapSystem.Instance.MapStartEvent += GameManager.Instance.ReloadStats;
+        //MapSystem.Instance.MapStartEvent += GameManager.Instance.ReloadStats;
+        MapSystem.Instance.MapStartEvent += RoomTimerInit;
         MapSystem.Instance.MapStartEvent += RoomEffectInit;
         MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
@@ -64,7 +67,8 @@ public class RandomMap : MonoBehaviour
     {
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
         MapSystem.Instance.MonsterWaveClearEvent -= SetNextMonsterWaves;
-        MapSystem.Instance.MapStartEvent -= GameManager.Instance.ReloadStats;
+        //MapSystem.Instance.MapStartEvent -= GameManager.Instance.ReloadStats;
+        MapSystem.Instance.MapStartEvent -= RoomTimerInit;
         MapSystem.Instance.MapStartEvent -= RoomEffectInit;
         MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
@@ -128,10 +132,14 @@ public class RandomMap : MonoBehaviour
 
     }
 
-    void RoomEffectInit()
+    void RoomTimerInit()
     {
         TimeManager.Instance.NowTime = floors[nowFloor].floorRoomInfo[nowRoom].timeLimit;
         TimeManager.Instance.StartTimer();
+    }
+
+    void RoomEffectInit()
+    {
         dirtEffect.Stop();
         roomStartTime = Time.time;
         var em = dirtEffect.emission;

@@ -211,13 +211,13 @@ MonoBehaviour:
   - pickaxe_swing_sf_l
   chargingAttack:
   - pickaxe_up_f
-  - pickaxe_idle_sf_r
+  - pickaxe_up_sf_r
   - pickaxe_up_s_r
-  - pickaxe_idle_sb_r
+  - pickaxe_up_sb_r
   - pickaxe_up_b
-  - pickaxe_idle_sb_l
+  - pickaxe_up_sb_l
   - pickaxe_up_s_l
-  - pickaxe_idle_sf_l
+  - pickaxe_up_sf_l
   rightAttackAnimations:
   - pickaxe_break_f
   - pickaxe_break_f
@@ -227,7 +227,15 @@ MonoBehaviour:
   - pickaxe_break_b
   - pickaxe_break_s_l
   - pickaxe_break_s_l
-  PickaxeIdleAnimations: []
+  PickaxeIdleAnimations:
+  - pickaxe_idle_f
+  - pickaxe_idle_sf_l
+  - pickaxe_idle_s_r
+  - pickaxe_idle_sb_r
+  - pickaxe_idle_b
+  - pickaxe_idle_sb_l
+  - pickaxe_idle_s_l
+  - pickaxe_idle_sf_l
   DodgeAnimation:
   - 
   - 
@@ -239,6 +247,7 @@ MonoBehaviour:
   - 
   hitAnimation: 
   dieAnimation: die
+  aimAngle: 0
   _inputDirection: {x: 0, y: 0}
 --- !u!114 &27659249
 MonoBehaviour:
@@ -9256,7 +9265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1405466019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9798,13 +9807,12 @@ MonoBehaviour:
   AttackState: {fileID: 11400000, guid: 695302ade4a519942bda018ff7a67bb4, type: 2}
   CooldownState: {fileID: 11400000, guid: 695302ade4a519942bda018ff7a67bb4, type: 2}
   maxHealth: 30
-  isDead: 0
+  attackCoolTime: 1
   RandomMovementRange: 5
   RandomMovementSpeed: 2
   MaxMoveTime: 4
   StrikingRadius: 3
   ChasingSpeed: 2.5
-  AttackCoolTime: 3
   canAttack: 1
 --- !u!58 &1528831308
 CircleCollider2D:
@@ -10097,7 +10105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1674001236
 RectTransform:
   m_ObjectHideFlags: 0
