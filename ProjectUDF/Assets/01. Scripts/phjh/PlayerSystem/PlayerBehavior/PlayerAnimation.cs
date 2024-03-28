@@ -91,7 +91,7 @@ public class PlayerAnimation : Player
     IEnumerator SetAnimation()
     {
         float time = 0;
-        float fixedTime = 0.01f;
+        float fixedTime = Time.deltaTime;
         while (true)
         {
             if(time > 0.8f)
@@ -150,13 +150,13 @@ public class PlayerAnimation : Player
                     aimAngle = aim.Angle;
                     skeletonAnimation.AnimationState.SetAnimation(0, chargingAttack[aimAngle], false).AnimationStart = time;
                 }
-                else if(Input.GetMouseButtonUp(1))
+                else 
                 {
-                    Debug.Log("???");
                     skeletonAnimation.AnimationState.TimeScale = 1.2f;
                     skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
                     skeletonAnimation.AnimationState.SetAnimation(1, rightAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
-                    yield return new WaitForSeconds(fixedTime * 20);
+                    yield return new WaitForSeconds(0.7f);
+                    lastMoveDirection = (MoveDirectionList)aimAngle;
                 }
                 yield return new WaitForSeconds(fixedTime);
                 continue;

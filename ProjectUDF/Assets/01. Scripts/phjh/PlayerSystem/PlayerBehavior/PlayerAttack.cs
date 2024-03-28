@@ -49,7 +49,7 @@ public class PlayerAttack : Player
         while (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1))
         {
             pressTime += 0.05f;
-            float scale = Mathf.Lerp(0, ChargeTime, pressTime) / 2 + 1;
+            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 4 + 1;
             _rightattackRange.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForSeconds(0.05f);
         }

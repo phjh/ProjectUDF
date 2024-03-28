@@ -57,8 +57,6 @@ public class PlayerMovement : Player
         _player.ActiveMove = true;
         _player._isdodgeing = false;
         StartCoroutine(DodgeCooltimeSet());
-        yield return new WaitForSeconds(DodgeCooltime());
-        _canDodge = true;
     }
 
     IEnumerator DodgeCooltimeSet()
@@ -71,9 +69,10 @@ public class PlayerMovement : Player
             slider.value = Mathf.Lerp(0,1,time/cooltime);
             yield return new WaitForSeconds(Time.deltaTime);
         }
+        _canDodge = true;
     }
 
-    public float DodgeCooltime() => Mathf.Clamp(3f - GameManager.Instance.MoveSpeed / 10, 1, 3);
+    public float DodgeCooltime() => Mathf.Clamp(3f - _player._playerStat.MoveSpeed.GetValue() / 10, 1, 3);
 
     public void SetMovement(Vector2 value)
     {
