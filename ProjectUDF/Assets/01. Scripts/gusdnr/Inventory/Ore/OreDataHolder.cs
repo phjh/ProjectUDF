@@ -23,7 +23,7 @@ public class OreDataHolder : MonoBehaviour
 
 	public void PrintOreDesc()
 	{
-		InventoryUIManager.Instance.OreName.text = $"{HoldingData.OreName}";
+		UIManager.Instance.OreName.text = $"{HoldingData.OreName}";
 		string desc = "";
 		switch(HoldingData.stats)
 		{
@@ -35,6 +35,6 @@ public class OreDataHolder : MonoBehaviour
 		}
 		desc += $"\n[{HoldingData.value} 증가]";
 		if(HoldingData.valuePersent != 0) desc += $"\n[{HoldingData.valuePersent}% 증가]";
-		InventoryUIManager.Instance.OreDesc.text = desc;
+		UIManager.Instance.OreDesc.text = desc;
 	}
 }

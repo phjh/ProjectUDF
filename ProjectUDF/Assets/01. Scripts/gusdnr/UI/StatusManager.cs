@@ -10,12 +10,14 @@ public class StatusManager : MonoBehaviour
     [SerializeField] private GameObject HeartPrefab;
     [SerializeField] private float xSpacing;
     [SerializeField] private float ySpacing;
-    private List<HeartState> hearts = new List<HeartState>();
+	private GameObject[] objects;
+	private List<HeartState> hearts = new List<HeartState>();
 
 
 	private void OnEnable()
 	{
 		PlayerStat.HpChanged += DrawHearts;
+		PlayerStat.OnDeadPlayer += HideStatus;
 	}
 
 	private void OnDisable()
@@ -23,9 +25,10 @@ public class StatusManager : MonoBehaviour
 		PlayerStat.HpChanged -= DrawHearts;
 	}
 
-	private void Start()
+	private void Awake()
 	{
 		SettingHearts();
+		objects = GetComponentsInChildren<GameObject>();
 	}
 
 	#region 체력 부분 스크립트
@@ -79,5 +82,22 @@ public class StatusManager : MonoBehaviour
 		hearts.Add(newHeartState);
 	}
 
+	#endregion
+
+	#region Methods
+	public void ShowStatus()
+	{
+		foreach (GameObject obj in objects)
+		{
+			obj.SetActive(true);
+		}
+	}
+	public void HideStatus()
+	{
+		foreach(GameObject obj in objects)
+		{
+			obj.SetActive(false);
+		}
+	}
 	#endregion
 }

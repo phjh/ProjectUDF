@@ -32,7 +32,7 @@ public class TimeManager : MonoSingleton<TimeManager>
 		PlayerStat.OnDeadPlayer -= HideTimer;
 	}
 
-	private void Start()
+	private void Awake()
 	{
 		ResetTimer();
 	}
