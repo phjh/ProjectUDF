@@ -34,17 +34,9 @@ public class EnemyMain : PoolableMono
 	public float attackCoolTime = 1f;
 	#endregion
 
-	#region Wander Variables
-	[Header("Idle Variables")]
-	public float RandomMovementRange = 5f;
-	public float RandomMovementSpeed = 2f;
-	public float MaxMoveTime = 4f;
-	#endregion
-
 	#region Chase Variables
 	[Header("Chase Variables")]
 	public float StrikingRadius = 3f;
-	public float ChasingSpeed = 2.5f;
 	#endregion
 
 	#region Attack Variables

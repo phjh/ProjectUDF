@@ -23,12 +23,14 @@ public class StatusManager : MonoBehaviour
 	private void OnDisable()
 	{
 		PlayerStat.HpChanged -= DrawHearts;
+		PlayerStat.OnDeadPlayer -= HideStatus;
 	}
 
 	private void Awake()
 	{
 		SettingHearts();
 		objects = GetComponentsInChildren<GameObject>();
+		ShowStatus();
 	}
 
 	#region 체력 부분 스크립트
