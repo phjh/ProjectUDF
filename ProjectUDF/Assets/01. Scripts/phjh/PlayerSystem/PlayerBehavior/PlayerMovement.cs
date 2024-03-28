@@ -61,16 +61,17 @@ public class PlayerMovement : Player
     {
         float cooltime = DodgeCooltime();
         float time = 0;
-        while(time < cooltime)
+        while(time <= cooltime)
         {
             time+= Time.deltaTime;
             slider.value = Mathf.Lerp(0,1,time/cooltime);
             yield return new WaitForSeconds(Time.deltaTime);
         }
+        if(slider.value != 1) slider.value = 1;
         _canDodge = true;
     }
 
-    public float DodgeCooltime() => Mathf.Clamp(3f - _player._playerStat.MoveSpeed.GetValue() / 10, 1, 3);
+    public float DodgeCooltime() => Mathf.Clamp(3 - _player._playerStat.MoveSpeed.GetValue() / 10, 1, 3);
 
     public void SetMovement(Vector2 value)
     {
@@ -93,7 +94,6 @@ public class PlayerMovement : Player
     private void Move()
     {
         _rigidbody.velocity = _movementVelocity;
-        //_characterController.Move(_movementVelocity);
     }
 
     private void FixedUpdate()

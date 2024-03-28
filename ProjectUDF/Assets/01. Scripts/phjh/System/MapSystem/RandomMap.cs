@@ -147,6 +147,8 @@ public class RandomMap : MonoBehaviour
         dirtEffect.Play();
     }
 
+    
+
     //Ãþ ¸¶´Ù »ý¼º
     void StageGenerate()
     {
