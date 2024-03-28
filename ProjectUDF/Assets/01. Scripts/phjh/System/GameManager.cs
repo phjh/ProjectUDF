@@ -117,7 +117,15 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		switch (gameState)
 		{
-			//각 게임 스테이트별 실행할 행동 설정
+			case GameStates.Lobby:
+				break;
+			case GameStates.Play:
+				player.ActiveMove = true;
+				break;
+			case GameStates.PauseUIOn:
+				player.ActiveMove = false;
+				break;
+
 		}
 	}
 

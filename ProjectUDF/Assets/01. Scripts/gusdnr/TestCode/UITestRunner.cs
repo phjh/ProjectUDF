@@ -11,17 +11,17 @@ public class UITestRunner : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Z))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			UIManager.Instance.ShowMining();
 		}
 		if (Input.GetKeyDown(KeyCode.V))
 		{
-			InventoryUIManager.Instance.Show();
+			UIManager.Instance.ShowPocket();
 		}
 		if (Input.GetKeyDown(KeyCode.B))
 		{
-			InventoryUIManager.Instance.Close();
+			UIManager.Instance.ClosePocket();
 		}
 		if (Input.GetKeyDown(KeyCode.Q))
 		{

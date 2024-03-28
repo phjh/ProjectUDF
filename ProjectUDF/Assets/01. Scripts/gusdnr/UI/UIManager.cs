@@ -11,11 +11,9 @@ public class UIManager : MonoSingleton<UIManager>
 	[Header("Default")]
 	public GameObject ScreenFilter;
 
-	[Header("Ore Inventory")]
-	public GameObject OreInfo;
+	[Header("Ore Pocket")]
 	public GameObject OrePrefab;
-	public RectTransform OreParent;
-	public GameObject Pocket;
+	public RectTransform PocketUIParent;
 
 	[Header("Ore Desc")]
 	public TMP_Text OreName;
@@ -43,9 +41,9 @@ public class UIManager : MonoSingleton<UIManager>
 	private void Awake()
 	{
 		SetOreList();
-		OreInfo.SetActive(false);
 		IsOnInventoryUI = false;
-		SetScreenFilter(false);
+		PocketUIParent.gameObject.SetActive(IsOnInventoryUI);
+		SetScreenFilter(IsOnInventoryUI);
 	}
 
 	#region Mining UI
@@ -96,7 +94,7 @@ public class UIManager : MonoSingleton<UIManager>
 		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
 		soHoledr.SettingOreData(data);
 
-		newOre.transform.SetParent(OreParent);
+		newOre.transform.SetParent(PocketUIParent);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
 		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-200, 200), 0, 0);
 		IconList.Add(newOre);
@@ -106,26 +104,24 @@ public class UIManager : MonoSingleton<UIManager>
 	#endregion
 
 	#region Manage UI
-	public void ShowInventory()
+	public void ShowPocket()
 	{
 		if (IsOnInventoryUI == false && IsActivePopUp == false)
 		{
 			SetScreenFilter(true);
-			Pocket.SetActive(true);
-			OreInfo.SetActive(true);
+			PocketUIParent.gameObject.SetActive(true);
 			SetOreList();
 			IsOnInventoryUI = true;
 		}
 	}
 
-	public void CloseInvnetory(bool OtherUIOn = false)
+	public void ClosePocket(bool OtherUIOn = false)
 	{
 		if (IsOnInventoryUI == true || (OtherUIOn == true && IsOnInventoryUI == true))
 		{
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
-			Pocket.SetActive(false);
-			OreInfo.SetActive(false);
+			PocketUIParent.gameObject.SetActive(false);
 			SetScreenFilter(false);
 			IsOnInventoryUI = false;
 		}
@@ -134,7 +130,7 @@ public class UIManager : MonoSingleton<UIManager>
 	public void ShowMining()
 	{
 		IsActivePopUp = true;
-		CloseInvnetory(IsActivePopUp);
+		ClosePocket(IsActivePopUp);
 		failCount = 0;
 		SetScreenFilter(IsActivePopUp);
 		for (int i = 0; i < Cards.Count; i++)
