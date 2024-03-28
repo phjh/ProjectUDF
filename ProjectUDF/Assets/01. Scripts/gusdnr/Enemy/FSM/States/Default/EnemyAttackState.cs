@@ -5,10 +5,6 @@ public abstract class EnemyAttackState : EnemyState
 {
 	private Coroutine attackCoroutine; // 현재 실행 중인 공격 코루틴
 
-	protected EnemyAttackState(EnemyMain enemy, EnemyStateMachine stateMachine) : base(enemy, stateMachine)
-	{
-	}
-
 	public override void EnterState()
 	{
 		base.EnterState();

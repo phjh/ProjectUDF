@@ -53,7 +53,7 @@ public class EnemyMain : PoolableMono
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
 
-		
+		ChaseState.Initialize(this, StateMachine);
 		ChaseState = ChaseState.Clone();
 		if (ChaseState == null)
 		Debug.LogError("Null ChaseState");

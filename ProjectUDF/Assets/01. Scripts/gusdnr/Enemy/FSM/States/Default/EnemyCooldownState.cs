@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class EnemyCooldownState : EnemyState
 {
-	public EnemyCooldownState(EnemyMain enemy, EnemyStateMachine stateMachine) : base(enemy, stateMachine)
+
+	public override EnemyState Clone()
 	{
+		throw new System.NotImplementedException();
 	}
 
 	public override void EnterState()

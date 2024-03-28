@@ -7,10 +7,6 @@ public class EnemyChaseState : EnemyState
 	private Transform _playerTransform;
 	public float _movementSpeed = 2.5f;
 
-	public EnemyChaseState(EnemyMain enemy, EnemyStateMachine stateMachine) : base(enemy, stateMachine)
-	{
-	}
-
 	public override void AnimationTriggerEvent(EnemyMain.AnimationTriggerType triggerType)
 	{
 		base.AnimationTriggerEvent(triggerType);
@@ -41,5 +37,10 @@ public class EnemyChaseState : EnemyState
 	public override void PhtsicsUpdate()
 	{
 		base.PhtsicsUpdate();
+	}
+
+	public override EnemyState Clone()
+	{
+		throw new System.NotImplementedException();
 	}
 }
