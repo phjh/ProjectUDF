@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -23,12 +24,12 @@ public class TimeManager : MonoSingleton<TimeManager>
 
 	private void OnEnable()
 	{
-		PlayerStat.OnDeadPlayer += ResetTimer;
+		PlayerStat.OnDeadPlayer += HideTimer;
 	}
 
 	private void OnDisable()
 	{
-		PlayerStat.OnDeadPlayer -= ResetTimer;
+		PlayerStat.OnDeadPlayer -= HideTimer;
 	}
 
 	private void Start()
@@ -39,6 +40,7 @@ public class TimeManager : MonoSingleton<TimeManager>
 	public void ResetTimer()
 	{
 		NowTime = MaxTime;
+		TimerText.gameObject.SetActive(true);
 		DisplayTime(NowTime);
 		StopTimer(false);
 	}
@@ -57,6 +59,12 @@ public class TimeManager : MonoSingleton<TimeManager>
 			IsWorkingTimer = true;
 			timerCoroutine = StartCoroutine(WorkingTimer());
 		}
+	}
+
+	public void HideTimer()
+	{
+		StopTimer();
+		TimerText.gameObject.SetActive(false);
 	}
 
     private IEnumerator WorkingTimer() //타이머용 코루틴
