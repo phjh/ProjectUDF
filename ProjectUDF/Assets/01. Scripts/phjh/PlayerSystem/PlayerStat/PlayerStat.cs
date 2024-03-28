@@ -59,6 +59,8 @@ public class PlayerStat : ScriptableObject
 				_fieldInfoDictionary.Add(statType, statField);
 			}
 		}
+
+		TimeManager.Instance.OnTimerEnd += DiePlayer;
 	}
 
 	public PlayerStat Clone() //Player 스탯을 복제 후, 돌려준다.
@@ -110,7 +112,12 @@ public class PlayerStat : ScriptableObject
 		if (curHP > MaxHP) { curHP = MaxHP; }
 		else { HpChanged?.Invoke(); }
 
-		if(curHP <= 0) { OnDeadPlayer?.Invoke(); } //플레이어 쪽에서 죽는 이벤트 실행
+		if(curHP <= 0) { DiePlayer(); } //플레이어 쪽에서 죽는 이벤트 실행
+	}
+
+	public void DiePlayer()
+	{
+		OnDeadPlayer?.Invoke();
 	}
 
 	#endregion
