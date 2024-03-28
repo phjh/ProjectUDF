@@ -36,8 +36,8 @@ public class PlayerAttack : Player
     {
         float damage = CalculateDamage(0.8f);
         Debug.Log("damage : " + damage);
-        yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
+        yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.CanAttack = true;
     }
 
@@ -99,14 +99,14 @@ public class PlayerAttack : Player
             return;
         }
 
-        if (Input.GetMouseButton(0) && !_player.IsAttacking)
+        if (Input.GetMouseButton(0) && _player.CanAttack)
         {
             _range.gameObject.SetActive(true);
-            _player.CanAttack = false;
+            _player.IsAttacking = true;
         }
         else if(Input.GetMouseButtonUp(0) && _range.gameObject.active == true)
         {
-            _player.IsAttacking = true;
+            _player.CanAttack = false;
             stopCoroutine = StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
         }

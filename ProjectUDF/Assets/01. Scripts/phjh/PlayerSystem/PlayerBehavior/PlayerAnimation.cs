@@ -136,7 +136,7 @@ public class PlayerAnimation : Player
                 //skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
             }
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0)&&_player.IsAttacking && _player.CanAttack)
             {
                 isLeftPressed = true;
                 aimAngle = aim.Angle;
@@ -156,6 +156,7 @@ public class PlayerAnimation : Player
             else if(isLeftPressed)
             {
                 isLeftPressed = false;
+                lastMoveDirection = (MoveDirectionList)aimAngle;
                 skeletonAnimation.AnimationState.SetAnimation(0, leftAttackAnimations[aimAngle], false).TimeScale = 0.5f;
                 yield return new WaitForSeconds(0.2f);
             }

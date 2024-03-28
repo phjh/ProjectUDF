@@ -152,7 +152,7 @@ public class RandomMap : MonoBehaviour
     //Ãþ ¸¶´Ù »ý¼º
     void StageGenerate()
     {
-        MapInfoSO newMap = floors[0].CloneAndSettingRandom();
+        MapInfoSO newMap = floors[0].CloneAndSetting();
         floors.Add(newMap);
     }
 
