@@ -786,7 +786,6 @@ MonoBehaviour:
   maxHealth: 30
   attackCoolTime: 3
   StrikingRadius: 5
-  ChasingSpeed: 2.5
   canAttack: 1
 --- !u!1 &605298588
 GameObject:
@@ -904,8 +903,7 @@ MonoBehaviour:
   CooldownState: {fileID: 11400000, guid: 8de3661d169a50247b02c5217adedfff, type: 2}
   maxHealth: 30
   attackCoolTime: 3
-  StrikingRadius: 6
-  ChasingSpeed: 2.5
+  StrikingRadius: 8
   canAttack: 1
 --- !u!1 &619394800
 GameObject:
@@ -3487,7 +3485,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 8
 --- !u!114 &986352898
 MonoBehaviour:
   m_ObjectHideFlags: 0
