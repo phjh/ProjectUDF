@@ -18,10 +18,6 @@ public class PlayerStat : ScriptableObject
 {
 	public static event Action HpChanged;
 	public static event Action OnDeadPlayer;
-	public event Action<float> OnStrengthChanged;
-	public event Action<float> OnMoveSpeedChanged;
-	public event Action<float> OnAttackSpeedChanged;
-	public event Action<float> OnLuckyChanged;
 
 	[Header("Player's Stats")]
 	public int MaxHP;
