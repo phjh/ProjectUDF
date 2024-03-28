@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnemyCooldownState : EnemyState
 {
 
@@ -12,7 +10,7 @@ public class EnemyCooldownState : EnemyState
 	{
 		base.EnterState();
 
-		enemy.StartCoroutine(enemy.StartAttackCooldown());
+		enemy.StartCoroutine(enemy.StartCooldown());
 	}
 
 	public override void FrameUpdate()

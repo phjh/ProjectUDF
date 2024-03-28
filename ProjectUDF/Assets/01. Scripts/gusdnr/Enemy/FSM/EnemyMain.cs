@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class EnemyMain : PoolableMono
 {
-	#region World Variables
+	#region Enemy Variables
 	public float MaxHealth { get; set; }
 	public float CurrentHealth { get; set; }
-	public Rigidbody2D EnemyRB { get; set; }
-	public Transform Target { get; set; }
 	public bool IsFacingRight { get; set; } = true;
 	public bool IsWithStrikingDistance { get; set; }
 	public bool IsAttackCooldown { get; set; }
+	#endregion
+
+	#region Enemy Components
+	public Rigidbody2D EnemyRB { get; set; }
+	public Transform Target { get; set; }
+	public SpriteRenderer ERender { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -27,6 +31,7 @@ public class EnemyMain : PoolableMono
 	[Header("Stats")]
 	public float maxHealth = 30f;
 	public bool isDead = false;
+	public float attackCoolTime = 1f;
 	#endregion
 
 	#region Wander Variables
@@ -43,9 +48,7 @@ public class EnemyMain : PoolableMono
 	#endregion
 
 	#region Attack Variables
-	[Header("Attack Variables")]
-	public float AttackCoolTime = 3f;
-	public bool canAttack = true;
+	[HideInInspector] public bool canAttack = true;
 	#endregion
 
 	private void Awake()
@@ -53,18 +56,17 @@ public class EnemyMain : PoolableMono
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
 
-		ChaseState.Initialize(this, StateMachine);
-		ChaseState = ChaseState.Clone();
-		if (ChaseState == null)
-		Debug.LogError("Null ChaseState");
+		SettingState(ChaseState);
+		SettingState(CooldownState);
+		SettingState(AttackState);
+	}
 
-		CooldownState = CooldownState.Clone();
-		if (CooldownState == null)
-		Debug.LogError("Null CooldownState");
-
-		AttackState = AttackState.Clone();
-		if(AttackState == null)
-		Debug.LogError("Null AttackStates");
+	private void SettingState(EnemyState state)
+	{
+		state.Initialize(this, StateMachine);
+		state = state.Clone();
+		if (state == null)
+			Debug.LogError("Null state detected.");
 	}
 
 	private void Start()
@@ -78,6 +80,7 @@ public class EnemyMain : PoolableMono
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
+		if(ERender == null) ERender = GetComponentInChildren<SpriteRenderer>();
 		isDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState, this);
@@ -95,10 +98,10 @@ public class EnemyMain : PoolableMono
 
 	#region Methods
 
-	public IEnumerator StartAttackCooldown()
+	public IEnumerator StartCooldown()
 	{
 		IsAttackCooldown = true;
-		yield return new WaitForSeconds(AttackCoolTime);
+		yield return new WaitForSeconds(attackCoolTime);
 		IsAttackCooldown = false;
 		canAttack = true;
 	}

@@ -996,16 +996,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingType: 0
   ChaseState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
-  AttackState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
-  CooldownState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
+  AttackState: {fileID: 11400000, guid: d658bf21e596aee45824ca539ce5efe4, type: 2}
+  CooldownState: {fileID: 11400000, guid: 8de3661d169a50247b02c5217adedfff, type: 2}
   maxHealth: 30
   isDead: 0
+  attackCoolTime: 1
   RandomMovementRange: 5
   RandomMovementSpeed: 2
   MaxMoveTime: 4
   StrikingRadius: 3
   ChasingSpeed: 2.5
-  AttackCoolTime: 3
   canAttack: 1
 --- !u!1 &619394800
 GameObject:
@@ -1303,7 +1303,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 595687416}
