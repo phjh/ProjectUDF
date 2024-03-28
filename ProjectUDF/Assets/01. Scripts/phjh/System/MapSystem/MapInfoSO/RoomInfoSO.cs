@@ -57,7 +57,7 @@ public class RoomInfoSO : ScriptableObject
                 int rand = UnityEngine.Random.Range(0, spawnMonsterList.Count);
                 MonsterInfo monster;
                 monster.monsterObj = spawnMonsterList[rand];
-                monster.monsterPos = new Vector2(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(0, 10));
+                monster.monsterPos = new Vector2(UnityEngine.Random.Range(-11, 11), UnityEngine.Random.Range(-6, 3));
                 spawnMonsters.Add(monster);
             }
         }

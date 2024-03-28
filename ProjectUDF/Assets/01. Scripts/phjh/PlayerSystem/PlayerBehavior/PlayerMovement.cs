@@ -1,9 +1,7 @@
 using DG.Tweening;
 using System.Collections;
-using System.Data.Common;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PlayerMovement : Player
 {
@@ -18,6 +16,8 @@ public class PlayerMovement : Player
     public Vector3 MovementVelocity => _movementVelocity;
 
     public Vector2 lastinputDir = Vector2.down;
+
+    public Slider slider;
 
     protected void OnEnable()
     {
@@ -52,11 +52,25 @@ public class PlayerMovement : Player
         _player._isdodgeing = true;
         _player.ActiveMove = false;
         _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
+        slider.value = 0;
         yield return new WaitForSeconds(0.5f);
         _player.ActiveMove = true;
         _player._isdodgeing = false;
+        StartCoroutine(DodgeCooltimeSet());
         yield return new WaitForSeconds(DodgeCooltime());
         _canDodge = true;
+    }
+
+    IEnumerator DodgeCooltimeSet()
+    {
+        float cooltime = DodgeCooltime();
+        float time = 0;
+        while(time < cooltime)
+        {
+            time+= Time.deltaTime;
+            slider.value = Mathf.Lerp(0,1,time/cooltime);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
     }
 
     public float DodgeCooltime() => Mathf.Clamp(3f - GameManager.Instance.MoveSpeed / 10, 1, 3);
@@ -104,15 +118,19 @@ public class PlayerMovement : Player
         {
             _playerStat.EditModifierStat(Stats.MoveSpeed, 0.5f);
         }
-
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GetDamage();
+            Debug.Log(1);
+        }
     }
 
     public void GetDamage()
     {
         if (_isdodgeing)
             return;
-
-
+        _playerStat.EditPlayerHP(-1);
+        Debug.Log(_playerStat.CurHP);
     }
 
 }

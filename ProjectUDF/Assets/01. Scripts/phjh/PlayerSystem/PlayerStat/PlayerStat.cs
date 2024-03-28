@@ -25,7 +25,7 @@ public class PlayerStat : ScriptableObject
 
 	[Header("Player's Stats")]
 	public int MaxHP;
-	private int curHP;
+	public int curHP;
 	public int CurHP
 	{ get { return curHP;} set{ curHP = value; } }
 	public Stat Strength;
