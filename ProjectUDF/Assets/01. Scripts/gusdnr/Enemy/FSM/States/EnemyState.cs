@@ -9,7 +9,6 @@ public abstract class EnemyState : ScriptableObject
 	{
 		this.enemy = enemy;
 		enemyStateMachine = stateMachine;
-		Debug.Log($"Initialize Complete {enemy.name}");
 	}
 
 	public virtual void EnterState() { }

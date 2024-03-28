@@ -14,7 +14,7 @@ public class DashAttackState : EnemyState
 
 	public override EnemyState Clone()
 	{
-		DashAttackState clone = Clone() as DashAttackState;
+		DashAttackState clone = CloneBase() as DashAttackState;
 		// 추가적인 초기화가 필요한 경우 여기서 설정
 		clone.DashSpeed = DashSpeed;
 		clone.DashTime = DashTime;
@@ -33,6 +33,12 @@ public class DashAttackState : EnemyState
 		//AttackCoroutine 종료 -> CoolDownState로 변경
 	}
 
+	public override void ExitState()
+	{
+		enemy.MoveEnemy(Vector2.zero);
+		base.ExitState();
+	}
+
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
@@ -47,13 +53,17 @@ public class DashAttackState : EnemyState
 		Debug.Log("Start AttackCoroutine");
 		enemy.canAttack = false;
 		LockOnCoroutine = enemy.StartCoroutine(LockOnTarget());
-		while(LockOnCoroutine != null)
+		
+		yield return LockOnCoroutine;
+
+		Debug.Log("Start Dash");
+		float time = 0;
+		while(time <= DashTime)
 		{
+			enemy.MoveEnemy(Direction * DashSpeed);
+			time += Time.deltaTime;
 			yield return null;
 		}
-		Debug.Log("Start Dash");
-		enemy.MoveEnemy(Direction * DashSpeed);
-		yield return new WaitForSeconds(DashTime);
 		Debug.Log("End Dash");
 		enemy.MoveEnemy(Vector2.zero);
 	}

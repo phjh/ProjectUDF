@@ -1004,7 +1004,7 @@ MonoBehaviour:
   RandomMovementRange: 5
   RandomMovementSpeed: 2
   MaxMoveTime: 4
-  StrikingRadius: 3
+  StrikingRadius: 5
   ChasingSpeed: 2.5
   canAttack: 1
 --- !u!1 &619394800
