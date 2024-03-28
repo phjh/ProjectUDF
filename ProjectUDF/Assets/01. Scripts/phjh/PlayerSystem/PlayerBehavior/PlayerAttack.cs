@@ -18,6 +18,8 @@ public class PlayerAttack : Player
 
     #endregion
 
+    Coroutine stopCoroutine;
+
     public float ChargeTime = 1.6f;
     public float stiffenTime = 0.4f; //경직시간
 
@@ -47,7 +49,7 @@ public class PlayerAttack : Player
         while (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1))
         {
             pressTime += 0.05f;
-            float scale = Mathf.Lerp(0, ChargeTime, pressTime) / 2 + 1;
+            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 4 + 1;
             _rightattackRange.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForSeconds(0.05f);
         }
@@ -65,13 +67,15 @@ public class PlayerAttack : Player
         PlayerAim aim = GetComponent<PlayerAim>();
         aim.enabled = false;
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
 
         EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform.position, 0.4f);
         EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect2, _rightattackRange.transform.position + Vector3.up / 2, 0.2f);
-
-        _player.CanAttack = false;
         _rightattackRange.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(0.2f);
+        
+        _player.CanAttack = false;
         _rightAtkcol.enabled = false;
         _player.ActiveMove = true;
         aim.enabled = true;
@@ -86,8 +90,8 @@ public class PlayerAttack : Player
     {
         if (_player._isdodgeing)
         {
-            StopCoroutine(NormalAttack());
-            StopCoroutine(ChargingAttack());
+            if(stopCoroutine != null)
+                StopCoroutine(stopCoroutine);
             _range.gameObject.SetActive(false);
             _rightattackRange.SetActive(false);
             _player.IsAttacking = false;
@@ -103,14 +107,14 @@ public class PlayerAttack : Player
         else if(Input.GetMouseButtonUp(0) && _range.gameObject.active == true)
         {
             _player.IsAttacking = true;
-            StartCoroutine(NormalAttack());
+            stopCoroutine = StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
         }
 
         if (Input.GetMouseButtonDown(1) && !_player.IsAttacking && _player.CanAttack)
         {
             _player.IsAttacking = true;
-            StartCoroutine(ChargingAttack());
+            stopCoroutine = StartCoroutine(ChargingAttack());
             _rightattackRange.gameObject.SetActive(true);
         }
 

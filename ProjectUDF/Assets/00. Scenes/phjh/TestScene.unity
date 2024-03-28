@@ -602,9 +602,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.5882353}
+      minMaxState: 2
+      minColor: {r: 1, g: 1, b: 1, a: 0.60784316}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.92156863}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6357,9 +6357,9 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2126607213}
   - {fileID: 692694810}
   - {fileID: 850410511}
-  - {fileID: 2126607213}
   - {fileID: 1041966972}
   - {fileID: 602159175}
   - {fileID: 1980762425}

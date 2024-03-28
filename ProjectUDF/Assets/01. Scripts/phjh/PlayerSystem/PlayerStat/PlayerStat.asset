@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
   MaxHP: 6
+  curHP: 0
   Strength:
     baseValue: 3
     fixedModifiers: []
     persentedModifiers: []
   MoveSpeed:
-    baseValue: 2
+    baseValue: 6
     fixedModifiers: []
     persentedModifiers: []
   AttackSpeed:
