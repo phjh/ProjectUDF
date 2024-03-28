@@ -24,7 +24,6 @@ public class PlayerMovement : Player
         _playerStat = _player._playerStat;
 
         _inputReader.MovementEvent += SetMovement;
-        _playerStat.OnMoveSpeedChanged += LoadMoveSpeed;
         stopImmediately += StopImmediately;
         _inputReader.DodgeEvent += Dodge;
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -35,7 +34,6 @@ public class PlayerMovement : Player
     private void OnDisable()
     {
         _inputReader.MovementEvent -= SetMovement;
-        _playerStat.OnMoveSpeedChanged -= LoadMoveSpeed;
         stopImmediately -= StopImmediately;
         _inputReader.DodgeEvent -= Dodge;
     }
@@ -79,13 +77,9 @@ public class PlayerMovement : Player
         _inputDirection = value;
     }
 
-    public void LoadMoveSpeed(float value)
-    {
-        _currentSpeed = value;
-    }
-
     private void CalculatePlayerMovement()
     {
+        _currentSpeed = 4 + _player._playerStat.MoveSpeed.GetValue()/5;
         _movementVelocity = _inputDirection * _currentSpeed;
         if (_inputDirection != Vector2.zero)
             lastinputDir = _inputDirection;
