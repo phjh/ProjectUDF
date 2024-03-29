@@ -20,8 +20,6 @@ public class PlayerAttack : Player
 
     Coroutine stopCoroutine;
 
-    PlayerAim aim;
-
     public float ChargeTime = 1.6f;
     public float stiffenTime = 0.4f; //경직시간
 
@@ -32,7 +30,6 @@ public class PlayerAttack : Player
         _playerStat = _player._playerStat;
         ResentDamage = _playerStat.Strength.GetValue();
         _rightAtkcol = _rightattackRange.GetComponent<CircleCollider2D>();
-        aim = GetComponent<PlayerAim>();
     }
 
     public IEnumerator NormalAttack()
@@ -40,7 +37,7 @@ public class PlayerAttack : Player
         float damage = CalculateDamage(0.8f);
         Debug.Log("damage : " + damage);
         _player.IsAttacking = false;
-        EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.5f, aim.transform.rotation.z * 155, Vector3.right * 0.9f );
+        EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.5f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
         yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.CanAttack = true;
     }
@@ -53,7 +50,7 @@ public class PlayerAttack : Player
         while (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1))
         {
             pressTime += 0.05f;
-            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 4 + 1;
+            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 2+ 1;
             _rightattackRange.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForSeconds(0.05f);
         }

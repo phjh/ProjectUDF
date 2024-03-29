@@ -81,8 +81,8 @@ public class EffectSystem : MonoSingleton<EffectSystem>
     {
         EffectPoolableMono poolItem = PoolManager.Instance.Pop(type);
         poolItem.transform.position = targetPos;
-        poolItem.transform.rotation = Quaternion.Euler(0,0,rot);
         poolItem.transform.position += Quaternion.Euler(0, 0, rot) * rotTransform;
+        poolItem.transform.rotation = Quaternion.Euler(0, 0, rot);
         poolItem.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(waitDuration);
         PoolManager.Instance.Push(poolItem);

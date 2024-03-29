@@ -11,11 +11,10 @@ public class PlayerAttackRange : MonoBehaviour
 
     Vector3 origin = Vector3.zero;
 
-
     private void OnEnable()
     {
         float angle = -fov/2;
-
+        
         Mesh mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         Vector3[] vertices = new Vector3[rayCount + 2];
