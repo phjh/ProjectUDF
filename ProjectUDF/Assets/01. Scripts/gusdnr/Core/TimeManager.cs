@@ -25,11 +25,15 @@ public class TimeManager : MonoSingleton<TimeManager>
 	private void OnEnable()
 	{
 		PlayerStat.OnDeadPlayer += HideTimer;
+		GameManager.OnPlaying += StartTimer;
+		GameManager.OnPauseUI += StopTimer;
 	}
 
 	private void OnDisable()
 	{
 		PlayerStat.OnDeadPlayer -= HideTimer;
+		GameManager.OnPlaying -= StartTimer;
+		GameManager.OnPauseUI -= StopTimer;
 	}
 
 	private void Awake()
@@ -39,17 +43,16 @@ public class TimeManager : MonoSingleton<TimeManager>
 
 	public void ResetTimer()
 	{
+		StopTimer();
 		NowTime = MaxTime;
 		TimerText.gameObject.SetActive(true);
 		DisplayTime(NowTime);
-		StopTimer(false);
 	}
 
-	public void StopTimer(bool isReset = true)
+	public void StopTimer()
 	{
 		IsWorkingTimer = false;
 		if(timerCoroutine != null) StopCoroutine(timerCoroutine);
-		if (isReset) { ResetTimer(); }
 	}
 
 	public void StartTimer() //외부 호출용 타이머 시작 함수
@@ -73,7 +76,7 @@ public class TimeManager : MonoSingleton<TimeManager>
         {
 			if (!IsWorkingTimer) // IsWorkingTimer가 false일 때 타이머 종료
 			{
-				StopTimer(true);
+				ResetTimer();
 				yield break;
 			}
 
@@ -83,7 +86,8 @@ public class TimeManager : MonoSingleton<TimeManager>
 			yield return null;
 		}
 		OnTimerEnd?.Invoke();
-		StopTimer(false);
+		GameManager.Instance.UpdateResult(GameResults.TimeOut);
+		StopTimer();
     }
 
 	private void DisplayTime(float timeToDisplay) //보여줄 시간 텍스트화

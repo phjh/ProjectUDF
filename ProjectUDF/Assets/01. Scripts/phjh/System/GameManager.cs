@@ -7,10 +7,11 @@ using UnityEngine;
 public enum GameStates
 {
 	Lobby = 0,
-	Play = 1,
-	NonPauseUIOn = 2,
-	PauseUIOn = 3,
-	End = 4,
+	Start = 1,
+	Playing = 2,
+	NonPauseUIOn = 3,
+	PauseUIOn = 4,
+	End = 5,
 }
 
 public enum GameResults
@@ -51,6 +52,15 @@ public class GameManager : MonoSingleton<GameManager>
 	public GameResults gameResult;
 	#endregion
 
+	#region Game State Event
+	public static event Action OnLobby;
+	public static event Action OnStart;
+	public static event Action OnPlaying;
+	public static event Action OnNonPauseUI;
+	public static event Action OnPauseUI;
+	public static event Action OnEnd;
+	#endregion
+
 	private void OnEnable()
 	{
 		if (InventoryArray == null) Debug.Log("Item Array is null");
@@ -82,6 +92,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 	#region Methods
 
+	#region Item Manage
 	public void CollectItem(ItemDataSO data)
 	{
 		InventoryArray[data.ItemID].isCollect = true;
@@ -98,6 +109,7 @@ public class GameManager : MonoSingleton<GameManager>
 			playerInventory.AddItemInInventory(dropItem);
 		}
 	}
+	#endregion
 
 	public void ReloadStats()
 	{
@@ -118,14 +130,30 @@ public class GameManager : MonoSingleton<GameManager>
 		switch (gameState)
 		{
 			case GameStates.Lobby:
+				OnLobby?.Invoke();
+				UpdateResult(GameResults.Play);
 				break;
-			case GameStates.Play:
+			case GameStates.Start:
+				OnStart?.Invoke();
 				player.ActiveMove = true;
 				break;
-			case GameStates.PauseUIOn:
+			case GameStates.Playing:
+				OnPlaying?.Invoke();
+				break;
+			case GameStates.NonPauseUIOn:
+				OnNonPauseUI?.Invoke();
 				player.ActiveMove = false;
 				break;
-
+			case GameStates.PauseUIOn:
+				OnPauseUI?.Invoke();
+				player.ActiveMove = false;
+				break;
+			case GameStates.End:
+				OnEnd?.Invoke();
+				break;
+			default:
+				Debug.LogError("Game Manager Have not State");
+				break;
 		}
 	}
 

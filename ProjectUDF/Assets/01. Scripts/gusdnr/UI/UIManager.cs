@@ -113,11 +113,12 @@ public class UIManager : MonoSingleton<UIManager>
 			SetOreList();
 			IsOnInventoryUI = true;
 		}
+		GameManager.Instance.UpdateState(GameStates.PauseUIOn);
 	}
 
-	public void ClosePocket(bool OtherUIOn = false)
+	public void ClosePocket()
 	{
-		if (IsOnInventoryUI == true || (OtherUIOn == true && IsOnInventoryUI == true))
+		if (IsOnInventoryUI == true)
 		{
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
@@ -125,24 +126,27 @@ public class UIManager : MonoSingleton<UIManager>
 			SetScreenFilter(false);
 			IsOnInventoryUI = false;
 		}
+		GameManager.Instance.UpdateState(GameStates.Playing);
 	}
 
 	public void ShowMining()
 	{
+		if(IsOnInventoryUI == true) CloseMining();
 		IsActivePopUp = true;
-		ClosePocket(IsActivePopUp);
 		failCount = 0;
 		SetScreenFilter(IsActivePopUp);
 		for (int i = 0; i < Cards.Count; i++)
 		{
 			Cards[i].GetComponent<OreCard>().Show();
 		}
+		GameManager.Instance.UpdateState(GameStates.NonPauseUIOn);
 	}
 
 	public void CloseMining()
 	{
 		IsActivePopUp = false;
 		SetScreenFilter(IsActivePopUp);
+		GameManager.Instance.UpdateState(GameStates.Playing);
 	}
 	#endregion
 

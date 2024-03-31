@@ -26,7 +26,8 @@ public class StopCooldownState : EnemyState
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
-		if(enemy.IsAttackCooldown == false)
+		enemy.MoveEnemy(Vector2.zero);
+		if (enemy.IsAttackCooldown == false)
 		{
 			enemy.StateMachine.ChangeState(enemy.ChaseState);
 		}

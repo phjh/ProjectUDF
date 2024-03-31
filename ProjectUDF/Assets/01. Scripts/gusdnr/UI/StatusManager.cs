@@ -18,15 +18,17 @@ public class StatusManager : MonoBehaviour
 	{
 		PlayerStat.HpChanged += DrawHearts;
 		PlayerStat.OnDeadPlayer += HideStatus;
+		GameManager.OnStart += GameSet;
 	}
 
 	private void OnDisable()
 	{
 		PlayerStat.HpChanged -= DrawHearts;
 		PlayerStat.OnDeadPlayer -= HideStatus;
+		GameManager.OnStart -= GameSet;
 	}
 
-	private void Awake()
+	public void GameSet()
 	{
 		SettingHearts();
 		objects = GetComponentsInChildren<GameObject>();

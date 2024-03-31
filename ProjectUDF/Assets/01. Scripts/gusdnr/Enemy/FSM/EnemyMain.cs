@@ -80,11 +80,13 @@ public class EnemyMain : PoolableMono
 
 	private void Update()
 	{
+		if(GameManager.Instance.gameState != GameStates.PauseUIOn)
 		StateMachine.CurrentState.FrameUpdate();
 	}
 
 	private void FixedUpdate()
 	{
+		if(GameManager.Instance.gameState != GameStates.PauseUIOn)
 		StateMachine.CurrentState.PhtsicsUpdate();
 	}
 
@@ -93,7 +95,15 @@ public class EnemyMain : PoolableMono
 	public IEnumerator StartCooldown()
 	{
 		IsAttackCooldown = true;
-		yield return new WaitForSeconds(attackCoolTime);
+		float curCoolTime = 0;
+		while(curCoolTime <= attackCoolTime)
+		{
+			if (GameManager.Instance.gameState != GameStates.PauseUIOn)
+			{
+				curCoolTime += Time.deltaTime;
+			}
+			yield return null;
+		}
 		IsAttackCooldown = false;
 		canAttack = true;
 	}
