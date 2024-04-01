@@ -10,6 +10,8 @@ public class PlayerAttack : Player
     [SerializeField] Player _player;
     [SerializeField] PlayerAttackRange _range;
 
+    PolygonCollider2D leftAtkCol;
+
     #region 차징공격 관련
 
     [SerializeField] GameObject _rightattackRange;
@@ -30,6 +32,7 @@ public class PlayerAttack : Player
         _playerStat = _player._playerStat;
         ResentDamage = _playerStat.Strength.GetValue();
         _rightAtkcol = _rightattackRange.GetComponent<CircleCollider2D>();
+        leftAtkCol = _range.GetComponentInChildren<PolygonCollider2D>();
     }
 
     public IEnumerator NormalAttack()
@@ -37,8 +40,11 @@ public class PlayerAttack : Player
         float damage = CalculateDamage(0.8f);
         Debug.Log("damage : " + damage);
         _player.IsAttacking = false;
-        EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.5f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
-        yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
+        leftAtkCol.enabled = true;
+        EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.3f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
+        yield return new WaitForSeconds(0.1f);
+        leftAtkCol.enabled = false;
+        yield return new WaitForSeconds(1.5f/ (2 + (_playerStat.AttackSpeed.GetValue()+1)));
         _player.CanAttack = true;
     }
 

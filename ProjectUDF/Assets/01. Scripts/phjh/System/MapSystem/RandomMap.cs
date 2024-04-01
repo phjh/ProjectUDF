@@ -15,7 +15,7 @@ public class RandomMap : MonoBehaviour
 
     public int nowFloor = 0;
     public int nowRoom = 0;
-    public int nowWave = 0;
+    public int nowWave = -1;
     public int leftMonsters = 0;
     public float roomStartTime = 0;
 
@@ -24,9 +24,9 @@ public class RandomMap : MonoBehaviour
         floors[nowFloor] = floors[nowFloor].CloneAndSetting();
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
         dirtEffect.Play();
-        MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
         MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
     }
+
 
     private void Update()
     {
@@ -61,6 +61,7 @@ public class RandomMap : MonoBehaviour
         MapSystem.Instance.RoomStartEvent += RoomTimerInit;
         MapSystem.Instance.RoomStartEvent += RoomEffectInit;
         MapSystem.Instance.RoomStartEvent += SetRoomMap;
+        MapSystem.Instance.RoomStartEvent += SetLeftMonsters;
         MapSystem.Instance.MonsterWaveClearEvent += WaveClear;
         MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
@@ -72,9 +73,13 @@ public class RandomMap : MonoBehaviour
         MapSystem.Instance.RoomStartEvent -= RoomTimerInit;
         MapSystem.Instance.RoomStartEvent -= RoomEffectInit;
         MapSystem.Instance.RoomStartEvent -= SetRoomMap;
+        MapSystem.Instance.RoomStartEvent -= SetLeftMonsters;
         MapSystem.Instance.MonsterWaveClearEvent -= WaveClear;
         MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
+    void DebugStart() => Debug.Log("MapStart Invoked");
+
+    void SetLeftMonsters() => leftMonsters = floors[nowFloor].floorRoomInfo[nowRoom].numberOfMonsters[0];
 
     //몬스터 소환하는 메서드
     void SpawnMonsters()
@@ -151,17 +156,18 @@ public class RandomMap : MonoBehaviour
 
     void WaveClear()
     {
-        if (nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves)
+        if (nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves - 1)
         {
             MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
+            nowWave = 0;
+            MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
             nowRoom++;
             RoomClear();
-            nowWave = 0;
         }
         else
         {
-            SpawnMonsters();
             nowWave++;
+            SpawnMonsters();
         }
     }
 
@@ -172,7 +178,7 @@ public class RandomMap : MonoBehaviour
             MapSystem.Instance.ActionInvoker(MapEvents.FloorClear);
             FloorClear();
             nowFloor++;
-            nowRoom = 0;
+            nowRoom = 0; 
         }
     }
 
