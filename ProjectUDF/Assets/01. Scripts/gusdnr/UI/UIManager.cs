@@ -45,6 +45,10 @@ public class UIManager : MonoSingleton<UIManager>
 		PocketUIParent.gameObject.SetActive(IsOnInventoryUI);
 		SetScreenFilter(IsOnInventoryUI);
 	}
+    private void Start()
+    {
+        MapSystem.Instance.RoomStartEvent += ShowMining;
+    }
 
 	#region Mining UI
 	public void CountFail()
@@ -102,12 +106,6 @@ public class UIManager : MonoSingleton<UIManager>
 	}
 
 	#endregion
-    private void Start()
-    {
-        MapSystem.Instance.RoomStartEvent += ShowCards;
-    }
-
-    #region Mining UI
 
 	#region Manage UI
 	public void ShowPocket()
