@@ -53,10 +53,18 @@ public class FWayShootAttackState : EnemyState
 
 	private IEnumerator ShootFWay()
 	{
+		Vector2 dir = Vector2.zero;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
-			//총알 발사하는 부분 작성
-			enemy.EnemyRB.AddForce(Direction * 2);
+			ToadRock Rock = PoolManager.Instance.Pop(PoolingType.MonsterBullet).GetComponent<ToadRock>();
+			switch (cnt)
+			{
+				case 0: dir = Vector2.up; break;
+				case 1: dir = Vector2.left; break;
+				case 2: dir = Vector2.down; break;
+				case 3: dir = Vector2.right; break;
+			}
+			Rock.ShootingRock(dir);
 			yield return new WaitForSeconds(ShootDelay);
 		}
 		AttackCoroutine = null;
