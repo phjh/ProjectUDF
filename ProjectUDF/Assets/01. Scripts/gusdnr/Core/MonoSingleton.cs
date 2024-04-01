@@ -20,7 +20,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
 				if (_instance == null)
 				{
-					Debug.LogError($"{typeof(T).Name} is not exist");
+					//Debug.LogError($"{typeof(T).Name} is not exist");
 				}
 				else
 				{

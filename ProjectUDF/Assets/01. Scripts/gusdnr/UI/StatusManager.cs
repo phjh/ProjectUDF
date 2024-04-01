@@ -31,8 +31,8 @@ public class StatusManager : MonoBehaviour
 	public void GameSet()
 	{
 		SettingHearts();
-		objects = GetComponentsInChildren<GameObject>();
-		ShowStatus();
+		//objects = GetComponentsInChildren<GameObject>();
+		//ShowStatus();
 	}
 
 	#region 체력 부분 스크립트
@@ -98,10 +98,10 @@ public class StatusManager : MonoBehaviour
 	}
 	public void HideStatus()
 	{
-		foreach(GameObject obj in objects)
-		{
-			obj.SetActive(false);
-		}
+		//foreach(GameObject obj in objects)
+		//{
+		//	obj.SetActive(false);
+		//}
 	}
 	#endregion
 }

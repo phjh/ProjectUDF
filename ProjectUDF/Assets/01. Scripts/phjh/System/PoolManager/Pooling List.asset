@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoolObjtectList:
   - type: 0
-    prefab: {fileID: -8852433299532665753, guid: 30351b57998940047a26f836f07b9384, type: 3}
+    prefab: {fileID: 3485512363394060473, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
     count: 20
     name: ' Test3'
     description: "\uD14C\uC2A4\uD2B8\uC6A9 \uD30C\uB780 \uC0AC\uAC01\uD615"
   - type: 1
-    prefab: {fileID: 7647687750372263126, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
+    prefab: {fileID: 8234726395678351441, guid: c7f484b1640ce4842bffe96efc02e002, type: 3}
     count: 20
     name: Triangle
     description: "\uBE68\uAC04 \uC0BC\uAC01\uD615"
   - type: 2
-    prefab: {fileID: 2100141836858056051, guid: a1188d32532bf9b45949380ea602f79b, type: 3}
+    prefab: {fileID: 5074923153897559526, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
     count: 20
     name: BabyGolem
     description: "\uBBF8\uB2C8\uACE8\uB818!"
@@ -44,3 +44,8 @@ MonoBehaviour:
     count: 10
     name: ChargeAttackEffect2
     description: "\uC6B0\uD074\uB9AD(\uCC28\uC9D5)\uACF5\uACA9 \uC774\uD399"
+  - type: 3
+    prefab: {fileID: 4280607786683121939, guid: 5b2189a0bf19c5c478fb8660a514cc46, type: 3}
+    count: 10
+    name: Hiteffect
+    description: "\uACF5\uACA9\uC774 \uC801 \uBA85\uC911\uC2DC\uC758 \uC774\uD399"

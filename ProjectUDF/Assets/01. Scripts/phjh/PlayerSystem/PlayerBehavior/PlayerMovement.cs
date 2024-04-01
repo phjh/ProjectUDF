@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +21,7 @@ public class PlayerMovement : Player
     protected void OnEnable()
     {
         _playerStat = _player._playerStat;
-
+        GameManager.Instance.UpdateState(GameStates.Start);
         _inputReader.MovementEvent += SetMovement;
         stopImmediately += StopImmediately;
         _inputReader.DodgeEvent += Dodge;
@@ -113,7 +112,7 @@ public class PlayerMovement : Player
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            GetDamage();
+            GetHeal();
             Debug.Log(1);
         }
     }
@@ -124,6 +123,12 @@ public class PlayerMovement : Player
             return;
         _playerStat.EditPlayerHP(-1);
         Debug.Log(_playerStat.CurHP);
+        if (_playerStat.CurHP <= 0)
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
+    public void GetHeal()
+    {
+        _playerStat.EditPlayerHP(1);
+    }
 }

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public enum PoolingType
 {
-    Monster,
-    monster2,
-    monster3,
-    MonsterBullet,
+    MiniGolem,
+    StoneToad,
+    ToadBullet,
     item,
 }
 

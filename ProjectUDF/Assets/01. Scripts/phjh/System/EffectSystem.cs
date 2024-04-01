@@ -7,6 +7,7 @@ public enum EffectPoolingType
     LeftAttackEffect,
     ChargeAttackEffect,
     ChargeAttackEffect2,
+    HitEffect,
     ItemGettingEffect,
 }
 

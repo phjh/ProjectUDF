@@ -34,12 +34,6 @@ public class GameManager : MonoSingleton<GameManager>
 	#region Player Info
 	[Header("Player")]
 	public Player player;
-
-	[Header("Player Stat")]
-	public float Strength;
-	public float Lucky;
-	public float AttackSpeed;
-	public float MoveSpeed;
 	#endregion
 
 	[Header("Item Manage")]
@@ -110,14 +104,6 @@ public class GameManager : MonoSingleton<GameManager>
 		}
 	}
 	#endregion
-
-	public void ReloadStats()
-	{
-		Lucky = player._playerStat.Lucky.GetValue();
-		Strength = player._playerStat.Strength.GetValue();
-		MoveSpeed = player._playerStat.MoveSpeed.GetValue();
-		AttackSpeed = player._playerStat.AttackSpeed.GetValue();
-	}
 
 	public void UpdateState(GameStates SetState)
 	{

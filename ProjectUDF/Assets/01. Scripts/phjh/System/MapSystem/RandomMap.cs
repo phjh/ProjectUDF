@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public class RandomMap : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class RandomMap : MonoBehaviour
 
     [SerializeField]
     private ParticleSystem dirtEffect;
+
+    [SerializeField]
+    private List<GameObject> Portals;
 
     private GameObject nowMap;
 
@@ -25,6 +29,9 @@ public class RandomMap : MonoBehaviour
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
         dirtEffect.Play();
         MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
+        SetRoomMap();
+        RoomTimerInit();
+        RoomEffectInit();
     }
 
 
@@ -57,11 +64,12 @@ public class RandomMap : MonoBehaviour
     private void OnEnable()
     {
         MapSystem.Instance.FloorClearEvent += StageGenerate;
-        MapSystem.Instance.RoomClearEvent += RandomExitSpawn;
+        MapSystem.Instance.RoomClearEvent += PortalSpawn;
         MapSystem.Instance.RoomStartEvent += RoomTimerInit;
         MapSystem.Instance.RoomStartEvent += RoomEffectInit;
         MapSystem.Instance.RoomStartEvent += SetRoomMap;
         MapSystem.Instance.RoomStartEvent += SetLeftMonsters;
+        MapSystem.Instance.RoomStartEvent += SpawnMonsters;
         MapSystem.Instance.MonsterWaveClearEvent += WaveClear;
         MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
@@ -69,15 +77,15 @@ public class RandomMap : MonoBehaviour
     private void OnDisable()
     {
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
-        MapSystem.Instance.RoomClearEvent -= RandomExitSpawn;
+        MapSystem.Instance.RoomClearEvent -= PortalSpawn;
         MapSystem.Instance.RoomStartEvent -= RoomTimerInit;
         MapSystem.Instance.RoomStartEvent -= RoomEffectInit;
         MapSystem.Instance.RoomStartEvent -= SetRoomMap;
         MapSystem.Instance.RoomStartEvent -= SetLeftMonsters;
+        MapSystem.Instance.RoomStartEvent -= SpawnMonsters;
         MapSystem.Instance.MonsterWaveClearEvent -= WaveClear;
         MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
-    void DebugStart() => Debug.Log("MapStart Invoked");
 
     void SetLeftMonsters() => leftMonsters = floors[nowFloor].floorRoomInfo[nowRoom].numberOfMonsters[0];
 
@@ -90,7 +98,7 @@ public class RandomMap : MonoBehaviour
         int i = 0;
         foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonsters)
         {
-            if (monsters.monsterObj.TryGetComponent<PoolableObjectTest>(out PoolableObjectTest obj))
+            if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
                 obj.CustomInstantiate(monsters.monsterPos,obj.poolingType);
             else
             {
@@ -108,10 +116,10 @@ public class RandomMap : MonoBehaviour
     }
 
     //Å»Ãâ±¸ ·£´ý½ºÆù 
-    void RandomExitSpawn()
+    void PortalSpawn()
     {
-        //Instantiate(ExitPrefab, ExitPrefab.transform.position, Quaternion.identity);
-
+        int rand = UnityEngine.Random.Range(0, Portals.Count);
+        Portals[rand].gameObject.SetActive(true);
     }
 
     public void RoomTimerInit()
@@ -160,7 +168,6 @@ public class RandomMap : MonoBehaviour
         {
             MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
             nowWave = 0;
-            MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
             nowRoom++;
             RoomClear();
         }

@@ -44,6 +44,7 @@ public class PlayerAttack : Player
         EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.3f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
         yield return new WaitForSeconds(0.1f);
         leftAtkCol.enabled = false;
+        _range.gameObject.SetActive(false);
         yield return new WaitForSeconds(1.5f/ (2 + (_playerStat.AttackSpeed.GetValue()+1)));
         _player.CanAttack = true;
     }
@@ -106,7 +107,7 @@ public class PlayerAttack : Player
             return;
         }
 
-        if (Input.GetMouseButton(0) && _player.CanAttack)
+        if (Input.GetMouseButton(0) && _player.CanAttack && !_range.gameObject.active && !_player.IsAttacking)
         {
             _range.gameObject.SetActive(true);
             _player.IsAttacking = true;
@@ -115,7 +116,6 @@ public class PlayerAttack : Player
         {
             _player.CanAttack = false;
             stopCoroutine = StartCoroutine(NormalAttack());
-            _range.gameObject.SetActive(false);
         }
 
         if (Input.GetMouseButtonDown(1) && !_player.IsAttacking && _player.CanAttack)
@@ -130,16 +130,16 @@ public class PlayerAttack : Player
     public float CalculateDamage(float factor)
     {
         float damage = 0;
-        if (UnityEngine.Random.Range(0, 100) < GameManager.Instance.Lucky)
+        if (UnityEngine.Random.Range(0, 100) < _player._playerStat.Lucky.GetValue())
         {
             damage = ResentDamage * 1.3f * factor;
-            Debug.Log("!!!!!!damage : " + damage);
         }
         else
         {
-            damage = GameManager.Instance.Strength * factor;
+            damage = _player._playerStat.Strength.GetValue() * factor;
         }
         ResentDamage = Mathf.Ceil(damage * 10) / 10;
+        Debug.Log("damage : " + damage);
         return damage;
     }
 

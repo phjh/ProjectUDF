@@ -119,6 +119,7 @@ public class EnemyMain : PoolableMono
 	{
 		IsDead = true;
 		StateMachine.CurrentState.ExitState();
+		MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
 		PoolManager.Instance.Push(this);
 	}
 	#endregion
@@ -166,7 +167,16 @@ public class EnemyMain : PoolableMono
 	{
 		IsWithStrikingDistance = isWithStrikingDistance;
 	}
-	#endregion
+    #endregion
 
-	#endregion
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject == GameManager.Instance.player.gameObject)
+		{
+			PlayerMovement move = collision.gameObject.GetComponent<PlayerMovement>();
+			move.GetDamage();
+		}
+    }
+
+    #endregion
 }
