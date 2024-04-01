@@ -36,8 +36,9 @@ public class PlayerAttack : Player
     {
         float damage = CalculateDamage(0.8f);
         Debug.Log("damage : " + damage);
-        yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.IsAttacking = false;
+        EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.5f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
+        yield return new WaitForSeconds(1.6f/ 2 / (_playerStat.AttackSpeed.GetValue()+1));
         _player.CanAttack = true;
     }
 
@@ -49,7 +50,7 @@ public class PlayerAttack : Player
         while (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1))
         {
             pressTime += 0.05f;
-            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 4 + 1;
+            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 2+ 1;
             _rightattackRange.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForSeconds(0.05f);
         }
@@ -99,14 +100,14 @@ public class PlayerAttack : Player
             return;
         }
 
-        if (Input.GetMouseButton(0) && !_player.IsAttacking)
+        if (Input.GetMouseButton(0) && _player.CanAttack)
         {
             _range.gameObject.SetActive(true);
-            _player.CanAttack = false;
+            _player.IsAttacking = true;
         }
         else if(Input.GetMouseButtonUp(0) && _range.gameObject.active == true)
         {
-            _player.IsAttacking = true;
+            _player.CanAttack = false;
             stopCoroutine = StartCoroutine(NormalAttack());
             _range.gameObject.SetActive(false);
         }

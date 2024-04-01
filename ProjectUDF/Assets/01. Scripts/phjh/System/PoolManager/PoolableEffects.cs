@@ -9,9 +9,9 @@ public class PoolableEffects : EffectPoolableMono
 
     }
 
-    public void CustomInstantiate(Vector2 pos, PoolingType type)
+    public void CustomInstantiate(Vector2 pos, EffectPoolingType type)
     {
-        PoolableMono poolItem = PoolManager.Instance.Pop(type);
+        EffectPoolableMono poolItem = PoolManager.Instance.Pop(type);
         poolItem.transform.position = pos;
     }
 }

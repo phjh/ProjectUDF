@@ -9,6 +9,14 @@ public struct MonsterInfo
     public Vector2 monsterPos;
 }
 
+[Serializable]
+public enum Exit
+{
+    Down,
+    Right,
+    Up,
+    Left
+}
 
 [CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")]
 public class RoomInfoSO : ScriptableObject
@@ -27,6 +35,9 @@ public class RoomInfoSO : ScriptableObject
     //[HideInInspector]
     //건들면 안됨
     public List<MonsterInfo> spawnMonsters; //소환될 몬스터들
+
+    public Exit exit;
+
     public RoomInfoSO CloneAndSetting()
     {
         var a = Instantiate(this);
@@ -38,6 +49,7 @@ public class RoomInfoSO : ScriptableObject
     {
         var a = Instantiate(this);
         a.GenerateRandomMonsterInfo();
+        a.SetExitPoint();
         Debug.Log(a);
         return a;
     }
@@ -78,6 +90,12 @@ public class RoomInfoSO : ScriptableObject
             }
             Debug.Log($"{str} __ {a}번째 웨이브 몹");
         }
+    }
+
+    public void SetExitPoint()
+    {
+        int rand = UnityEngine.Random.Range(0, 4);
+        exit = (Exit)rand;
     }
 
 }

@@ -102,6 +102,12 @@ public class UIManager : MonoSingleton<UIManager>
 	}
 
 	#endregion
+    private void Start()
+    {
+        MapSystem.Instance.RoomStartEvent += ShowCards;
+    }
+
+    #region Mining UI
 
 	#region Manage UI
 	public void ShowPocket()

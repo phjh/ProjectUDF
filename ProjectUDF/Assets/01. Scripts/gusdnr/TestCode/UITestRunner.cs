@@ -6,7 +6,7 @@ public class UITestRunner : MonoBehaviour
 {
 	void Start()
     {
-		
+
 	}
 
     void Update()
