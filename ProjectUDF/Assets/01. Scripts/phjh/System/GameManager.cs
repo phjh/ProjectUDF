@@ -139,6 +139,7 @@ public class GameManager : MonoSingleton<GameManager>
 				break;
 			case GameStates.Playing:
 				OnPlaying?.Invoke();
+				player.ActiveMove = true;
 				break;
 			case GameStates.NonPauseUIOn:
 				OnNonPauseUI?.Invoke();
@@ -150,6 +151,7 @@ public class GameManager : MonoSingleton<GameManager>
 				break;
 			case GameStates.End:
 				OnEnd?.Invoke();
+				player.ActiveMove = false;
 				break;
 			default:
 				Debug.LogError("Game Manager Have not State");
