@@ -26,9 +26,14 @@ public class UIManager : MonoSingleton<UIManager>
 		SetScreenFilter(false);
 	}
 
-	#region Mining UI
+    private void Start()
+    {
+        MapSystem.Instance.RoomStartEvent += ShowCards;
+    }
 
-	public void ShowCards()
+    #region Mining UI
+
+    public void ShowCards()
 	{
 		failCount = 0;
 		SetScreenFilter(true);

@@ -11,6 +11,8 @@ public class RandomMap : MonoBehaviour
 
     private GameObject nowMap;
 
+    public GameObject ExitPrefab;
+
     public int nowFloor = 0;
     public int nowRoom = 0;
     public int nowWave = 0;
@@ -30,8 +32,7 @@ public class RandomMap : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            floors[nowFloor].floorRoomInfo[0].DebugMonsters();
-            SetNextMonsterWaves();
+            MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -56,20 +57,22 @@ public class RandomMap : MonoBehaviour
     private void OnEnable()
     {
         MapSystem.Instance.FloorClearEvent += StageGenerate;
-        MapSystem.Instance.MonsterWaveClearEvent += SetNextMonsterWaves;
-        //MapSystem.Instance.MapStartEvent += GameManager.Instance.ReloadStats;
-        MapSystem.Instance.MapStartEvent += RoomTimerInit;
-        MapSystem.Instance.MapStartEvent += RoomEffectInit;
+        MapSystem.Instance.RoomClearEvent += RandomExitSpawn;
+        MapSystem.Instance.RoomStartEvent += RoomTimerInit;
+        MapSystem.Instance.RoomStartEvent += RoomEffectInit;
+        MapSystem.Instance.RoomStartEvent += SetRoomMap;
+        MapSystem.Instance.MonsterWaveClearEvent += WaveClear;
         MapSystem.Instance.MonsterKilledEvent += MobKilledEvent;
     }
 
     private void OnDisable()
     {
         MapSystem.Instance.FloorClearEvent -= StageGenerate;
-        MapSystem.Instance.MonsterWaveClearEvent -= SetNextMonsterWaves;
-        //MapSystem.Instance.MapStartEvent -= GameManager.Instance.ReloadStats;
-        MapSystem.Instance.MapStartEvent -= RoomTimerInit;
-        MapSystem.Instance.MapStartEvent -= RoomEffectInit;
+        MapSystem.Instance.RoomClearEvent -= RandomExitSpawn;
+        MapSystem.Instance.RoomStartEvent -= RoomTimerInit;
+        MapSystem.Instance.RoomStartEvent -= RoomEffectInit;
+        MapSystem.Instance.RoomStartEvent -= SetRoomMap;
+        MapSystem.Instance.MonsterWaveClearEvent -= WaveClear;
         MapSystem.Instance.MonsterKilledEvent -= MobKilledEvent;
     }
 
@@ -87,7 +90,6 @@ public class RandomMap : MonoBehaviour
             else
             {
                 Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not spawned");
-                nowWave++;
             }
              
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.monsterObj.transform.position}");
@@ -98,37 +100,12 @@ public class RandomMap : MonoBehaviour
 
             //대충 여기서 웨이브보다 많이 스폰시 break
         }
-        nowWave++;
-    }
-
-
-    //몬스터 웨이브 클리어 세팅
-    void SetNextMonsterWaves()
-    {
-        if(nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves)
-        {
-            MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
-            nowRoom++;
-            nowWave = 0;
-            Destroy(nowMap.gameObject);
-            if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
-                nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
-            MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
-        }
-        if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
-        {
-            MapSystem.Instance.ActionInvoker(MapEvents.FloorClear);
-            nowFloor++;
-            nowRoom = 0;
-            MapSystem.Instance.ActionInvoker(MapEvents.FloorStart);
-        }
-        SpawnMonsters();
     }
 
     //탈출구 랜덤스폰 
     void RandomExitSpawn()
     {
-        
+        //Instantiate(ExitPrefab, ExitPrefab.transform.position, Quaternion.identity);
 
     }
 
@@ -147,8 +124,6 @@ public class RandomMap : MonoBehaviour
         dirtEffect.Play();
     }
 
-    
-
     //층 마다 생성
     void StageGenerate()
     {
@@ -161,8 +136,51 @@ public class RandomMap : MonoBehaviour
         leftMonsters--;
         if(leftMonsters == 0)
         {
-            MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);
+            WaveClear();
         }
     }
+
+    void SetRoomMap()
+    {
+        Destroy(nowMap.gameObject);
+        if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
+            nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab, transform.position, Quaternion.identity);
+    }
+
+    #region Flow Methods
+
+    void WaveClear()
+    {
+        if (nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves)
+        {
+            MapSystem.Instance.ActionInvoker(MapEvents.MapClear);
+            nowRoom++;
+            RoomClear();
+            nowWave = 0;
+        }
+        else
+        {
+            SpawnMonsters();
+            nowWave++;
+        }
+    }
+
+    void RoomClear()
+    {
+        if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
+        {
+            MapSystem.Instance.ActionInvoker(MapEvents.FloorClear);
+            FloorClear();
+            nowFloor++;
+            nowRoom = 0;
+        }
+    }
+
+    void FloorClear()
+    {
+        //대충 다음층으로 넘어가지는 길 만들기
+    }
+
+    #endregion
 
 }

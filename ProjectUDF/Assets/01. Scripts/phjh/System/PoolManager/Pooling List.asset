@@ -44,8 +44,3 @@ MonoBehaviour:
     count: 10
     name: ChargeAttackEffect2
     description: "\uC6B0\uD074\uB9AD(\uCC28\uC9D5)\uACF5\uACA9 \uC774\uD399"
-  - type: 2
-    prefab: {fileID: -3628239746751925479, guid: d87cdfe7cb4030242858b9679fb07545, type: 3}
-    count: 10
-    name: ChargeAttackEffect2
-    description: "\uC6B0\uD074\uB9AD(\uCC28\uC9D5)\uACF5\uACA9 \uC774\uD399"
