@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4668374774840007040}
   - component: {fileID: 9150631992239605034}
   - component: {fileID: 2068894213553642972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8234726395678351441}
   - component: {fileID: 7000792142449765171}
   - component: {fileID: 5915661790488373108}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TestEnemy_StoneToad
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3888449386536945816}
   - component: {fileID: 2890556118363097463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockDukkeob
       objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -334,6 +338,54 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2024929024011272933, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2023297525037426117, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -156881400946661263, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 386791141387813222, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347723280139581497, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3297364353584691495, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324740862092935676, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665203401321275378, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181300385887193387, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889583448335263475, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727091967253889458, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8836738992765415857, guid: b4b412f0e7647f84e826a8bde9cc6cf4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -46,7 +46,6 @@ public class PoolManager
     public void CreatePool(EffectPoolableMono prefab, EffectPoolingType poolingType, int count = 10)
     {
         EffectPool<EffectPoolableMono> pool = new EffectPool<EffectPoolableMono>(prefab, poolingType, _trmParent, count);
-        Debug.Log('a');
         _effectPools.Add(poolingType, pool);
     }
 

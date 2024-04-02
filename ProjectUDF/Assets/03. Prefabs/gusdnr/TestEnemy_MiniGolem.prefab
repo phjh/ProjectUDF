@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5828004964524723665}
   - component: {fileID: 2930612199080506326}
   - component: {fileID: 5042835062523394478}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1453171109886968774}
   - component: {fileID: 726384041593371533}
   - component: {fileID: 3485512363394060473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TestEnemy_MiniGolem
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visual
       objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -249,6 +253,46 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6851620974400212640, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2023297525037426117, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 386791141387813222, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3297364353584691495, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514643304459602081, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641702937314636711, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157741701538757237, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993624011028956073, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8836738992765415857, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864755002935857272, guid: 59fdc267f47fc7541aed140e38efabca, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
