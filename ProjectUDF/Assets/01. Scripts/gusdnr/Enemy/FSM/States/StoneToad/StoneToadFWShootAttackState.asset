@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58269ac737379164894b546e54426bde, type: 3}
   m_Name: StoneToadFWShootAttackState
   m_EditorClassIdentifier: 
-  ShootCount: 3
-  ShootDelay: 0.5
+  ShootCount: 4
+  AttackDelay: 3
   Stone: {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}

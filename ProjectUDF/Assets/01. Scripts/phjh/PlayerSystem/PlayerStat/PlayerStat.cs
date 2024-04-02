@@ -56,7 +56,7 @@ public class PlayerStat : ScriptableObject
 			}
 		}
 
-		TimeManager.Instance.OnTimerEnd += DiePlayer;
+		if(TimeManager.Instance != null)TimeManager.Instance.OnTimerEnd += DiePlayer;
 	}
 
 	public PlayerStat Clone() //Player 스탯을 복제 후, 돌려준다.

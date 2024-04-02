@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5828004964524723665}
   - component: {fileID: 2930612199080506326}
   - component: {fileID: 5042835062523394478}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1453171109886968774}
   - component: {fileID: 726384041593371533}
   - component: {fileID: 3485512363394060473}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: TestEnemy_MiniGolem
   m_TagString: Enemy
   m_Icon: {fileID: 0}

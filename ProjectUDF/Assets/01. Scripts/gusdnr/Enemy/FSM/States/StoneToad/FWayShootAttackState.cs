@@ -6,7 +6,7 @@ using UnityEngine;
 public class FWayShootAttackState : EnemyState
 {
 	public int ShootCount;
-	public float ShootDelay;
+	public float AttackDelay;
 	public GameObject Stone;
 	
 	private Coroutine AttackCoroutine;
@@ -16,7 +16,7 @@ public class FWayShootAttackState : EnemyState
 	{
 		FWayShootAttackState clone = (FWayShootAttackState)CloneBase();
 		clone.ShootCount = ShootCount;
-		clone.ShootDelay = ShootDelay;
+		clone.AttackDelay = AttackDelay;
 		clone.Stone = Stone;
 		return clone;
 	}
@@ -57,6 +57,7 @@ public class FWayShootAttackState : EnemyState
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
 			ToadRock Rock = PoolManager.Instance.Pop(PoolingType.ToadBullet).GetComponent<ToadRock>();
+			Rock.transform.position = enemy.transform.position;
 			switch (cnt)
 			{
 				case 0: dir = Vector2.up; break;
@@ -65,8 +66,8 @@ public class FWayShootAttackState : EnemyState
 				case 3: dir = Vector2.right; break;
 			}
 			Rock.ShootingRock(dir);
-			yield return new WaitForSeconds(ShootDelay);
 		}
+		yield return new WaitForSeconds(AttackDelay);
 		AttackCoroutine = null;
 	}
 }

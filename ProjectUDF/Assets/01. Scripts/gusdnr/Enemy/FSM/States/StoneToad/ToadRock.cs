@@ -18,23 +18,25 @@ public class ToadRock : PoolableMono
 
 	public void ShootingRock(Vector2 dir)
 	{
-		RockRB.velocity = dir.normalized * speed;
+		RockRB.velocity = dir * speed;
 		StartCoroutine(LiveTimer());
 	}
 
 	private IEnumerator LiveTimer()
 	{
 		yield return new WaitForSeconds(liveTime);
+		Debug.Log($"End Live Time : {gameObject.name}");
 		PoolManager.Instance.Push(this);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.gameObject.layer == WhatIsObstacle)
+		if(collision.callbackLayers == WhatIsObstacle)
 		{
+			Debug.Log("Collision Obstacle");
 			PoolManager.Instance.Push(this);
 		}
-		if(collision.gameObject.layer == WhatIsEnemy)
+		if(collision.callbackLayers == WhatIsEnemy)
 		{
 			GameManager.Instance.player._playerStat.EditPlayerHP(-1);
 			PoolManager.Instance.Push(this);
