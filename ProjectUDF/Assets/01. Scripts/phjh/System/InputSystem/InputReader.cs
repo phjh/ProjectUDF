@@ -6,13 +6,15 @@ using UnityEngine.InputSystem;
 using static Controls;
 
 [CreateAssetMenu(fileName = "New Input Reader", menuName = "SO/Input/InputReader")]
-public class InputReader : ScriptableObject, IPlayerActions
+public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
 {
     public event Action<Vector2> MovementEvent;
     public event Action DodgeEvent;
+    public event Action PauseEvent;
 
     public Vector2 AimPosition { get; private set; } //마우스는 이벤트방식이 아니기 때문에
-    private Controls _playerInputAction; //싱글톤으로 사용할 녀석
+    private Controls _playerInputAction;
+    private Controls _gameSystemAction;
 
     private void OnEnable()
     {
@@ -21,10 +23,17 @@ public class InputReader : ScriptableObject, IPlayerActions
             _playerInputAction = new Controls();
             _playerInputAction.Player.SetCallbacks(this); //플레이어 인풋이 발생하면 이 인스턴스를 연결해주고
         }
+        
+        if(_gameSystemAction == null)
+        {
+            _gameSystemAction = new Controls();
+            _gameSystemAction.Player.SetCallbacks(this);
+        }
 
         _playerInputAction.Player.Enable(); //활성화
     }
 
+    #region Player Inputs
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 value = context.ReadValue<Vector2>();
@@ -40,4 +49,12 @@ public class InputReader : ScriptableObject, IPlayerActions
     {
         DodgeEvent?.Invoke();
     }
+    #endregion
+
+    #region GameSystem Inputs
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        PauseEvent?.Invoke();
+    }
+    #endregion
 }

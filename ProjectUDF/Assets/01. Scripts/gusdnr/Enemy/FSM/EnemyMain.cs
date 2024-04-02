@@ -174,7 +174,7 @@ public class EnemyMain : PoolableMono
         if(collision.gameObject == GameManager.Instance.player.gameObject)
 		{
 			PlayerMovement move = collision.gameObject.GetComponent<PlayerMovement>();
-			move.GetDamage();
+			//move.GetDamage();
 		}
     }
 
