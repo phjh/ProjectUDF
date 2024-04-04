@@ -32,13 +32,14 @@ public class ToadRock : PoolableMono
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.gameObject.layer == WhatIsObstacle)
+		if(collision.gameObject.CompareTag("Map"))
 		{
-			Debug.Log("Collision Obstacle");
+			Debug.Log("Collision Map");
 			PoolManager.Instance.Push(this);
 		}
-		if(collision.gameObject.layer == WhatIsEnemy)
+		if(collision.gameObject.CompareTag("Player"))
 		{
+			Debug.Log("Collision Player");
 			GameManager.Instance.player._playerStat.EditPlayerHP(-1);
 			PoolManager.Instance.Push(this);
 		}
