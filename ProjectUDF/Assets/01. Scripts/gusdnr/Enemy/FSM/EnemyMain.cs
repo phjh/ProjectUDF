@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMain : PoolableMono
+public class EnemyMain : PoolableMono	
 {
 	#region Enemy Variables
 	public float MaxHealth { get; set; }
@@ -120,7 +120,7 @@ public class EnemyMain : PoolableMono
 		IsDead = true;
 		StateMachine.CurrentState.ExitState();
 		MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
-		PoolManager.Instance.Push(this);
+		PoolManager.Instance.Push(pair.prefab, name);
 	}
 	#endregion
 

@@ -99,7 +99,7 @@ public class RandomMap : MonoBehaviour
         foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonsters)
         {
             if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
-                obj.CustomInstantiate(monsters.monsterPos,obj.poolingType);
+                obj.CustomInstantiate(monsters.monsterPos, obj.pair);
             else
             {
                 Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not spawned");

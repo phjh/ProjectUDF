@@ -56,7 +56,7 @@ public class FWayShootAttackState : EnemyState
 		Vector2 dir = Vector2.zero;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
-			ToadRock Rock = PoolManager.Instance.Pop(PoolingType.ToadBullet).GetComponent<ToadRock>();
+			ToadRock Rock = PoolManager.Instance.Pop(3).GetComponent<ToadRock>();
 			switch (cnt)
 			{
 				case 0: dir = Vector2.up; break;

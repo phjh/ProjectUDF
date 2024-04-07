@@ -25,8 +25,7 @@ public class GameManager : MonoSingleton<GameManager>
 {
 	#region Pooling
 	[Header("Pooling")]
-	[SerializeField]
-	private PoolingListSO poollistSO;
+	public List<PoolingListSO> poollistSO;
 	[SerializeField]
 	private Transform _poolingTrm;
 	#endregion
@@ -53,7 +52,24 @@ public class GameManager : MonoSingleton<GameManager>
 	public static event Action OnNonPauseUI;
 	public static event Action OnPauseUI;
 	public static event Action OnEnd;
+
 	#endregion
+	private void Awake()
+	{
+		PoolManager.Instance = new PoolManager();
+		foreach(var obj1 in poollistSO)
+		{
+			foreach (var obj in obj1.PoolingLists)
+			{
+				PoolManager.Instance.CreatePool(obj, this.transform);
+				obj.prefab.pair = obj;
+
+			}
+		}
+		if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
+		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
+	}
+
 
 	private void OnEnable()
 	{
@@ -67,21 +83,6 @@ public class GameManager : MonoSingleton<GameManager>
 				DropItemList.Add(InventoryArray[i]);
 			}
 		}
-	}
-
-	private void Awake()
-	{
-		PoolManager.Instance = new PoolManager(_poolingTrm);
-		foreach (var obj in poollistSO.PoolObjtectList)
-		{
-			PoolManager.Instance.CreatePool(obj.prefab, obj.type, obj.count);
-		}
-		foreach (var obj in poollistSO.PoolEffectLists)
-		{
-			PoolManager.Instance.CreatePool(obj.prefab, obj.type, obj.count);
-		}
-		if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
-		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
 	}
 
 	#region Methods
@@ -148,7 +149,7 @@ public class GameManager : MonoSingleton<GameManager>
 	public void UpdateResult(GameResults SetResult)
 	{
 		gameResult = SetResult;
-		if(gameResult != GameResults.Play) UpdateState(GameStates.End);
+		if (gameResult != GameResults.Play) UpdateState(GameStates.End);
 	}
 
 	#endregion

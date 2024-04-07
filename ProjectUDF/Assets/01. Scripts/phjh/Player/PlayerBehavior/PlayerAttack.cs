@@ -41,7 +41,7 @@ public class PlayerAttack : Player
         Debug.Log("damage : " + damage);
         _player.IsAttacking = false;
         leftAtkCol.enabled = true;
-        EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.3f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
+        //EffectSystem.Instance.EffectInvoker(EffectPoolingType.LeftAttackEffect, _range.transform.position , 0.3f, GetComponent<PlayerAim>().RotZ, Vector3.right * 0.9f );
         yield return new WaitForSeconds(0.1f);
         leftAtkCol.enabled = false;
         _range.gameObject.SetActive(false);
@@ -77,8 +77,8 @@ public class PlayerAttack : Player
 
         yield return new WaitForSeconds(0.2f);
 
-        EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform.position, 0.4f);
-        EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect2, _rightattackRange.transform.position + Vector3.up / 2, 0.2f);
+        //EffectSystem.Instance.EffectInvoker(EffectPoolingType.ChargeAttackEffect, _rightattackRange.transform.position, 0.4f);
+        //EffectSystem.Instance.EffectInvoker(_rightattackRange.transform.position + Vector3.up / 2, 0.2f);
         _rightattackRange.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(0.2f);
