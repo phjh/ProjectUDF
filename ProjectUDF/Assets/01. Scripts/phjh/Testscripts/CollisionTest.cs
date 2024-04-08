@@ -11,7 +11,7 @@ public class CollisionTest : MonoBehaviour
             PlayerStat stat = collision.transform.GetComponent<Player>()._playerStat;
             stat.EditPlayerHP(-1);
             MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
-            PoolManager.Instance.Push(this.gameObject.GetComponent<PoolableMono>().pair);
+            //PoolManager.Instance.Push(this.gameObject.GetComponent<PoolableMono>().pair);
         }
 
     }

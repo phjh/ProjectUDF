@@ -11,23 +11,16 @@ public abstract class PoolableMono : MonoBehaviour
 
     public abstract void ResetPooingItem(); //init Pooling Items
 
-    public void CustomInstantiate(Vector2 pos, PoolingPair pair)
+    public void CustomInstantiate(Vector2 pos, PoolObjectListEnum objenum)
     {
-        PoolableMono poolItem = PoolManager.Instance.Pop(pair);
+        PoolableMono poolItem = PoolManager.Instance.Pop(objenum);
         poolItem.transform.position = pos;
     }
 
-    public void CustomInstantiate(Vector2 pos, string name = "", int ID = 0)
+    public void CustomInstantiate(Vector2 pos, PoolEffectListEnum effectenum)
     {
-        PoolableMono poolItem;
-        if(name == "")
-        {
-            poolItem = PoolManager.Instance.Pop(ID);
-        }
-        else
-        {
-            poolItem = PoolManager.Instance.Pop(name);
-        }
+        PoolableMono poolItem = PoolManager.Instance.Pop(effectenum);
         poolItem.transform.position = pos;
     }
+
 }

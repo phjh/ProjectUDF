@@ -3,152 +3,193 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class PoolObjectIdentifier
-{
-    public int ID;
-    public string Name;
-    public PoolableMono connectedPrefab;
+//class PoolObjectIdentifier
+//{
+//    public int ID;
+//    public string Name;
+//    public PoolableMono connectedPrefab;
 
-    public PoolObjectIdentifier(PoolingPair pair) 
-    {
-        ID = pair.ID;
-        Name = pair.name;
-        connectedPrefab = pair.prefab;
-    }
+//    public PoolObjectIdentifier(PoolingPair pair) 
+//    {
+//        ID = pair.ID;
+//        Name = pair.name;
+//        connectedPrefab = pair.prefab;
+//    }
 
-    public static PoolObjectIdentifier GetIdentifier(Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> map,  PoolingPair pair)
-    {
-        PoolObjectIdentifier identifier = new PoolObjectIdentifier(pair);
-        foreach(PoolObjectIdentifier mapIdentifier in map.Keys)
-        {
-            if (mapIdentifier.Equals(identifier))
-                return mapIdentifier;
-            Debug.LogWarning($"map key : {mapIdentifier.ToString()} \n pair key : {identifier.ToString()}");
-        }
-        Debug.LogError("This Pair is not exist at Dictionary! \n  pair : " + pair.ToString());
-        return null;
-    }
+//    public static PoolObjectIdentifier GetIdentifier(Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> map,  PoolingPair pair)
+//    {
+//        PoolObjectIdentifier identifier = new PoolObjectIdentifier(pair);
+//        foreach(PoolObjectIdentifier mapIdentifier in map.Keys)
+//        {
+//            if (mapIdentifier.Equals(identifier))
+//                return mapIdentifier;
+//            Debug.LogWarning($"map key : {mapIdentifier.ToString()} \n pair key : {identifier.ToString()}");
+//        }
+//        Debug.LogError("This Pair is not exist at Dictionary! \n  pair : " + pair.ToString());
+//        return null;
+//    }
 
-    public static PoolObjectIdentifier GetIdentifier(Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> map, int id)
-    {
-        foreach (PoolObjectIdentifier identifier in map.Keys)
-        {
-            if (identifier.ID == id)
-                return identifier;
-        }
-        Debug.LogError("this id was not Idenified!! \n id : " + id);
-        return null;
-    }
+//    public static PoolObjectIdentifier GetIdentifier(Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> map, int id)
+//    {
+//        foreach (PoolObjectIdentifier identifier in map.Keys)
+//        {
+//            if (identifier.ID == id)
+//                return identifier;
+//        }
+//        Debug.LogError("this id was not Idenified!! \n id : " + id);
+//        return null;
+//    }
 
-    public static PoolObjectIdentifier GetIdentifier(Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> map, string name)
-    {
-        foreach (PoolObjectIdentifier identifier in map.Keys)
-        {
-            if (identifier.Name == name)
-                return identifier;
-        }
-        Debug.LogError("this id was not Idenified!! \n Name : " + name);
-        return null;
-    }
+//    public static PoolObjectIdentifier GetIdentifier(Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> map, string name)
+//    {
+//        foreach (PoolObjectIdentifier identifier in map.Keys)
+//        {
+//            if (identifier.Name == name)
+//                return identifier;
+//        }
+//        Debug.LogError("this id was not Idenified!! \n Name : " + name);
+//        return null;
+//    }
 
-    public override string ToString()
-    {
-        return $"id : {ID}, name : {Name}";
-    }
+//    public override string ToString()
+//    {
+//        return $"id : {ID}, name : {Name}";
+//    }
 
-    public bool Equals(PoolObjectIdentifier identifier)
-    {
-        return ID == identifier.ID && Name == identifier.Name;
-    }
-}
+//    public bool Equals(PoolObjectIdentifier identifier)
+//    {
+//        return ID == identifier.ID && Name == identifier.Name;
+//    }
+//}
 
 public class PoolManager 
 {
     public static PoolManager Instance;
 
-    private Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> ObjectPoolingList = new();
-    private Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> EffectPoolingList = new();
-    //위에 꺼로 바꾸기
-
-    //[SerializeField]
-    //private Dictionary<PoolingType, Pool<PoolableMono>> _pools = new Dictionary<PoolingType, Pool<PoolableMono>>();
-    //[SerializeField]
-    //private Dictionary<EffectPoolingType, EffectPool<EffectPoolableMono>> _effectPools = new Dictionary<EffectPoolingType, EffectPool<EffectPoolableMono>>();
-
+    private Dictionary<PoolObjectListEnum, Pool<PoolableMono>> ObjectPoolingList = new();
+    private Dictionary<PoolEffectListEnum, Pool<PoolableMono>> EffectPoolingList = new();
 
     #region Improved PoolManager
 
-    public void CreatePool(PoolingPair pair, Transform parent)
+    public void CreatePool(PoolingPair pair, Transform parent, PoolObjectListEnum type)
     {
-        PoolObjectIdentifier identifier = new PoolObjectIdentifier(pair);
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
-        ObjectPoolingList.Add(identifier, pool);
+        ObjectPoolingList.Add(type, pool);
+    }
+
+    public void CreatePool(PoolingPair pair, Transform parent, PoolEffectListEnum type)
+    {
+        Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
+        EffectPoolingList.Add(type, pool);
     }
 
     //Root~~ 메서드는 ~~ 메서드들에서 호출하는 그 메서드의 뿌리같은 메서드다
-    PoolableMono RootPop(PoolObjectIdentifier identifier)
+
+    public PoolableMono Pop(PoolObjectListEnum enumlist)
     {
-        if (!ObjectPoolingList.ContainsKey(identifier))  //Identifier 검사
-        {
-            Debug.LogError($"PoolManager - Identifier : {identifier} is null");
-            return null;
-        }
-        PoolableMono obj = ObjectPoolingList[identifier].Pop();
-        obj.ResetPooingItem();
-        return obj;
+        return ObjectPoolingList[enumlist].Pop();
     }
 
-    public PoolableMono Pop(int id)
+    public PoolableMono Pop(PoolEffectListEnum enumlist)
     {
-        PoolObjectIdentifier identifier = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, id);
-        return RootPop(identifier);
-    }
-    
-    public PoolableMono Pop(string name)
-    {
-        PoolObjectIdentifier identifier = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, name);
-        return RootPop(identifier);
+        return EffectPoolingList[enumlist].Pop();
     }
 
-    public PoolableMono Pop(PoolingPair pair)
+    public void Push(PoolableMono obj, PoolObjectListEnum enumlist)
     {
-        PoolObjectIdentifier identifier = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, pair);
-        return RootPop(identifier);
-    }   
-
-    public void Push(PoolingPair pair)
-    {
-        PoolObjectIdentifier identifer = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, pair);
-
-        if (identifer.connectedPrefab != pair.prefab)
-            Debug.LogError($"Wrong PoolingPair! \n identifier prefab : {identifer.connectedPrefab}\n Poolable obj : {pair.prefab}");
-
-        ObjectPoolingList[identifer].Push(pair.prefab);
-    }   
-
-    public void Push(PoolableMono obj,  string name)
-    {
-        PoolObjectIdentifier identifer = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, name);
-
-        if (identifer.connectedPrefab != obj)
-            Debug.LogError($"Wrong name! \n identifier prefab : {identifer.connectedPrefab}\n Poolable obj : {obj}");
-
-        ObjectPoolingList[identifer].Push(obj);
+        ObjectPoolingList[enumlist].Push(obj);
     }
 
-    public void Push(PoolableMono obj,  int id)
+    public void Push(PoolableMono obj, PoolEffectListEnum enumlist)
     {
-        PoolObjectIdentifier identifer = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, id);
-        
-        if (identifer.connectedPrefab != obj)
-            Debug.LogError($"Wrong id! \n identifier prefab : {identifer.connectedPrefab}\n Poolable obj : {obj}");
-
-        ObjectPoolingList[identifer].Push(obj);
+        EffectPoolingList[enumlist].Push(obj);
     }
 
 
     #endregion
 
+
+    #region Fixed PoolManager
+
+    //private Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> ObjectPoolingList = new();
+    //private Dictionary<PoolObjectIdentifier, Pool<PoolableMono>> EffectPoolingList = new();
+    ////위에 꺼로 바꾸기
+
+    ////[SerializeField]
+    ////private Dictionary<PoolingType, Pool<PoolableMono>> _pools = new Dictionary<PoolingType, Pool<PoolableMono>>();
+    ////[SerializeField]
+    ////private Dictionary<EffectPoolingType, EffectPool<EffectPoolableMono>> _effectPools = new Dictionary<EffectPoolingType, EffectPool<EffectPoolableMono>>();
+
+    //public void CreatePool(PoolingPair pair, Transform parent)
+    //{
+    //    PoolObjectIdentifier identifier = new PoolObjectIdentifier(pair);
+    //    Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
+    //    ObjectPoolingList.Add(identifier, pool);
+    //}
+
+    ////Root~~ 메서드는 ~~ 메서드들에서 호출하는 그 메서드의 뿌리같은 메서드다
+    //PoolableMono RootPop(PoolObjectIdentifier identifier)
+    //{
+    //    if (!ObjectPoolingList.ContainsKey(identifier))  //Identifier 검사
+    //    {
+    //        Debug.LogError($"PoolManager - Identifier : {identifier} is null");
+    //        return null;
+    //    }
+    //    PoolableMono obj = ObjectPoolingList[identifier].Pop();
+    //    obj.ResetPooingItem();
+    //    return obj;
+    //}
+
+    //public PoolableMono Pop(int id)
+    //{
+    //    PoolObjectIdentifier identifier = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, id);
+    //    return RootPop(identifier);
+    //}
+
+    //public PoolableMono Pop(string name)
+    //{
+    //    PoolObjectIdentifier identifier = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, name);
+    //    return RootPop(identifier);
+    //}
+
+    //public PoolableMono Pop(PoolingPair pair)
+    //{
+    //    PoolObjectIdentifier identifier = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, pair);
+    //    return RootPop(identifier);
+    //}   
+
+    //public void Push(PoolingPair pair)
+    //{
+    //    PoolObjectIdentifier identifer = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, pair);
+
+    //    if (identifer.connectedPrefab != pair.prefab)
+    //        Debug.LogError($"Wrong PoolingPair! \n identifier prefab : {identifer.connectedPrefab}\n Poolable obj : {pair.prefab}");
+
+    //    ObjectPoolingList[identifer].Push(pair.prefab);
+    //}   
+
+    //public void Push(PoolableMono obj,  string name)
+    //{
+    //    PoolObjectIdentifier identifer = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, name);
+
+    //    if (identifer.connectedPrefab != obj)
+    //        Debug.LogError($"Wrong name! \n identifier prefab : {identifer.connectedPrefab}\n Poolable obj : {obj}");
+
+    //    ObjectPoolingList[identifer].Push(obj);
+    //}
+
+    //public void Push(PoolableMono obj,  int id)
+    //{
+    //    PoolObjectIdentifier identifer = PoolObjectIdentifier.GetIdentifier(ObjectPoolingList, id);
+
+    //    if (identifer.connectedPrefab != obj)
+    //        Debug.LogError($"Wrong id! \n identifier prefab : {identifer.connectedPrefab}\n Poolable obj : {obj}");
+
+    //    ObjectPoolingList[identifer].Push(obj);
+    //}
+
+
+    #endregion
 
 
     #region Obsolete PoolManager

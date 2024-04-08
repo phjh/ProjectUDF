@@ -25,19 +25,19 @@ public class ToadRock : PoolableMono
 	private IEnumerator LiveTimer()
 	{
 		yield return new WaitForSeconds(liveTime);
-		PoolManager.Instance.Push(this, 2);
+		//PoolManager.Instance.Push(this, 2);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(collision.gameObject.layer == WhatIsObstacle)
 		{
-			PoolManager.Instance.Push(this, 2);
+			//PoolManager.Instance.Push(this, 2);
 		}
 		if(collision.gameObject.layer == WhatIsEnemy)
 		{
 			GameManager.Instance.player._playerStat.EditPlayerHP(-1);
-			PoolManager.Instance.Push(this, 2);
+			//PoolManager.Instance.Push(this, 2);
 		}
 	}
 }
