@@ -1,0 +1,16 @@
+SmallGolem.png
+size:613,305
+filter:Linear,Linear
+pma:true
+arm_L
+bounds:362,148,156,155
+arm_R
+bounds:362,2,146,144
+body
+bounds:2,12,358,291
+hand_L
+bounds:520,167,136,91
+rotate:90
+hand_R
+bounds:510,26,120,96
+rotate:90

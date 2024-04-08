@@ -141,7 +141,7 @@ public class UIManager : MonoSingleton<UIManager>
 		SetScreenFilter(IsActivePopUp);
 		for (int i = 0; i < Cards.Count; i++)
 		{
-			Cards[i].GetComponent<OreCard>().Show();
+			Cards[i].GetComponent<OreCard>().ShowUI();
 		}
 		GameManager.Instance.UpdateState(GameStates.NonPauseUIOn);
 	}
