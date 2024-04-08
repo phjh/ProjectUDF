@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 using Random = UnityEngine.Random;
 
-public class MonoOre : MonoBehaviour
+public class MiningOre : MonoBehaviour
 {
 	public static event Action FailToResearch;
 

@@ -22,7 +22,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	private void Start()
 	{
-		status = GameManager.Instance.player._playerStat;
+		status = GameManager.Instance?.player._playerStat;
+		if(status == null) Debug.LogError($"Player Status is NULL [Player : {GameManager.Instance.player}]");
 		ResetOreList();
 	}
 

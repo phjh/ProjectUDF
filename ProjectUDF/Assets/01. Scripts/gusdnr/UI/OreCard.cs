@@ -1,17 +1,27 @@
 using DG.Tweening;
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class OreCard : MonoBehaviour
+public class OreCard : UIMono
 {
 	protected bool isActive;
 
+	[Header("UI Components")]
+	public TMP_Text NameText;
+	public TMP_Text DescText;
+	public Image OreImage;
+	public Button LinkedBtn;
 	[SerializeField] private GameObject ResetBtn;
+	
+	private MiningOre MiningData;
 
 	private void Awake()
 	{
 		DOTween.Init();
 		transform.localScale = Vector3.one * 0.1f;
+		MiningData = GetComponentInChildren<MiningOre>();
 		UIManager.Instance.Cards.Add(this);
 		ResetBtn.SetActive(false);
 		gameObject.SetActive(false);
@@ -77,5 +87,15 @@ public class OreCard : MonoBehaviour
 			gameObject.SetActive(false);
 			ResetBtn.SetActive(false);
 		});
+	}
+
+	public override void ShowUI()
+	{
+		throw new NotImplementedException();
+	}
+
+	public override void CloseUI()
+	{
+		throw new NotImplementedException();
 	}
 }
