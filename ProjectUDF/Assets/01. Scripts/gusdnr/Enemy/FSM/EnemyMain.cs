@@ -120,7 +120,7 @@ public class EnemyMain : PoolableMono
 		IsDead = true;
 		StateMachine.CurrentState.ExitState();
 		MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
-		PoolManager.Instance.Push(this);
+		//PoolManager.Instance.Push(pair.prefab, name);
 	}
 	#endregion
 
@@ -174,7 +174,7 @@ public class EnemyMain : PoolableMono
         if(collision.gameObject == GameManager.Instance.player.gameObject)
 		{
 			PlayerMovement move = collision.gameObject.GetComponent<PlayerMovement>();
-			move.GetDamage();
+			//move.GetDamage();
 		}
     }
 

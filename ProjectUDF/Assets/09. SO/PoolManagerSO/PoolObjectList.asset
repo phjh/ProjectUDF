@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545138e867fcbd34abe67ff3cc6d3d8b, type: 3}
+  m_Name: PoolObjectList
+  m_EditorClassIdentifier: 
+  PoolingLists:
+  - prefab: {fileID: 3485512363394060473, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+    ID: 1
+    name: MiniGolem
+    count: 10
+    description: "\uBBF8\uB2C8\uACE8\uB818"
+  - prefab: {fileID: 8234726395678351441, guid: c7f484b1640ce4842bffe96efc02e002, type: 3}
+    ID: 2
+    name: StoneToad
+    count: 10
+    description: "\uB3CC\uAC1C\uAD6C\uB9AC "
+  - prefab: {fileID: 5074923153897559526, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
+    ID: 3
+    name: ToadRock
+    count: 10
+    description: "\uB3CC\uAC1C\uAD6C\uB9AC \uCD1D\uC54C"

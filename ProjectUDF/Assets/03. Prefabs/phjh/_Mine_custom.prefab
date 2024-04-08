@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4858351567469288252}
   - component: {fileID: 2087108419017013199}
   - component: {fileID: 3664211491264145523}
-  - component: {fileID: 8784949252116314618}
+  - component: {fileID: 4821471868645695134}
   m_Layer: 0
   m_Name: _Mine_custom
   m_TagString: Untagged
@@ -4889,7 +4889,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8784949252116314618
+--- !u!114 &4821471868645695134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4898,7 +4898,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6073274372619601802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724885d985d2d064189c6390f49c7c9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 203211c3333ac7540a2f52b63b1c885c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolingType: 0
+  pair:
+    prefab: {fileID: 0}
+    ID: 0
+    name: 
+    count: 0
+    description: 

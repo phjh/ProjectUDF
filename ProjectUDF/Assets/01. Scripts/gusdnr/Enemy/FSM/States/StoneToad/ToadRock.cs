@@ -14,34 +14,30 @@ public class ToadRock : PoolableMono
 	public override void ResetPooingItem()
 	{
 		if(RockRB == null) RockRB = GetComponent<Rigidbody2D>();
-		Debug.Log($"Pop Object : {gameObject.name}");
 	}
 
 	public void ShootingRock(Vector2 dir)
 	{
-		RockRB.velocity = dir * speed;
+		RockRB.velocity = dir.normalized * speed;
 		StartCoroutine(LiveTimer());
 	}
 
 	private IEnumerator LiveTimer()
 	{
-		Debug.Log($"Start Life Timer : {gameObject.name}");
 		yield return new WaitForSeconds(liveTime);
-		PoolManager.Instance.Push(this);
+		//PoolManager.Instance.Push(this, 2);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.gameObject.CompareTag("Map"))
+		if(collision.gameObject.layer == WhatIsObstacle)
 		{
-			Debug.Log("Collision Map");
-			PoolManager.Instance.Push(this);
+			//PoolManager.Instance.Push(this, 2);
 		}
-		if(collision.gameObject.CompareTag("Player"))
+		if(collision.gameObject.layer == WhatIsEnemy)
 		{
-			Debug.Log("Collision Player");
 			GameManager.Instance.player._playerStat.EditPlayerHP(-1);
-			PoolManager.Instance.Push(this);
+			//PoolManager.Instance.Push(this, 2);
 		}
 	}
 }

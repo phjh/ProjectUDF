@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 class Pool<T> where T : PoolableMono
@@ -6,19 +7,15 @@ class Pool<T> where T : PoolableMono
     private Stack<T> _pool = new Stack<T>();
     private T _prefab; //오리지날 저장
     private Transform _parent;
-    private PoolingType _poolingType;
 
-    public Pool(T prefab, PoolingType poolingType, Transform parent, int count = 10)
+    public Pool(T prefab,Transform parent, int count = 10)
     {
         _prefab = prefab;
         _parent = parent;
-        _poolingType = poolingType;
 
         for (int i = 0; i < count; i++)
         {
             T obj = GameObject.Instantiate(prefab, parent);
-            obj.poolingType = _poolingType;
-            obj.gameObject.name = _poolingType.ToString();
             obj.gameObject.SetActive(false);
             _pool.Push(obj);
         }
@@ -30,8 +27,6 @@ class Pool<T> where T : PoolableMono
         if (_pool.Count <= 0)
         {
             obj = GameObject.Instantiate(_prefab, _parent);
-            obj.gameObject.name = _poolingType.ToString();
-            obj.poolingType = _poolingType;
         }
         else
         {
