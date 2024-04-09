@@ -36,8 +36,8 @@ public class EnemyMain : PoolableMono
 	#region Chase Variables
 	[Header("Chase Variables")]
 	public float StrikingRadius = 3f;
-	public LayerMask WhatIsObstacle = LayerMask.GetMask("Obstacle");
-	public LayerMask WhatIsPlayer = LayerMask.GetMask("Player");
+	public LayerMask WhatIsObstacle;
+	public LayerMask WhatIsPlayer;
 	#endregion
 
 	#region Attack Variables

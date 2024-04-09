@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [CreateAssetMenu(fileName = "New Chase Chase", menuName = "SO/State/Chase/Normal")]
 public class NormalChaseState : EnemyState
@@ -26,14 +27,79 @@ public class NormalChaseState : EnemyState
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
-		Vector2 moveDirection = (enemy.Target.position - enemy.transform.position).normalized;
-		enemy.MoveEnemy(moveDirection * movementSpeed);
-
-		if (enemy.IsWithStrikingDistance && enemy.UpdateFOV())
+		//플레이어가 시야 내에 있을 때
+		if (enemy.IsWithStrikingDistance)
 		{
-			enemy.MoveEnemy(Vector2.zero);
-			enemy.StateMachine.ChangeState(enemy.AttackState);
+			//공격 가능한 상태일 때
+			if (enemy.UpdateFOV() && !enemy.IsAttackCooldown)
+			{
+				// 공격 가능한 상태로 전환
+				enemy.MoveEnemy(Vector2.zero);
+				enemy.StateMachine.ChangeState(enemy.AttackState);
+			}
+			else
+				HandleObstacleDetection(); // 장애물 감지 및 이동 처리
+		}
+		else
+		{
+			MoveTowardsPlayer();
 		}
 	}
+
+	private void HandleObstacleDetection()
+	{
+		// 장애물 감지
+		bool obstacleDetected = !enemy.UpdateFOV();
+
+		// 장애물이 감지된 경우
+		if (obstacleDetected)
+			MoveRandomly(); // 임의의 방향으로 회전하여 이동
+		else
+			MoveTowardsPlayer(); // 장애물이 없으면 플레이어 방향으로 직진
+	}
+
+	private void MoveRandomly()
+	{
+		Vector2 closestDirection; 
+		Vector2 toTargetDirection;
+		closestDirection = toTargetDirection = (enemy.Target.position - enemy.transform.position).normalized;
+		float closestDistance = Vector2.Distance(enemy.transform.position, enemy.Target.position);
+
+		// 적의 현재 위치에서 타겟까지의 방향 벡터 계산
+
+		// 타겟을 향한 방향 벡터를 기준으로, 시계방향과 반시계방향으로 90도 회전한 벡터를 계산
+		Vector2 rightAngleDirection = Quaternion.Euler(0, 0, -90) * toTargetDirection;
+		Vector2 leftAngleDirection = Quaternion.Euler(0, 0, 90) * toTargetDirection;
+
+		// 주어진 각도 범위 내에서 반복하여 타겟과 더 가까운 방향을 찾습니다.
+		for (int i = 0; i < 18; i++) // 20도 간격으로 18번 반복합니다.
+		{
+			// 현재 반복 인덱스에 따라 시계방향 또는 반시계방향으로 회전한 방향 계산
+			Vector2 rotatedDirection = (i % 2 == 0) ? Quaternion.Euler(0, 0, i * 10) * rightAngleDirection : Quaternion.Euler(0, 0, i * 10) * leftAngleDirection;
+
+			// 회전한 방향으로 장애물이 있는지 검사
+			RaycastHit2D hit = Physics2D.Raycast(enemy.transform.position, rotatedDirection, 10f, enemy.WhatIsObstacle);
+			if (hit.collider == null)
+			{
+				// 장애물이 없는 경우, 타겟과의 거리를 계산하여 더 가까운 방향을 선택합니다.
+				float distanceToTarget = Vector2.Distance(enemy.transform.position, enemy.Target.position);
+				if (distanceToTarget < closestDistance)
+				{
+					closestDirection = rotatedDirection;
+					closestDistance = distanceToTarget;
+				}
+			}
+		}
+		// 계산된 가장 가까운 방향으로 이동합니다.
+		enemy.MoveEnemy(closestDirection * movementSpeed);
+	}
+
+	private void MoveTowardsPlayer()
+	{
+		// 플레이어 방향으로 직진
+		Vector2 moveDirection = (enemy.Target.position - enemy.transform.position).normalized;
+		enemy.MoveEnemy(moveDirection * movementSpeed);
+	}
+
 
 }
