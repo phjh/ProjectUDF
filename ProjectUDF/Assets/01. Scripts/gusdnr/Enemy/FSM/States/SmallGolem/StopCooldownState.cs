@@ -14,12 +14,10 @@ public class StopCooldownState : EnemyState
 		base.EnterState();
 		enemy.MoveEnemy(Vector2.zero);
 		enemy.StartCoroutine(enemy.StartCooldown());
-		enemy.EnemySR.color = new Vector4(1, 1, 1, 0.5f);
 	}
 
 	public override void ExitState()
 	{
-		enemy.EnemySR.color = new Vector4(1, 1, 1, 1);
 		base.ExitState();
 	}
 

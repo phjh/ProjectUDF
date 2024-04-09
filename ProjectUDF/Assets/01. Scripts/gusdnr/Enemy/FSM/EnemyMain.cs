@@ -16,7 +16,6 @@ public class EnemyMain : PoolableMono
 	#region Enemy Components
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
-	public SpriteRenderer EnemySR { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -37,8 +36,8 @@ public class EnemyMain : PoolableMono
 	#region Chase Variables
 	[Header("Chase Variables")]
 	public float StrikingRadius = 3f;
-	public LayerMask WhatIsObstacle;
-	public LayerMask WhatIsPlayer;
+	public LayerMask WhatIsObstacle = LayerMask.GetMask("Obstacle");
+	public LayerMask WhatIsPlayer = LayerMask.GetMask("Player");
 	#endregion
 
 	#region Attack Variables
@@ -74,7 +73,6 @@ public class EnemyMain : PoolableMono
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
 		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
-		if(EnemySR == null) EnemySR = GetComponentInChildren<SpriteRenderer>();
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);

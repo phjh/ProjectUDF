@@ -29,7 +29,7 @@ public class NormalChaseState : EnemyState
 		Vector2 moveDirection = (enemy.Target.position - enemy.transform.position).normalized;
 		enemy.MoveEnemy(moveDirection * movementSpeed);
 
-		if (enemy.IsWithStrikingDistance)
+		if (enemy.IsWithStrikingDistance && enemy.UpdateFOV())
 		{
 			enemy.MoveEnemy(Vector2.zero);
 			enemy.StateMachine.ChangeState(enemy.AttackState);

@@ -317,10 +317,10 @@ MonoBehaviour:
   StrikingRadius: 5
   WhatIsObstacle:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   WhatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   canAttack: 1
 --- !u!70 &5348139695540222282
 CapsuleCollider2D:
