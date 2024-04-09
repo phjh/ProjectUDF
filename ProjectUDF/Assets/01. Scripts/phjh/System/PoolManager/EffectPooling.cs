@@ -6,6 +6,6 @@ public class EffectPooling : PoolableMono
 {
     public override void ResetPooingItem()
     {
-        throw new System.NotImplementedException();
+
     }
 }

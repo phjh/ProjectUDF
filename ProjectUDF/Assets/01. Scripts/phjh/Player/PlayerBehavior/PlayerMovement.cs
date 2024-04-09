@@ -119,19 +119,4 @@ public class PlayerMovement : Player
             Debug.Log(1);
         }
     }
-
-    public void GetDamage()
-    {
-        if (_isdodgeing)
-            return;
-        _playerStat.EditPlayerHP(-1);
-        Debug.Log(_playerStat.CurHP);
-        if (_playerStat.CurHP <= 0)
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-    }
-
-    public void GetHeal()
-    {
-        _playerStat.EditPlayerHP(1);
-    }
 }

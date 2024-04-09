@@ -101,7 +101,14 @@ public class PoolManager
 
     public PoolableMono Pop(PoolEffectListEnum enumlist)
     {
-        return EffectPoolingList[enumlist].Pop();
+        if (!EffectPoolingList.ContainsKey(enumlist))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        PoolableMono item = EffectPoolingList[enumlist].Pop();
+        item.ResetPooingItem();
+        return item;
     }
 
     public void Push(PoolableMono obj, PoolObjectListEnum enumlist)

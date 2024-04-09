@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using static Spine.Unity.Editor.SkeletonBaker.BoneWeightContainer;
 
 
 [CustomEditor(typeof(GameManager))]
@@ -25,7 +26,8 @@ public class AutoEnumBuilder : Editor
         StringBuilder sb = new StringBuilder();
         List<PoolingPair> list = GameManager.Instance.poollistSO.PoolingLists;
         sb.Append("public enum PoolObjectListEnum \n{\n");
-        foreach(PoolingPair pair in list)
+        sb.Append($"\tNone = 0,\n");
+        foreach (PoolingPair pair in list)
         {
             sb.Append($"\t{pair.name},\n");
         }
@@ -33,6 +35,7 @@ public class AutoEnumBuilder : Editor
 
         List<EffectPoolingPair> list2 = GameManager.Instance.poollistSO.EffectLists;
         sb.Append("public enum PoolEffectListEnum \n{\n");
+        sb.Append($"\tNone = 0,\n");
         foreach (EffectPoolingPair pair in list2)
         {
             sb.Append($"\t{pair.name},\n");
