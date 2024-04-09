@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
-  _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
+  _playerStat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   IsAttacking: 0
   CanAttack: 1
   _isdodgeing: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
-  _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
+  _playerStat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   IsAttacking: 0
   CanAttack: 1
   _isdodgeing: 0
@@ -507,9 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da4e31238f4ad64b8bdbf8fcea09e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poollistSO:
-  - {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
-  - {fileID: 11400000, guid: 66fc49b0a4a6b1246822716bf6e2979e, type: 2}
+  poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
   _poolingTrm: {fileID: 97713000}
   player: {fileID: 1773495849}
   InventoryArray: []
@@ -581,6 +579,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1496521805}
+  - {fileID: 480117334}
   m_Father: {fileID: 1521029557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -631,11 +630,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 518622997}
   m_HandleRect: {fileID: 0}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1255,6 +1254,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469015306}
   m_CullTransparentMesh: 1
+--- !u!1 &480117333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 480117334}
+  - component: {fileID: 480117336}
+  - component: {fileID: 480117335}
+  m_Layer: 5
+  m_Name: BackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &480117334
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480117333}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 141209219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.35000002}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &480117335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480117333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.78431374}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 718074e4e56a5404e824bf8e6571ea7d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &480117336
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480117333}
+  m_CullTransparentMesh: 1
 --- !u!1 &480118158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,7 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13620,7 +13694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
-  _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
+  _playerStat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   IsAttacking: 0
   CanAttack: 1
   _isdodgeing: 0
@@ -13899,7 +13973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
-  _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
+  _playerStat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   IsAttacking: 0
   CanAttack: 1
   _isdodgeing: 0
@@ -13920,7 +13994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
-  _playerStat: {fileID: 11400000, guid: 694f267511692e3479f893ffd259488b, type: 2}
+  _playerStat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   IsAttacking: 0
   CanAttack: 1
   _isdodgeing: 0

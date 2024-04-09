@@ -161,7 +161,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfc148c53168cc4d9b56af49f1b215d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolingType: 2
+  pair:
+    prefab: {fileID: 0}
+    ID: 0
+    name: 
+    count: 0
+    description: 
+  enumtype: 3
   speed: 20
   liveTime: 4
   WhatIsEnemy:

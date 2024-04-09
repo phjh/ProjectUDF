@@ -12,7 +12,7 @@ public class PlayerAtkDectector : MonoBehaviour
         if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy))
         {
             Debug.Log("@@@@@trigger damage : " + _playerAtk.ResentDamage);
-            //EffectSystem.Instance.EffectInvoker(PoolManager.Instance.Pop(PoolingObjectType.Effects, "attack"), transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
+            EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
             enemy.Damage(_playerAtk.ResentDamage);
         }
         else if(collision.CompareTag("Enemy"))

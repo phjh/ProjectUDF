@@ -50,15 +50,16 @@ public class PlayerMovement : Player
         _player.ActiveMove = false;
         _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
         slider.value = 0;
+        slider.gameObject.SetActive(true);
+        StartCoroutine(DodgeCooltimeSet());
         yield return new WaitForSeconds(0.5f);
         _player.ActiveMove = true;
         _player._isdodgeing = false;
-        StartCoroutine(DodgeCooltimeSet());
     }
 
     IEnumerator DodgeCooltimeSet()
     {
-        float cooltime = DodgeCooltime();
+        float cooltime = DodgeCooltime() + 0.5f;
         float time = 0;
         while(time <= cooltime)
         {
@@ -66,7 +67,9 @@ public class PlayerMovement : Player
             slider.value = Mathf.Lerp(0,1,time/cooltime);
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        if(slider.value != 1) slider.value = 1;
+        if(slider.value != 1) 
+            slider.value = 1;
+        slider.gameObject.SetActive(false);
         _canDodge = true;
     }
 

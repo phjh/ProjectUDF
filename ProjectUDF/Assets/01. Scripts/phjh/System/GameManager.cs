@@ -25,7 +25,7 @@ public class GameManager : MonoSingleton<GameManager>
 {
 	#region Pooling
 	[Header("Pooling")]
-	public List<PoolingListSO> poollistSO;
+	public PoolingListSO poollistSO;
 	[SerializeField]
 	private Transform _poolingTrm;
 	#endregion
@@ -54,18 +54,20 @@ public class GameManager : MonoSingleton<GameManager>
 	public static event Action OnEnd;
 
 	#endregion
+
+
 	private void Awake()
 	{
 		PoolManager.Instance = new PoolManager();
-		foreach (var obj in poollistSO[0].PoolingLists)
+		foreach (var obj in poollistSO.PoolingLists)
 		{
-			//PoolManager.Instance.CreatePool(obj, this.transform);
+			PoolManager.Instance.CreatePool(obj, this.transform);
 			obj.prefab.pair = obj;
-		
 		}
-		foreach(var obj in poollistSO[1].PoolingLists)
+		foreach(var obj in poollistSO.EffectLists)
 		{
-		}
+            PoolManager.Instance.CreatePool(obj, this.transform);
+        }
 		if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
 		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
 	}

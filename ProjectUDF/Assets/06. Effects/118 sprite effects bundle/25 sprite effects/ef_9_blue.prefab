@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4237335641143774609}
   - component: {fileID: 4237335641143774608}
   - component: {fileID: 4237335641143774607}
-  - component: {fileID: -1468357195508164393}
+  - component: {fileID: 1095113103349519723}
   m_Layer: 0
   m_Name: ef_9_blue
   m_TagString: Untagged
@@ -4849,7 +4849,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 6be8126917e1cb341a3df95d77f6d1f3, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4902,7 +4901,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-1468357195508164393
+--- !u!114 &1095113103349519723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4911,7 +4910,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4237335641143774606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724885d985d2d064189c6390f49c7c9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 187a5affd76c1b54aaf923306604d935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolingType: 0
