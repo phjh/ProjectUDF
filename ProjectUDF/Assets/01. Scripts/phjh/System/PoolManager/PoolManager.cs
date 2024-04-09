@@ -71,23 +71,32 @@ public class PoolManager
 
     #region Improved PoolManager
 
-    public void CreatePool(PoolingPair pair, Transform parent, PoolObjectListEnum type)
+    public void CreatePool(PoolingPair pair, Transform parent)
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
-        ObjectPoolingList.Add(type, pool);
+        ObjectPoolingList.Add(pair.enumtype, pool);
+        Debug.Log(pair.ToString() + "Has Generated");
     }
 
-    public void CreatePool(PoolingPair pair, Transform parent, PoolEffectListEnum type)
+    public void CreatePool(EffectPoolingPair pair, Transform parent)
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
-        EffectPoolingList.Add(type, pool);
+        EffectPoolingList.Add(pair.enumtype, pool);
+        Debug.Log(pair.ToString() + "Has Generated");
     }
 
     //Root~~ 메서드는 ~~ 메서드들에서 호출하는 그 메서드의 뿌리같은 메서드다
 
     public PoolableMono Pop(PoolObjectListEnum enumlist)
     {
-        return ObjectPoolingList[enumlist].Pop();
+        if (!ObjectPoolingList.ContainsKey(enumlist))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        PoolableMono item = ObjectPoolingList[enumlist].Pop();
+        item.ResetPooingItem();
+        return item;
     }
 
     public PoolableMono Pop(PoolEffectListEnum enumlist)

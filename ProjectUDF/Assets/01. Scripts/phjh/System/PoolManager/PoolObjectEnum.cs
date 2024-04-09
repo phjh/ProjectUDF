@@ -1,12 +1,15 @@
-public enum PoolObjectListEnum
+public enum PoolObjectListEnum 
 {
-	MiniGolem = 1,
-	StoneToad = 2,
-	ToadRock = 3,
+	MiniGolem,
+	StoneToad,
+	ToadRock,
 }
 
-public enum PoolEffectListEnum
+public enum PoolEffectListEnum 
 {
-	mineCustom = 0,
+	MineCustom,
+	LeftAttack,
+	HitEffect,
+	RightAttack,
 }
 

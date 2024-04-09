@@ -23,18 +23,25 @@ public class AutoEnumBuilder : Editor
     void GenerateEnum()
     {
         StringBuilder sb = new StringBuilder();
-        foreach(var lists in GameManager.Instance.poollistSO)
+        List<PoolingPair> list = GameManager.Instance.poollistSO.PoolingLists;
+        sb.Append("public enum PoolObjectListEnum \n{\n");
+        foreach(PoolingPair pair in list)
         {
-            List<PoolingPair> list = lists.PoolingLists;
-            sb.Append("public enum " + lists.name + "Enum\n{\n");
-            foreach(PoolingPair pair in list)
-            {
-                sb.Append($"\t{pair.name} = {pair.ID},\n");
-            }
-            sb.Append("}\n\n");
-            string enumLocation = Application.dataPath + "\\01. Scripts\\phjh\\System\\PoolManager\\PoolObjectEnum.cs";
-            File.WriteAllText(enumLocation, sb.ToString());
+            sb.Append($"\t{pair.name},\n");
         }
+        sb.Append("}\n\n");
+
+        List<EffectPoolingPair> list2 = GameManager.Instance.poollistSO.EffectLists;
+        sb.Append("public enum PoolEffectListEnum \n{\n");
+        foreach (EffectPoolingPair pair in list2)
+        {
+            sb.Append($"\t{pair.name},\n");
+        }
+        sb.Append("}\n\n");
+
+        string enumLocation = Application.dataPath + "\\01. Scripts\\phjh\\System\\PoolManager\\PoolObjectEnum.cs";
+        File.WriteAllText(enumLocation, sb.ToString());
+
     }
 
 }

@@ -98,18 +98,20 @@ public class RandomMap : MonoBehaviour
         int i = 0;
         foreach(var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonsters)
         {
-            //if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
-            //    obj.CustomInstantiate(monsters.monsterPos, obj.pair);
-            //else
-            //{
-            //    Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not spawned");
-            //}
-             
-            //Debug.Log($"i : {i + 1}, monsterpos : {monsters.monsterObj.transform.position}");
-            ////스폰 정보 없애기
-            //i++;
-            //if(i >= leftMonsters)
-            //    break;
+            if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
+            {
+                obj.CustomInstantiate(monsters.monsterPos, obj.pair.enumtype);
+            }
+            else
+            {
+                Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not spawned");
+            }
+
+            Debug.Log($"i : {i + 1}, monsterpos : {monsters.monsterObj.transform.position}");
+            //스폰 정보 없애기
+            i++;
+            if (i >= leftMonsters)
+                break;
 
             //대충 여기서 웨이브보다 많이 스폰시 break
         }

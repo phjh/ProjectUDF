@@ -120,7 +120,7 @@ public class EnemyMain : PoolableMono
 		IsDead = true;
 		StateMachine.CurrentState.ExitState();
 		MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
-		//PoolManager.Instance.Push(pair.prefab, name);
+		PoolManager.Instance.Push(this, pair.enumtype);
 	}
 	#endregion
 
