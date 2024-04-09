@@ -15,50 +15,37 @@ MonoBehaviour:
   PoolingLists:
   - enumtype: 1
     prefab: {fileID: 3485512363394060473, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
-    ID: 1
     name: MiniGolem
     count: 10
     description: "\uBBF8\uB2C8\uACE8\uB818"
   - enumtype: 2
     prefab: {fileID: 8234726395678351441, guid: c7f484b1640ce4842bffe96efc02e002, type: 3}
-    ID: 2
     name: StoneToad
     count: 10
     description: "\uB3CC\uAC1C\uAD6C\uB9AC "
   - enumtype: 3
     prefab: {fileID: 5074923153897559526, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
-    ID: 3
     name: ToadRock
     count: 10
     description: "\uB3CC\uAC1C\uAD6C\uB9AC \uCD1D\uC54C"
   EffectLists:
   - enumtype: 1
     prefab: {fileID: -1922065975914471239, guid: a59f6c5159c4502458fd602fb201c2ba, type: 3}
-    ID: 1
     name: MineCustom
     count: 3
     description: "\uB0B4\uB824\uCC0D\uAE30 \uC774\uD399\uD2B8(\uB545)"
   - enumtype: 2
     prefab: {fileID: 1095113103349519723, guid: c3bdb14ee1929914ebe8f6abe393a3c7, type: 3}
-    ID: 2
     name: LeftAttack
     count: 3
     description: "\uD3C9\uD0C0 \uC774\uD399\uD2B8"
   - enumtype: 3
     prefab: {fileID: 4522132096273949379, guid: 5b2189a0bf19c5c478fb8660a514cc46, type: 3}
-    ID: 3
     name: HitEffect
     count: 3
     description: "\uD53C\uACA9 \uC774\uD399\uD2B8"
   - enumtype: 4
     prefab: {fileID: 2477497604259188157, guid: d87cdfe7cb4030242858b9679fb07545, type: 3}
-    ID: 4
     name: RightAttack
     count: 3
     description: "\uCDA9\uACA9\uC774\uD399"
-  - enumtype: 4
-    prefab: {fileID: 2477497604259188157, guid: d87cdfe7cb4030242858b9679fb07545, type: 3}
-    ID: 5
-    name: zagooshipda
-    count: 3
-    description: "\uC790\uACE0\uC2F6\uB2E4"

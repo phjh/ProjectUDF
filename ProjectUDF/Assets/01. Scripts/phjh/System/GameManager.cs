@@ -26,8 +26,8 @@ public class GameManager : MonoSingleton<GameManager>
 	#region Pooling
 	[Header("Pooling")]
 	public PoolingListSO poollistSO;
-	[SerializeField]
-	private Transform _poolingTrm;
+	//[SerializeField]
+	//private Transform _poolingTrm;
 	#endregion
 
 	#region Player Info

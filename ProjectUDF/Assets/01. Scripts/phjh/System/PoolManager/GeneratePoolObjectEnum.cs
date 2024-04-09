@@ -27,7 +27,7 @@ public class AutoEnumBuilder : Editor
         sb.Append("public enum PoolObjectListEnum \n{\n");
         foreach(PoolingPair pair in list)
         {
-            sb.Append($"\t{pair.name} = {pair.ID},\n");
+            sb.Append($"\t{pair.name},\n");
         }
         sb.Append("}\n\n");
 
@@ -35,7 +35,7 @@ public class AutoEnumBuilder : Editor
         sb.Append("public enum PoolEffectListEnum \n{\n");
         foreach (EffectPoolingPair pair in list2)
         {
-            sb.Append($"\t{pair.name} = {pair.ID},\n");
+            sb.Append($"\t{pair.name},\n");
         }
         sb.Append("}\n\n");
 

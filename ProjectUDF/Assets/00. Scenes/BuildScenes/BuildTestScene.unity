@@ -508,7 +508,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
-  _poolingTrm: {fileID: 97713000}
   player: {fileID: 1773495849}
   InventoryArray: []
   gameState: 1

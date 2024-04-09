@@ -9,8 +9,7 @@ public class PoolingPair
     public PoolObjectListEnum enumtype;
     [TooltipAttribute("PoolableMono가 상속된 오브젝트 넣기")]
     public PoolableMono prefab;
-    [Header("중복되면 안되는 중요한 함수들")]
-    public int ID;
+    [Header("중복되면 안되는 중요한 함수")]
     public string name;
     [TooltipAttribute("생성할 오브젝트 개수")]
     public int count;
@@ -19,7 +18,7 @@ public class PoolingPair
 
     public override string ToString()
     {
-        return $"Type : {enumtype} \n Prefab : {prefab.name} \n Id : {ID}, Name : {name} \n count : {count} \n Description : {description}";
+        return $"Type : {enumtype} \n Prefab : {prefab.name} \n Name : {name} , count : {count} \n Description : {description}";
     }
 }
 
@@ -30,8 +29,7 @@ public class EffectPoolingPair
     public PoolEffectListEnum enumtype;
     [TooltipAttribute("PoolableMono가 상속된 오브젝트 넣기")]
     public PoolableMono prefab;
-    [Header("중복되면 안되는 중요한 함수들")]
-    public int ID;
+    [Header("중복되면 안되는 중요한 함수")]
     public string name;
     [TooltipAttribute("생성할 오브젝트 개수")]
     public int count;
@@ -40,7 +38,7 @@ public class EffectPoolingPair
 
     public override string ToString()
     {
-        return $"Type : {enumtype} \n Prefab : {prefab.name} \n Id : {ID}, Name : {name} \n count : {count} \n Description : {description}";
+        return $"Type : {enumtype} \n Prefab : {prefab.name} \n Name : {name} , count : {count} \n Description : {description}";
     }
 }
 
