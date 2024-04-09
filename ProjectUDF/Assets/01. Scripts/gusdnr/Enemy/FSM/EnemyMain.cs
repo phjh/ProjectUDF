@@ -37,6 +37,8 @@ public class EnemyMain : PoolableMono
 	#region Chase Variables
 	[Header("Chase Variables")]
 	public float StrikingRadius = 3f;
+	public LayerMask WhatIsObstacle;
+	public LayerMask WhatIsPlayer;
 	#endregion
 
 	#region Attack Variables
@@ -80,7 +82,7 @@ public class EnemyMain : PoolableMono
 
 	private void Update()
 	{
-		if(GameManager.Instance.gameState != GameStates.PauseUIOn)
+		if (GameManager.Instance.gameState != GameStates.PauseUIOn)
 		StateMachine.CurrentState.FrameUpdate();
 	}
 
@@ -167,16 +169,29 @@ public class EnemyMain : PoolableMono
 	{
 		IsWithStrikingDistance = isWithStrikingDistance;
 	}
-    #endregion
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject == GameManager.Instance.player.gameObject)
+	public bool UpdateFOV()
+	{
+		Vector2 direction = Target.position - transform.position;
+		float rayDistance = Vector2.Distance(Target.position, transform.position);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, rayDistance, WhatIsObstacle | WhatIsPlayer);
+		if (hit.collider != null)
 		{
-			PlayerMovement move = collision.gameObject.GetComponent<PlayerMovement>();
-			//move.GetDamage();
+			if (hit.collider.CompareTag("Player")) return true; // 대상이 플레이어인 경우
+			else return false; // 대상이 장애물인 경우
 		}
-    }
+		else return false; // 레이가 아무 것도 충돌하지 않은 경우
+	}
+	#endregion
 
-    #endregion
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			Player playerMain = collision.GetComponent<Player>();
+			if(playerMain != null) Debug.Log("Hit : Player Is Not Null");
+		}
+	}
+
+	#endregion
 }
