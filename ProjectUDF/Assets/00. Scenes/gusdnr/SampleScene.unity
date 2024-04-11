@@ -267,11 +267,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3170361438401546408, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.18
+      value: -9.44
       objectReference: {fileID: 0}
     - target: {fileID: 3170361438401546408, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.71
+      value: -0.41
       objectReference: {fileID: 0}
     - target: {fileID: 3170361438401546408, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17071,6 +17071,8 @@ MonoBehaviour:
   CanAttack: 1
   _isdodgeing: 0
   _canDodge: 1
+  invincibleTime: 0.4
+  invincibleSpeed: 6
 --- !u!114 &1642537960
 MonoBehaviour:
   m_ObjectHideFlags: 0

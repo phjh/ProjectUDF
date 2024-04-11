@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5078051576514681059}
   - component: {fileID: 5149605734750213469}
   - component: {fileID: 5298917803845358200}
-  - component: {fileID: 2777101168809726169}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -148,13 +147,45 @@ MonoBehaviour:
     layerMixModes: 01000000
     layerBlendModes: 01000000
   updateTiming: 1
---- !u!70 &2777101168809726169
+--- !u!1 &2219465797634240484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4509243172224224578}
+  - component: {fileID: 6448652018114708252}
+  m_Layer: 0
+  m_Name: MovePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4509243172224224578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2219465797634240484}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3170361438401546408}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &6448652018114708252
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588869427219882194}
+  m_GameObject: {fileID: 2219465797634240484}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -180,8 +211,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08452181, y: 0.2347811}
-  m_Size: {x: 4.235117, y: 0.9071301}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 0.4}
   m_Direction: 1
 --- !u!1 &2536093802854684432
 GameObject:
@@ -290,13 +321,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7995406592400691861}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.6, y: -2.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5828004964524723665}
   - {fileID: 1984860944422070042}
+  - {fileID: 4509243172224224578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1453171109886968774
@@ -339,17 +371,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
+    enumtype: 1
     prefab: {fileID: 3485512363394060473}
     name: MiniGolem
     count: 10
     description: "\uBBF8\uB2C8\uACE8\uB818"
   ChaseState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
   AttackState: {fileID: 11400000, guid: d658bf21e596aee45824ca539ce5efe4, type: 2}
-  CooldownState: {fileID: 11400000, guid: 02d936591c9b37842b9e9f45b0ee4915, type: 2}
+  CooldownState: {fileID: 11400000, guid: 8de3661d169a50247b02c5217adedfff, type: 2}
   maxHealth: 10
   attackCoolTime: 3
-  StrikingRadius: 5
+  StrikingRadius: 3
   WhatIsObstacle:
     serializedVersion: 2
     m_Bits: 512

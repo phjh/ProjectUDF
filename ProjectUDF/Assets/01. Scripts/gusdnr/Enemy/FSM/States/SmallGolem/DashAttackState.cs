@@ -69,9 +69,9 @@ public class DashAttackState : EnemyState
 
 		while (time <= DashTime)
 		{
-			hit = Physics2D.Raycast(enemy.transform.position, Direction, 0.8f, WhatIsObstacle);
+			hit = Physics2D.Raycast(enemy.transform.position, Direction, 1f, WhatIsObstacle);
 
-			// Ray가 어떤 물체와 충돌하면서 정지해야 합니다.
+			// Ray가 어떤 물체와 충돌하면 정지
 			if (hit.collider != null)
 			{
 				enemy.MoveEnemy(Vector2.zero);

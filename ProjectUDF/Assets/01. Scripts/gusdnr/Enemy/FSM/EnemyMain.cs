@@ -16,6 +16,7 @@ public class EnemyMain : PoolableMono
 	#region Enemy Components
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
+	public Transform MovePoint { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -72,7 +73,8 @@ public class EnemyMain : PoolableMono
 		MaxHealth = maxHealth;
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
-		if(EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
+		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
+		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);
@@ -175,10 +177,19 @@ public class EnemyMain : PoolableMono
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, rayDistance, WhatIsObstacle | WhatIsPlayer);
 		if (hit.collider != null)
 		{
-			if (hit.collider.CompareTag("Player")) return true; // 대상이 플레이어인 경우
-			else return false; // 대상이 장애물인 경우
+			if (hit.collider.CompareTag("Player") || Vector2.Distance(hit.transform.position, transform.position) > StrikingRadius)
+			{
+				return true; // 플레이어를 감지하거나 공격 가능한 반경 내에 장애물이 없는 경우
+			}
+			else
+			{
+				return false; // 장애물이 있고, 공격 가능한 반경 내에 플레이어가 없는 경우
+			}
 		}
-		else return false; // 레이가 아무 것도 충돌하지 않은 경우
+		else
+		{
+			return false; // 레이가 아무 것도 충돌하지 않은 경우
+		}
 	}
 	#endregion
 
@@ -187,7 +198,11 @@ public class EnemyMain : PoolableMono
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			Player playerMain = collision.GetComponent<Player>();
-			if(playerMain != null) Debug.Log("Hit : Player Is Not Null");
+			if(playerMain != null)
+			{
+				Debug.Log("Hit : Player Is Not Null");
+				playerMain?.GetDamage();
+			}
 		}
 	}
 
