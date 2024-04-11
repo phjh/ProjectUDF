@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class PlayerAttack : Player
 {
-    [SerializeField] Player _player;
+    [SerializeField] public Player _player;
     [SerializeField] PlayerAttackRange _range;
 
     PolygonCollider2D leftAtkCol;
@@ -57,13 +57,13 @@ public class PlayerAttack : Player
         while (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1))
         {
             pressTime += 0.05f;
-            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 2+ 1;
+            float scale = Mathf.Lerp(0, ChargeTime, pressTime/ChargeTime) / 2 + 1;
             _rightattackRange.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForSeconds(0.05f);
         }
 
         pressTime = Mathf.Clamp(pressTime, 0, ChargeTime);
-        factor = Mathf.Lerp(0f, 0.4f, pressTime / ChargeTime) + 0.8f;
+        factor = Mathf.Lerp(0f, 0.7f, pressTime / ChargeTime) + 0.8f;
         Debug.Log($"time : {pressTime},  factor : {factor}");
 
         float damage = CalculateDamage(factor);
@@ -130,15 +130,18 @@ public class PlayerAttack : Player
     public float CalculateDamage(float factor)
     {
         float damage = 0;
+        bool critical = false;
         if (UnityEngine.Random.Range(0, 100) < _player._playerStat.Lucky.GetValue())
         {
             damage = ResentDamage * 1.3f * factor;
+            critical = true;
         }
         else
         {
             damage = _player._playerStat.Strength.GetValue() * factor;
         }
         ResentDamage = Mathf.Ceil(damage * 10) / 10;
+        UIPoolSystem.Instance.isCritical = critical;
         Debug.Log("damage : " + damage);
         return damage;
     }

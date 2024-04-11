@@ -68,6 +68,7 @@ public class PoolManager
 
     private Dictionary<PoolObjectListEnum, Pool<PoolableMono>> ObjectPoolingList = new();
     private Dictionary<PoolEffectListEnum, Pool<PoolableMono>> EffectPoolingList = new();
+    private Dictionary<PoolUIListEnum, Pool<PoolableMono>> UIPoolingList = new();
 
     #region Improved PoolManager
 
@@ -85,6 +86,13 @@ public class PoolManager
         Debug.Log(pair.ToString() + "Has Generated");
     }
 
+    public void CreatePool(UIPoolingPair pair, Transform parent)
+    {
+        Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
+        UIPoolingList.Add(pair.enumtype, pool);
+        Debug.Log(pair.ToString() + "Has Generated");
+    }
+
     //Root~~ 메서드는 ~~ 메서드들에서 호출하는 그 메서드의 뿌리같은 메서드다
 
     public PoolableMono Pop(PoolObjectListEnum enumlist)
@@ -95,13 +103,32 @@ public class PoolManager
             return null;
         }
         PoolableMono item = ObjectPoolingList[enumlist].Pop();
-        item.ResetPooingItem();
+        item.ResetPoolingItem();
         return item;
     }
 
     public PoolableMono Pop(PoolEffectListEnum enumlist)
     {
-        return EffectPoolingList[enumlist].Pop();
+        if (!EffectPoolingList.ContainsKey(enumlist))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        PoolableMono item = EffectPoolingList[enumlist].Pop();
+        item.ResetPoolingItem();
+        return item;
+    }
+
+    public PoolableMono Pop(PoolUIListEnum enumlist)
+    {
+        if (!UIPoolingList.ContainsKey(enumlist))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        PoolableMono item = UIPoolingList[enumlist].Pop();
+        //item.ResetPoolingItem();
+        return item;
     }
 
     public void Push(PoolableMono obj, PoolObjectListEnum enumlist)
@@ -114,6 +141,10 @@ public class PoolManager
         EffectPoolingList[enumlist].Push(obj);
     }
 
+    public void Push(PoolableMono obj, PoolUIListEnum enumlist)
+    {
+        UIPoolingList[enumlist].Push(obj);
+    }
 
     #endregion
 

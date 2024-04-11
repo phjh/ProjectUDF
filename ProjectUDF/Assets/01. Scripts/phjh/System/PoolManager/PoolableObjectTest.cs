@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PoolableObjectTest : PoolableMono
 {
-    public override void ResetPooingItem()
+    public override void ResetPoolingItem()
     {
 
     }

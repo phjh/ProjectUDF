@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using static Spine.Unity.Editor.SkeletonBaker.BoneWeightContainer;
 
 
 [CustomEditor(typeof(GameManager))]
@@ -23,17 +24,28 @@ public class AutoEnumBuilder : Editor
     void GenerateEnum()
     {
         StringBuilder sb = new StringBuilder();
-        List<PoolingPair> list = GameManager.Instance.poollistSO.PoolingLists;
+        List<PoolingPair> list1 = GameManager.Instance.poollistSO.PoolObjectLists;
         sb.Append("public enum PoolObjectListEnum \n{\n");
-        foreach(PoolingPair pair in list)
+        sb.Append($"\tNone = 0,\n");
+        foreach (var pair in list1)
         {
             sb.Append($"\t{pair.name},\n");
         }
         sb.Append("}\n\n");
 
-        List<EffectPoolingPair> list2 = GameManager.Instance.poollistSO.EffectLists;
+        List<EffectPoolingPair> list2 = GameManager.Instance.poollistSO.PoolEffectLists;
         sb.Append("public enum PoolEffectListEnum \n{\n");
-        foreach (EffectPoolingPair pair in list2)
+        sb.Append($"\tNone = 0,\n");
+        foreach (var pair in list2)
+        {
+            sb.Append($"\t{pair.name},\n");
+        }
+        sb.Append("}\n\n");
+
+        List<UIPoolingPair> list3 = GameManager.Instance.poollistSO.PoolUILists;
+        sb.Append("public enum PoolUIListEnum \n{\n");
+        sb.Append($"\tNone = 0,\n");
+        foreach (var pair in list3)
         {
             sb.Append($"\t{pair.name},\n");
         }
