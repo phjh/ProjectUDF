@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [CreateAssetMenu(fileName = "New Chase Chase", menuName = "SO/State/Chase/Normal")]
 public class NormalChaseState : EnemyState

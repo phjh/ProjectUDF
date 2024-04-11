@@ -21,6 +21,11 @@ class Pool<T> where T : PoolableMono
         }
     }
 
+    public void ChangeParent(Transform parent)
+    {
+
+    }
+
     public T Pop()
     {
         T obj = null;

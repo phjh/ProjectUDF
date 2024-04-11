@@ -8,15 +8,15 @@ public class UIPoolSystem : MonoSingleton<UIPoolSystem>
 {
     public bool isCritical = false;
 
-    public void PopupDamageText(PoolUIListEnum type, float strength, float damage, float time, Transform trm) => StartCoroutine(DamageTextSetting(type, strength, damage, time, trm));
+    public void PopupDamageText(PoolUIListEnum type, float strength, float damage, float time, Vector3 trm) => StartCoroutine(DamageTextSetting(type, strength, damage, time, trm));
 
 
-    private IEnumerator DamageTextSetting(PoolUIListEnum type, float strength, float damage, float time, Transform trm)
+    private IEnumerator DamageTextSetting(PoolUIListEnum type, float strength, float damage, float time, Vector3 trm)
     {
         Debug.Log(0);
         PoolableMono mono = PoolManager.Instance.Pop(type);
-        mono.transform.position = trm.position + new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-        mono.transform.DOMoveY(transform.position.y + Random.Range(time / 2, time * 2), Random.Range(time, time * 3));
+        mono.transform.position = trm + new Vector3(Random.Range(-0.5f, 0.5f), 1, 0);
+        mono.transform.DOMoveY(mono.transform.position.y + Random.Range(time / 2, time) + 1, time).SetEase(Ease.OutCirc);
         Debug.Log(1);
         TextMeshPro tmp = mono.GetComponent<TextMeshPro>();
         tmp.text = damage.ToString();

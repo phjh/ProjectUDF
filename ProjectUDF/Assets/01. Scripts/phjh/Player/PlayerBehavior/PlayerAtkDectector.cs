@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerAtkDectector : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class PlayerAtkDectector : MonoBehaviour
         {
             Debug.Log("Connected trigger damage : " + _playerAtk.ResentDamage);
             EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, _playerAtk._player._playerStat.Strength.GetValue(), _playerAtk.ResentDamage, 0.5f, collision.transform);
+            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, _playerAtk._player._playerStat.Strength.GetValue(), _playerAtk.ResentDamage, 0.5f, collision.transform.position);
             enemy.Damage(_playerAtk.ResentDamage);
         }
         else if(collision.CompareTag("Enemy"))

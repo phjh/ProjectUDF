@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5078051576514681059}
   - component: {fileID: 5149605734750213469}
   - component: {fileID: 5298917803845358200}
+  - component: {fileID: 2777101168809726169}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -147,6 +148,41 @@ MonoBehaviour:
     layerMixModes: 01000000
     layerBlendModes: 01000000
   updateTiming: 1
+--- !u!70 &2777101168809726169
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588869427219882194}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.08452181, y: 0.2347811}
+  m_Size: {x: 4.235117, y: 0.9071301}
+  m_Direction: 1
 --- !u!1 &2536093802854684432
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +274,6 @@ GameObject:
   - component: {fileID: 3170361438401546408}
   - component: {fileID: 1453171109886968774}
   - component: {fileID: 3485512363394060473}
-  - component: {fileID: 5348139695540222282}
   - component: {fileID: 1226782799930998107}
   m_Layer: 8
   m_Name: TestEnemy_SmallGolem
@@ -311,7 +346,7 @@ MonoBehaviour:
     description: "\uBBF8\uB2C8\uACE8\uB818"
   ChaseState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
   AttackState: {fileID: 11400000, guid: d658bf21e596aee45824ca539ce5efe4, type: 2}
-  CooldownState: {fileID: 11400000, guid: 8de3661d169a50247b02c5217adedfff, type: 2}
+  CooldownState: {fileID: 11400000, guid: 02d936591c9b37842b9e9f45b0ee4915, type: 2}
   maxHealth: 10
   attackCoolTime: 3
   StrikingRadius: 5
@@ -322,41 +357,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   canAttack: 1
---- !u!70 &5348139695540222282
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7995406592400691861}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2, y: 0.4}
-  m_Direction: 1
 --- !u!58 &1226782799930998107
 CircleCollider2D:
   m_ObjectHideFlags: 0

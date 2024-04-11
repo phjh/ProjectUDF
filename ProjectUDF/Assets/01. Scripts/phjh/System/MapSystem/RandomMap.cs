@@ -149,7 +149,7 @@ public class RandomMap : MonoBehaviour
     void MobKilledEvent()
     {
         leftMonsters--;
-        if(leftMonsters == 0)
+        if(leftMonsters <= 0)
         {
             WaveClear();
         }
