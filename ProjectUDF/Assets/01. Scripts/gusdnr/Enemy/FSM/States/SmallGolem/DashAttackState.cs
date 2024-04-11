@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 [CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/Dash")]
 public class DashAttackState : EnemyState
@@ -26,6 +27,7 @@ public class DashAttackState : EnemyState
 
 	public override void EnterState()
 	{
+		DOTween.Init();
 		base.EnterState();
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
@@ -64,26 +66,19 @@ public class DashAttackState : EnemyState
 		
 		yield return LockOnCoroutine;
 
-		float time = 0;
-		RaycastHit2D hit;
+		RaycastHit2D CalculateObstacle;
+		CalculateObstacle = Physics2D.Raycast(enemy.transform.position, Direction, 1f, WhatIsObstacle);
+		Vector2 endPoint = CalculateObstacle.point;
+		
+		var dashSeq = DOTween.Sequence();
+		
+		dashSeq.Append(enemy.transform.DOMove(endPoint, DashTime).SetEase(Ease.OutCubic));
 
-		while (time <= DashTime)
+		dashSeq.Play().OnComplete(() =>
 		{
-			hit = Physics2D.Raycast(enemy.transform.position, Direction, 1f, WhatIsObstacle);
-
-			// Ray가 어떤 물체와 충돌하면 정지
-			if (hit.collider != null)
-			{
-				enemy.MoveEnemy(Vector2.zero);
-				break;
-			}
-
-			enemy.MoveEnemy(Direction * DashSpeed);
-			time += Time.deltaTime;
-			yield return null;
-		}
-		enemy.MoveEnemy(Vector2.zero);
-		AttackCoroutine = null;
+			enemy.MoveEnemy(Vector2.zero);
+			AttackCoroutine = null;
+		});
 	}
 
 	private IEnumerator LockOnTarget()
