@@ -30,7 +30,6 @@ public class NormalChaseState : EnemyState
 		//플레이어가 시야 내에 있을 때
 		if (enemy.IsWithStrikingDistance)
 		{
-			Debug.Log("Enemy In AttackRange");
 			//공격 가능한 상태일 때
 			if (enemy.UpdateFOV() && !enemy.IsAttackCooldown)
 			{
@@ -49,7 +48,6 @@ public class NormalChaseState : EnemyState
 
 	private void HandleObstacleDetection()
 	{
-		Debug.Log("Enemy Do Search");
 		// 장애물 감지
 		bool obstacleDetected = !enemy.UpdateFOV();
 
@@ -62,7 +60,6 @@ public class NormalChaseState : EnemyState
 
 	private void MoveRandomly()
 	{
-		Debug.Log("Enter Move Random");
 
 		Vector2 closestDirection = (enemy.Target.position - enemy.MovePoint.position).normalized;
 		float closestDistance = Vector2.Distance(enemy.MovePoint.position, enemy.Target.position);

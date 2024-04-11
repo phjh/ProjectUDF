@@ -16,6 +16,7 @@ public class EnemyMain : PoolableMono
 	#region Enemy Components
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
+	private Vector2 TargetPos;
 	public Transform MovePoint { get; set; }
 	#endregion
 
@@ -82,6 +83,7 @@ public class EnemyMain : PoolableMono
 
 	private void Update()
 	{
+		TargetPos = Target.position;
 		if (GameManager.Instance.gameState != GameStates.PauseUIOn)
 		StateMachine.CurrentState.FrameUpdate();
 	}
