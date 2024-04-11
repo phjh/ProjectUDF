@@ -30,10 +30,13 @@ public class DashAttackState : EnemyState
 
 	public override void EnterState()
 	{
-		DOTween.Init();
 		base.EnterState();
+		DOTween.Init();
+		TargetPos = Vector2.zero;
+		EndPoint = Vector2.zero;
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
+
 		//공격 순서
 		//AttackCoroutine 작동 / LockOnCoroutine 종료 대기 -> LockOnCoroutine 작동 -> 돌진 방향 지정
 		//-> LockOnCoroutine 종료 -> 일정 시간 동안 돌진 실행 -> 시간 경과 후 적 이동 속도 0으로 변경해 정지
@@ -70,7 +73,7 @@ public class DashAttackState : EnemyState
 		yield return LockOnCoroutine;
 
 		RaycastHit2D HitObstacle = Physics2D.Raycast(enemy.transform.position, TargetPos, DashDistance, WhatIsObstacle);
-		Debug.Log($"Is Checking Obstacle : {HitObstacle}");
+		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
 			EndPoint = HitObstacle.point;
@@ -79,8 +82,10 @@ public class DashAttackState : EnemyState
 		}
 		else if (!HitObstacle)
 		{
-			EndPoint = new Vector2(enemy.transform.position.x + TargetPos.x, enemy.transform.position.y + TargetPos.y) * DashDistance;
+			EndPoint = (Vector2)enemy.transform.position + TargetPos.normalized * DashDistance;
+			Debug.Log($"Target Pos.normal : [{TargetPos.normalized.x}] [{TargetPos.normalized.y}]");
 		}
+		Debug.DrawRay(enemy.transform.position, EndPoint, Color.magenta, DashDistance);
 		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		yield return new WaitForSeconds(1);
 		enemy.CheckForFacing(EndPoint.normalized);

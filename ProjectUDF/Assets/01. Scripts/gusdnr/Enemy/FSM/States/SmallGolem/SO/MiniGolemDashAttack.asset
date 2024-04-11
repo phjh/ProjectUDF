@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LockOnTime: 1
   DashTime: 2
-  DashDistance: 10
+  DashDistance: 6
   WhatIsObstacle:
     serializedVersion: 2
     m_Bits: 512
