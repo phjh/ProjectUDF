@@ -15,3 +15,9 @@ public enum PoolEffectListEnum
 	RightAttack,
 }
 
+public enum PoolUIListEnum 
+{
+	None = 0,
+	DamageText,
+}
+

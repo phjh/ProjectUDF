@@ -11,7 +11,7 @@ public class ToadRock : PoolableMono
 
     private Rigidbody2D RockRB;
 
-	public override void ResetPooingItem()
+	public override void ResetPoolingItem()
 	{
 		if(RockRB == null) RockRB = GetComponent<Rigidbody2D>();
 	}

@@ -51,7 +51,7 @@ public class EnemyMain : PoolableMono
 
 	private void Start()
 	{
-		ResetPooingItem();
+		ResetPoolingItem();
 
 		ChaseState.Initialize(this, StateMachine);
 		ChaseState = ChaseState.Clone();
@@ -66,7 +66,7 @@ public class EnemyMain : PoolableMono
 		if (CooldownState == null) Debug.LogError("Cooldown state is Null");
 	}
 
-	public override void ResetPooingItem()
+	public override void ResetPoolingItem()
 	{
 		MaxHealth = maxHealth;
 		CurrentHealth = MaxHealth;

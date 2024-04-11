@@ -118,5 +118,10 @@ public class PlayerMovement : Player
             GetHeal();
             Debug.Log(1);
         }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            _player.GetDamage();
+            Debug.Log("Get Damaged");
+        }
     }
 }

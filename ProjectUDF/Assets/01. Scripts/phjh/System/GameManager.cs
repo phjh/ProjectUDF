@@ -59,16 +59,20 @@ public class GameManager : MonoSingleton<GameManager>
 	private void Awake()
 	{
 		PoolManager.Instance = new PoolManager();
-		foreach (var obj in poollistSO.PoolingLists)
+		foreach (var obj in poollistSO.PoolObjectLists)
 		{
 			PoolManager.Instance.CreatePool(obj, this.transform);
 			obj.prefab.pair = obj;
 		}
-		foreach(var obj in poollistSO.EffectLists)
+		foreach(var obj in poollistSO.PoolEffectLists)
 		{
             PoolManager.Instance.CreatePool(obj, this.transform);
         }
-		if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
+        foreach (var obj in poollistSO.PoolUILists)
+        {
+            PoolManager.Instance.CreatePool(obj, this.transform);
+        }
+        if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
 		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
 	}
 

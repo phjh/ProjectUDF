@@ -24,19 +24,28 @@ public class AutoEnumBuilder : Editor
     void GenerateEnum()
     {
         StringBuilder sb = new StringBuilder();
-        List<PoolingPair> list = GameManager.Instance.poollistSO.PoolingLists;
+        List<PoolingPair> list1 = GameManager.Instance.poollistSO.PoolObjectLists;
         sb.Append("public enum PoolObjectListEnum \n{\n");
         sb.Append($"\tNone = 0,\n");
-        foreach (PoolingPair pair in list)
+        foreach (var pair in list1)
         {
             sb.Append($"\t{pair.name},\n");
         }
         sb.Append("}\n\n");
 
-        List<EffectPoolingPair> list2 = GameManager.Instance.poollistSO.EffectLists;
+        List<EffectPoolingPair> list2 = GameManager.Instance.poollistSO.PoolEffectLists;
         sb.Append("public enum PoolEffectListEnum \n{\n");
         sb.Append($"\tNone = 0,\n");
-        foreach (EffectPoolingPair pair in list2)
+        foreach (var pair in list2)
+        {
+            sb.Append($"\t{pair.name},\n");
+        }
+        sb.Append("}\n\n");
+
+        List<UIPoolingPair> list3 = GameManager.Instance.poollistSO.PoolUILists;
+        sb.Append("public enum PoolUIListEnum \n{\n");
+        sb.Append($"\tNone = 0,\n");
+        foreach (var pair in list3)
         {
             sb.Append($"\t{pair.name},\n");
         }

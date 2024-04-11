@@ -1,5 +1,7 @@
+using Spine.Unity;
 using System;
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,8 +21,12 @@ public class Player : MonoBehaviour
     public bool _isdodgeing = false;
     public bool _canDodge = true;
 
+    [SerializeField]
     [Tooltip("무적시간")]
-    public float invincibleTime = 0.4f;
+    private float invincibleTime = 0.4f;
+    [SerializeField]
+    [Tooltip("무적 깜빡이는 속도")]
+    private float invincibleSpeed = 6f;
 
     public bool ActiveMove
     {
@@ -43,7 +49,7 @@ public class Player : MonoBehaviour
     {
         if (_isdodgeing)
             return;
-        _playerStat.EditPlayerHP(-1);
+        //_playerStat.EditPlayerHP(-1);
         Debug.Log(_playerStat.CurHP);
         StartCoroutine(Invincible());
 
@@ -60,7 +66,28 @@ public class Player : MonoBehaviour
     {
         _headtrigger.enabled = false;
         _bodytrigger.enabled = false;
-        yield return new WaitForSeconds(invincibleTime);
+
+        if (TryGetComponent<SkeletonAnimation>(out SkeletonAnimation skel))
+        {
+            Spine.Skeleton skeleton = skel.skeleton;
+
+            float time = 0;
+
+            while(time < invincibleTime)
+            {
+                float alpha = (Mathf.Sin(time * invincibleSpeed) + 1) / 2;
+                skeleton.A = alpha;
+                time += Time.deltaTime;
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+        }
+        else
+        {
+            Debug.LogError(this.gameObject.name);
+        }
+
+
+
         _headtrigger.enabled = true;
         _bodytrigger.enabled = true;
     
