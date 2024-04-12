@@ -16,8 +16,8 @@ public class EnemyMain : PoolableMono
 	#region Enemy Components
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
-	private Vector2 TargetPos;
 	public Transform MovePoint { get; set; }
+	private Transform Visual;
 	#endregion
 
 	#region State Machine Variables
@@ -74,6 +74,7 @@ public class EnemyMain : PoolableMono
 		MaxHealth = maxHealth;
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
+		Visual = transform.Find("Visual").GetComponent<Transform>();
 		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		IsDead = false;
@@ -83,7 +84,6 @@ public class EnemyMain : PoolableMono
 
 	private void Update()
 	{
-		TargetPos = Target.position;
 		if (GameManager.Instance.gameState != GameStates.PauseUIOn)
 		StateMachine.CurrentState.FrameUpdate();
 	}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiniGolemDashAttack
   m_EditorClassIdentifier: 
   LockOnTime: 1
-  DashTime: 2
+  DashTime: 1
   DashDistance: 6
   WhatIsObstacle:
     serializedVersion: 2

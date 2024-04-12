@@ -12,6 +12,7 @@ public class StopCooldownState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
+		Debug.Log("Enter Cooldown State");
 		enemy.MoveEnemy(Vector2.zero);
 		enemy.StartCoroutine(enemy.StartCooldown());
 	}

@@ -33,7 +33,9 @@ public class DashAttackState : EnemyState
 		base.EnterState();
 		DOTween.Init();
 		TargetPos = Vector2.zero;
+		Debug.Log($"Enter Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 		EndPoint = Vector2.zero;
+		Debug.Log($"Enter End Pos : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
@@ -73,25 +75,28 @@ public class DashAttackState : EnemyState
 		yield return LockOnCoroutine;
 
 		RaycastHit2D HitObstacle = Physics2D.Raycast(enemy.transform.position, TargetPos, DashDistance, WhatIsObstacle);
+		Debug.DrawRay(enemy.transform.position, TargetPos, Color.green, DashDistance);
+		yield return new WaitForSeconds(2f);
 		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
 			EndPoint = HitObstacle.point;
-			EndPoint.x = (EndPoint.x > enemy.transform.position.x) ? EndPoint.x - 1f : EndPoint.x + 1f;	
-			EndPoint.y = (EndPoint.y > enemy.transform.position.y) ? EndPoint.y - 0.5f : EndPoint.y + 0.5f;
+			EndPoint.x = (EndPoint.x > enemy.transform.position.x) ? EndPoint.x - 1.1f : EndPoint.x + 1.1f;
+			EndPoint.y = (EndPoint.y > enemy.transform.position.y) ? EndPoint.y - 0.3f : EndPoint.y + 0.3f;
 		}
 		else if (!HitObstacle)
 		{
-			EndPoint = (Vector2)enemy.transform.position + TargetPos.normalized * DashDistance;
+			EndPoint = (Vector2)enemy.transform.position + (TargetPos - (Vector2)enemy.transform.position).normalized * DashDistance;
 			Debug.Log($"Target Pos.normal : [{TargetPos.normalized.x}] [{TargetPos.normalized.y}]");
 		}
+		Debug.DrawRay(enemy.transform.position, TargetPos, Color.cyan, DashDistance);
 		Debug.DrawRay(enemy.transform.position, EndPoint, Color.magenta, DashDistance);
 		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		yield return new WaitForSeconds(1);
 		enemy.CheckForFacing(EndPoint.normalized);
 		var dashSeq = DOTween.Sequence();
 		
-		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCubic));
+		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCirc));
 
 		dashSeq.Play().OnComplete(() =>
 		{
@@ -102,7 +107,7 @@ public class DashAttackState : EnemyState
 	private IEnumerator LockOnTarget()
 	{
 		yield return new WaitForSeconds(LockOnTime);
-		TargetPos = enemy.Target.position;
+		TargetPos = GameManager.Instance.player.transform.position;
 		Debug.Log($"Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 	}
 }
