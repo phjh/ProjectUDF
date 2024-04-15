@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -58,6 +59,7 @@ public class RandomMap : MonoBehaviour
             float spawnRate = Time.time - roomStartTime - 40f;
             var emission = dirtEffect.emission;
             emission.rateOverTime = Mathf.Lerp(0, 20f, spawnRate / 40f);
+
         }
     }
 

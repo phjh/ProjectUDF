@@ -89,7 +89,7 @@ public class EnemyMain : PoolableMono
 	private void FixedUpdate()
 	{
 		if(GameManager.Instance.gameState != GameStates.PauseUIOn)
-		StateMachine.CurrentState.PhtsicsUpdate();
+		StateMachine.CurrentState.PhysicsUpdate();
 	}
 
 	#region Methods
@@ -122,6 +122,7 @@ public class EnemyMain : PoolableMono
 		IsDead = true;
 		StateMachine.CurrentState.ExitState();
 		MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
+		StopAllCoroutines();
 		PoolManager.Instance.Push(this, pair.enumtype);
 	}
 	#endregion

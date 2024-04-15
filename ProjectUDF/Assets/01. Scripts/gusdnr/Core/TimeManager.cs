@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,7 +84,7 @@ public class TimeManager : MonoSingleton<TimeManager>
 			NowTime -= Time.deltaTime;
 			DisplayTime(NowTime);
 
-			yield return null;
+            yield return null;
 		}
 		OnTimerEnd?.Invoke();
 		GameManager.Instance.UpdateResult(GameResults.TimeOut);

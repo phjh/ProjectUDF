@@ -93,8 +93,6 @@ public class PoolManager
         Debug.Log(pair.ToString() + "Has Generated");
     }
 
-    //Root~~ 메서드는 ~~ 메서드들에서 호출하는 그 메서드의 뿌리같은 메서드다
-
     public PoolableMono Pop(PoolObjectListEnum enumlist)
     {
         if (!ObjectPoolingList.ContainsKey(enumlist))
@@ -128,6 +126,32 @@ public class PoolManager
         }
         PoolableMono item = UIPoolingList[enumlist].Pop();
         //item.ResetPoolingItem();
+        return item;
+    }
+
+    public PoolableMono Pop(PoolObjectListEnum enumlist, Transform parent)
+    {
+        if (!ObjectPoolingList.ContainsKey(enumlist))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        PoolableMono item = ObjectPoolingList[enumlist].Pop();
+        item.transform.SetParent(parent);
+        item.ResetPoolingItem();
+        return item;
+    }
+
+    public PoolableMono Pop(PoolEffectListEnum enumlist, Transform parent)
+    {
+        if (!EffectPoolingList.ContainsKey(enumlist))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+        PoolableMono item = EffectPoolingList[enumlist].Pop();
+        item.transform.SetParent(parent);
+        item.ResetPoolingItem();
         return item;
     }
 

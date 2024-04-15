@@ -81,10 +81,6 @@ public class Player : MonoBehaviour
 
             skeleton.A = 1;
         }
-        else
-        {
-            Debug.LogError(this.gameObject.name);
-        }
 
         _bodytrigger.enabled = true;
     
