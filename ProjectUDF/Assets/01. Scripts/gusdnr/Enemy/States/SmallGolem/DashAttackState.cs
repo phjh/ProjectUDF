@@ -15,6 +15,7 @@ public class DashAttackState : EnemyState
 	private Coroutine LockOnCoroutine;
 	private Coroutine AttackCoroutine;
 	private Vector2 TargetPos;
+	private Vector2 EnemyPos;
 	private Vector2 EndPoint;
 
 	public override EnemyState Clone()
@@ -35,6 +36,7 @@ public class DashAttackState : EnemyState
 		TargetPos = Vector2.zero;
 		Debug.Log($"Enter Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 		EndPoint = Vector2.zero;
+		EnemyPos = enemy.transform.position;
 		Debug.Log($"Enter End Pos : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
@@ -74,28 +76,27 @@ public class DashAttackState : EnemyState
 		
 		yield return LockOnCoroutine;
 
-		RaycastHit2D HitObstacle = Physics2D.Raycast(enemy.transform.position, TargetPos, DashDistance, WhatIsObstacle);
-		Debug.DrawRay(enemy.transform.position, TargetPos, Color.green, DashDistance);
-		yield return new WaitForSeconds(2f);
+		RaycastHit2D HitObstacle = Physics2D.Raycast(EnemyPos, TargetPos, DashDistance, WhatIsObstacle);
 		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
 			EndPoint = HitObstacle.point;
-			EndPoint.x = (EndPoint.x > enemy.transform.position.x) ? EndPoint.x - 1.1f : EndPoint.x + 1.1f;
-			EndPoint.y = (EndPoint.y > enemy.transform.position.y) ? EndPoint.y - 0.3f : EndPoint.y + 0.3f;
+			EndPoint.x = (EndPoint.x > EnemyPos.x) ? EndPoint.x - 1.1f : EndPoint.x + 1.1f;
+			EndPoint.y = (EndPoint.y > EnemyPos.y) ? EndPoint.y - 0.3f : EndPoint.y + 0.3f;
 		}
 		else if (!HitObstacle)
 		{
-			EndPoint = (Vector2)enemy.transform.position + (TargetPos - (Vector2)enemy.transform.position).normalized * DashDistance;
-			Debug.Log($"Target Pos.normal : [{TargetPos.normalized.x}] [{TargetPos.normalized.y}]");
+			Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
+			EndPoint = EnemyPos + directionToTarget * DashDistance * (directionToTarget.x >= 0 ? 1 : -1);
+			Debug.Log($"End Pos.normal : [{(EnemyPos - TargetPos).normalized.x}] [{(EnemyPos - TargetPos).normalized.normalized.y}]");
 		}
-		Debug.DrawRay(enemy.transform.position, TargetPos, Color.cyan, DashDistance);
-		Debug.DrawRay(enemy.transform.position, EndPoint, Color.magenta, DashDistance);
+		Debug.DrawRay(EnemyPos, TargetPos, Color.cyan);
+		Debug.DrawRay(EnemyPos, EndPoint, Color.magenta, DashDistance);
 		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
-		yield return new WaitForSeconds(1);
 		enemy.CheckForFacing(EndPoint.normalized);
+		yield return new WaitForSeconds(1);
 		var dashSeq = DOTween.Sequence();
-		
+
 		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCirc));
 
 		dashSeq.Play().OnComplete(() =>
@@ -107,7 +108,9 @@ public class DashAttackState : EnemyState
 	private IEnumerator LockOnTarget()
 	{
 		yield return new WaitForSeconds(LockOnTime);
-		TargetPos = GameManager.Instance.player.transform.position;
+		TargetPos = enemy.Target.position;
 		Debug.Log($"Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
+
+		Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
 	}
 }

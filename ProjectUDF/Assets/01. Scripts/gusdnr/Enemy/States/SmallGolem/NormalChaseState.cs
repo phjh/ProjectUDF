@@ -60,7 +60,6 @@ public class NormalChaseState : EnemyState
 
 	private void MoveRandomly()
 	{
-
 		Vector2 closestDirection = (enemy.Target.position - enemy.MovePoint.position).normalized;
 		float closestDistance = Vector2.Distance(enemy.MovePoint.position, enemy.Target.position);
 
@@ -117,5 +116,9 @@ public class NormalChaseState : EnemyState
 		Debug.DrawRay(enemy.MovePoint.position, moveDirection * movementSpeed, Color.red);
 	}
 
-	
+	private void PathFinding()
+	{
+
+	}
+
 }

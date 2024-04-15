@@ -381,7 +381,7 @@ MonoBehaviour:
   CooldownState: {fileID: 11400000, guid: 02d936591c9b37842b9e9f45b0ee4915, type: 2}
   maxHealth: 10
   attackCoolTime: 3
-  StrikingRadius: 6
+  StrikingRadius: 3
   WhatIsObstacle:
     serializedVersion: 2
     m_Bits: 512
