@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f25a01a0709eb4c824957d630d898e, type: 3}
   m_Name: CannonAttack
   m_EditorClassIdentifier: 
-  waitThrow: 0.4
+  chargingTime: 1
+  waitThrow: 0.2
+  waitRange: 1
   waitFall: 1
   effectdur: 0.4
-  maxScale: {x: 1.8, y: 1.5, z: 1.8}
