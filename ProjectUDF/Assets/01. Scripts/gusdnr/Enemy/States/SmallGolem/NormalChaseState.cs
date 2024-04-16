@@ -20,7 +20,6 @@ public class NormalChaseState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
-		enemy.EnemyAIPath.canMove = false;
 	}
 
 	public override void ExitState()
@@ -43,54 +42,7 @@ public class NormalChaseState : EnemyState
 				// 공격 가능한 상태로 전환
 				//enemy.MoveEnemy(Vector2.zero);
 				enemy.StateMachine.ChangeState(enemy.AttackState);
-				enemy.EnemyAIPath.canMove = true;
 			}
 		}
 	}
-
-	/*private IEnumerator SettingChaingPath()
-	{
-		do
-		{
-			if (enemy.EnemySeeker.IsDone())
-				enemy.EnemySeeker.StartPath(enemy.transform.position, enemy.Target.position, OnPathComplete);
-			yield return new WaitForSeconds(pathUpdateTime);
-		}
-		while (!reachedEndOfPath);
-	}*/
-
-	/*private void CheckingPath()
-	{
-		if (currentWayPoint >= ChasingPath.vectorPath.Count)
-		{
-			reachedEndOfPath = true;
-			return;
-		}
-		else
-		{
-			reachedEndOfPath = false;
-		}
-
-		Vector2 dircetion = (ChasingPath.vectorPath[currentWayPoint] - enemy.transform.position).normalized;
-		Vector2 force = dircetion * movementSpeed;
-		enemy.MoveEnemy(force);
-
-		float distance = Vector2.Distance(enemy.transform.position, ChasingPath.vectorPath[currentWayPoint]);
-
-		if (distance < nextWaypointDistance)
-		{
-			currentWayPoint = currentWayPoint + 1;
-		}
-
-	}*/
-
-	/*private void OnPathComplete(Path pt)
-	{
-		if (!pt.error)
-		{
-			ChasingPath = pt;
-			currentWayPoint = 0;
-		}
-	}*/
-
 }
