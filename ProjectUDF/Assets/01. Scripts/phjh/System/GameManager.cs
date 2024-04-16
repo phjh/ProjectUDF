@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 
@@ -52,7 +53,6 @@ public class GameManager : MonoSingleton<GameManager>
 	public static event Action OnNonPauseUI;
 	public static event Action OnPauseUI;
 	public static event Action OnEnd;
-
 	#endregion
 
 
@@ -74,6 +74,8 @@ public class GameManager : MonoSingleton<GameManager>
         }
         if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
 		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
+
+		AstarPath.active.Scan();
 	}
 
 
