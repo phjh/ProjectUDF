@@ -18,8 +18,8 @@ public class EnemyMain : PoolableMono
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
 	public Transform MovePoint { get; set; }
-	public Seeker EnemySeeker { get; set; }
-	public AIPath EnemyAIPath { get; set; }
+	public Seeker ESeeker { get; set; }
+	//public Path EPath { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -81,8 +81,7 @@ public class EnemyMain : PoolableMono
 		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
 
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
-		if (EnemySeeker == null) EnemySeeker = GetComponent<Seeker>();
-		if (EnemyAIPath == null) EnemyAIPath = GetComponent<AIPath>();
+		if (ESeeker == null) ESeeker = GetComponent<Seeker>();
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);
@@ -144,13 +143,13 @@ public class EnemyMain : PoolableMono
 
 	public void CheckForFacing(Vector2 velocity)
 	{
-		if(IsFacingRight && velocity.x < 0f)
+		if(IsFacingRight && velocity.x >= 0.01f)
 		{
 			Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
 			transform.rotation = Quaternion.Euler(rotator);
 			IsFacingRight =!IsFacingRight;
 		}
-		else if(!IsFacingRight && velocity.x > 0f)
+		else if(!IsFacingRight && velocity.x <= -0.01f)
 		{
 			Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
 			transform.rotation = Quaternion.Euler(rotator);
