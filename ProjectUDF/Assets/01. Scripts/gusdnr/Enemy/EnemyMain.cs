@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class EnemyMain : PoolableMono
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
 	public Transform MovePoint { get; set; }
+	public Seeker EnemySeeker { get; set; }
 	private Transform Visual;
 	#endregion
 
@@ -74,9 +76,12 @@ public class EnemyMain : PoolableMono
 		MaxHealth = maxHealth;
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
+
 		Visual = transform.Find("Visual").GetComponent<Transform>();
 		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
+
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
+		if (EnemySeeker == null) EnemySeeker = GetComponent<Seeker>();
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);
