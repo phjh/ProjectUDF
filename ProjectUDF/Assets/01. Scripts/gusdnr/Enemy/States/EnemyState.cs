@@ -15,7 +15,7 @@ public abstract class EnemyState : ScriptableObject
 	public virtual void ExitState() { }
 
 	public virtual void FrameUpdate() { }
-	public virtual void PhtsicsUpdate() { }
+	public virtual void PhysicsUpdate() { }
 
 	public virtual void AnimationTriggerEvent(EnemyMain.AnimationTriggerType triggerType) { }
 

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +35,8 @@ public class GameManager : MonoSingleton<GameManager>
 	#region Player Info
 	[Header("Player")]
 	public Player player;
+	[Tooltip("Ä«¸Þ¶ó")]
+	public CinemachineVirtualCamera VirtualCam;
 	#endregion
 
 	[Header("Item Manage")]
