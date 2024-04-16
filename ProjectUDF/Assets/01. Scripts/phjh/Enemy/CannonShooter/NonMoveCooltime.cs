@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Cannon Cooldown State", menuName = "SO/State/Cooldown/ThrowCooltime")]
-public class CannonCooltime : EnemyState
+public class NonMoveCooltime : EnemyState
 {
     public override EnemyState Clone()
     {
-        CannonCooltime clone = CloneBase() as CannonCooltime;
+        NonMoveCooltime clone = CloneBase() as NonMoveCooltime;
         return clone;
     }
 

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd204d41ddc0394b91c5e4f82184f88, type: 3}
+  m_Script: {fileID: 11500000, guid: 08f25a01a0709eb4c824957d630d898e, type: 3}
   m_Name: CannonAttack
   m_EditorClassIdentifier: 
-  detectTime: 0.1
-  thrownObjTime: 0.8
+  waitThrow: 0.4
+  waitFall: 1
+  effectdur: 0.4
   maxScale: {x: 1.8, y: 1.5, z: 1.8}

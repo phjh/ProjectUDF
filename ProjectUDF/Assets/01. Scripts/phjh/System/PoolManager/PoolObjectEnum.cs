@@ -4,6 +4,7 @@ public enum PoolObjectListEnum
 	MiniGolem,
 	StoneToad,
 	ToadRock,
+	TuseokStatue,
 }
 
 public enum PoolEffectListEnum 
@@ -13,6 +14,9 @@ public enum PoolEffectListEnum
 	LeftAttack,
 	HitEffect,
 	RightAttack,
+	CannonCharge,
+	CannonFire,
+	CannonRebound,
 }
 
 public enum PoolUIListEnum 

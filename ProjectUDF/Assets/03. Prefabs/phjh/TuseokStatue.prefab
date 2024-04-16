@@ -32,9 +32,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6047603510644859199}
   - {fileID: 8872646575747661014}
   - {fileID: 7639865083392084567}
-  - {fileID: 6047603510644859199}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1202540577100628141
@@ -50,16 +50,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
-    prefab: {fileID: 0}
-    name: 
-    count: 15
-    description: 
+    enumtype: 4
+    prefab: {fileID: 1202540577100628141}
+    name: TuseokStatue
+    count: 10
+    description: "\uB3CC \uB358\uC9C0\uB294\uBAB9"
   ChaseState: {fileID: 11400000, guid: 4bca58862af4afe4288c740eed939135, type: 2}
   AttackState: {fileID: 11400000, guid: 724c8d0fd8c57ec4393df5b7078568b1, type: 2}
   CooldownState: {fileID: 11400000, guid: 8ca8e45947d181b4584ac8b359e919f3, type: 2}
   maxHealth: 30
-  attackCoolTime: 3
+  attackCoolTime: 4
   StrikingRadius: 0
   WhatIsObstacle:
     serializedVersion: 2
@@ -289,6 +289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tuseokStatue
       objectReference: {fileID: 0}
+    - target: {fileID: -8250169266279454816, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -329,11 +333,44 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7889504382150163486, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6754373581347474410}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}
+--- !u!1 &4838412519388166492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}
+  m_PrefabInstance: {fileID: 4954717509773269217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6754373581347474410
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838412519388166492}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85cf563f4a574144eb30cbe6745a1ea2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &6047603510644859199 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 8d0cc54c6f2e4a645b619932b52ee98e, type: 3}

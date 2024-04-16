@@ -28,6 +28,11 @@ MonoBehaviour:
     name: ToadRock
     count: 30
     description: "\uB3CC \uB450\uAEBC\uBE44 \uD22C\uC0AC\uCCB4"
+  - enumtype: 4
+    prefab: {fileID: 1202540577100628141, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+    name: TuseokStatue
+    count: 10
+    description: "\uB3CC \uB358\uC9C0\uB294\uBAB9"
   PoolEffectLists:
   - enumtype: 1
     prefab: {fileID: -1922065975914471239, guid: a59f6c5159c4502458fd602fb201c2ba, type: 3}
@@ -50,6 +55,21 @@ MonoBehaviour:
     name: RightAttack
     count: 5
     description: "\uB545\uC5D0 \uD3ED\uBC1C?\uD558\uB294\uB4EF\uD55C \uC774\uD399\uD2B8"
+  - enumtype: 5
+    prefab: {fileID: 5633371234656337869, guid: 694f688f736a1714b88638892163e988, type: 3}
+    name: CannonCharge
+    count: 5
+    description: "\uB300\uD3EC\uCC28\uC9D5"
+  - enumtype: 6
+    prefab: {fileID: 2365895376337935679, guid: b994618f01949bd4c8322edec0d41fa8, type: 3}
+    name: CannonFire
+    count: 5
+    description: "\uB300\uD3EC \uBC1C\uC0AC \uC774\uD399\uD2B8"
+  - enumtype: 7
+    prefab: {fileID: 7095071153773758962, guid: cb14b59b149cf5e40be60ca1373eb564, type: 3}
+    name: CannonRebound
+    count: 5
+    description: "\uB300\uD3EC \uBC1C\uC0AC\uC2DC \uB4A4\uB85C \uD280\uB294 \uC774\uD399"
   PoolUILists:
   - enumtype: 1
     prefab: {fileID: 1939980559585997479, guid: 577a6b11a0a7d9244a3aa08a8c2c75de, type: 3}

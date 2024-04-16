@@ -16,7 +16,6 @@ public class NonMoveChaseState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.StateMachine.ChangeState(enemy.AttackState);
     }
 
     public override void ExitState()
@@ -27,6 +26,8 @@ public class NonMoveChaseState : EnemyState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        if(enemyStateMachine.CurrentState == this)
+            enemy.StateMachine.ChangeState(enemy.AttackState);
     }
 
 }
