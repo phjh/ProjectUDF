@@ -19,7 +19,7 @@ public class EnemyMain : PoolableMono
 	public Transform Target { get; set; }
 	public Transform MovePoint { get; set; }
 	public Seeker EnemySeeker { get; set; }
-	private Transform Visual;
+	public AIPath EnemyAIPath { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -77,11 +77,12 @@ public class EnemyMain : PoolableMono
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
 
-		Visual = transform.Find("Visual").GetComponent<Transform>();
+		//Visual = transform.Find("Visual").GetComponent<Transform>();
 		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
 
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		if (EnemySeeker == null) EnemySeeker = GetComponent<Seeker>();
+		if (EnemyAIPath == null) EnemyAIPath = GetComponent<AIPath>();
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);
@@ -90,13 +91,13 @@ public class EnemyMain : PoolableMono
 	private void Update()
 	{
 		if (GameManager.Instance.gameState != GameStates.PauseUIOn)
-		StateMachine.CurrentState.FrameUpdate();
+		StateMachine.CurrentState?.FrameUpdate();
 	}
 
 	private void FixedUpdate()
 	{
 		if(GameManager.Instance.gameState != GameStates.PauseUIOn)
-		StateMachine.CurrentState.PhysicsUpdate();
+		StateMachine.CurrentState?.PhysicsUpdate();
 	}
 
 	#region Methods

@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: MiniGolemNormalChase
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  pathUpdateTime: 0.5
+  nextWaypointDistance: 1.2
