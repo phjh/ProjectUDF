@@ -12,8 +12,6 @@ public class CannonAttackState : EnemyState
     public float waitFall = 1f;
     public float effectdur = 0.4f;
     
-    public Material rangeMat;
-    
     private Animator animator;
     private Coroutine attackCoroutine;
     private GameObject attackRange;
@@ -27,7 +25,6 @@ public class CannonAttackState : EnemyState
         clone.attackRange = enemy.transform.Find("AttackRange").gameObject;
         clone.attackSRangeSp = clone.attackRange.GetComponent<SpriteRenderer>();
         clone.attackRangeCol = clone.attackRange.GetComponent<CircleCollider2D>();
-        clone.rangeMat = rangeMat;
         clone.chargingTime = chargingTime;
         clone.waitThrow = waitThrow;
         clone.waitFall = waitFall;
