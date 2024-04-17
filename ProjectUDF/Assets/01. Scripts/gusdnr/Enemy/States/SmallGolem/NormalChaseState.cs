@@ -17,6 +17,7 @@ public class NormalChaseState : EnemyState
 	{
 		NormalChaseState clone = CloneBase() as NormalChaseState;
 		// 추가적인 초기화가 필요한 경우 여기서 설정
+		clone.name = name + "Clone";
 		clone.movementSpeed = movementSpeed;
 		clone.pathUpdateTime = pathUpdateTime;
 		clone.nextWaypointDistance = nextWaypointDistance;
@@ -26,12 +27,13 @@ public class NormalChaseState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
+		CheckingValue();
 		enemy.InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateTime);
 	}
 
-	private void UpdatePath()
+	public void CheckingValue()
 	{
-		if (enemy.ESeeker.IsDone()) enemy.ESeeker.StartPath(enemy.EnemyRB.position, enemy.Target.position, OnPathComplete);
+		Debug.Assert(enemy == null, "Enemy is null");
 	}
 
 	public override void ExitState()
@@ -44,7 +46,6 @@ public class NormalChaseState : EnemyState
 	{
 		base.FrameUpdate();
 		
-
 		//플레이어가 시야 내에 있을 때
 		if (enemy.IsWithStrikingDistance)
 		{
@@ -52,9 +53,13 @@ public class NormalChaseState : EnemyState
 			if (enemy.UpdateFOV() && !enemy.IsAttackCooldown)
 			{
 				// 공격 가능한 상태로 전환
-				//enemy.MoveEnemy(Vector2.zero);
+				enemy.MoveEnemy(Vector2.zero);
 				enemy.StateMachine.ChangeState(enemy.AttackState);
 			}
+		}
+		else
+		{
+			MoveToPath();
 		}
 	}
 
@@ -83,16 +88,14 @@ public class NormalChaseState : EnemyState
 		{
 			currentWaypoint = currentWaypoint + 1;
 		}
-
-		/*if (rb.velocity.x >= 0.01f)
-		{
-			enemyGFX.localScale = new Vector3(1f, 1f, 1f);
-		}
-		else if (rb.velocity.x <= -0.01f)
-		{
-			enemyGFX.localScale = new Vector3(-1f, 1f, 1f);
-		}*/
 	}
+
+
+	private void UpdatePath()
+	{
+		if (enemy.ESeeker.IsDone()) enemy.ESeeker.StartPath(enemy.EnemyRB.position, enemy.Target.position, OnPathComplete);
+	}
+
 
 	private void OnPathComplete(Path pt)
 	{

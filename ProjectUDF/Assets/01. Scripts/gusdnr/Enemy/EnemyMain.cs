@@ -77,11 +77,11 @@ public class EnemyMain : PoolableMono
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
 
-		//Visual = transform.Find("Visual").GetComponent<Transform>();
 		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
 
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		if (ESeeker == null) ESeeker = GetComponent<Seeker>();
+
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);

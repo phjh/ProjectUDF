@@ -58,7 +58,6 @@ public class GameManager : MonoSingleton<GameManager>
 	public static event Action OnEnd;
 	#endregion
 
-
 	private void Awake()
 	{
 		PoolManager.Instance = new PoolManager();
