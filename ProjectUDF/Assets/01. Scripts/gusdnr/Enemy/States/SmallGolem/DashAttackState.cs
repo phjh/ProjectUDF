@@ -34,10 +34,8 @@ public class DashAttackState : EnemyState
 		base.EnterState();
 		DOTween.Init();
 		TargetPos = Vector2.zero;
-		Debug.Log($"Enter Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 		EndPoint = Vector2.zero;
-		EnemyPos = enemy.transform.position;
-		Debug.Log($"Enter End Pos : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
+		EnemyPos = enemy.transform.localPosition;
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
