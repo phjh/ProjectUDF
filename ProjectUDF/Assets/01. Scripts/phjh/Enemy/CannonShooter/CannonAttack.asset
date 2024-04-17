@@ -15,5 +15,6 @@ MonoBehaviour:
   chargingTime: 1
   waitThrow: 0.2
   waitRange: 1
-  waitFall: 1
+  waitFall: 1.2
   effectdur: 0.4
+  rangeMat: {fileID: 2100000, guid: da1a03a8fe461db4695b3ef666a3dac8, type: 2}

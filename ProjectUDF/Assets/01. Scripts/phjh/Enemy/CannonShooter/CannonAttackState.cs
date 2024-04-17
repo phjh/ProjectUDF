@@ -14,11 +14,17 @@ public class CannonAttackState : EnemyState
     
     private Animator animator;
     private Coroutine attackCoroutine;
+    private GameObject attackRange;
+    private SpriteRenderer attackSRangeSp;
+    private CircleCollider2D attackRangeCol;
 
     public override EnemyState Clone()
     {
         CannonAttackState clone = CloneBase() as CannonAttackState;
         clone.animator = enemy.GetComponentInChildren<Animator>();
+        clone.attackRange = enemy.transform.Find("AttackRange").gameObject;
+        clone.attackSRangeSp = clone.attackRange.GetComponent<SpriteRenderer>();
+        clone.attackRangeCol = clone.attackRange.GetComponent<CircleCollider2D>();
         clone.chargingTime = chargingTime;
         clone.waitThrow = waitThrow;
         clone.waitFall = waitFall;
@@ -35,12 +41,12 @@ public class CannonAttackState : EnemyState
 
     public override void ExitState()
     {
-        //base.ExitState();
-        //if (attackCoroutine != null)
-        //{
-        //    enemy.StopCoroutine(attackCoroutine);
-        //    attackCoroutine = null;
-        //}
+        base.ExitState();
+        if (attackCoroutine != null)
+        {
+            enemy.StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
     }
 
     private IEnumerator AttackCoroutine()
@@ -54,13 +60,18 @@ public class CannonAttackState : EnemyState
         EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.CannonRebound, enemy.transform.position + Vector3.up / 2, effectdur);
         animator.SetBool("isShooting", false);
         yield return new WaitForSeconds(waitRange);
-        Vector2 attackDir = enemy.Target.position;
-        //여기서 공격범위를 보여준다.
-
+        Vector2 attackPos = enemy.Target.position;
+        attackRange.transform.position = attackPos;
+        attackRange.SetActive(true);
+        //이펙트 추가 고민중
+        attackSRangeSp.DOColor((new Color(255, 45, 45, 200) / 255), waitFall).SetEase(Ease.OutCubic);
         yield return new WaitForSeconds(waitFall);
-
-        //여기서 오브젝트가 덜어지는걸 생성한다.
-
+        attackRangeCol.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        attackRangeCol.enabled = false;
+        attackRange.SetActive(false);
+        attackSRangeSp.color = (new Color(255, 45, 45, 140) / 255);
+        //attackRangeSp.material = mat;
         attackCoroutine = null;
         enemy.StateMachine.ChangeState(enemy.CooldownState);
     }

@@ -380,15 +380,15 @@ MonoBehaviour:
   ChaseState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
   AttackState: {fileID: 11400000, guid: d658bf21e596aee45824ca539ce5efe4, type: 2}
   CooldownState: {fileID: 11400000, guid: 02d936591c9b37842b9e9f45b0ee4915, type: 2}
-  maxHealth: 10
-  attackCoolTime: 3
+  maxHealth: 30
+  attackCoolTime: 1
   StrikingRadius: 3
   WhatIsObstacle:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   WhatIsPlayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   canAttack: 1
 --- !u!58 &1226782799930998107
 CircleCollider2D:
