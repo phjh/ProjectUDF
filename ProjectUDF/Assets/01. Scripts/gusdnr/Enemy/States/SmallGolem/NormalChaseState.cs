@@ -16,11 +16,14 @@ public class NormalChaseState : EnemyState
 	public override EnemyState Clone()
 	{
 		NormalChaseState clone = CloneBase() as NormalChaseState;
+		Debug.Assert(clone == null, "Clone is Null");
 		// 추가적인 초기화가 필요한 경우 여기서 설정
-		clone.name = name + "Clone";
 		clone.movementSpeed = movementSpeed;
 		clone.pathUpdateTime = pathUpdateTime;
 		clone.nextWaypointDistance = nextWaypointDistance;
+
+		clone.currentWaypoint = 0;
+		clone.reachedEndOfPath = false;
 		return clone;
 	}
 

@@ -59,16 +59,19 @@ public class EnemyMain : PoolableMono
 		ResetPoolingItem();
 
 		ChaseState.Initialize(this, StateMachine);
+		Debug.Log("Start Cloning Chasing State");
 		ChaseState = ChaseState.Clone();
-		if (ChaseState == null) Debug.LogError("Chase state is Null");
+		Debug.Assert(ChaseState == null, "Chase state is Null");
 
 		AttackState.Initialize(this, StateMachine);
+		Debug.Log("Start Cloning Attack State");
 		AttackState = AttackState.Clone();
-		if (AttackState == null) Debug.LogError("Attack state is Null");
+		Debug.Assert(AttackState == null, "Attack state is Null");
 
 		CooldownState.Initialize(this, StateMachine);
+		Debug.Log("Start Cloning Cooldown State");
 		CooldownState = CooldownState.Clone();
-		if (CooldownState == null) Debug.LogError("Cooldown state is Null");
+		Debug.Assert(CooldownState == null, "Cooldown State is Null");
 	}
 
 	public override void ResetPoolingItem()

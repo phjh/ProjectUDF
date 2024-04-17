@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2590111094863271189}
   - component: {fileID: 5260032936566297420}
   m_Layer: 8
-  m_Name: TuseokStatue
+  m_Name: DialysisStatue
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
