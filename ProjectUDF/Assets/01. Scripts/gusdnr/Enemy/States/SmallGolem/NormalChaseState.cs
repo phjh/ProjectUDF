@@ -26,13 +26,8 @@ public class NormalChaseState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
-		CheckingValue();
+		enemy.UpdatePath();
 		enemy.InvokeRepeating(nameof(enemy.UpdatePath), 0f, pathUpdateTime);
-	}
-
-	public void CheckingValue()
-	{
-		if(enemy == null) Debug.LogError("Enemy is null");
 	}
 
 	public override void ExitState()
@@ -70,7 +65,6 @@ public class NormalChaseState : EnemyState
 	{
 		if(enemy.EPath == null)
 		{
-			Debug.LogError("Path is null");
 			return;
 		}
 

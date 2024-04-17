@@ -35,7 +35,7 @@ public class DashAttackState : EnemyState
 		DOTween.Init();
 		TargetPos = Vector2.zero;
 		EndPoint = Vector2.zero;
-		EnemyPos = enemy.transform.localPosition;
+		EnemyPos = enemy.EnemyRB.position;
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
@@ -75,6 +75,8 @@ public class DashAttackState : EnemyState
 		yield return LockOnCoroutine;
 
 		RaycastHit2D HitObstacle = Physics2D.Raycast(EnemyPos, TargetPos, DashDistance, WhatIsObstacle);
+		Debug.DrawRay(EnemyPos, TargetPos, Color.blue);
+		yield return new WaitForSeconds(5);
 		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
@@ -88,7 +90,6 @@ public class DashAttackState : EnemyState
 			EndPoint = EnemyPos + directionToTarget * DashDistance * (directionToTarget.x >= 0 ? 1 : -1);
 			Debug.Log($"End Pos.normal : [{(EnemyPos - TargetPos).normalized.x}] [{(EnemyPos - TargetPos).normalized.normalized.y}]");
 		}
-		Debug.DrawRay(EnemyPos, TargetPos, Color.cyan);
 		Debug.DrawRay(EnemyPos, EndPoint, Color.magenta, DashDistance);
 		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		enemy.CheckForFacing(EndPoint.normalized);
@@ -109,6 +110,6 @@ public class DashAttackState : EnemyState
 		TargetPos = enemy.Target.position;
 		Debug.Log($"Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 
-		Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
+		//Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
 	}
 }
