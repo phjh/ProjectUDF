@@ -9,20 +9,16 @@ public class NormalChaseState : EnemyState
 	public float pathUpdateTime;
 	public float nextWaypointDistance;
 
-	private Path path;
-	private int currentWaypoint = 0;
 	private bool reachedEndOfPath = false;
 
 	public override EnemyState Clone()
 	{
 		NormalChaseState clone = CloneBase() as NormalChaseState;
-		Debug.Assert(clone == null, "Clone is Null");
 		// 추가적인 초기화가 필요한 경우 여기서 설정
 		clone.movementSpeed = movementSpeed;
 		clone.pathUpdateTime = pathUpdateTime;
 		clone.nextWaypointDistance = nextWaypointDistance;
 
-		clone.currentWaypoint = 0;
 		clone.reachedEndOfPath = false;
 		return clone;
 	}
@@ -31,12 +27,12 @@ public class NormalChaseState : EnemyState
 	{
 		base.EnterState();
 		CheckingValue();
-		enemy.InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateTime);
+		enemy.InvokeRepeating(nameof(enemy.UpdatePath), 0f, pathUpdateTime);
 	}
 
 	public void CheckingValue()
 	{
-		Debug.Assert(enemy == null, "Enemy is null");
+		if(enemy == null) Debug.LogError("Enemy is null");
 	}
 
 	public override void ExitState()
@@ -59,6 +55,10 @@ public class NormalChaseState : EnemyState
 				enemy.MoveEnemy(Vector2.zero);
 				enemy.StateMachine.ChangeState(enemy.AttackState);
 			}
+			else
+			{
+				MoveToPath();
+			}
 		}
 		else
 		{
@@ -68,9 +68,13 @@ public class NormalChaseState : EnemyState
 
 	private void MoveToPath()
 	{
-		if(path == null) return;
+		if(enemy.EPath == null)
+		{
+			Debug.LogError("Path is null");
+			return;
+		}
 
-		if (currentWaypoint >= path.vectorPath.Count)
+		if (enemy.CurrentWaypoint >= enemy.EPath.vectorPath.Count)
 		{
 			reachedEndOfPath = true;
 			return;
@@ -80,32 +84,17 @@ public class NormalChaseState : EnemyState
 			reachedEndOfPath = false;
 		}
 
-		Vector2 dircetion = ((Vector2)path.vectorPath[currentWaypoint] - enemy.EnemyRB.position).normalized;
+		Vector2 dircetion = ((Vector2)enemy.EPath.vectorPath[enemy.CurrentWaypoint] - enemy.EnemyRB.position).normalized;
 		Vector2 force = dircetion * movementSpeed;
 
 		enemy.MoveEnemy(force);
 
-		float distance = Vector2.Distance(enemy.EnemyRB.position, path.vectorPath[currentWaypoint]);
+		float distance = Vector2.Distance(enemy.EnemyRB.position, enemy.EPath.vectorPath[enemy.CurrentWaypoint]);
 
 		if (distance < nextWaypointDistance)
 		{
-			currentWaypoint = currentWaypoint + 1;
+			enemy.CurrentWaypoint = enemy.CurrentWaypoint + 1;
 		}
 	}
 
-
-	private void UpdatePath()
-	{
-		if (enemy.ESeeker.IsDone()) enemy.ESeeker.StartPath(enemy.EnemyRB.position, enemy.Target.position, OnPathComplete);
-	}
-
-
-	private void OnPathComplete(Path pt)
-	{
-		if (!pt.error)
-		{
-			path = pt;
-			currentWaypoint = 0;
-		}
-	}
 }

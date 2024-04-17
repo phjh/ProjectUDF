@@ -18,8 +18,12 @@ public class EnemyMain : PoolableMono
 	public Rigidbody2D EnemyRB { get; set; }
 	public Transform Target { get; set; }
 	public Transform MovePoint { get; set; }
+	#endregion
+
+	#region Enemy Pathfinding
 	public Seeker ESeeker { get; set; }
-	//public Path EPath { get; set; }
+	public Path EPath { get; set; }
+	public int CurrentWaypoint { get; set; }
 	#endregion
 
 	#region State Machine Variables
@@ -52,26 +56,26 @@ public class EnemyMain : PoolableMono
 	{
 		if(StateMachine == null)
 		StateMachine = new EnemyStateMachine();
+
+		ChaseState.Initialize(this, StateMachine);
+		Debug.Log("Start Cloning Chasing State");
+		ChaseState = ChaseState.Clone();
+		if(ChaseState == null) Debug.Log("Chase state is Null");
+
+		AttackState.Initialize(this, StateMachine);
+		Debug.Log("Start Cloning Attack State");
+		AttackState = AttackState.Clone();
+		if(AttackState == null) Debug.LogError("Attack state is Null");
+
+		CooldownState.Initialize(this, StateMachine);
+		Debug.Log("Start Cloning Cooldown State");
+		CooldownState = CooldownState.Clone();
+		if(CooldownState == null) Debug.LogError("Cooldown State is Null");
 	}
 
 	private void Start()
 	{
 		ResetPoolingItem();
-
-		ChaseState.Initialize(this, StateMachine);
-		Debug.Log("Start Cloning Chasing State");
-		ChaseState = ChaseState.Clone();
-		Debug.Assert(ChaseState == null, "Chase state is Null");
-
-		AttackState.Initialize(this, StateMachine);
-		Debug.Log("Start Cloning Attack State");
-		AttackState = AttackState.Clone();
-		Debug.Assert(AttackState == null, "Attack state is Null");
-
-		CooldownState.Initialize(this, StateMachine);
-		Debug.Log("Start Cloning Cooldown State");
-		CooldownState = CooldownState.Clone();
-		Debug.Assert(CooldownState == null, "Cooldown State is Null");
 	}
 
 	public override void ResetPoolingItem()
@@ -120,6 +124,24 @@ public class EnemyMain : PoolableMono
 		canAttack = true;
 	}
 
+	#region PathFinding
+
+	public void UpdatePath()
+	{
+		if (ESeeker.IsDone()) ESeeker.StartPath(EnemyRB.position, Target.position, OnPathComplete);
+	}
+
+	private void OnPathComplete(Path pt)
+	{
+		if (!pt.error)
+		{
+			EPath = pt;
+			CurrentWaypoint = 0;
+		}
+	}
+
+	#endregion
+
 	#region Manage Health/Die
 	public void Damage(float damageAmount)
 	{
@@ -146,13 +168,13 @@ public class EnemyMain : PoolableMono
 
 	public void CheckForFacing(Vector2 velocity)
 	{
-		if(IsFacingRight && velocity.x >= 0.01f)
+		if(IsFacingRight && velocity.x <= -0.01f)
 		{
 			Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
 			transform.rotation = Quaternion.Euler(rotator);
 			IsFacingRight =!IsFacingRight;
 		}
-		else if(!IsFacingRight && velocity.x <= -0.01f)
+		else if(!IsFacingRight && velocity.x >= 0.01f)
 		{
 			Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
 			transform.rotation = Quaternion.Euler(rotator);
