@@ -97,7 +97,7 @@ public class PoolManager
     {
         if (!ObjectPoolingList.ContainsKey(enumlist))
         {
-            Debug.LogError("Prefab doesnt exist on pool");
+            Debug.LogError($"Prefab {enumlist.ToString()} doesnt exist on pool");
             return null;
         }
         PoolableMono item = ObjectPoolingList[enumlist].Pop();

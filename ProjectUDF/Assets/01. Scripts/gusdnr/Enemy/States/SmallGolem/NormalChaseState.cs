@@ -28,6 +28,7 @@ public class NormalChaseState : EnemyState
 	{
 		base.EnterState();
 		CheckingValue();
+		Debug.Assert(nameof(UpdatePath) == null, "updatepath null");
 		enemy.InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateTime);
 	}
 
@@ -93,6 +94,7 @@ public class NormalChaseState : EnemyState
 
 	private void UpdatePath()
 	{
+		Debug.Log($"pos : {enemy.transform.position} rbpos : {enemy.EnemyRB.position}");
 		if (enemy.ESeeker.IsDone()) enemy.ESeeker.StartPath(enemy.EnemyRB.position, enemy.Target.position, OnPathComplete);
 	}
 

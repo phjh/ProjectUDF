@@ -21,7 +21,7 @@ public class DashAttackState : EnemyState
 	public override EnemyState Clone()
 	{
 		DashAttackState clone = CloneBase() as DashAttackState;
-		// Ãß°¡ÀûÀÎ ÃÊ±âÈ­°¡ ÇÊ¿äÇÑ °æ¿ì ¿©±â¼­ ¼³Á¤
+		// ì¶”ê??ì¸ ì´ˆê¸°?”ê? ?„ìš”??ê²½ìš° ?¬ê¸°???¤ì •
 		clone.LockOnTime = LockOnTime;
 		clone.DashTime = DashTime;
 		clone.DashDistance = DashDistance;
@@ -41,10 +41,10 @@ public class DashAttackState : EnemyState
 		enemy.StopAllCoroutines();
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
-		//°ø°Ý ¼ø¼­
-		//AttackCoroutine ÀÛµ¿ / LockOnCoroutine Á¾·á ´ë±â -> LockOnCoroutine ÀÛµ¿ -> µ¹Áø ¹æÇâ ÁöÁ¤
-		//-> LockOnCoroutine Á¾·á -> ÀÏÁ¤ ½Ã°£ µ¿¾È µ¹Áø ½ÇÇà -> ½Ã°£ °æ°ú ÈÄ Àû ÀÌµ¿ ¼Óµµ 0À¸·Î º¯°æÇØ Á¤Áö
-		//AttackCoroutine Á¾·á -> CoolDownState·Î º¯°æ
+		//ê³µê²© ?œì„œ
+		//AttackCoroutine ?‘ë™ / LockOnCoroutine ì¢…ë£Œ ?€ê¸?-> LockOnCoroutine ?‘ë™ -> ?Œì§„ ë°©í–¥ ì§€??
+		//-> LockOnCoroutine ì¢…ë£Œ -> ?¼ì • ?œê°„ ?™ì•ˆ ?Œì§„ ?¤í–‰ -> ?œê°„ ê²½ê³¼ ?????´ë™ ?ë„ 0?¼ë¡œ ë³€ê²½í•´ ?•ì?
+		//AttackCoroutine ì¢…ë£Œ -> CoolDownStateë¡?ë³€ê²?
 	}
 
 	public override void ExitState()

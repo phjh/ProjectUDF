@@ -102,6 +102,8 @@ public class PlayerMovement : Player
     {
         if (_player.ActiveMove)
             CalculatePlayerMovement();
+        else 
+            StopImmediately();
         if (!_player._isdodgeing)
             Move();
     }

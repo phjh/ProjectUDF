@@ -14,11 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   monsterWaves: 2
-  MapPrefab: {fileID: 8708210958227143556, guid: b3cf4fe0dd7195b48b61522534badc3e, type: 3}
+  MapPrefab: {fileID: 8708210958227143556, guid: 099a4fa0adfe617488f9d910bd55f4b7, type: 3}
   timeLimit: 100
-  numberOfMonsters: 0600000009000000
-  spawnMonsterList:
-  - {fileID: 3469863099141652256, guid: a1188d32532bf9b45949380ea602f79b, type: 3}
-  - {fileID: 1657760043003656654, guid: 30351b57998940047a26f836f07b9384, type: 3}
-  - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
-  spawnMonster: []
+  numberOfMonsters: 0200000003000000
+  spawnMonsterList: []
+  spawnMonsters:
+  - monsterObj: {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+    monsterPos: {x: 4, y: 5}
+  - monsterObj: {fileID: 7328841657428460188, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
+    monsterPos: {x: -2, y: -2}
+  - monsterObj: {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+    monsterPos: {x: 0, y: 0}
+  - monsterObj: {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+    monsterPos: {x: -3, y: 3}
+  - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+    monsterPos: {x: 5, y: -4}
+  exit: 0
