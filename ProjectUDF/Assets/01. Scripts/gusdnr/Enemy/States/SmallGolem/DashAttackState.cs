@@ -13,6 +13,8 @@ public class DashAttackState : EnemyState
 	public float DashDistance;
 	public LayerMask WhatIsObstacle;
 
+	GridGraph gridGraph;
+
 	private Coroutine LockOnCoroutine;
 	private Coroutine AttackCoroutine;
 	private Vector2 TargetPos;
@@ -22,7 +24,7 @@ public class DashAttackState : EnemyState
 	public override EnemyState Clone()
 	{
 		DashAttackState clone = CloneBase() as DashAttackState;
-		// Ï∂îÍ??ÅÏù∏ Ï¥àÍ∏∞?îÍ? ?ÑÏöî??Í≤ΩÏö∞ ?¨Í∏∞???§Ï†ï
+		// √ﬂ∞°¿˚¿Œ √ ±‚»≠∞° « ø‰«— ∞ÊøÏ ø©±‚º≠ º≥¡§
 		clone.LockOnTime = LockOnTime;
 		clone.DashTime = DashTime;
 		clone.DashDistance = DashDistance;
@@ -40,12 +42,15 @@ public class DashAttackState : EnemyState
 		//EnemyPos = enemy.EnemyRB.position;
 		enemy.StopAllCoroutines();
 		EnemyPos = enemy.EnemyRB.position;
+
+		gridGraph = AstarPath.active.data.gridGraph;
+
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
-		//Í≥µÍ≤© ?úÏÑú
-		//AttackCoroutine ?ëÎèô / LockOnCoroutine Ï¢ÖÎ£å ?ÄÍ∏?-> LockOnCoroutine ?ëÎèô -> ?åÏßÑ Î∞©Ìñ• ÏßÄ??
-		//-> LockOnCoroutine Ï¢ÖÎ£å -> ?ºÏ†ï ?úÍ∞Ñ ?ôÏïà ?åÏßÑ ?§Ìñâ -> ?úÍ∞Ñ Í≤ΩÍ≥º ?????¥Îèô ?çÎèÑ 0?ºÎ°ú Î≥ÄÍ≤ΩÌï¥ ?ïÏ?
-		//AttackCoroutine Ï¢ÖÎ£å -> CoolDownStateÎ°?Î≥ÄÍ≤?
+		//∞¯∞› º¯º≠
+		//AttackCoroutine ¿€µø / LockOnCoroutine ¡æ∑· ¥Î±‚ -> LockOnCoroutine ¿€µø -> µπ¡¯ πÊ«‚ ¡ˆ¡§
+		//-> LockOnCoroutine ¡æ∑· -> ¿œ¡§ Ω√∞£ µøæ» µπ¡¯ Ω««‡ -> Ω√∞£ ∞Ê∞˙ »ƒ ¿˚ ¿Ãµø º”µµ 0¿∏∑Œ ∫Ø∞Ê«ÿ ¡§¡ˆ
+		//AttackCoroutine ¡æ∑· -> CoolDownState∑Œ ∫Ø∞Ê
 	}
 
 	public override void ExitState()
@@ -83,9 +88,17 @@ public class DashAttackState : EnemyState
 		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
-			EndPoint = HitObstacle.point;
-			EndPoint.x = (EndPoint.x > EnemyPos.x) ? EndPoint.x + 1.1f : EndPoint.x - 1.1f;
-			EndPoint.y = (EndPoint.y > EnemyPos.y) ? EndPoint.y - 0.3f : EndPoint.y + 0.3f;
+			Vector2 HitPos = HitObstacle.point;
+			HitPos.x = (HitPos.x > EnemyPos.x) ? HitPos.x - 0.5f : HitPos.x + 0.5f;
+			HitPos.y = (HitPos.y > EnemyPos.y) ? HitPos.y - 0.5f : HitPos.y + 0.5f;
+
+			// ¡÷∫Ø ≥ÎµÂ √£±‚
+			NNInfoInternal nearestNodeInfo = gridGraph.GetNearest(HitPos, NNConstraint.None);
+
+			GraphNode nearestNode = nearestNodeInfo.node;
+			Vector3 worldPosition = (Vector3)nearestNode.position;
+			
+			EndPoint = worldPosition;
 			Debug.DrawRay(EnemyPos, EndPoint, Color.blue, DashDistance);
 			yield return new WaitForSeconds(1);
 		}
