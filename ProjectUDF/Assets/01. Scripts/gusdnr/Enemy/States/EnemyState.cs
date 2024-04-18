@@ -26,6 +26,7 @@ public abstract class EnemyState : ScriptableObject
 	{
 		EnemyState cloneState = Instantiate(this);
 		cloneState.Initialize(enemy, enemyStateMachine);
+		cloneState.name = "(Cloned)" + name.Replace("State", "");
 		return cloneState;
 	}
 }

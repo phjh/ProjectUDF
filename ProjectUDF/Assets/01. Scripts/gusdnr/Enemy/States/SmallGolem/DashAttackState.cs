@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using Pathfinding;
 
 [CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/Dash")]
 public class DashAttackState : EnemyState
@@ -26,6 +27,7 @@ public class DashAttackState : EnemyState
 		clone.DashTime = DashTime;
 		clone.DashDistance = DashDistance;
 		clone.WhatIsObstacle = WhatIsObstacle;
+
 		return clone;
 	}
 
@@ -34,11 +36,10 @@ public class DashAttackState : EnemyState
 		base.EnterState();
 		DOTween.Init();
 		TargetPos = Vector2.zero;
-		Debug.Log($"Enter Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 		EndPoint = Vector2.zero;
-		EnemyPos = enemy.transform.position;
-		Debug.Log($"Enter End Pos : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
+		//EnemyPos = enemy.EnemyRB.position;
 		enemy.StopAllCoroutines();
+		EnemyPos = enemy.EnemyRB.position;
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
 		//공격 ?�서
@@ -76,25 +77,27 @@ public class DashAttackState : EnemyState
 		
 		yield return LockOnCoroutine;
 
-		RaycastHit2D HitObstacle = Physics2D.Raycast(EnemyPos, TargetPos, DashDistance, WhatIsObstacle);
+		Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
+
+		RaycastHit2D HitObstacle = Physics2D.Raycast(EnemyPos, directionToTarget, DashDistance, WhatIsObstacle);
 		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
 			EndPoint = HitObstacle.point;
-			EndPoint.x = (EndPoint.x > EnemyPos.x) ? EndPoint.x - 1.1f : EndPoint.x + 1.1f;
+			EndPoint.x = (EndPoint.x > EnemyPos.x) ? EndPoint.x + 1.1f : EndPoint.x - 1.1f;
 			EndPoint.y = (EndPoint.y > EnemyPos.y) ? EndPoint.y - 0.3f : EndPoint.y + 0.3f;
+			Debug.DrawRay(EnemyPos, EndPoint, Color.blue, DashDistance);
+			yield return new WaitForSeconds(1);
 		}
 		else if (!HitObstacle)
 		{
-			Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
-			EndPoint = EnemyPos + directionToTarget * DashDistance * (directionToTarget.x >= 0 ? 1 : -1);
-			Debug.Log($"End Pos.normal : [{(EnemyPos - TargetPos).normalized.x}] [{(EnemyPos - TargetPos).normalized.normalized.y}]");
+			EndPoint = EnemyPos + (directionToTarget * DashDistance);
+			Debug.Log($"End Pos.normal : [{directionToTarget.x}] [{directionToTarget.y}]");
 		}
-		Debug.DrawRay(EnemyPos, TargetPos, Color.cyan);
-		Debug.DrawRay(EnemyPos, EndPoint, Color.magenta, DashDistance);
 		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
-		enemy.CheckForFacing(EndPoint.normalized);
+		enemy.CheckForFacing(directionToTarget);
 		yield return new WaitForSeconds(1);
+		Debug.DrawRay(EnemyPos, EndPoint, Color.magenta, DashDistance);
 		var dashSeq = DOTween.Sequence();
 
 		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCirc));
@@ -109,8 +112,8 @@ public class DashAttackState : EnemyState
 	{
 		yield return new WaitForSeconds(LockOnTime);
 		TargetPos = enemy.Target.position;
-		Debug.Log($"Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
+		Debug.Log($"Input : Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
 
-		Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
+		//Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
 	}
 }

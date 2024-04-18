@@ -76,21 +76,18 @@ public class PoolManager
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
         ObjectPoolingList.Add(pair.enumtype, pool);
-        Debug.Log(pair.ToString() + "Has Generated");
     }
 
     public void CreatePool(EffectPoolingPair pair, Transform parent)
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
         EffectPoolingList.Add(pair.enumtype, pool);
-        Debug.Log(pair.ToString() + "Has Generated");
     }
 
     public void CreatePool(UIPoolingPair pair, Transform parent)
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
         UIPoolingList.Add(pair.enumtype, pool);
-        Debug.Log(pair.ToString() + "Has Generated");
     }
 
     public PoolableMono Pop(PoolObjectListEnum enumlist)

@@ -47,7 +47,7 @@ public class UIManager : MonoSingleton<UIManager>
 	}
     private void Start()
     {
-        MapSystem.Instance.RoomClearEvent += ShowMining;
+        //MapSystem.Instance.RoomClearEvent += ShowMining;
     }
 
 	#region Mining UI
