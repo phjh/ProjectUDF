@@ -157,10 +157,13 @@ public class PlayerAttack : Player
     [Obsolete]
     private void Update()
     {
+
         if (_player._isdodgeing)
         {
             if(stopCoroutine != null)
                 StopCoroutine(stopCoroutine);
+            leftAtkCol.enabled = false;
+            _rightAtkcol.enabled = false;
             _range.gameObject.SetActive(false);
             _rightattackRange.SetActive(false);
             _player.IsAttacking = false;

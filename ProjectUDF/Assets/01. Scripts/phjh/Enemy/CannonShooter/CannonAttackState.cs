@@ -35,6 +35,8 @@ public class CannonAttackState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        attackRange.SetActive(false);
+        attackRangeCol.enabled = false;
         //Debug.Log("before start coroutine");
         attackCoroutine = enemy.StartCoroutine(AttackCoroutine());
     }

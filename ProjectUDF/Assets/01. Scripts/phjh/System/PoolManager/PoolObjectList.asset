@@ -16,12 +16,12 @@ MonoBehaviour:
   - enumtype: 1
     prefab: {fileID: 3485512363394060473, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
     name: MiniGolem
-    count: 0
+    count: 10
     description: "\uBBF8\uB2C8\uACE8\uB818"
   - enumtype: 2
     prefab: {fileID: 8234726395678351441, guid: c7f484b1640ce4842bffe96efc02e002, type: 3}
     name: StoneToad
-    count: 0
+    count: 10
     description: "\uB3CC \uB450\uAEBC\uBE44"
   - enumtype: 3
     prefab: {fileID: 5074923153897559526, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
@@ -31,7 +31,7 @@ MonoBehaviour:
   - enumtype: 4
     prefab: {fileID: 1202540577100628141, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
     name: TuseokStatue
-    count: 0
+    count: 10
     description: "\uB3CC \uB358\uC9C0\uB294\uBAB9"
   PoolEffectLists:
   - enumtype: 1

@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxHP: 6
   curHP: 0
   Strength:
-    baseValue: 4
+    baseValue: 10
     fixedModifiers: []
     persentedModifiers: []
   MoveSpeed:

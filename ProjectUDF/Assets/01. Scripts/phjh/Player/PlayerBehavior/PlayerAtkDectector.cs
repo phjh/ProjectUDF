@@ -43,7 +43,7 @@ public class PlayerAtkDectector : MonoBehaviour
         }
         perlin.m_AmplitudeGain = shakeIntencity * 0.5f;
         perlin.m_FrequencyGain = frequency;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
         perlin.m_FrequencyGain = 0;
         perlin.m_AmplitudeGain = 0;
     }

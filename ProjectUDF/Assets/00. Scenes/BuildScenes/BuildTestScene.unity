@@ -643,7 +643,7 @@ MonoBehaviour:
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
-  showNavGraphs: 0
+  showNavGraphs: 1
   showUnwalkableNodes: 1
   debugMode: 0
   debugFloor: 0
@@ -11795,7 +11795,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501686476}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -16413,7 +16413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9efdc958ff8bc7143bb9a52f2163f799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCritical: 0
 --- !u!1 &1931283793
 GameObject:
   m_ObjectHideFlags: 0
@@ -16478,6 +16477,7 @@ MonoBehaviour:
   _player: {fileID: 27659247}
   _range: {fileID: 1967910357}
   _rightattackRange: {fileID: 923609413}
+  isCritical: 0
   ChargeTime: 1.6
   stiffenTime: 0.4
   ResentDamage: 0
@@ -16726,7 +16726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1967910357
 MonoBehaviour:
   m_ObjectHideFlags: 0
