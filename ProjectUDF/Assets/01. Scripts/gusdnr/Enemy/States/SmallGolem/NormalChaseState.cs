@@ -44,7 +44,7 @@ public class NormalChaseState : EnemyState
 		if (enemy.IsWithStrikingDistance)
 		{
 			//공격 가능한 상태일 때
-			if (enemy.UpdateFOV() && !enemy.IsAttackCooldown)
+			if (enemy.UpdateFOV() == true && !enemy.IsAttackCooldown)
 			{
 				// 공격 가능한 상태로 전환
 				enemy.MoveEnemy(Vector2.zero);

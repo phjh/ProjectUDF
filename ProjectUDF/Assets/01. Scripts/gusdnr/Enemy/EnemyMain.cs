@@ -45,7 +45,6 @@ public class EnemyMain : PoolableMono
 	[Header("Chase Variables")]
 	public float StrikingRadius = 3f;
 	public LayerMask WhatIsObstacle;
-	public LayerMask WhatIsPlayer;
 	#endregion
 
 	#region Attack Variables
@@ -207,22 +206,9 @@ public class EnemyMain : PoolableMono
 	{
 		Vector2 direction = Target.position - transform.position;
 		float rayDistance = Vector2.Distance(Target.position, transform.position);
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, rayDistance, WhatIsObstacle | WhatIsPlayer);
-		if (hit.collider != null)
-		{
-			if (hit.collider.CompareTag("Player") || Vector2.Distance(hit.transform.position, transform.position) > StrikingRadius)
-			{
-				return true; // 플레이어를 감지하거나 공격 가능한 반경 내에 장애물이 없는 경우
-			}
-			else
-			{
-				return false; // 장애물이 있고, 공격 가능한 반경 내에 플레이어가 없는 경우
-			}
-		}
-		else
-		{
-			return false; // 레이가 아무 것도 충돌하지 않은 경우
-		}
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, rayDistance, WhatIsObstacle);
+
+		return !hit;
 	}
 	#endregion
 

@@ -60,9 +60,8 @@ public class Player : MonoBehaviour
         _playerStat.EditPlayerHP(1);
     }
 
-    IEnumerator Invincible()
+    private IEnumerator Invincible()
     {
-
         _bodytrigger.enabled = false;
 
         if (TryGetComponent<SkeletonAnimation>(out SkeletonAnimation skel))
@@ -81,7 +80,10 @@ public class Player : MonoBehaviour
 
             skeleton.A = 1;
         }
-
+        else
+        {
+            yield return null;
+        }
         _bodytrigger.enabled = true;
     
     }
