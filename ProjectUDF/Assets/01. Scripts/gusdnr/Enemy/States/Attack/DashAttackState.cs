@@ -13,7 +13,7 @@ public class DashAttackState : EnemyState
 	public float DashDistance;
 	public LayerMask WhatIsObstacle;
 
-	GridGraph gridGraph;
+	private GridGraph gridGraph;
 
 	private Coroutine LockOnCoroutine;
 	private Coroutine AttackCoroutine;
@@ -29,7 +29,6 @@ public class DashAttackState : EnemyState
 		clone.DashTime = DashTime;
 		clone.DashDistance = DashDistance;
 		clone.WhatIsObstacle = WhatIsObstacle;
-
 		return clone;
 	}
 
@@ -82,35 +81,33 @@ public class DashAttackState : EnemyState
 		
 		yield return LockOnCoroutine;
 
+		//적 -> 목표 지점을 향한 정확한 방향 벡터 지정
 		Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
-
+		//적 -> 목표 지점을 향해 Ray를 쏘아 중간에 장애물이 있는지 검사
 		RaycastHit2D HitObstacle = Physics2D.Raycast(EnemyPos, directionToTarget, DashDistance, WhatIsObstacle);
-		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
+			//장애물 위치로 지정
 			Vector2 HitPos = HitObstacle.point;
+			//콜라이더 크기만큼 빼주어 A* Graph 이탈 방지
 			HitPos.x = (HitPos.x > EnemyPos.x) ? HitPos.x - 0.5f : HitPos.x + 0.5f;
 			HitPos.y = (HitPos.y > EnemyPos.y) ? HitPos.y - 0.5f : HitPos.y + 0.5f;
 
-			// 주변 노드 찾기
+			//탐지 위치 주변 노드 찾기
 			NNInfoInternal nearestNodeInfo = gridGraph.GetNearest(HitPos, NNConstraint.None);
-
+			//탐지된 노드 지정
 			GraphNode nearestNode = nearestNodeInfo.node;
+			//노드 위치 Unity World Position화
 			Vector3 worldPosition = (Vector3)nearestNode.position;
-			
+			//도착 지점 설정
 			EndPoint = worldPosition;
-			Debug.DrawRay(EnemyPos, EndPoint, Color.blue, DashDistance);
-			yield return new WaitForSeconds(1);
 		}
 		else if (!HitObstacle)
 		{
+			//도착 지점 현재 위치에서 방향 벡터와 돌진 거리만큼 곱한 값으로 지정
 			EndPoint = EnemyPos + (directionToTarget * DashDistance);
-			Debug.Log($"End Pos.normal : [{directionToTarget.x}] [{directionToTarget.y}]");
 		}
-		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		enemy.CheckForFacing(directionToTarget);
-		yield return new WaitForSeconds(1);
-		Debug.DrawRay(EnemyPos, EndPoint, Color.magenta, DashDistance);
 		var dashSeq = DOTween.Sequence();
 
 		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCirc));
@@ -125,8 +122,5 @@ public class DashAttackState : EnemyState
 	{
 		yield return new WaitForSeconds(LockOnTime);
 		TargetPos = enemy.Target.position;
-		Debug.Log($"Input : Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
-
-		//Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
 	}
 }
