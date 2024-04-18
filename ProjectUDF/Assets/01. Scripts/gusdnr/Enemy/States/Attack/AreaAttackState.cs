@@ -23,6 +23,7 @@ public class AreaAttackState : EnemyState
 	public LayerMask WhatIsEnemy;
 
 	private WaitForSeconds WaitCharge;
+	private Coroutine AttackCoroutine;
 
 	public override EnemyState Clone()
 	{
@@ -43,18 +44,27 @@ public class AreaAttackState : EnemyState
 	{
 		base.EnterState();
 		enemy.MoveEnemy(Vector2.zero);
+		AttackCoroutine = enemy.StartCoroutine(AreaSearch());
 	}
 
 	public override void ExitState()
 	{
 		base.ExitState();
+		if (AttackCoroutine != null)
+		{
+			enemy.StopCoroutine(AttackCoroutine);
+			AttackCoroutine = null;
+		}
 	}
 
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
 
-
+		if(AttackCoroutine == null)
+		{
+			enemyStateMachine.ChangeState(enemy.CooldownState);
+		}
 	}
 
 	private IEnumerator AreaSearch()
@@ -64,7 +74,6 @@ public class AreaAttackState : EnemyState
 		{
 			yield return WaitCharge;
 			Collider2D PlayerCollider = Physics2D.OverlapCircle(enemy.EnemyRB.position, Range, WhatIsEnemy);
-
 			if (PlayerCollider != null)
 			{
 				Player PlayerMain;

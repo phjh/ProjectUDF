@@ -70,7 +70,7 @@ public class DashAttackState : EnemyState
         {
 			Debug.Log("End Attackcoroutine");
 			enemy.StopAllCoroutines();
-            enemy.StateMachine.ChangeState(enemy.CooldownState);
+			enemyStateMachine.ChangeState(enemy.CooldownState);
         }
     }
 
