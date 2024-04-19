@@ -4,8 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Random = UnityEngine.Random;
+
 public class OreCard : UIMono
 {
+	[HideInInspector] public static event Action FailToResearch;
+
 	[Header("Ore Card UI Values")]
 	public bool isSelect = false;
 	protected bool isActive;
@@ -16,63 +20,24 @@ public class OreCard : UIMono
 	public Image OreImage;
 	public Button LinkedBtn;
 	[SerializeField] private GameObject ResetBtn;
-	
-	private MiningOre MiningData;
+
+	[Header("SO Values")]
+	public OreSO[] OreDatas;
+	public OreSO CurOreData;
 
 	private void Awake()
 	{
+		SetRandomOre();
+		Debug.Log($"Random Ore Setting Complete : {CurOreData}");
 		DOTween.Init();
 		transform.localScale = Vector3.one * 0.1f;
-		MiningData = GetComponentInChildren<MiningOre>();
 		UIManager.Instance.Cards.Add(this);
 		ResetBtn.SetActive(false);
 		gameObject.SetActive(false);
 		isActive = false;
 	}
 
-	public void HideDefault()
-	{
-		var seq = DOTween.Sequence();
-
-		transform.localScale = Vector3.one * 0.1f;
-
-		seq.Append(transform.DOScale(1f, 0.1f));
-		seq.Append(transform.DOScale(0.2f, 0.2f));
-
-
-		seq.Play().OnComplete(() =>
-		{
-			isActive = false;
-			gameObject.SetActive(false);
-			ResetBtn.SetActive(false);
-			UIManager.Instance.CloseMining();
-		});
-	}
-
-	public void HideSelect()
-	{
-		var seq = DOTween.Sequence();
-
-		transform.localScale = Vector3.one * 0.1f;
-
-		seq.Append(transform.DOScale(1.1f, 0.1f));
-		seq.Append(transform.DOScale(0.2f, 0.3f));
-
-
-		// OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면
-		// { } 안에 있는 코드가 수행된다는 의미입니다.
-		// 여기서는 닫기 애니메이션이 완료된 후 객체를 비활성화 합니다.
-		seq.Play().OnComplete(() =>
-		{
-			isActive = false;
-			if(UIManager.Instance.Cards != null) UIManager.Instance.Cards.ForEach(x =>
-			{
-				if(x.isActive) x.HideDefault();
-			});
-			gameObject.SetActive(false);
-			ResetBtn.SetActive(false);
-		});
-	}
+	#region Management UI Visiable
 
 	public override void ShowUI()
 	{
@@ -91,28 +56,97 @@ public class OreCard : UIMono
 		});
 	}
 
-	public override void CloseUI()
+	public void CloseDefault()
 	{
 		var seq = DOTween.Sequence();
 
 		transform.localScale = Vector3.one * 0.1f;
 
-		seq.Append(transform.DOScale(1.1f, 0.1f));
+		seq.Append(transform.DOScale(1f, 0.1f));
 		seq.Append(transform.DOScale(0.2f, 0.3f));
 
 
-		// OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면
-		// { } 안에 있는 코드가 수행된다는 의미입니다.
-		// 여기서는 닫기 애니메이션이 완료된 후 객체를 비활성화 합니다.
+		seq.Play().OnComplete(() =>
+		{
+			isActive = false;
+			gameObject.SetActive(false);
+			ResetBtn.SetActive(false);
+			UIManager.Instance.CloseMining();
+		});
+	}
+	
+	public override void CloseUI()
+	{
+		var seq = DOTween.Sequence();
+		GetOre();
+		transform.localScale = Vector3.one * 0.1f;
+
+		seq.Append(transform.DOScale(1.1f, 0.1f));
+		seq.Append(transform.DOScale(0.2f, 0.3f));
+
 		seq.Play().OnComplete(() =>
 		{
 			isActive = false;
 			if (UIManager.Instance.Cards != null) UIManager.Instance.Cards.ForEach(x =>
 			{
-				if (x.isActive) x.HideDefault();
+				if (x.isActive) x.CloseDefault();
 			});
 			gameObject.SetActive(false);
 			ResetBtn.SetActive(false);
 		});
 	}
+
+	#endregion
+
+	#region Manage Ores
+
+	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stats, CurOreData.value);
+
+	private int tempSO = 0;
+	private void SetRandomOre()
+	{
+		tempSO = Random.Range(0, OreDatas.Length);
+		LinkedBtn.interactable = true;
+		OreImage.color = new Vector4(1, 1, 1, 1);
+		if (FailToResearch == null) FailToResearch += UIManager.Instance.CountFail;
+		SetData();
+	}
+
+	public void ResetOre()
+	{
+		float successRate = Random.value;
+		if (successRate <= 0.8f) //추후 재채광 성공 확률로 치환 예정
+		{
+			int resetTempSO = Random.Range(0, OreDatas.Length);
+			while (resetTempSO == tempSO)
+			{
+				resetTempSO = Random.Range(0, OreDatas.Length);
+			}
+			tempSO = resetTempSO;
+			SetData();
+		}
+		else
+		{
+			FailToResearch?.Invoke();
+			OreImage.color = new Vector4(1, 1, 1, 0f);
+			NameText.text = string.Empty;
+			DescText.text = string.Empty;
+			LinkedBtn.interactable = false;
+		}
+	}
+
+	public void SetData()
+	{
+		CurOreData = OreDatas[tempSO];
+		OreImage.sprite = CurOreData.OreSprite;
+		#region 설명 문자열 단행 추가
+		string desc = CurOreData.OreDesc;
+		desc = desc.Replace(",", "\n");
+		#endregion
+		NameText.text = CurOreData.OreName;
+		DescText.text = desc;
+	}
+
+	#endregion
+
 }

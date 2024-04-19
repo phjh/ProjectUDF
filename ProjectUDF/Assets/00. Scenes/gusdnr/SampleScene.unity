@@ -14286,7 +14286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050577566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e2432e28c838ba48bd667cf3f59ed2d, type: 3}
   m_Name: 
@@ -19542,6 +19542,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1147247183}
     m_Modifications:
+    - target: {fileID: 2682346031613176375, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: OreDatas.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682346031613176375, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: OreDatas.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 51d6e66a1e894004fad85ea29f5e67e9, type: 2}
+    - target: {fileID: 2682346031613176375, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: OreDatas.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 086a9d85b74876e4f8f350c5e3c8ba48, type: 2}
+    - target: {fileID: 2682346031613176375, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: OreDatas.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f7bbac246bccec41a13729883a29c0a, type: 2}
+    - target: {fileID: 2682346031613176375, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: OreDatas.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 53bf343fbca31c347b7b9b048109b6b6, type: 2}
+    - target: {fileID: 2682346031613176375, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: OreDatas.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: e13383081ed472f48bee2f04378b2eac, type: 2}
+    - target: {fileID: 2870107485881281563, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4751503842041945575, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -19626,7 +19654,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: OreBase
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6714225553387469472, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4702306962513294111, guid: a739c8b080610c345bd6c71f3a517f83, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -19851,7 +19884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7995406592211235875
 MonoBehaviour:
   m_ObjectHideFlags: 0

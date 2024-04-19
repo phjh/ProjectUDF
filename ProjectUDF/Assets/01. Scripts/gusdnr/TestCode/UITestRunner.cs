@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class UITestRunner : MonoBehaviour
 {
-	void Start()
-    {
-
-	}
 
     void Update()
     {
