@@ -788,7 +788,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8418628116372882622}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -817,10 +817,10 @@ MonoBehaviour:
   OrderInUI: 0
   isBased: 0
   isSelect: 0
-  NameText: {fileID: 0}
-  DescText: {fileID: 0}
-  OreImage: {fileID: 0}
-  LinkedBtn: {fileID: 0}
+  NameText: {fileID: 1518385557305310077}
+  DescText: {fileID: 7684429966944423957}
+  OreImage: {fileID: 8346295426213694724}
+  LinkedBtn: {fileID: 7145268759733321714}
   ResetBtn: {fileID: 1481203200526487512}
   OreDatas:
   - {fileID: 11400000, guid: 51d6e66a1e894004fad85ea29f5e67e9, type: 2}

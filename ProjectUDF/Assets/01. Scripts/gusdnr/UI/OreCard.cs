@@ -41,6 +41,7 @@ public class OreCard : UIMono
 
 	public override void ShowUI()
 	{
+		SetRandomOre();
 		gameObject.SetActive(true);
 		isActive = true;
 

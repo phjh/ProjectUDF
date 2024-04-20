@@ -5722,7 +5722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &771056166
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5766,7 +5766,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -14326,8 +14326,16 @@ MonoBehaviour:
   PocketUIParent: {fileID: 1810453755}
   OreName: {fileID: 692314960}
   OreDesc: {fileID: 16526825}
-  OreDatas: []
-  GemDatas: []
+  OreDatas:
+  - {fileID: 11400000, guid: 51d6e66a1e894004fad85ea29f5e67e9, type: 2}
+  - {fileID: 11400000, guid: 086a9d85b74876e4f8f350c5e3c8ba48, type: 2}
+  - {fileID: 11400000, guid: 53bf343fbca31c347b7b9b048109b6b6, type: 2}
+  - {fileID: 11400000, guid: 1f7bbac246bccec41a13729883a29c0a, type: 2}
+  GemDatas:
+  - {fileID: 11400000, guid: c19d046f8aef4e640b7868e44143b7fa, type: 2}
+  - {fileID: 11400000, guid: 23bd166e987d77545ae4827356f67de9, type: 2}
+  - {fileID: 11400000, guid: bc1c2775f9d40ee4a9a2a9d8d9bc7902, type: 2}
+  - {fileID: 11400000, guid: ba72df54d448542498a8f55e2eceacde, type: 2}
   IconList: []
   Cards: []
 --- !u!114 &1050577571
@@ -14681,54 +14689,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 24}
   m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1174007762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1174007763}
-  - component: {fileID: 1174007764}
-  m_Layer: 0
-  m_Name: OreInventory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1174007763
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174007762}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1174007764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174007762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 173b62d073917b940946a96f9159f70d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxInInvnetory: 7
-  OreList: 00000000000000000000000000000000
-  GemList: 00000000000000000000000000000000
-  NeedToUpgrade: 3
 --- !u!1 &1178535977
 GameObject:
   m_ObjectHideFlags: 0
@@ -18575,6 +18535,7 @@ GameObject:
   - component: {fileID: 1642537958}
   - component: {fileID: 1642537959}
   - component: {fileID: 1642537960}
+  - component: {fileID: 1642537961}
   m_Layer: 7
   m_Name: TestPlayer
   m_TagString: Player
@@ -18766,6 +18727,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdc4308a3d249f42a41d072e40a248d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1642537961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642537951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173b62d073917b940946a96f9159f70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxInInvnetory: 7
+  OreList: 00000000000000000000000000000000
+  GemList: 00000000000000000000000000000000
+  NeedToUpgrade: 3
 --- !u!1001 &1686756055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19886,7 +19863,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 1174007763}
   - {fileID: 1642537953}
   - {fileID: 1050577568}
   - {fileID: 1178535978}
