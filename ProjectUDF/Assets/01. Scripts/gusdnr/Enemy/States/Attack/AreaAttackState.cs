@@ -29,7 +29,6 @@ public class AreaAttackState : EnemyState
 	{
 		AreaAttackState clone = CloneBase() as AreaAttackState;
 		//Setting public values
-		//clone.attackType = attackType;
 		clone.Range = Range;
 		clone.ChargeTime = ChargeTime;
 		clone.RepeatCount = RepeatCount;
@@ -79,6 +78,7 @@ public class AreaAttackState : EnemyState
 				Player PlayerMain;
 				PlayerCollider.gameObject.TryGetComponent(out PlayerMain);
 				PlayerMain.GetDamage();
+				Debug.Log("Attack Player");
 			}
 			else
 			{
@@ -86,7 +86,7 @@ public class AreaAttackState : EnemyState
 			}
 			doCount = doCount + 1;
 		}
-		while (RepeatCount <= doCount);
+		while (RepeatCount < doCount);
 		yield return null;
 	}
 
