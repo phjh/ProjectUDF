@@ -9,7 +9,7 @@ public class PlayerAtkDectector : MonoBehaviour
 
     private void Start()
     {
-        perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        //perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

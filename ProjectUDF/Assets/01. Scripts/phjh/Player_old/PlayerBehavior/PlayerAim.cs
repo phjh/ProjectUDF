@@ -12,7 +12,7 @@ public class PlayerAim : Player
 
     protected void Start()
     {
-        _playerStat = _player._playerStat;
+        //_playerStat = _player._playerStat;
     }
 
     private void SetRotation()
