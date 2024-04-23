@@ -90,7 +90,7 @@ public class WanderCooldownState : EnemyState
 
 		var wanderSeq = DOTween.Sequence();
 
-		wanderSeq.Append(enemy.transform.DOMove(EndPoint, MoveTime).SetEase(Ease.OutBounce));
+		wanderSeq.Append(enemy.transform.DOMove(EndPoint, MoveTime).SetEase(Ease.InQuad));
 
 		wanderSeq.Play().OnComplete(() =>
 		{

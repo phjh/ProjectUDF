@@ -5,23 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Area Atttack", menuName = "SO/State/Attack/Area")]
 public class AreaAttackState : EnemyState
 {
-	/*public enum AttackType
-	{
-		None = -1,
-		Circle = 0,
-		Box = 1,
-		Point = 2,
-	}
-
-	[Header("공격 방식 설정")]
-	public AttackType attackType = AttackType.None;
-*/
 	[Header("공격 관련 변수")]
-	public float Range = 1f;
 	public float ChargeTime = 1f;
 	public int RepeatCount = 0;
 	public LayerMask WhatIsEnemy;
 
+	private GameObject AttackArea;
 	private WaitForSeconds WaitCharge;
 	private Coroutine AttackCoroutine;
 
@@ -29,7 +18,8 @@ public class AreaAttackState : EnemyState
 	{
 		AreaAttackState clone = CloneBase() as AreaAttackState;
 		//Setting public values
-		clone.Range = Range;
+		clone.AttackArea = enemy.transform.Find("AttackArea").gameObject;
+		clone.AttackArea.SetActive(false);
 		clone.ChargeTime = ChargeTime;
 		clone.RepeatCount = RepeatCount;
 		clone.WhatIsEnemy = WhatIsEnemy;
@@ -43,12 +33,17 @@ public class AreaAttackState : EnemyState
 	{
 		base.EnterState();
 		enemy.MoveEnemy(Vector2.zero);
+		AttackArea.SetActive(false);
 		AttackCoroutine = enemy.StartCoroutine(AreaSearch());
 	}
 
 	public override void ExitState()
 	{
 		base.ExitState();
+		if (AttackArea)
+		{
+			AttackArea.SetActive(false);
+		}
 		if (AttackCoroutine != null)
 		{
 			enemy.StopCoroutine(AttackCoroutine);
@@ -69,14 +64,18 @@ public class AreaAttackState : EnemyState
 	private IEnumerator AreaSearch()
 	{
 		int doCount = 0;
+		Collider2D AttackAreaCollider = AttackArea.GetComponent<PolygonCollider2D>();
+		Collider2D playerCol;
 		do
 		{
+			AttackArea.SetActive(false);
 			yield return WaitCharge;
-			Collider2D PlayerCollider = Physics2D.OverlapCircle(enemy.EnemyRB.position, Range, WhatIsEnemy);
-			if (PlayerCollider != null)
+			AttackArea.SetActive(true);
+			playerCol = Physics2D.OverlapArea(AttackAreaCollider.bounds.min, AttackAreaCollider.bounds.max, WhatIsEnemy);
+			if (playerCol != null)
 			{
 				Player PlayerMain;
-				PlayerCollider.gameObject.TryGetComponent(out PlayerMain);
+				playerCol.gameObject.TryGetComponent(out PlayerMain);
 				PlayerMain.GetDamage();
 				Debug.Log("Attack Player");
 			}
@@ -84,10 +83,10 @@ public class AreaAttackState : EnemyState
 			{
 				Debug.Log("Fail to Attack Player");
 			}
+			AttackArea.SetActive(false);
 			doCount = doCount + 1;
 		}
 		while (RepeatCount < doCount);
-		yield return null;
+		yield return AttackCoroutine = null;
 	}
-
 }
