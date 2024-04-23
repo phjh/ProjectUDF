@@ -47,6 +47,7 @@ public abstract class PlayerBAttack : MonoBehaviour
         }
         recentDamage = Mathf.Ceil(damage * 10) / 10;
         _isCritical = critical;
+        PlayerMain.Instance.isCritical = critical;
         SetRecentDamage();
         return damage;
     }

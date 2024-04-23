@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class PickaxeChargeAttack : PlayerChargeAttack
 {
-    protected override void OnAttackEnd()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void OnAttacking()
+    public override void OnAttackPrepare()
     {
         throw new System.NotImplementedException();
     }
@@ -18,6 +13,16 @@ public class PickaxeChargeAttack : PlayerChargeAttack
     {
         throw new System.NotImplementedException();
     }
+    protected override void OnAttacking()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void OnAttackEnd()
+    {
+        throw new System.NotImplementedException();
+    }
+
 
     protected override void TryAttack()
     {

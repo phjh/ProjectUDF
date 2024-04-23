@@ -2,14 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : Player
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Player _player;
     private Rigidbody2D _rigidbody; 
 
 	private float _currentSpeed;
 
-    private CapsuleCollider2D _colider;
     private Vector2 _inputDirection;
     private Vector3 _movementVelocity;
     public Vector3 MovementVelocity => _movementVelocity;
@@ -20,41 +18,42 @@ public class PlayerMovement : Player
 
     protected void OnEnable()
     {
-        _playerStat = _player._playerStat;
         GameManager.Instance.UpdateState(GameStates.Start);
-        _inputReader.MovementEvent += SetMovement;
-        stopImmediately += StopImmediately;
-        _inputReader.DodgeEvent += Dodge;
+        PlayerMain.Instance.inputReader.MovementEvent += SetMovement;
+        //stopImmediately += StopImmediately;
+        PlayerMain.Instance.inputReader.DodgeEvent += Dodge;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _currentSpeed = _playerStat.MoveSpeed.GetValue();        
-        _colider = GetComponent<CapsuleCollider2D>();
+        Debug.Log(_rigidbody);
+        _currentSpeed = PlayerMain.Instance.stat.MoveSpeed.GetValue();
     }
 
     private void OnDisable()
     {
-        _inputReader.MovementEvent -= SetMovement;
-        stopImmediately -= StopImmediately;
-        _inputReader.DodgeEvent -= Dodge;
+        //PlayerMain.Instance.inputReader.MovementEvent -= SetMovement;
+        //PlayerMain.Instance.inputReader.DodgeEvent -= Dodge;
+        //stopImmediately -= StopImmediately;
     }
 
     public void Dodge()
     {
-        if (!_canDodge || !_player.ActiveMove) return;
-        _canDodge = false;
+        if (!PlayerMain.Instance.isDodging || !PlayerMain.Instance.canMove) 
+            return;
+
+        PlayerMain.Instance.isDodging = false;
         StartCoroutine(DoDodge());
     }
 
     IEnumerator DoDodge()
     {
-        _player._isdodgeing = true;
-        _player.ActiveMove = false;
+        PlayerMain.Instance.isDodging = true;
+        PlayerMain.Instance.canMove = false;
         _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
         slider.value = 0;
         slider.gameObject.SetActive(true);
         StartCoroutine(DodgeCooltimeSet());
         yield return new WaitForSeconds(0.5f);
-        _player.ActiveMove = true;
-        _player._isdodgeing = false;
+        PlayerMain.Instance.canMove = true;
+        PlayerMain.Instance.isDodging = false;
     }
 
     IEnumerator DodgeCooltimeSet()
@@ -70,10 +69,10 @@ public class PlayerMovement : Player
         if(slider.value != 1) 
             slider.value = 1;
         slider.gameObject.SetActive(false);
-        _canDodge = true;
+        PlayerMain.Instance.isDodging = true;
     }
 
-    public float DodgeCooltime() => Mathf.Clamp(3 - _player._playerStat.MoveSpeed.GetValue() / 10, 1, 3);
+    public float DodgeCooltime() => Mathf.Clamp(3 - PlayerMain.Instance.stat.MoveSpeed.GetValue() / 10, 1, 3);
 
     public void SetMovement(Vector2 value)
     {
@@ -82,7 +81,7 @@ public class PlayerMovement : Player
 
     private void CalculatePlayerMovement()
     {
-        _currentSpeed = 4 + _player._playerStat.MoveSpeed.GetValue()/5;
+        _currentSpeed = 4 + PlayerMain.Instance.stat.MoveSpeed.GetValue()/5;
         _movementVelocity = _inputDirection * _currentSpeed;
         if (_inputDirection != Vector2.zero)
             lastinputDir = _inputDirection;
@@ -100,11 +99,11 @@ public class PlayerMovement : Player
 
     private void FixedUpdate()
     {
-        if (_player.ActiveMove)
+        if (PlayerMain.Instance.canMove)
             CalculatePlayerMovement();
         else 
             StopImmediately();
-        if (!_player._isdodgeing)
+        if (!PlayerMain.Instance.isDodging)
             Move();
     }
 
@@ -113,17 +112,15 @@ public class PlayerMovement : Player
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            _playerStat.EditModifierStat(Stats.MoveSpeed, 0.5f);
+            PlayerMain.Instance.stat.EditModifierStat(Stats.MoveSpeed, 0.5f);
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            GetHeal();
-            Debug.Log(1);
+            PlayerMain.Instance.stat.EditPlayerHP(1);
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            _player.GetDamage();
-            Debug.Log("Get Damaged");
+            PlayerMain.Instance.stat.EditPlayerHP(-1);
         }
     }
 }

@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAim : Player
+public class PlayerAim : MonoBehaviour
 {
-    [SerializeField] Player _player;
-
     public int Angle;
 
     public float RotZ = 0;
@@ -17,7 +15,7 @@ public class PlayerAim : Player
 
     private void SetRotation()
     {
-        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(_inputReader.AimPosition);
+        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(PlayerMain.Instance.inputReader.AimPosition);
         Vector2 dir = (worldMousePos - transform.position);
         float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);

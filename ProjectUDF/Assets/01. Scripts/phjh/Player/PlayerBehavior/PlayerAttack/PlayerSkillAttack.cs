@@ -6,8 +6,8 @@ public abstract class PlayerSkillAttack : PlayerBAttack
 {
     //쿨타임 관련
     [SerializeField]
-    protected int _cooltimes;
-    protected int _cooltimeSet;
+    protected int _coolattackTime;
+    protected int _coolattackTimeSet;
 
 
     protected override void OnEnable()
@@ -22,18 +22,18 @@ public abstract class PlayerSkillAttack : PlayerBAttack
 
     protected override void TryAttack()
     {
-        if(_cooltimes <= 0)
+        if(_coolattackTime <= 0)
         {
-            _cooltimes = _cooltimeSet;
+            _coolattackTime = _coolattackTimeSet;
             Debug.Log("skill Invoked");
         }
         else
         {
-            Debug.Log($"cooltime (leftCooltime : {_cooltimes - (_cooltimeSet)}");
+            Debug.Log($"cooltime (leftCooltime : {_coolattackTime - (_coolattackTimeSet)}");
             return;
         }
     }
 
-    private void ReduceCooltime() => _cooltimes--;
+    private void ReduceCooltime() => _coolattackTime--;
 
 }

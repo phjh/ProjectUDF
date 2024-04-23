@@ -36,7 +36,7 @@ public class ToadRock : PoolableMono
 		}
 		if(collision.gameObject.layer == WhatIsEnemy)
 		{
-			GameManager.Instance.player._playerStat.EditPlayerHP(-1);
+			GameManager.Instance.player.stat.EditPlayerHP(-1);
 			//PoolManager.Instance.Push(this, 2);
 		}
 	}

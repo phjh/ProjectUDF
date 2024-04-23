@@ -7,8 +7,6 @@ public abstract class PlayerBaseAttack : PlayerWeaponAttack
     protected float timeToAttacking; 
     [SerializeField]
     protected float timeToEnd;
-    [SerializeField]
-    protected Vector3 attackPos;
 
     protected bool _showRange;
 

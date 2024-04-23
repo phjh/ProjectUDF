@@ -18,10 +18,8 @@ public enum MoveDirectionList
     Leftfront = 7,
 }
 
-public class PlayerAnimation : Player
+public class PlayerAnimation : MonoBehaviour
 {
-    [SerializeField] Player _player;
-
     SkeletonAnimation skeletonAnimation;
 
     MoveDirectionList lastMoveDirection;
@@ -70,9 +68,8 @@ public class PlayerAnimation : Player
 
     protected void Start()
     {
-        _playerStat = _player._playerStat;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
-        _inputReader.MovementEvent += SetMovement;
+        PlayerMain.Instance.inputReader.MovementEvent += SetMovement;
         PlayerStat.OnDeadPlayer += OnDie;
         timescale = skeletonAnimation.timeScale;
         animationCoroutine = StartCoroutine(SetAnimation());
@@ -112,7 +109,7 @@ public class PlayerAnimation : Player
                 time += fixedTime;
             }
 
-            skeletonAnimation.AnimationState.TimeScale = _player._playerStat.MoveSpeed.GetValue() / 3f;
+            skeletonAnimation.AnimationState.TimeScale = PlayerMain.Instance.stat.MoveSpeed.GetValue() / 3f;
 
             bool isRight = _inputDirection.x > 0;
             bool isUp = _inputDirection.y > 0;
@@ -143,14 +140,14 @@ public class PlayerAnimation : Player
             }
 
             //회피 애니메이션
-            if (_player._isdodgeing)
+            if (PlayerMain.Instance.isDodging)
             {
                 skeletonAnimation.AnimationState.SetAnimation(0, DodgeAnimation[(int)lastMoveDirection], false);
                 skeletonAnimation.AnimationState.SetAnimation(1, DodgeAnimation[(int)lastMoveDirection], false);
                 yield return new WaitForSeconds(0.5f);
             }
 
-            if (Input.GetMouseButton(0)&&_player.IsAttacking && _player.CanAttack)
+            if (Input.GetMouseButton(0)&& PlayerMain.Instance.isAttacking && PlayerMain.Instance.canAttack)
             {
                 isLeftPressed = true;
                 aimAngle = aim.Angle;
@@ -188,7 +185,7 @@ public class PlayerAnimation : Player
                 yield return new WaitForSeconds(0.5f);
             }
 
-            if (_player.CanAttack && _player.IsAttacking)
+            if (PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking)
             {
                 if (_inputDirection == Vector2.zero)
                     skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
@@ -242,13 +239,13 @@ public class PlayerAnimation : Player
         if (_inputDirection == Vector2.zero)
         {
             skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            if (!(_player.CanAttack && _player.IsAttacking))
+            if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
                 skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
             return;
         }
 
         skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-        if (!(_player.CanAttack && _player.IsAttacking))
+        if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
             skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
     }
 }

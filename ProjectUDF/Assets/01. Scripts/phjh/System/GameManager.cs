@@ -34,7 +34,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 	#region Player Info
 	[Header("Player")]
-	public Player player;
+	public PlayerMain player;
 	[Tooltip("Ä«¸Þ¶ó")]
 	public CinemachineVirtualCamera VirtualCam;
 	#endregion
@@ -74,7 +74,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             PoolManager.Instance.CreatePool(obj, this.transform);
         }
-        if (player == null) player = FindObjectOfType<Player>().GetComponent<Player>();
+		if (player == null) player = PlayerMain.Instance;
 		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
 
 		AstarPath.active.Scan();
@@ -132,23 +132,23 @@ public class GameManager : MonoSingleton<GameManager>
 				break;
 			case GameStates.Start:
 				OnStart?.Invoke();
-				player.ActiveMove = true;
+				player.canMove = true;
 				break;
 			case GameStates.Playing:
 				OnPlaying?.Invoke();
-				player.ActiveMove = true;
+				player.canMove = true;
 				break;
 			case GameStates.NonPauseUIOn:
 				OnNonPauseUI?.Invoke();
-				player.ActiveMove = false;
+				player.canMove = false;
 				break;
 			case GameStates.PauseUIOn:
 				OnPauseUI?.Invoke();
-				player.ActiveMove = false;
+				player.canMove = false;
 				break;
 			case GameStates.End:
 				OnEnd?.Invoke();
-				player.ActiveMove = false;
+				player.canMove = false;
 				break;
 			default:
 				Debug.LogError("Game Manager Have not State");

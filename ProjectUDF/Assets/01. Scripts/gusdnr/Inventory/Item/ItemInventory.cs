@@ -10,7 +10,7 @@ public class ItemInventory : MonoBehaviour
 	private void OnEnable()
 	{
 		CollectItems = new List<ItemDataSO>(); //새로운 리스트를 만들어 할당한다.
-		status = GameManager.Instance.player._playerStat;
+		status = GameManager.Instance.player.stat;
 	}
 
 	public void AddItemInInventory(ItemDataSO data)

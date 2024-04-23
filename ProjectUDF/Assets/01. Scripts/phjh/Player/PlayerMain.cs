@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 [Serializable]
@@ -16,15 +17,14 @@ public struct WeaponInfo //여기서 평타랑 차징공격을 준비해준다
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
     public PlayerStat stat { get; private set; }
-    public PlayerBehaviour behaviour { get; private set; }
     public InputReader inputReader { get; private set; }
-
-
 
 
     #region 움직임 관련 변수들
 
     public bool canMove { get; set; }
+
+    public bool isDodging {  get; set; }
 
     private Rigidbody2D rb;
 
@@ -38,21 +38,27 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public bool canAttack { get; set; }
     public bool isAttacking { get; set; }
-
     public float recentDamage { get; set; }
-
+    public bool isCritical { get; set; }
 
     #endregion
 
-    public void Init(PlayerStat stat)
+    public void Init(PlayerAim aim, PlayerStat stat, InputReader reader)
     {
-        playerAim = GetComponent<PlayerAim>();
+        playerAim = aim;
         this.stat = stat;
+        inputReader = reader;
     }
 
     private void Awake()
     {
-        playerAim = GetComponent<PlayerAim>();
+        canMove = true;
+        isDodging = false;
+
+        canAttack = true;
+        isAttacking = false;
+        recentDamage = 4f;
+        isCritical = false;
     }
 
 

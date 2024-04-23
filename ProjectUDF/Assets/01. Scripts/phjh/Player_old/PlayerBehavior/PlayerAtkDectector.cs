@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerAtkDectector : MonoBehaviour
 {
-    [SerializeField] PlayerAttack _playerAtk;
     CinemachineBasicMultiChannelPerlin perlin;
 
     private void Start()
     {
-        //perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,11 +16,11 @@ public class PlayerAtkDectector : MonoBehaviour
 
         if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy))
         {
-            Debug.Log("Connected trigger damage : " + _playerAtk.ResentDamage);
+            Debug.Log("Connected trigger damage : " + PlayerMain.Instance.recentDamage);
             EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, _playerAtk._player._playerStat.Strength.GetValue(), _playerAtk.ResentDamage, 0.5f, collision.transform.position,_playerAtk.isCritical);
-            enemy.Damage(_playerAtk.ResentDamage);
-            StartCoroutine(ShakeCamera( _playerAtk.ResentDamage, _playerAtk.isCritical));
+            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
+            enemy.Damage(PlayerMain.Instance.recentDamage);
+            StartCoroutine(ShakeCamera(PlayerMain.Instance.recentDamage, PlayerMain.Instance.isCritical));
         }
         else if(collision.CompareTag("Enemy"))
         {

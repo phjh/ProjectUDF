@@ -38,7 +38,7 @@ public class StatusManager : MonoBehaviour
 	#region 체력 부분 스크립트
 	public void SettingHearts()
 	{
-		playerStat = GameManager.Instance.player._playerStat;
+		playerStat = GameManager.Instance.player.stat;
 
 		int heartToMake = playerStat.MaxHP;
 		for (int i = 0; i < heartToMake; i++)

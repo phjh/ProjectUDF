@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
@@ -8,17 +7,28 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
     [SerializeField]
     GameObject attackRange;
     [SerializeField]
-    Collider2D collider;
+    Collider2D atkcollider;
 
     protected override void TryAttack()
     {
+        if (PlayerMain.Instance.isAttacking)
+            return;
+
+        base.TryAttack();
         Debug.Log("attack Invoked");
         OnAttackStart();
     }
 
+    public override void OnAttackPrepare()
+    {
+        //공격 범위 표시
+        _showRange = true;
+        attackRange.gameObject.SetActive(true);
+    }
 
     protected override void OnAttackStart()
     {
+
         //데미지 구하기
         float damage = CalculateDamage();
         Debug.Log("damage : " + damage);
@@ -26,11 +36,9 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
         //공격범위 고정
         StopAiming();
 
-        attackRange.gameObject.SetActive(true);
-
         //이펙트 재생
-        //EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.MineCustom, attackPos + Vector3.up / 2, 0.2f);
-        //EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.RightAttack, attackPos + Vector3.up / 3, 0.4f);
+        EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.MineCustom, attackRange.transform.position + Vector3.up / 2, 0.2f);
+        EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.RightAttack, attackRange.transform.position + Vector3.up / 3, 0.4f);
 
         //움직임 제한
         PlayerMain.Instance.canMove = false;
@@ -45,7 +53,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
         StartAiming();
 
         PlayerMain.Instance.canMove = true;
-        collider.enabled = false;
+        atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
 
         //기존 함수 실행
@@ -89,5 +97,4 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
     {
         PlayerMain.Instance.playerAim.enabled = false;
     }
-
 }

@@ -2,22 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 //여기선 behavior을 통해 세팅과 흐름제어만 할 예정이다
 public class PlayerBrain : MonoBehaviour
 {
     public PlayerStat stat;
-    public PlayerBehaviour behaviour;
+    public InputReader reader;
+    public PlayerAim aim;
     
     public WeaponInfo nowWeapon;
     public PlayerSkillAttack nowSkill;
 
-    public GameObject WeaponParent; //디버깅용
-
     private void Awake()
     {
-        PlayerMain.Instance.Init(stat);
+        PlayerMain.Instance.Init(aim, stat, reader);
     }
 
     public void Start()
@@ -28,16 +26,11 @@ public class PlayerBrain : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A)) 
-        {
-            PlayerBaseAttack baseatk = WeaponParent.GetComponentInChildren<PlayerBaseAttack>();
-            PlayerChargeAttack chargeatk = WeaponParent.GetComponentInChildren<PlayerChargeAttack>();
-            WeaponInfo info = new WeaponInfo();
-            info.baseAttack = baseatk;
-            info.chargeAttack = chargeatk;
-            WeaponChange(info);
-        }
         if(Input.GetMouseButtonDown(0))
+        {
+            nowWeapon.baseAttack.OnAttackPrepare();
+        }
+        else if (Input.GetMouseButtonUp(0))
         {
             nowWeapon.baseAttack.Attack(nowWeapon.baseAttack);
         }
