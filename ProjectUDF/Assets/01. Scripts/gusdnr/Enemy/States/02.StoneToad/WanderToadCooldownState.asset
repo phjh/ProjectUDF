@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistance: 1
   MaxDistance: 3
-  MinMoveSpeed: 2
-  MaxMoveSpeed: 5
+  MoveTime: 2
   WhatIsObstacle:
     serializedVersion: 2
     m_Bits: 512

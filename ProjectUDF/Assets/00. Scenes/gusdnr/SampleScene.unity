@@ -6795,7 +6795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &661831065
 Transform:
   m_ObjectHideFlags: 0
@@ -21118,12 +21118,12 @@ GameObject:
   - component: {fileID: 5915661790026464675}
   - component: {fileID: 8234726397214014087}
   m_Layer: 8
-  m_Name: TestEnemy_StoneToad
+  m_Name: StoneToad
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1001 &7151440736410475093
 PrefabInstance:
   m_ObjectHideFlags: 0
