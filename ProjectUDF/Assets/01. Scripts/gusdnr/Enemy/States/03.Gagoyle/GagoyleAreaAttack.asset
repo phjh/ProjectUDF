@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GagoyleAreaAttack
   m_EditorClassIdentifier: 
   ChargeTime: 2
-  RepeatCount: 0
+  RepeatCount: 3
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 128

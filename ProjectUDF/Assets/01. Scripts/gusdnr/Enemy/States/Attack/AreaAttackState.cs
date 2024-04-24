@@ -32,6 +32,7 @@ public class AreaAttackState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
+		Debug.Log("Enter Attack State");
 		enemy.MoveEnemy(Vector2.zero);
 		AttackArea.SetActive(false);
 		AttackCoroutine = enemy.StartCoroutine(AreaSearch());
@@ -63,30 +64,32 @@ public class AreaAttackState : EnemyState
 
 	private IEnumerator AreaSearch()
 	{
+		AttackArea.SetActive(false);
 		int doCount = 0;
 		Collider2D AttackAreaCollider = AttackArea.GetComponent<PolygonCollider2D>();
 		Collider2D playerCol;
 		do
 		{
-			AttackArea.SetActive(false);
-			yield return WaitCharge;
 			AttackArea.SetActive(true);
+			Debug.Log($"Attack : {doCount + 1}");
+			yield return WaitCharge;
+			AttackArea.SetActive(false);
 			playerCol = Physics2D.OverlapArea(AttackAreaCollider.bounds.min, AttackAreaCollider.bounds.max, WhatIsEnemy);
 			if (playerCol != null)
 			{
-				Player PlayerMain;
-				playerCol.gameObject.TryGetComponent(out PlayerMain);
-				PlayerMain.GetDamage();
 				Debug.Log("Attack Player");
+				/*Player PlayerMain;
+				playerCol.gameObject.TryGetComponent(out PlayerMain);
+				PlayerMain.GetDamage();*/
 			}
 			else
 			{
 				Debug.Log("Fail to Attack Player");
 			}
-			AttackArea.SetActive(false);
 			doCount = doCount + 1;
+			yield return null;
 		}
-		while (RepeatCount < doCount);
+		while (RepeatCount > doCount);
 		yield return AttackCoroutine = null;
 	}
 }
