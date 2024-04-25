@@ -18,12 +18,10 @@ public class SoundManager : MonoBehaviour
 		MaxCount
 	}
 
-	[SerializeField] private string SoundRootName = "@Sound";
-
 	public static SoundManager Instance;
 
+	[SerializeField]
 	AudioSource[] audioSources = new AudioSource[(int)SoundType.MaxCount];
-
 	[SerializeField]
 	private List<AudioClips> BgmClip;
 	[SerializeField]
@@ -44,28 +42,44 @@ public class SoundManager : MonoBehaviour
 			DontDestroyOnLoad(gameObject);
 		}
 
-		Init();
 		audioSources[(int)SoundType.Bgm].loop = true;
 	}
 
-	public void Init()
+	#region Methods
+
+	public void Play(string name, SoundType type = SoundType.Effect, float volume = 0.5f, float pitch = 1.0f)
 	{
-		GameObject root = GameObject.Find(SoundRootName);
-		if (root == null)
-		{
-			root = new GameObject { name = SoundRootName };
-			DontDestroyOnLoad(root);
-		}
-		string[] soundNames = System.Enum.GetNames(typeof(SoundType)); // "Bgm", "Effect"
-		for (int i = 0; i < soundNames.Length - 1; i++)
-		{
-			GameObject go = new GameObject { name = soundNames[i] + "ClipObj" };
-			audioSources[i] = go.AddComponent<AudioSource>();
-			go.transform.parent = root.transform;
-		}
+		AudioClip audioClip = GetAudioClip(name, type);
 
-		audioSources[(int)SoundType.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
+		switch (type)
+		{
+			case SoundType.Bgm: // BGM 배경음악 재생
+				{
+					AudioSource audioSource = audioSources[(int)SoundType.Bgm];
+					if (audioSource.isPlaying)
+						audioSource.Stop();
 
+					audioSource.clip = audioClip;
+					audioSource.pitch = pitch;
+					audioSource.volume = volume;
+					audioSource.Play();
+					break;
+				}
+			case SoundType.Effect: // Effect 효과음 재생
+				{
+					AudioSource audioSource = audioSources[(int)SoundType.Effect];
+					audioSource.volume = volume;
+					audioSource.pitch = pitch;
+					audioSource.PlayOneShot(audioClip);
+					break;
+				}
+			case SoundType.MaxCount:
+			default:
+				{
+					Debug.LogError("Clip has Wrong Type");
+					break;
+				}
+		}
 	}
 
 	public void Clear()
@@ -80,36 +94,8 @@ public class SoundManager : MonoBehaviour
 		audioClips.Clear();
 	}
 
-	public void Play(string name, SoundType type = SoundType.Effect, float volume = 0.5f, float pitch = 1.0f)
-	{
-		AudioClip audioClip = GetAudioClip(name, type);
 
-		switch (type)
-		{
-			case SoundType.Bgm: // BGM 배경음악 재생
-				{
-					AudioSource audioSource = audioSources[(int)SoundType.Bgm];
-					if (audioSource.isPlaying)
-						audioSource.Stop();
-
-
-					audioSource.clip = audioClip;
-					audioSource.pitch = pitch;
-					audioSource.volume = volume;
-					audioSource.Play();
-					break;
-				}
-			case SoundType.Effect: // Effect 효과음 재생
-				{
-					AudioSource audioSource = audioSources[(int)SoundType.Effect];
-					audioSource.pitch = pitch;
-					audioSource.PlayOneShot(audioClip);
-					break;
-				}
-		}
-	}
-
-	public AudioClip GetAudioClip(string name, SoundType type = SoundType.Effect)
+	public AudioClip GetAudioClip(string name, SoundType type = SoundType.Effect) //SoundType과 이름을 바탕으로 해당하는 Sound Clip 할당 받기
 	{
 		List<AudioClips> currentClipList = null;
 
@@ -128,5 +114,7 @@ public class SoundManager : MonoBehaviour
 		AudioClip audioClip = currentClipList.Find(c => c.ID.Equals(name)).clip;
 		return audioClip;
 	}
+
+	#endregion
 }
 
