@@ -16,7 +16,7 @@ public class CannonAttackState : EnemyState
     private Coroutine attackCoroutine;
     private GameObject attackRange;
     private SpriteRenderer attackSRangeSp;
-    private CircleCollider2D attackRangeCol;
+    private Collider2D attackRangeCol;
 
     public override EnemyState Clone()
     {
@@ -24,7 +24,7 @@ public class CannonAttackState : EnemyState
         clone.animator = enemy.GetComponentInChildren<Animator>();
         clone.attackRange = enemy.transform.Find("AttackRange").gameObject;
         clone.attackSRangeSp = clone.attackRange.GetComponent<SpriteRenderer>();
-        clone.attackRangeCol = clone.attackRange.GetComponent<CircleCollider2D>();
+        clone.attackRangeCol = clone.attackRange.GetComponent<Collider2D>();
         clone.chargingTime = chargingTime;
         clone.waitThrow = waitThrow;
         clone.waitFall = waitFall;
