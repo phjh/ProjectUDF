@@ -59,7 +59,7 @@ public class UIManager : MonoSingleton<UIManager>
 		{
 			for (int i = 0; i < Cards.Count; i++)
 			{
-				Cards[i].GetComponent<OreCard>().HideDefault();
+				Cards[i].GetComponent<OreCard>().CloseDefault();
 			}
 		}
 	}

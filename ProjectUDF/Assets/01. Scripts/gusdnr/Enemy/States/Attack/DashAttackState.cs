@@ -13,6 +13,8 @@ public class DashAttackState : EnemyState
 	public float DashDistance;
 	public LayerMask WhatIsObstacle;
 
+	private GridGraph gridGraph;
+
 	private Coroutine LockOnCoroutine;
 	private Coroutine AttackCoroutine;
 	private Vector2 TargetPos;
@@ -22,12 +24,11 @@ public class DashAttackState : EnemyState
 	public override EnemyState Clone()
 	{
 		DashAttackState clone = CloneBase() as DashAttackState;
-		// ì¶”ê??ì¸ ì´ˆê¸°?”ê? ?„ìš”??ê²½ìš° ?¬ê¸°???¤ì •
+		// Ãß°¡ÀûÀÎ ÃÊ±âÈ­°¡ ÇÊ¿äÇÑ °æ¿ì ¿©±â¼­ ¼³Á¤
 		clone.LockOnTime = LockOnTime;
 		clone.DashTime = DashTime;
 		clone.DashDistance = DashDistance;
 		clone.WhatIsObstacle = WhatIsObstacle;
-
 		return clone;
 	}
 
@@ -40,12 +41,15 @@ public class DashAttackState : EnemyState
 		//EnemyPos = enemy.EnemyRB.position;
 		enemy.StopAllCoroutines();
 		EnemyPos = enemy.EnemyRB.position;
+
+		gridGraph = AstarPath.active.data.gridGraph;
+
 		AttackCoroutine = enemy.StartCoroutine(Dash());
 
-		//ê³µê²© ?œì„œ
-		//AttackCoroutine ?‘ë™ / LockOnCoroutine ì¢…ë£Œ ?€ê¸?-> LockOnCoroutine ?‘ë™ -> ?Œì§„ ë°©í–¥ ì§€??
-		//-> LockOnCoroutine ì¢…ë£Œ -> ?¼ì • ?œê°„ ?™ì•ˆ ?Œì§„ ?¤í–‰ -> ?œê°„ ê²½ê³¼ ?????´ë™ ?ë„ 0?¼ë¡œ ë³€ê²½í•´ ?•ì?
-		//AttackCoroutine ì¢…ë£Œ -> CoolDownStateë¡?ë³€ê²?
+		//°ø°Ý ¼ø¼­
+		//AttackCoroutine ÀÛµ¿ / LockOnCoroutine Á¾·á ´ë±â -> LockOnCoroutine ÀÛµ¿ -> µ¹Áø ¹æÇâ ÁöÁ¤
+		//-> LockOnCoroutine Á¾·á -> ÀÏÁ¤ ½Ã°£ µ¿¾È µ¹Áø ½ÇÇà -> ½Ã°£ °æ°ú ÈÄ Àû ÀÌµ¿ ¼Óµµ 0À¸·Î º¯°æÇØ Á¤Áö
+		//AttackCoroutine Á¾·á -> CoolDownState·Î º¯°æ
 	}
 
 	public override void ExitState()
@@ -66,7 +70,7 @@ public class DashAttackState : EnemyState
         {
 			Debug.Log("End Attackcoroutine");
 			enemy.StopAllCoroutines();
-            enemy.StateMachine.ChangeState(enemy.CooldownState);
+			enemyStateMachine.ChangeState(enemy.CooldownState);
         }
     }
 
@@ -77,27 +81,33 @@ public class DashAttackState : EnemyState
 		
 		yield return LockOnCoroutine;
 
+		//Àû -> ¸ñÇ¥ ÁöÁ¡À» ÇâÇÑ Á¤È®ÇÑ ¹æÇâ º¤ÅÍ ÁöÁ¤
 		Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
-
+		//Àû -> ¸ñÇ¥ ÁöÁ¡À» ÇâÇØ Ray¸¦ ½î¾Æ Áß°£¿¡ Àå¾Ö¹°ÀÌ ÀÖ´ÂÁö °Ë»ç
 		RaycastHit2D HitObstacle = Physics2D.Raycast(EnemyPos, directionToTarget, DashDistance, WhatIsObstacle);
-		Debug.Log($"Is Checking Obstacle : {(bool)HitObstacle}");
 		if (HitObstacle)
 		{
-			EndPoint = HitObstacle.point;
-			EndPoint.x = (EndPoint.x > EnemyPos.x) ? EndPoint.x + 1.1f : EndPoint.x - 1.1f;
-			EndPoint.y = (EndPoint.y > EnemyPos.y) ? EndPoint.y - 0.3f : EndPoint.y + 0.3f;
-			Debug.DrawRay(EnemyPos, EndPoint, Color.blue, DashDistance);
-			yield return new WaitForSeconds(1);
+			//Àå¾Ö¹° À§Ä¡·Î ÁöÁ¤
+			Vector2 HitPos = HitObstacle.point;
+			//ÄÝ¶óÀÌ´õ Å©±â¸¸Å­ »©ÁÖ¾î A* Graph ÀÌÅ» ¹æÁö
+			HitPos.x = (HitPos.x > EnemyPos.x) ? HitPos.x - 0.5f : HitPos.x + 0.5f;
+			HitPos.y = (HitPos.y > EnemyPos.y) ? HitPos.y - 0.5f : HitPos.y + 0.5f;
+
+			//Å½Áö À§Ä¡ ÁÖº¯ ³ëµå Ã£±â
+			NNInfoInternal nearestNodeInfo = gridGraph.GetNearest(HitPos, NNConstraint.None);
+			//Å½ÁöµÈ ³ëµå ÁöÁ¤
+			GraphNode nearestNode = nearestNodeInfo.node;
+			//³ëµå À§Ä¡ Unity World PositionÈ­
+			Vector3 worldPosition = (Vector3)nearestNode.position;
+			//µµÂø ÁöÁ¡ ¼³Á¤
+			EndPoint = worldPosition;
 		}
 		else if (!HitObstacle)
 		{
+			//µµÂø ÁöÁ¡ ÇöÀç À§Ä¡¿¡¼­ ¹æÇâ º¤ÅÍ¿Í µ¹Áø °Å¸®¸¸Å­ °öÇÑ °ªÀ¸·Î ÁöÁ¤
 			EndPoint = EnemyPos + (directionToTarget * DashDistance);
-			Debug.Log($"End Pos.normal : [{directionToTarget.x}] [{directionToTarget.y}]");
 		}
-		Debug.Log($"End Point : [X: {EndPoint.x}] [Y: {EndPoint.y}]");
 		enemy.CheckForFacing(directionToTarget);
-		yield return new WaitForSeconds(1);
-		Debug.DrawRay(EnemyPos, EndPoint, Color.magenta, DashDistance);
 		var dashSeq = DOTween.Sequence();
 
 		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCirc));
@@ -112,8 +122,5 @@ public class DashAttackState : EnemyState
 	{
 		yield return new WaitForSeconds(LockOnTime);
 		TargetPos = enemy.Target.position;
-		Debug.Log($"Input : Target Pos : [X: {TargetPos.x}] [Y: {TargetPos.y}]");
-
-		//Debug.DrawRay(EnemyPos, TargetPos, Color.green, DashDistance);
 	}
 }
