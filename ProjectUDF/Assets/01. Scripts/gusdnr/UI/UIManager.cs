@@ -14,8 +14,6 @@ public class UIManager : MonoSingleton<UIManager>
 	[Header("Ore Pocket")]
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;
-
-	[Header("Ore Desc")]
 	public TMP_Text OreName;
 	public TMP_Text OreDesc;
 	#endregion
