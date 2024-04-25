@@ -93,6 +93,7 @@ public class PlayerAnimation : MonoBehaviour
 
 
     bool isLeftPressed = false;
+    bool isRightPressed = false;
     IEnumerator SetAnimation()
     {
         float time = 0;
@@ -147,7 +148,7 @@ public class PlayerAnimation : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
             }
 
-            if (Input.GetMouseButton(0)&& PlayerMain.Instance.isAttacking && PlayerMain.Instance.canAttack)
+            if (Input.GetMouseButton(0)&& PlayerMain.Instance.canAttack)
             {
                 isLeftPressed = true;
                 aimAngle = aim.Angle;
@@ -185,7 +186,7 @@ public class PlayerAnimation : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
             }
 
-            if (PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking)
+            if (Input.GetMouseButton(1) && PlayerMain.Instance.canAttack)
             {
                 if (_inputDirection == Vector2.zero)
                     skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
@@ -197,22 +198,23 @@ public class PlayerAnimation : MonoBehaviour
                     else
                         skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
                 }
-                if (Input.GetMouseButton(1))
-                {
-                    aimAngle = aim.Angle;
-                    skeletonAnimation.AnimationState.SetAnimation(0, PickaxeIdleAnimations[aimAngle], false).AnimationStart = time;
-                }
-                else
-                {
-                    skeletonAnimation.AnimationState.TimeScale = 1.2f;
-                    skeletonAnimation.AnimationState.SetAnimation(0, leftAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
-                    skeletonAnimation.AnimationState.SetAnimation(1, leftAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
-                    skeletonAnimation.AnimationState.AddEmptyAnimation(0, 0, 0);
-                    yield return new WaitForSeconds(0.7f);
-                    lastMoveDirection = (MoveDirectionList)aimAngle;
-                }
+
+                aimAngle = aim.Angle;
+                skeletonAnimation.AnimationState.SetAnimation(0, PickaxeIdleAnimations[aimAngle], false).AnimationStart = time;
+                isRightPressed = true;
+
                 yield return new WaitForSeconds(fixedTime);
                 continue;
+            }
+            else if(isRightPressed)
+            {
+                skeletonAnimation.AnimationState.TimeScale = 1.2f;
+                skeletonAnimation.AnimationState.SetAnimation(0, leftAttackAnimations[aimAngle], false).TimeScale = 0.5f;
+                skeletonAnimation.AnimationState.SetAnimation(1, leftAttackAnimations[aimAngle], false).TimeScale = 0.5f;
+                skeletonAnimation.AnimationState.AddEmptyAnimation(0, 0, 0);
+                yield return new WaitForSeconds(0.7f);
+                lastMoveDirection = (MoveDirectionList)aimAngle;
+                isRightPressed = false;
             }
 
             if (_inputDirection == Vector2.zero)

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
-public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
+public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 {
     [SerializeField]
     GameObject attackRange;
@@ -11,7 +12,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
 
     protected override void TryAttack()
     {
-        if (PlayerMain.Instance.isAttacking)
+        if(!CanAttack())
             return;
 
         base.TryAttack();
@@ -21,6 +22,9 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
 
     public override void OnAttackPrepare()
     {
+        if (!CanAttack())
+            return;
+
         //공격 범위 표시
         _showRange = true;
         attackRange.gameObject.SetActive(true);
@@ -28,6 +32,9 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
 
     protected override void OnAttackStart()
     {
+        //공격중
+        PlayerMain.Instance.isAttacking = true;
+        PlayerMain.Instance.canAttack = false;
 
         //데미지 구하기
         float damage = CalculateDamage();
@@ -42,9 +49,11 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
 
         //움직임 제한
         PlayerMain.Instance.canMove = false;
+        
+        atkcollider.enabled = true;
 
         //기존 함수 실행
-        base.OnAttackStart();
+        Invoke(nameof(OnAttacking), timeToAttacking);
     }
 
     protected override void OnAttacking()
@@ -52,41 +61,23 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IAttractable
         //공격 시작에서 공격 처리 관련된 것들 실행하기
         StartAiming();
 
+        Debug.Log("onattacking");
         PlayerMain.Instance.canMove = true;
         atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
 
         //기존 함수 실행
-        base.OnAttacking();
+        Invoke(nameof(OnAttackEnd), timeToEnd);
     }
 
     protected override void OnAttackEnd()
     {
-        PlayerMain.Instance.canAttack = true;
+        attackRange.gameObject.SetActive(false);
         PlayerMain.Instance.isAttacking = false;
+        PlayerMain.Instance.canAttack = true;
+        Debug.Log("onattackend");
     }
 
-    private IEnumerator NormalAttack()
-    {
-        Debug.Log("normal Attack!");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("normal Attack Down!");
-        //float damage = CalculateDamage(0.8f);
-        //Debug.Log("damage : " + damage);
-        //EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.RightAttack, _baseAttackRange.transform.position + Vector3.up / 3, 0.4f);
-        //EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.MineCustom, _baseAttackRange.transform.position + Vector3.up / 2, 0.2f);
-        //_aim.enabled = false;
-        //PlayerMain.Instance.canMove = false;
-        //_baseAttackCol.enabled = true;
-        //yield return new WaitForSeconds(0.3f);
-        //_aim.enabled = true;
-        //PlayerMain.Instance.canMove = true;
-        //_baseAttackCol.enabled = false;
-        //_baseAttackRange.gameObject.SetActive(false);
-        //yield return new WaitForSeconds(1.5f / (2 + (PlayerMain.Instance.stat.AttackSpeed.GetValue() + 1)));
-        //PlayerMain.Instance.canAttack = true;
-        //PlayerMain.Instance.isAttacking = false;
-    }
 
     public void StartAiming()
     {

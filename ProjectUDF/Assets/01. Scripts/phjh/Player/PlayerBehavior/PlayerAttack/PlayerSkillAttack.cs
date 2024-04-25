@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerSkillAttack : PlayerBAttack
+public abstract class PlayerSkillAttack : PlayerAttack
 {
     //ÄðÅ¸ÀÓ °ü·Ã
     [SerializeField]
@@ -17,7 +17,7 @@ public abstract class PlayerSkillAttack : PlayerBAttack
 
     protected override void OnDisable()
     {
-        PlayerMain.Instance.OnAttackEvent -= ReduceCooltime;    
+        //PlayerMain.Instance.OnAttackEvent -= ReduceCooltime;    
     }
 
     protected override void TryAttack()

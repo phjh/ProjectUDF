@@ -26,7 +26,7 @@ public class RandomMap : MonoBehaviour
 
     private void Start()
     {
-        floors[nowFloor] = floors[nowFloor].CloneAndSetting();
+        floors[nowFloor] = floors[nowFloor].CloneAndSetting();      //여기 Random붙이면 됨
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
         dirtEffect.Play();
         MapSystem.Instance.ActionInvoker(MapEvents.WaveClear);

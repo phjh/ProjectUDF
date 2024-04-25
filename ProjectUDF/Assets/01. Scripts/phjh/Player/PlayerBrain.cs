@@ -10,7 +10,12 @@ public class PlayerBrain : MonoBehaviour
     public InputReader reader;
     public PlayerAim aim;
     
-    public WeaponInfo nowWeapon;
+    public PlayerWeapon nowWeapon;
+
+    private GameObject nowWeaponObj;
+    private PlayerBaseAttack baseAttack;
+    private PlayerChargeAttack chargeAttack;
+
     public PlayerSkillAttack nowSkill;
 
     private void Awake()
@@ -26,24 +31,32 @@ public class PlayerBrain : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+
+        if(Input.GetMouseButton(0))
         {
-            nowWeapon.baseAttack.OnAttackPrepare();
+            baseAttack.OnAttackPrepare();
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            nowWeapon.baseAttack.Attack(nowWeapon.baseAttack);
+            baseAttack.Attack(baseAttack);
         }
-        else if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButton(1))
         {
-            nowWeapon.chargeAttack.Attack(nowWeapon.chargeAttack);
+            chargeAttack.OnAttackPrepare();
         }
-
+        else if (Input.GetMouseButtonUp(1))
+        {
+            chargeAttack.Attack(chargeAttack);
+        }
     }
 
-    public void WeaponChange(WeaponInfo weapon)
+    public void WeaponChange(PlayerWeapon weapon)
     {
         nowWeapon = weapon;
+        nowWeaponObj = Instantiate(nowWeapon.baseAtk.gameObject, FindObjectOfType<PlayerAim>().transform);
+        baseAttack = nowWeaponObj.GetComponent<PlayerBaseAttack>();
+        chargeAttack = nowWeaponObj.GetComponent<PlayerChargeAttack>();
+
     }
 
     public void SkillChange(PlayerSkillAttack skill)

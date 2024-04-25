@@ -1,22 +1,31 @@
 using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAtkDectector : MonoBehaviour
 {
     CinemachineBasicMultiChannelPerlin perlin;
 
+    List<GameObject> hitList;
+
     private void Start()
     {
         perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
+    private void OnEnable()
+    {
+        hitList = new List<GameObject>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy))
+        if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy) && !hitList.Contains(collision.gameObject))
         {
             Debug.Log("Connected trigger damage : " + PlayerMain.Instance.recentDamage);
+            hitList.Add(collision.gameObject);
             EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
             UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);

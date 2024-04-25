@@ -2,23 +2,13 @@ using System;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-[Serializable]
-public struct WeaponInfo //여기서 평타랑 차징공격을 준비해준다
-{
-    public PlayerBaseAttack baseAttack; //평타
-    public PlayerChargeAttack chargeAttack; //차징공격
-
-    public override string ToString()
-    {
-        return $"baseattack : {baseAttack}\n chargeattack : {chargeAttack}";
-    }
-}
-
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
     public PlayerStat stat { get; private set; }
     public InputReader inputReader { get; private set; }
 
+
+    public Action OnAttackEvent;
 
     #region 움직임 관련 변수들
 
@@ -32,7 +22,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     #region 공격 관련 변수들
 
-    public Action OnAttackEvent;
 
     public PlayerAim playerAim { get; private set; }
 
@@ -62,7 +51,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     }
 
 
-    public void Attack(PlayerBAttack attack)
+    public void Attack(PlayerAttack attack)
     {
         attack.Attack(attack);
     }
