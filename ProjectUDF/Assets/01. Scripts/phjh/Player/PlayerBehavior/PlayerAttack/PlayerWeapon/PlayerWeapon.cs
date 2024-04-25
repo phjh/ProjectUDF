@@ -6,25 +6,13 @@ using UnityEngine;
 public class PlayerWeapon : ScriptableObject
 {
     public SelectedWeaponEnum weaponType;
-    
-    public PlayerBaseAttack baseAtk;
-    public PlayerChargeAttack chargeAtk;
+
+    public GameObject weaponObj;
+
 
     public float GetCaculateDamage()
     {
         return 0;
-    }
-
-    private void Awake()
-    {
-        if(baseAtk == null)
-        {
-            Debug.LogError($"{this.name} baseAtk is null!");
-        }
-        else if(chargeAtk == null)
-        {
-            Debug.LogError($"{this.name} chargeAtk is null!");
-        }
     }
 
 }

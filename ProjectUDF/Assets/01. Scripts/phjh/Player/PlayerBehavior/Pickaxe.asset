@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   weaponType: 0
-  baseAtk: {fileID: 7180270958805107987, guid: 85e6a8109c236a44e8902fd7d1630f29, type: 3}
-  chargeAtk: {fileID: 8984438625579730750, guid: 85e6a8109c236a44e8902fd7d1630f29, type: 3}
+  weaponObj: {fileID: 8544951525622171181, guid: 85e6a8109c236a44e8902fd7d1630f29, type: 3}

@@ -36,6 +36,9 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 
     protected override void OnAttackStart()
     {
+        if (!_showRange)
+            return;
+
         float baseFactor = _damageFactor;
         _damageFactor = Mathf.Lerp(_damageFactor, maxChargedFactor, Mathf.Clamp(charged / maxChargedFactor, 0, 1));
 
@@ -73,11 +76,11 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 
     protected override void OnAttackEnd()
     {
+        charged = 0f;
         attackRange.transform.localScale = Vector3.one;
         attackRange.gameObject.SetActive(false);
-        PlayerMain.Instance.isAttacking = false;
         PlayerMain.Instance.canAttack = true;
-        charged = 0f;
+        PlayerMain.Instance.isAttacking = false;
     }
 
     public void StartAiming()

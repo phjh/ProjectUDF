@@ -2,22 +2,32 @@ using Spine.Unity;
 using System;
 using System.Collections;
 using System.Runtime.Serialization;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
-    public PlayerStats stat { get; private set; }
-    public InputReader inputReader { get; private set; }
+    public PlayerStats stat;
+    public InputReader inputReader;
 
     public Action OnAttackEvent;
 
     #region 움직임 관련 변수들
+
+    public PlayerWeapon nowWeapon;
+
+    public GameObject nowWeaponObj { get; private set; }
+    public PlayerBaseAttack baseAttack {  get; private set; }
+    public PlayerChargeAttack chargeAttack { get; private set; }
+
+    public PlayerSkillAttack nowSkill;
 
     public bool canMove { get; set; }
 
     public bool canDodging {  get; set; }
 
     public bool isDodging { get; set; }
+
 
     bool isInvincible;
 
@@ -26,8 +36,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     [Tooltip("무적 깜빡이는 속도")]
     private float invincibleSpeed = 6f;
-
-    private Rigidbody2D rb;
 
     #endregion
 
@@ -38,17 +46,13 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public bool canAttack { get; set; }
     public bool isAttacking { get; set; }
+    public bool baseAttackPrepare { get; set; }
+    public bool chargeAttackPrepare { get; set; }
     public float recentDamage { get; set; }
     public bool isCritical { get; set; }
 
     #endregion
 
-    public void Init(PlayerAim aim, PlayerStats stat, InputReader reader)
-    {
-        playerAim = aim;
-        this.stat = stat;
-        inputReader = reader;
-    }
 
     private void Awake()
     {
@@ -59,8 +63,23 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         isAttacking = false;
         recentDamage = 4f;
         isCritical = false;
+
+        playerAim = FindObjectOfType<PlayerAim>();
+
+        stat.SetOwner(this);
+        stat = stat.Clone();
+
+        SetWeapon(nowWeapon);
     }
 
+
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+            baseAttack.OnAttackPrepare();
+        else if (Input.GetMouseButton(1))
+            chargeAttack.OnAttackPrepare();
+    }
 
     public void Attack(PlayerAttack attack)
     {
@@ -84,6 +103,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         stat.EditPlayerHP(1);
     }
 
+    //맞았을때 무적되는거
     private IEnumerator Invincible()
     {
         isInvincible = true;
@@ -111,6 +131,20 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         yield return new WaitForSeconds(0.1f);
 
         isInvincible = false;
+    }
+
+    public void SetWeapon(PlayerWeapon weapon)
+    {
+        nowWeapon = weapon;
+        nowWeaponObj = Instantiate(nowWeapon.weaponObj, playerAim.transform);
+        baseAttack = nowWeaponObj.GetComponent<PlayerBaseAttack>();
+        chargeAttack = nowWeaponObj.GetComponent<PlayerChargeAttack>();
+
+    }
+
+    public void SkillChange(PlayerSkillAttack skill)
+    {
+        nowSkill = skill;
     }
 
 }

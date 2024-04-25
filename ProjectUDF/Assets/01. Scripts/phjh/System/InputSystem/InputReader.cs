@@ -56,5 +56,21 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     {
         PauseEvent?.Invoke();
     }
+
+    public void OnBaseAttack(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            PlayerMain.Instance.Attack(PlayerMain.Instance.baseAttack);
+        }
+    }
+
+    public void OnChargeAttack(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            PlayerMain.Instance.Attack(PlayerMain.Instance.chargeAttack);
+        }
+    }
     #endregion
 }

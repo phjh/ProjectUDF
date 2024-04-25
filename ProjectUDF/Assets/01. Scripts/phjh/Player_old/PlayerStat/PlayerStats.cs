@@ -66,8 +66,8 @@ public class PlayerStats : ScriptableObject
 		return returnvalue;
 	}
 
-	protected PlayerBrain _owner;
-	public void SetOwner(PlayerBrain owner)
+	protected PlayerMain _owner;
+	public void SetOwner(PlayerMain owner)
 	{
 		_owner = owner;
 		ResetHP();

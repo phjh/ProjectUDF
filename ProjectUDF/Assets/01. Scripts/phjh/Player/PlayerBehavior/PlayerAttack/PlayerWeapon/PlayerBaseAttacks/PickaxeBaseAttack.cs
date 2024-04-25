@@ -32,6 +32,12 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 
     protected override void OnAttackStart()
     {
+        if (!_showRange)
+        {
+            Debug.LogWarning("Range is not enabled");
+            return;
+        }
+
         //°ø°ÝÁß
         PlayerMain.Instance.isAttacking = true;
         PlayerMain.Instance.canAttack = false;
@@ -72,8 +78,8 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
     protected override void OnAttackEnd()
     {
         attackRange.gameObject.SetActive(false);
-        PlayerMain.Instance.isAttacking = false;
         PlayerMain.Instance.canAttack = true;
+        PlayerMain.Instance.isAttacking = false;
         Debug.Log("onattackend");
     }
 
