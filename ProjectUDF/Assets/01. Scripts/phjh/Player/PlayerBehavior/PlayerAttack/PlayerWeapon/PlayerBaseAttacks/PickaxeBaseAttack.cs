@@ -44,8 +44,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         StopAiming();
 
         //이펙트 재생
-        EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.MineCustom, attackRange.transform.position + Vector3.up / 2, 0.2f);
-        EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.RightAttack, attackRange.transform.position + Vector3.up / 3, 0.4f);
+        EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.MineCustom, attackRange.transform.position + Vector3.up / 3, 0.4f);
 
         //움직임 제한
         PlayerMain.Instance.canMove = false;

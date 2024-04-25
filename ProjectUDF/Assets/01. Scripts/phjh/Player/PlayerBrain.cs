@@ -6,7 +6,7 @@ using UnityEngine;
 //여기선 behavior을 통해 세팅과 흐름제어만 할 예정이다
 public class PlayerBrain : MonoBehaviour
 {
-    public PlayerStat stat;
+    public PlayerStats stat;
     public InputReader reader;
     public PlayerAim aim;
     
@@ -20,6 +20,8 @@ public class PlayerBrain : MonoBehaviour
 
     private void Awake()
     {
+        stat.SetOwner(this);
+        stat = stat.Clone();
         PlayerMain.Instance.Init(aim, stat, reader);
     }
 
@@ -48,6 +50,9 @@ public class PlayerBrain : MonoBehaviour
         {
             chargeAttack.Attack(chargeAttack);
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+            PlayerMain.Instance.GetHeal();
     }
 
     public void WeaponChange(PlayerWeapon weapon)

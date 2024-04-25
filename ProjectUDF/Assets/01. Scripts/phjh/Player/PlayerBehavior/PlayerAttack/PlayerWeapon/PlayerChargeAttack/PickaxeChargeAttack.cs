@@ -30,7 +30,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         _showRange = true;
         attackRange.SetActive(true);
         charged += Time.deltaTime;
-        float scale = Mathf.Lerp(1f, maxChargedFactor, Mathf.Clamp(charged / maxChargedFactor, 0, 1));
+        float scale = Mathf.Lerp(1.4f, 1.8f, Mathf.Clamp(charged / maxChargedFactor, 0, 1));
         attackRange.transform.localScale = new Vector3(scale, scale, scale);
     }
 

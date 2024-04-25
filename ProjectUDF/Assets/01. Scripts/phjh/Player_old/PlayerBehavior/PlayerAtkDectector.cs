@@ -26,10 +26,10 @@ public class PlayerAtkDectector : MonoBehaviour
         {
             Debug.Log("Connected trigger damage : " + PlayerMain.Instance.recentDamage);
             hitList.Add(collision.gameObject);
-            EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
+            EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
             UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);
-            StartCoroutine(ShakeCamera(PlayerMain.Instance.recentDamage, PlayerMain.Instance.isCritical));
+            StartCoroutine(ShakeCamera(3, PlayerMain.Instance.isCritical));
         }
         else if(collision.CompareTag("Enemy"))
         {

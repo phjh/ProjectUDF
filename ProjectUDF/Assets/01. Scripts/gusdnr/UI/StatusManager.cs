@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StatusManager : MonoBehaviour
 {
-	private PlayerStat playerStat;
+	private PlayerStats playerStat;
 
 	[Header("HP UI Value")]
     [SerializeField] private GameObject HeartPrefab;
@@ -16,15 +16,15 @@ public class StatusManager : MonoBehaviour
 
 	private void OnEnable()
 	{
-		PlayerStat.HpChanged += DrawHearts;
-		PlayerStat.OnDeadPlayer += HideStatus;
+		PlayerStats.HpChanged += DrawHearts;
+		PlayerStats.OnDeadPlayer += HideStatus;
 		GameManager.OnStart += GameSet;
 	}
 
 	private void OnDisable()
 	{
-		PlayerStat.HpChanged -= DrawHearts;
-		PlayerStat.OnDeadPlayer -= HideStatus;
+		PlayerStats.HpChanged -= DrawHearts;
+		PlayerStats.OnDeadPlayer -= HideStatus;
 		GameManager.OnStart -= GameSet;
 	}
 

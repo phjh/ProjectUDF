@@ -6,13 +6,9 @@ public class EnemyProjectile : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.isTrigger)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            return;
-        }
-        if (collision.gameObject.TryGetComponent<Player>(out Player player))
-        {
-            player.GetDamage();
+            PlayerMain.Instance.GetDamage();
         }
 
     }

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoolObjectLists:
   - enumtype: 1
-    prefab: {fileID: 3485512363394060473, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+    prefab: {fileID: 4290392551278346690, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
     name: MiniGolem
     count: 10
     description: "\uBBF8\uB2C8\uACE8\uB818"
   - enumtype: 2
-    prefab: {fileID: 8234726395678351441, guid: c7f484b1640ce4842bffe96efc02e002, type: 3}
+    prefab: {fileID: 2314839697706705556, guid: d9a08c536aee77247b97404c10ba0c72, type: 3}
     name: StoneToad
     count: 10
     description: "\uB3CC \uB450\uAEBC\uBE44"
@@ -35,7 +35,7 @@ MonoBehaviour:
     description: "\uB3CC \uB358\uC9C0\uB294\uBAB9"
   PoolEffectLists:
   - enumtype: 1
-    prefab: {fileID: -1922065975914471239, guid: a59f6c5159c4502458fd602fb201c2ba, type: 3}
+    prefab: {fileID: 5365508972865829658, guid: b3eafb45a43ba0b4d86c7e964bdf1188, type: 3}
     name: MineCustom
     count: 5
     description: "\uB3CC\uD280\uAE30\uB294 \uC774\uD399\uD2B8"
@@ -45,13 +45,13 @@ MonoBehaviour:
     count: 5
     description: "\uC88C\uD074\uB9AD \uD718\uB450\uB97C\uB54C \uC774\uD399\uD2B8"
   - enumtype: 3
-    prefab: {fileID: 4522132096273949379, guid: 5b2189a0bf19c5c478fb8660a514cc46, type: 3}
+    prefab: {fileID: 3733077805600764737, guid: 86cd25ca6f8cf734893831950f48f89c, type: 3}
     name: HitEffect
     count: 5
     description: "\uBAAC\uC2A4\uD130 \uB54C\uB838\uC744\uB54C \uB098\uC624\uB294
       \uC774\uD399\uD2B8"
   - enumtype: 4
-    prefab: {fileID: 2477497604259188157, guid: d87cdfe7cb4030242858b9679fb07545, type: 3}
+    prefab: {fileID: 3733077805600764737, guid: 86cd25ca6f8cf734893831950f48f89c, type: 3}
     name: RightAttack
     count: 5
     description: "\uB545\uC5D0 \uD3ED\uBC1C?\uD558\uB294\uB4EF\uD55C \uC774\uD399\uD2B8"

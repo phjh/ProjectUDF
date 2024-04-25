@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemInventory : MonoBehaviour
 {
     public List<ItemDataSO> CollectItems;
-	private PlayerStat status;
+	private PlayerStats status;
 
 	private void OnEnable()
 	{

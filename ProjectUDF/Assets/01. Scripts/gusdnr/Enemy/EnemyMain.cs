@@ -214,16 +214,12 @@ public class EnemyMain : PoolableMono
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.CompareTag("Player"))
-		{
-			Player playerMain = collision.GetComponent<Player>();
-			if(playerMain != null)
-			{
-				Debug.Log("Hit : Player Is Not Null");
-				playerMain?.GetDamage();
-			}
-		}
-	}
+        if (collision.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement move))
+        {
+			Debug.LogWarning($"{this.gameObject.name} - is invoked this");
+            PlayerMain.Instance.GetDamage();
+        }
+    }
 
 	#endregion
 }

@@ -36,15 +36,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dodge()
     {
-        if (!PlayerMain.Instance.isDodging || !PlayerMain.Instance.canMove) 
+        if (!PlayerMain.Instance.canDodging || !PlayerMain.Instance.canMove) 
             return;
 
-        PlayerMain.Instance.isDodging = false;
+        PlayerMain.Instance.canDodging = false;
         StartCoroutine(DoDodge());
     }
 
     IEnumerator DoDodge()
-    {
+    {   
         PlayerMain.Instance.isDodging = true;
         PlayerMain.Instance.canMove = false;
         _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
@@ -52,8 +52,8 @@ public class PlayerMovement : MonoBehaviour
         slider.gameObject.SetActive(true);
         StartCoroutine(DodgeCooltimeSet());
         yield return new WaitForSeconds(0.5f);
-        PlayerMain.Instance.canMove = true;
         PlayerMain.Instance.isDodging = false;
+        PlayerMain.Instance.canMove = true;
     }
 
     IEnumerator DodgeCooltimeSet()
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if(slider.value != 1) 
             slider.value = 1;
         slider.gameObject.SetActive(false);
-        PlayerMain.Instance.isDodging = true;
+        PlayerMain.Instance.canDodging = true;
     }
 
     public float DodgeCooltime() => Mathf.Clamp(3 - PlayerMain.Instance.stat.MoveSpeed.GetValue() / 10, 1, 3);
@@ -113,14 +113,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             PlayerMain.Instance.stat.EditModifierStat(Stats.MoveSpeed, 0.5f);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            PlayerMain.Instance.stat.EditPlayerHP(1);
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            PlayerMain.Instance.stat.EditPlayerHP(-1);
         }
     }
 }

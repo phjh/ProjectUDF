@@ -19,13 +19,13 @@ MonoBehaviour:
   numberOfMonsters: 0200000003000000
   spawnMonsterList: []
   spawnMonsters:
-  - monsterObj: {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
-    monsterPos: {x: 4, y: 5}
-  - monsterObj: {fileID: 7328841657428460188, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
+  - monsterObj: {fileID: 5666205405589921430, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
+    monsterPos: {x: 4, y: 4}
+  - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
     monsterPos: {x: -2, y: -2}
-  - monsterObj: {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+  - monsterObj: {fileID: 5666205405589921430, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
     monsterPos: {x: 0, y: 0}
-  - monsterObj: {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
+  - monsterObj: {fileID: 5666205405589921430, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
     monsterPos: {x: -3, y: 3}
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
     monsterPos: {x: 5, y: -4}

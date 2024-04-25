@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: ee0195bfdccbaff40b5c0f0c2c4bd21e, type: 3}
   m_Name: PlayerStatSO
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
-  MaxHP: 0
-  curHP: 0
+  m_EditorClassIdentifier: 
+  MaxHP: 6
+  curHP: 6
   Strength:
-    baseValue: 4
+    baseValue: 20
     fixedModifiers: []
     persentedModifiers: []
   MoveSpeed:
-    baseValue: 4
+    baseValue: 6
     fixedModifiers: []
     persentedModifiers: []
   AttackSpeed:
@@ -27,6 +27,6 @@ MonoBehaviour:
     fixedModifiers: []
     persentedModifiers: []
   Lucky:
-    baseValue: 0
+    baseValue: 30
     fixedModifiers: []
     persentedModifiers: []

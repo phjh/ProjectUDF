@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   monsterWaves: 3
-  MapPrefab: {fileID: 8708210958227143556, guid: b3cf4fe0dd7195b48b61522534badc3e, type: 3}
+  MapPrefab: {fileID: 3447964171512033632, guid: 8968c41d0125d6f4e8aadc688c70de02, type: 3}
   timeLimit: 100
   numberOfMonsters: 010000000100000001000000
   spawnMonsterList:
   - {fileID: 7995406592400691861, guid: 65192da6384a75e4db0a7a4213d0d520, type: 3}
   spawnMonsters:
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 10, y: 10}
+    monsterPos: {x: 0, y: 0}
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 10, y: 10}
+    monsterPos: {x: 0, y: 0}
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 10, y: 10}
+    monsterPos: {x: 0, y: 0}
   exit: 0

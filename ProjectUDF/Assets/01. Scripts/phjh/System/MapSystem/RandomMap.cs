@@ -162,6 +162,7 @@ public class RandomMap : MonoBehaviour
         Destroy(nowMap.gameObject);
         if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
             nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab, transform.position, Quaternion.identity);
+        AstarPath.active.Scan();
     }
 
     #region Flow Methods

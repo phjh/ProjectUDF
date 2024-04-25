@@ -70,7 +70,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         PlayerMain.Instance.inputReader.MovementEvent += SetMovement;
-        PlayerStat.OnDeadPlayer += OnDie;
+        PlayerStats.OnDeadPlayer += OnDie;
         timescale = skeletonAnimation.timeScale;
         animationCoroutine = StartCoroutine(SetAnimation());
     }

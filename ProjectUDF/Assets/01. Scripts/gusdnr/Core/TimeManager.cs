@@ -25,14 +25,14 @@ public class TimeManager : MonoSingleton<TimeManager>
 
 	private void OnEnable()
 	{
-		PlayerStat.OnDeadPlayer += HideTimer;
+		PlayerStats.OnDeadPlayer += HideTimer;
 		GameManager.OnPlaying += StartTimer;
 		GameManager.OnPauseUI += StopTimer;
 	}
 
 	private void OnDisable()
 	{
-		PlayerStat.OnDeadPlayer -= HideTimer;
+		PlayerStats.OnDeadPlayer -= HideTimer;
 		GameManager.OnPlaying -= StartTimer;
 		GameManager.OnPauseUI -= StopTimer;
 	}
