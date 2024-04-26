@@ -131,9 +131,11 @@ public class SoundManager : MonoBehaviour
 			source.gameObject.AddComponent<AudioSource>();
 			audio = source.GetSource();
 		}
+
 		if(audio != null)
 		{
 			sfxPlayers.Add(source);
+			sfxPlayerCount = sfxPlayers.Count;
 		}
 		return source;
 	}
