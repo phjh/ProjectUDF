@@ -21402,6 +21402,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb82a128b4355dc4fb0978afab4a886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
+  inputReader: {fileID: 0}
+  nowWeapon: {fileID: 0}
+  nowSkill: {fileID: 0}
 --- !u!114 &1642537963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21418,6 +21422,9 @@ MonoBehaviour:
   reader: {fileID: 0}
   aim: {fileID: 0}
   nowWeapon: {fileID: 0}
+  nowWeaponObj: {fileID: 0}
+  baseAttack: {fileID: 0}
+  chargeAttack: {fileID: 0}
   nowSkill: {fileID: 0}
 --- !u!1 &1642766884
 GameObject:
@@ -21608,6 +21615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1730226451}
   - component: {fileID: 1730226461}
+  - component: {fileID: 1730226462}
   m_Layer: 0
   m_Name: SFXPlayer
   m_TagString: Untagged
@@ -21726,6 +21734,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1730226462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730226450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb4f2a328f184454f81a5edc3d218870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPlayer: {fileID: 1730226461}
 --- !u!1 &1803284535
 GameObject:
   m_ObjectHideFlags: 0
