@@ -8,16 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: stretchyman-diffuse-pma_Material
-  m_Shader: {fileID: 4800000, guid: 2ce511398fb980f41b7d316c51534590, type: 3}
+  m_Shader: {fileID: 4800000, guid: 64005298b9a80bb4899eabd5140dc4a8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
-  - _EMISSION
-  - _FIXED_NORMALS_VIEWSPACE
-  - _NORMALMAP
+  - _ALPHAPREMULTIPLY_VERTEX_ONLY
   m_InvalidKeywords:
   - _FIXED_NORMALS
+  - _FULLRANGE_HARD_RAMP
   - _USE8NEIGHBOURHOOD_ON
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -70,6 +68,7 @@ Material:
     - _Cull: 0
     - _CustomRenderQueue: 0
     - _Cutoff: 0.1
+    - _DoubleSidedLighting: 0
     - _DstBlend: 10
     - _EmissionPower: 1
     - _EnableExternalAlpha: 0
@@ -90,6 +89,7 @@ Material:
     - _SrcBlend: 1
     - _StencilComp: 8
     - _StencilRef: 1
+    - _StraightAlphaInput: 0
     - _ThresholdEnd: 0.25
     - _TintBlack: 0
     - _Use8Neighbourhood: 1

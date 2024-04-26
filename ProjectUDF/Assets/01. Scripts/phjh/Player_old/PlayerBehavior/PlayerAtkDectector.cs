@@ -30,6 +30,7 @@ public class PlayerAtkDectector : MonoBehaviour
             UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);
             StartCoroutine(ShakeCamera(3, PlayerMain.Instance.isCritical));
+            Invoke(nameof(CameraShakingOff), 0.2f);
         }
         else if(collision.CompareTag("Enemy"))
         {
@@ -52,6 +53,12 @@ public class PlayerAtkDectector : MonoBehaviour
         perlin.m_AmplitudeGain = shakeIntencity * 0.5f;
         perlin.m_FrequencyGain = frequency;
         yield return new WaitForSeconds(0.2f);
+        perlin.m_FrequencyGain = 0;
+        perlin.m_AmplitudeGain = 0;
+    }
+
+    void CameraShakingOff()
+    {
         perlin.m_FrequencyGain = 0;
         perlin.m_AmplitudeGain = 0;
     }
