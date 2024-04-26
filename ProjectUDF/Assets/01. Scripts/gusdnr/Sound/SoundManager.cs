@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
 	public int sfxPlayerCount;
 	[SerializeField]
 	private List<AudioClips> sfxClips;
-	private SFXSource[] sfxPlayers = null;
+	private List<SFXSource> sfxPlayers = new List<SFXSource>();
 	
 
 	private void Awake()
@@ -93,7 +93,7 @@ public class SoundManager : MonoBehaviour
 		AudioClip audioClip = GetAudioClip(name, SoundType.Effect);
 		if (audioClip != null)
 		{
-			for (int p = 0; p < sfxPlayers.Length; p++)
+			for (int p = 0; p < sfxPlayers.Count; p++)
 			{
 				if (!sfxPlayers[p].IsPlaying)
 				{
@@ -103,7 +103,7 @@ public class SoundManager : MonoBehaviour
 			Debug.LogWarning("All Audio Player're Running!");
 			SFXSource newPlayer = MakeSFXPlayer();
 			newPlayer.PopAudio(audioClip, playPoint, volume, pitch);
-			sfxPlayerCount = sfxPlayers.Length;
+			sfxPlayerCount = sfxPlayers.Count;
 			return;
 		}
 		else
@@ -123,7 +123,10 @@ public class SoundManager : MonoBehaviour
 
 	private SFXSource MakeSFXPlayer()
 	{
+		if(sfxPlayers == null) sfxPlayers = new List<SFXSource>();
+
 		GameObject newSourceObj = Instantiate(sfxPlayerObj);
+		newSourceObj.name = newSourceObj.name.Replace("(Clone)", "");
 		SFXSource source = newSourceObj.GetComponent<SFXSource>();
 		source.transform.SetParent(transform);
 		source.transform.position = Vector2.zero;
@@ -138,7 +141,7 @@ public class SoundManager : MonoBehaviour
 
 		if(audio != null)
 		{
-			sfxPlayers.SetValue(source, sfxPlayers.Length + 1);
+			sfxPlayers.Add(source);
 		}
 		return source;
 	}
