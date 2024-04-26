@@ -20,23 +20,20 @@ public class SoundManager : MonoBehaviour
 
 	public static SoundManager Instance;
 
+	[Header("BGM")]
 	[SerializeField]
 	private AudioSource bgmPlayer = null;
 	[SerializeField]
-	private AudioSource[] sfxPlayers = null;
-	[SerializeField]
 	private List<AudioClips> bgmClips;
+
+	[Header("SFX")]
+	[SerializeField]
+	private GameObject sfxPlayerObj;
+	public int sfxPlayerCount;
 	[SerializeField]
 	private List<AudioClips> sfxClips;
-
-	private void OnEnable()
-	{
-		if(Instance != null)
-		{
-			if(bgmPlayer == null) bgmPlayer = transform.Find("BGMPlayer").GetComponent<AudioSource>();
-			if(sfxPlayers == null) sfxPlayers = transform.Find("SFXPlayer").GetComponents<AudioSource>();
-		}
-	}
+	private List<AudioSource> sfxPlayers = null;
+	
 
 	private void Awake()
 	{
@@ -51,12 +48,15 @@ public class SoundManager : MonoBehaviour
 			DontDestroyOnLoad(gameObject);
 		}
 
-		bgmPlayer.loop = true;
+		if(bgmPlayer.loop != true) bgmPlayer.loop = true;
+		if(bgmPlayer.playOnAwake == true) bgmPlayer.playOnAwake = false;
+		InitSFXPlayer();
 	}
 
 	#region Methods
 
-	public void PlayBGM(string name, float volume = 0.5f, float pitch = 1.0f)
+	#region BGM
+	public void PlayBGM(string name, float pitch = 1.0f)
 	{
 		AudioClip audioClip = GetAudioClip(name, SoundType.Bgm);
 		if (audioClip != null)
@@ -67,7 +67,6 @@ public class SoundManager : MonoBehaviour
 
 			audioSource.clip = audioClip;
 			audioSource.pitch = pitch;
-			audioSource.volume = volume;
 			audioSource.Play();
 		}
 		else
@@ -76,22 +75,37 @@ public class SoundManager : MonoBehaviour
 		}
 	}
 
-	public void PlaySFX(string name, float volume = 0.5f, float pitch = 1.0f)
+	public void StopBGM()
+	{
+		bgmPlayer.Stop();
+	}
+	#endregion
+
+	#region SFX
+	private void PlaySFXClip(AudioSource player, AudioClip clip, Transform point, float volume = 0.5f, float pitch = 1.0f)
+	{
+		player.transform.position = point.position;
+		player.volume = volume;
+		player.pitch = pitch;
+		player.PlayOneShot(clip);
+	}
+
+	public void PlaySFX(string name, Transform playPoint, float volume = .5f, float pitch = 1.0f)
 	{
 		AudioClip audioClip = GetAudioClip(name, SoundType.Effect);
 		if (audioClip != null)
 		{
-			for (int p = 0; p < sfxPlayers.Length; p++)
+			for (int p = 0; p < sfxPlayers.Count; p++)
 			{
 				if (!sfxPlayers[p].isPlaying)
 				{
-					sfxPlayers[p].volume = volume;
-					sfxPlayers[p].pitch = pitch;
-					sfxPlayers[p].PlayOneShot(audioClip);
+					PlaySFXClip(sfxPlayers[p], audioClip, playPoint, volume, pitch);
 					return;
 				}
 			}
-			Debug.LogError("Error : All Audio Player're Running!");
+			Debug.LogWarning("All Audio Player're Running!");
+			AudioSource newPlayer = MakeSFXPlayer();
+			PlaySFXClip(newPlayer, audioClip, playPoint, volume, pitch);
 			return;
 		}
 		else
@@ -100,6 +114,32 @@ public class SoundManager : MonoBehaviour
 			return;
 		}
 	}
+
+	private void InitSFXPlayer()
+	{
+		for (int c = 0; c < sfxPlayerCount; c++)
+		{
+			MakeSFXPlayer();
+		}
+	}
+
+	private AudioSource MakeSFXPlayer()
+	{
+		GameObject player = Instantiate(sfxPlayerObj);
+		player.transform.SetParent(transform);
+		player.transform.position = Vector2.zero;
+		AudioSource source = player.GetComponent<AudioSource>();
+		if (source != null)
+		{
+			player.AddComponent<AudioSource>();
+			source = player.GetComponent<AudioSource>();
+		}
+		source.playOnAwake = false;
+		if (source.isPlaying) source.Stop();
+		sfxPlayers.Add(source);
+		return source;
+	}
+
 
 	public void StopAllSFX()
 	{
@@ -111,11 +151,7 @@ public class SoundManager : MonoBehaviour
 		}
 		// 효과음 Dictionary 비우기
 	}
-
-	public void StopBGM()
-	{
-		bgmPlayer.Stop();
-	}
+	#endregion
 
 	public AudioClip GetAudioClip(string name, SoundType type = SoundType.Effect) //SoundType과 이름을 바탕으로 해당하는 Sound Clip 할당 받기
 	{

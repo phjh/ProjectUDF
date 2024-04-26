@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Seeker))]
 public class EnemyMain : PoolableMono
 {
 	#region Enemy Variables
