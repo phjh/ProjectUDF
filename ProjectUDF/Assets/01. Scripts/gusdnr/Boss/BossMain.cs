@@ -13,27 +13,44 @@ public class BossMain : MonoBehaviour
 		Died = 4,
     }
 
+    [Header("Boss Status")]
     public BossDataSO BossData;
     public BossState CurBossState;
-    [Range(0, 10)] public float PatternTerm;
     public float CurHP;
     public bool IsAlive;
 
-    public BossPassive[] PassivePattterns;
-    public BossPattern[] ActivePattterns;
+    [Header("Manage Pattern")]
+    [Range(0, 10)] public float PatternTerm;
+    public BossPassive[] PassivePatterns;
+    public BossPattern[] ActivePatterns;
 
+    private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
 
-    public void StartPassivePattern(BossPassive passive)
+	private void Awake()
+	{
+		IsAlive = true;
+        CurHP = BossData.MaxHP;
+	}
+
+	private void Start()
+	{
+	    foreach(var pattern in PassivePatterns)
+        {
+            StartPassivePattern(pattern);
+        }	
+	}
+
+	public void StartPassivePattern(BossPassive passive)
     {
         float tickTime = passive.ActiveTickTime;
-        StartCoroutine(StartPassive(tickTime, passive));
+        PassiveCoroutines.Add(StartCoroutine(StartPassive(tickTime, passive)));
     }
 
     private IEnumerator StartPassive(float tick, BossPassive passive)
     {
         while (IsAlive)
         {
-            passive?.PaasiveActive();
+            passive?.PassiveActive();
 			yield return new WaitForSeconds(tick);
         }
     }

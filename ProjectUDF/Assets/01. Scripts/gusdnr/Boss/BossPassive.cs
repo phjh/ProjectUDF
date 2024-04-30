@@ -1,6 +1,8 @@
-public abstract class BossPassive
+using UnityEngine;
+
+public class BossPassive : MonoBehaviour
 {
     public float ActiveTickTime;
 
-    public abstract void PaasiveActive();
+    public virtual void PassiveActive() { }
 }
