@@ -7,10 +7,11 @@ public class RangeAttackState : EnemyState
 {
 	public int ShootCount;
 	public float ShootDelay;
-	public GameObject Bullet;
+	public BulletMono Bullet;
 	
 	private Coroutine AttackCoroutine;
-	private Vector2 Direction;
+	private Vector2 EnemyPos;
+	private Vector2 TargetPos;
 
 	public override EnemyState Clone()
 	{
@@ -25,7 +26,9 @@ public class RangeAttackState : EnemyState
 	{
 		base.EnterState();
 		enemy.StopAllCoroutines();
-		AttackCoroutine = enemy.StartCoroutine(ShootFWay());
+		TargetPos = enemy.Target.position;
+		EnemyPos = enemy.transform.position;
+		AttackCoroutine = enemy.StartCoroutine(ShootBullet());
 	}
 
 	public override void ExitState()
@@ -42,7 +45,6 @@ public class RangeAttackState : EnemyState
 	public override void FrameUpdate()
 	{
 		base.FrameUpdate();
-		Direction = (enemy.Target.position - enemy.transform.position).normalized;
 		if (AttackCoroutine == null)
 		{
 			Debug.Log("End Attackcoroutine");
@@ -51,18 +53,14 @@ public class RangeAttackState : EnemyState
 		}
 	}
 
-	private IEnumerator ShootFWay()
+	private IEnumerator ShootBullet()
 	{
-		Vector2 dir = Vector2.zero;
+		Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
-			switch (cnt)
-			{
-				case 0: dir = Vector2.up; break;
-				case 1: dir = Vector2.left; break;
-				case 2: dir = Vector2.down; break;
-				case 3: dir = Vector2.right; break;
-			}
+		    BulletMono bullet = PoolManager.Instance.Pop(Bullet.BulletEnum) as BulletMono;
+			bullet.transform.position = enemy.transform.position;
+			bullet.Shoot(directionToTarget);
 			yield return new WaitForSeconds(ShootDelay);
 		}
 		AttackCoroutine = null;

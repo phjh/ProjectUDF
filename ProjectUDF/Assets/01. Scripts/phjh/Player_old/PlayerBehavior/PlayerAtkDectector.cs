@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PlayerAtkDectector : MonoBehaviour
 {
-    CinemachineBasicMultiChannelPerlin perlin;
+    private CinemachineBasicMultiChannelPerlin perlin;
 
-    List<GameObject> hitList;
+    private List<GameObject> hitList;
 
     private void Start()
     {

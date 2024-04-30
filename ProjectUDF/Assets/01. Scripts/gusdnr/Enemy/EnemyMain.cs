@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Seeker))]
+[RequireComponent(typeof(Seeker))] //If Seeker Script is Null => Add Seeker
 public class EnemyMain : PoolableMono
 {
 	#region Enemy Variables
-	public float MaxHealth { get; set; }
-	public float CurrentHealth { get; set; }
-	public bool IsFacingRight { get; set; } = true;
-	public bool IsWithStrikingDistance { get; set; }
-	public bool IsAttackCooldown { get; set; }
-	public bool IsDead { get; set; } = false;
+	public float MaxHealth { get; set; } //최대 체력
+	public float CurrentHealth { get; set; } //현재 체력
+	public bool IsFacingRight { get; set; } = true; //현재 보고 있는 방향이 오른쪽인가?
+	public bool IsWithStrikingDistance { get; set; } //공격 감지 범위 안 쪽인가?
+	public bool IsAttackCooldown { get; set; } //공격 쿨다운이 실행 중인가?
+	public bool IsDead { get; set; } = false; //이 개체가 죽었는가?
 	#endregion
 
 	#region Enemy Components
