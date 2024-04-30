@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/Dash")]
 public class DashAttackState : EnemyState
@@ -122,5 +123,10 @@ public class DashAttackState : EnemyState
 	{
 		yield return new WaitForSeconds(LockOnTime);
 		TargetPos = enemy.Target.position;
+	}
+
+	private void OnCollisionEnter2D (Collider2D collision)
+	{
+		enemy.
 	}
 }

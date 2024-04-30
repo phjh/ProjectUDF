@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/FWayShoot")]
-public class FWayShootAttackState : EnemyState
+public class RangeAttackState : EnemyState
 {
 	public int ShootCount;
 	public float ShootDelay;
-	public GameObject Stone;
+	public GameObject Bullet;
 	
 	private Coroutine AttackCoroutine;
 	private Vector2 Direction;
 
 	public override EnemyState Clone()
 	{
-		FWayShootAttackState clone = (FWayShootAttackState)CloneBase();
+		RangeAttackState clone = (RangeAttackState)CloneBase();
 		clone.ShootCount = ShootCount;
 		clone.ShootDelay = ShootDelay;
-		clone.Stone = Stone;
+		clone.Bullet = Bullet;
 		return clone;
 	}
 
@@ -56,7 +56,6 @@ public class FWayShootAttackState : EnemyState
 		Vector2 dir = Vector2.zero;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
-			//ToadRock Rock = PoolManager.Instance.Pop(3).GetComponent<ToadRock>();
 			switch (cnt)
 			{
 				case 0: dir = Vector2.up; break;
@@ -64,7 +63,6 @@ public class FWayShootAttackState : EnemyState
 				case 2: dir = Vector2.down; break;
 				case 3: dir = Vector2.right; break;
 			}
-			//Rock.ShootingRock(dir);
 			yield return new WaitForSeconds(ShootDelay);
 		}
 		AttackCoroutine = null;

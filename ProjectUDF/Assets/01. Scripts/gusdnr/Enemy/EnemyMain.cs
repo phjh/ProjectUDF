@@ -58,19 +58,19 @@ public class EnemyMain : PoolableMono
 		StateMachine = new EnemyStateMachine();
 
 		ChaseState.Initialize(this, StateMachine);
-		Debug.Log("Start Cloning Chasing State");
+		//Debug.Log("Start Cloning Chasing State");
 		ChaseState = ChaseState.Clone();
-		if(ChaseState == null) Debug.Log("Chase state is Null");
+		//if(ChaseState == null) Debug.Log("Chase state is Null");
 
 		AttackState.Initialize(this, StateMachine);
-		Debug.Log("Start Cloning Attack State");
+		//Debug.Log("Start Cloning Attack State");
 		AttackState = AttackState.Clone();
-		if(AttackState == null) Debug.LogError("Attack state is Null");
+		//if(AttackState == null) Debug.LogError("Attack state is Null");
 
 		CooldownState.Initialize(this, StateMachine);
-		Debug.Log("Start Cloning Cooldown State");
+		//Debug.Log("Start Cloning Cooldown State");
 		CooldownState = CooldownState.Clone();
-		if(CooldownState == null) Debug.LogError("Cooldown State is Null");
+		//if(CooldownState == null) Debug.LogError("Cooldown State is Null");
 	}
 
 	private void Start()
