@@ -4,11 +4,16 @@ using System.Collections;
 using System.Runtime.Serialization;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
     public PlayerStats stat;
     public InputReader inputReader;
+
+    public float brightness;
+    public Gradient randomColors;
+    public Material hitMat;
 
     public Action OnAttackEvent;
 
@@ -32,10 +37,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     bool isInvincible;
 
     [Tooltip("무적시간")]
-    private float invincibleTime = 0.4f;
-
-    [Tooltip("무적 깜빡이는 속도")]
-    private float invincibleSpeed = 6f;
+    public float invincibleTime = 0.4f;
 
     #endregion
 
@@ -56,6 +58,13 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     private void Awake()
     {
+        if(stat == null)
+            Debug.LogError("Stat is null!");
+
+        if(inputReader == null)
+            Debug.LogError("input reader is null!");
+            
+
         canMove = true;
         canDodging = true;
 
@@ -65,6 +74,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         isCritical = false;
 
         playerAim = FindObjectOfType<PlayerAim>();
+        if (playerAim == null)
+            Debug.LogError("Player Aim is not in the Hierarchy");
 
         stat.SetOwner(this);
         stat = stat.Clone();
@@ -90,7 +101,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         if (isDodging || isInvincible)
             return;
-        stat.EditPlayerHP(-1);
+        //stat.EditPlayerHP(-1);
         Debug.Log(stat.CurHP);
         StartCoroutine(Invincible());
 
@@ -108,37 +119,36 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         isInvincible = true;
 
-        if (TryGetComponent<SkeletonAnimation>(out SkeletonAnimation skel))
+        float time = 0;
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        Material baseMat = renderer.material;
+        renderer.material = hitMat;
+
+        while (time < invincibleTime)
         {
-            Spine.Skeleton skeleton = skel.skeleton;
-
-            float time = 0;
-
-            while (time < invincibleTime)
-            {
-                float alpha = Mathf.Clamp((Mathf.Sin(time * invincibleSpeed) + 1) / 2, 0.2f, 1f);
-                skeleton.A = alpha;
-                time += Time.deltaTime;
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
-
-            skeleton.A = 1;
+            MaterialPropertyBlock mpb = new();
+            Color newColor = randomColors.Evaluate(Mathf.Lerp(0,1,(Mathf.Sin(time/invincibleTime * 5)+1)/2)) * brightness;
+            mpb.SetColor("_Black", newColor);
+            renderer.SetPropertyBlock(mpb);
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);                
         }
-        else
-        {
-            yield return null;
-        }
+
+        renderer.material = baseMat;
         yield return new WaitForSeconds(0.1f);
 
         isInvincible = false;
+
     }
 
     public void SetWeapon(PlayerWeapon weapon)
     {
         nowWeapon = weapon;
         nowWeaponObj = Instantiate(nowWeapon.weaponObj, playerAim.transform);
-        baseAttack = nowWeaponObj.GetComponent<PlayerBaseAttack>();
-        chargeAttack = nowWeaponObj.GetComponent<PlayerChargeAttack>();
+        if(nowWeaponObj.TryGetComponent<PlayerBaseAttack>(out var baseAtk))
+            baseAttack = baseAtk;
+        if (nowWeaponObj.TryGetComponent<PlayerChargeAttack>(out var chargeAtk))
+            chargeAttack = chargeAtk;
 
     }
 

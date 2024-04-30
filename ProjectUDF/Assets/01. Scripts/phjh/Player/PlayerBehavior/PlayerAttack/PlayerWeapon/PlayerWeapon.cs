@@ -10,6 +10,7 @@ public class PlayerWeapon : ScriptableObject
     public GameObject weaponObj;
 
 
+
     public float GetCaculateDamage()
     {
         return 0;

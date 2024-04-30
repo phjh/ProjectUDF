@@ -13,9 +13,15 @@ public abstract class PlayerAttack : MonoBehaviour
 
     private float recentDamage;
 
+    private float baseCriticalChance = 5;
+
+    private float LuckyStatValue;
+    private float StrengthStatValue;
+
     protected virtual void OnEnable()
     {
-        
+        PlayerStats.OnStatChanged += UpdateStat;
+        UpdateStat();
     }
 
     protected virtual void OnDisable()
@@ -31,19 +37,25 @@ public abstract class PlayerAttack : MonoBehaviour
 
     protected abstract void TryAttack();
 
+    private void UpdateStat()
+    {
+        LuckyStatValue = PlayerMain.Instance.stat.Lucky.GetValue();
+        StrengthStatValue = PlayerMain.Instance.stat.Strength.GetValue();
+    }
+
     protected float CalculateDamage()
     {
         GetRecentDamage();
         float damage = 0;
         bool critical = false;
-        if (UnityEngine.Random.Range(0, 100.0f) < PlayerMain.Instance.stat.Lucky.GetValue())
+        if (UnityEngine.Random.Range(0, 100.0f) < LuckyStatValue + baseCriticalChance)
         {
             damage = recentDamage * 1.3f * _damageFactor;
             critical = true;
         }
         else
         {
-            damage = PlayerMain.Instance.stat.Strength.GetValue() * _damageFactor;
+            damage = StrengthStatValue * _damageFactor;
         }
         recentDamage = Mathf.Ceil(damage * 10) / 10;
         _isCritical = critical;

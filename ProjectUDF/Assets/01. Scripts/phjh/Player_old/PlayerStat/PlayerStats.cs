@@ -19,6 +19,8 @@ public class PlayerStats : ScriptableObject
 	public static event Action HpChanged;
 	public static event Action OnDeadPlayer;
 
+	public static Action OnStatChanged;
+
 	[Header("Player's Stats")]
 	public int MaxHP;
 	public int curHP;
@@ -81,7 +83,8 @@ public class PlayerStats : ScriptableObject
 	public void IncreaseStatBy(int modifyValue, float duration, Stats statType) //버프형 값 적용
 	{
 		_owner.StartCoroutine(StatModifyCoroutine(modifyValue, duration, statType));
-	}
+
+    }
 
 	protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stats statType, bool IsFixed = false) //버프 코루틴
 	{
@@ -96,7 +99,8 @@ public class PlayerStats : ScriptableObject
 	public void EditModifierStat(Stats statType, float value, bool isPersent = false)
 	{
 		GetStatByType(statType).AddModifier(value, isPersent);
-	}
+
+    }
 
 	public void ResetHP()
 	{

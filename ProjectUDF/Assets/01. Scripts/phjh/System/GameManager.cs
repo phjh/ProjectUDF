@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
+using TreeEditor;
 
 
 public enum GameStates
@@ -58,6 +59,13 @@ public class GameManager : MonoSingleton<GameManager>
 	public static event Action OnEnd;
 	#endregion
 
+	#region etc
+
+	//카메라 흔들때 쓰이는 거
+	CinemachineBasicMultiChannelPerlin perlin;
+
+	#endregion
+
 	private void Awake()
 	{
 		PoolManager.Instance = new PoolManager();
@@ -76,8 +84,9 @@ public class GameManager : MonoSingleton<GameManager>
         }
 		if (player == null) player = PlayerMain.Instance;
 		if (playerInventory == null) playerInventory = player.GetComponent<ItemInventory>();
+        perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-		AstarPath.active.Scan();
+        AstarPath.active.Scan();
 	}
 
 
@@ -119,7 +128,7 @@ public class GameManager : MonoSingleton<GameManager>
 	public void UpdateState(GameStates SetState)
 	{
 		gameState = SetState;
-		StateChecker();
+		//StateChecker();
 	}
 
 	private void StateChecker()
@@ -162,6 +171,29 @@ public class GameManager : MonoSingleton<GameManager>
 		if (gameResult != GameResults.Play) UpdateState(GameStates.End);
 	}
 
-	#endregion
+    #endregion
+
+    #region CameraShake
+
+    public void ShakeCamera(float shakeIntencity = 3, float waittime = 0.2f)
+    {
+        float frequency = 1f;
+        if (PlayerMain.Instance.isCritical)
+        {
+            shakeIntencity *= 1.2f;
+            frequency += 0.5f;
+        }
+        perlin.m_AmplitudeGain = shakeIntencity * 0.5f;
+        perlin.m_FrequencyGain = frequency;
+		Invoke(nameof(CameraShakingOff), waittime);
+    }
+
+    void CameraShakingOff()
+    {
+        perlin.m_FrequencyGain = 0;
+        perlin.m_AmplitudeGain = 0;
+    }
+
+    #endregion
 
 }

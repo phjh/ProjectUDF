@@ -29,8 +29,7 @@ public class PlayerAtkDectector : MonoBehaviour
             EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
             UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);
-            StartCoroutine(ShakeCamera(3, PlayerMain.Instance.isCritical));
-            Invoke(nameof(CameraShakingOff), 0.2f);
+            GameManager.Instance.ShakeCamera();
         }
         else if(collision.CompareTag("Enemy"))
         {
@@ -42,26 +41,4 @@ public class PlayerAtkDectector : MonoBehaviour
         }
     }
     
-    IEnumerator ShakeCamera(float shakeIntencity, bool iscritical)
-    {
-        float frequency = 1f;
-        if (iscritical)
-        {
-            shakeIntencity *= 1.2f;
-            frequency += 0.5f;
-        }
-        perlin.m_AmplitudeGain = shakeIntencity * 0.5f;
-        perlin.m_FrequencyGain = frequency;
-        yield return new WaitForSeconds(0.2f);
-        perlin.m_FrequencyGain = 0;
-        perlin.m_AmplitudeGain = 0;
-    }
-
-    void CameraShakingOff()
-    {
-        perlin.m_FrequencyGain = 0;
-        perlin.m_AmplitudeGain = 0;
-    }
-
-
 }

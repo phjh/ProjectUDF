@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +6,10 @@ using UnityEngine.Rendering.Universal;
 
 public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 {
-    [SerializeField]
-    GameObject attackRange;
-    [SerializeField]
-    Collider2D atkcollider;
 
-    protected override void TryAttack()
+    private void Start()
     {
-        if(!CanAttack())
-            return;
-
-        base.TryAttack();
-        Debug.Log("attack Invoked");
-        OnAttackStart();
+        //여기서 넣어준다
     }
 
     public override void OnAttackPrepare()
@@ -57,8 +49,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         
         atkcollider.enabled = true;
 
-        //기존 함수 실행
-        Invoke(nameof(OnAttacking), timeToAttacking);
+        base.OnAttackStart();
     }
 
     protected override void OnAttacking()
@@ -71,8 +62,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
 
-        //기존 함수 실행
-        Invoke(nameof(OnAttackEnd), timeToEnd);
+        base.OnAttacking();
     }
 
     protected override void OnAttackEnd()
@@ -93,4 +83,20 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
     {
         PlayerMain.Instance.playerAim.enabled = false;
     }
+
+    void OnForceStoneSelectedAction()
+    {
+        //범위증가~~
+
+
+        //마우스 누르기 시작한시간
+
+        //마우스 떼서 공격한 시간
+
+        //기본 계수를 받아
+        //뎀지 식의 계수를 대체해주고
+        //공격이 끝나면 원래의 기본계수로 변경 / 광석바꿀때 다시 세팅되게 바꾸기
+        //
+    }
+
 }

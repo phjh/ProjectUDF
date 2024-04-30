@@ -33,6 +33,8 @@ public class Stat
 		baseValue = value;
 	}
 
+	
+
 	public void AddModifier(float value, bool IsPersent = false) //Add Stat Modifier Values
 	{
 		if (value != 0)
@@ -40,7 +42,9 @@ public class Stat
 			if (IsPersent){ fixedModifiers.Add(value); }
 			else { persentedModifiers.Add(value); }
 		}
-	}
+		PlayerStats.OnStatChanged?.Invoke();
+
+    }
 
 	public void RemoveModifier(float value, bool IsPersent = false) //Modifiers Remoce to value in list
 	{
@@ -49,5 +53,6 @@ public class Stat
 			if (IsPersent) { fixedModifiers.Remove(value); }
 			else { persentedModifiers.Remove(value); }
 		}
+		PlayerStats.OnStatChanged?.Invoke();
 	}
 }
