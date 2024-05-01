@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8788087053429627656}
   - component: {fileID: 5363835820647729700}
   - component: {fileID: 4624706665982695528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ToadRock
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,18 +162,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
-    prefab: {fileID: 0}
-    name: 
+    enumtype: 3
+    prefab: {fileID: 4624706665982695528}
+    name: ToadBullet
     count: 15
-    description: 
+    description: "\uB450\uAEBC\uBE44 \uCD1D\uC54C"
   BulletEnum: 3
   BulletLifeTime: 5
-  WhatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 128
-  WhatIsObstacle:
-    serializedVersion: 2
-    m_Bits: 512
-  minSpeed: 2
-  maxSpeed: 8
+  WhatIsEnemy: Player
+  WhatIsObstacle: Obstacle
+  defaultTime: 0.3
+  maxSpeed: 9
+  minSpeed: 4

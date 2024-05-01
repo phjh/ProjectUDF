@@ -11,10 +11,14 @@ public abstract class BulletMono : PoolableMono
     [SerializeField]
     protected float BulletLifeTime;
     [SerializeField]
-    protected LayerMask WhatIsEnemy;
+    protected string WhatIsEnemy = "Player";
     [SerializeField]
-    protected LayerMask WhatIsObstacle;
+    protected string WhatIsObstacle = "Obstacle";
 
     public virtual void Shoot(Vector2 direction) { }
-    protected void PushBullet() => PoolManager.Instance.Push(this, BulletEnum);
+    protected void PushBullet()
+    {
+        StopAllCoroutines();
+        PoolManager.Instance.Push(this, BulletEnum);
+    }
 }

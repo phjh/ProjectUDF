@@ -5,8 +5,9 @@ using UnityEngine;
 public class ToadBullet : BulletMono
 {
 	[Header("Movement Speed")]
-    [Range(0, 10)] public float minSpeed;
-    [Range(0, 10)] public float maxSpeed;
+	public float defaultTime;
+    [Range(0, 15)] public float maxSpeed;
+	[Range(0, 15)] public float minSpeed;
 
     private Rigidbody2D RockRB;
 	private float curSpeed;
@@ -23,14 +24,17 @@ public class ToadBullet : BulletMono
 
 	public override void Shoot(Vector2 direction)
 	{
-		StartCoroutine(BulletSpeedControl(direction));
+		StartCoroutine(BulletSpeedControl(direction, defaultTime));
+		StartCoroutine(RotateBullet());
 		Invoke(nameof(PushBullet), BulletLifeTime);
 	}
 
-	private IEnumerator BulletSpeedControl(Vector2 direction)
+	private IEnumerator BulletSpeedControl(Vector2 direction, float defaultTime)
 	{
 		float time = 0;
 		curSpeed = maxSpeed;
+		RockRB.velocity = direction * curSpeed;
+		yield return new WaitForSeconds(defaultTime);
 		while(curSpeed >= minSpeed)
 		{
 			curSpeed = Mathf.Clamp(Mathf.Lerp(curSpeed, minSpeed, time), minSpeed, maxSpeed);
@@ -40,14 +44,27 @@ public class ToadBullet : BulletMono
 		}
 	}
 
+	private IEnumerator RotateBullet()
+	{
+		float roatationZ = 0;
+		while (true)
+		{
+			roatationZ += 0.05f;
+			transform.Rotate(0, 0, roatationZ, Space.Self);
+			yield return null;
+		}
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.gameObject.layer == WhatIsObstacle)
+		if(collision.gameObject.layer == LayerMask.NameToLayer(WhatIsObstacle))
 		{
+			Debug.Log("Hit Obstacle");
 			PushBullet();
 		}
-		if(collision.gameObject.layer == WhatIsEnemy)
+		if(collision.gameObject.layer == LayerMask.NameToLayer(WhatIsEnemy))
 		{
+			Debug.Log("Hit Player");
 			if(collision.TryGetComponent(out PlayerMain player)) player.GetDamage();
 			PushBullet();
 		}

@@ -61,7 +61,7 @@ public class RangeAttackState : EnemyState
 		{
 			yield return new WaitForSeconds(ShootDelay);
 		    BulletMono bullet = PoolManager.Instance.Pop(Bullet.BulletEnum) as BulletMono;
-			bullet.gameObject.transform.position = EnemyPos;
+			bullet.gameObject.transform.position = enemy.EnemyRB.position;
 			bullet.Shoot(directionToTarget);
 		}
 		yield return AttackCoroutine = null;

@@ -22783,7 +22783,7 @@ MonoBehaviour:
     description: "\uAC1C\uAD6C\uB9AC\uC11D\uC0C1"
   ChaseState: {fileID: 11400000, guid: 096062fc813888046af4326787954df8, type: 2}
   AttackState: {fileID: 11400000, guid: 0733dc8f91a2a0d499fe9fa61c829725, type: 2}
-  CooldownState: {fileID: 11400000, guid: 5f9365fa071b34849ab1dd323592a2cd, type: 2}
+  CooldownState: {fileID: 11400000, guid: 1b77c63af38b471488b26a256afc178c, type: 2}
   maxHealth: 10
   attackCoolTime: 3
   StrikingRadius: 8
