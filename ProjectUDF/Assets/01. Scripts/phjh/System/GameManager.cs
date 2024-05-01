@@ -1,10 +1,6 @@
 using Cinemachine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Pathfinding;
 using UnityEngine;
-
 
 public enum GameStates
 {
@@ -28,8 +24,6 @@ public class GameManager : MonoSingleton<GameManager>
 	#region Pooling
 	[Header("Pooling")]
 	public PoolingListSO poollistSO;
-	//[SerializeField]
-	//private Transform _poolingTrm;
 	#endregion
 
 	#region Player Info

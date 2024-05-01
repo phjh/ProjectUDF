@@ -3,7 +3,7 @@ public enum PoolObjectListEnum
 	None = 0,
 	MiniGolem,
 	StoneToad,
-	ToadRock,
+	ToadBullet,
 	TuseokStatue,
 }
 

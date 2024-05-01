@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1420699016837728241}
   - component: {fileID: 8305601899403308299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovePoint
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -166,7 +166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6953739570643884676
 Transform:
   m_ObjectHideFlags: 0

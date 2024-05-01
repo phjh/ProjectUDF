@@ -26,6 +26,7 @@ public class RangeAttackState : EnemyState
 	{
 		base.EnterState();
 		enemy.StopAllCoroutines();
+		enemy.MoveEnemy(Vector2.zero);
 		TargetPos = enemy.Target.position;
 		EnemyPos = enemy.transform.position;
 		AttackCoroutine = enemy.StartCoroutine(ShootBullet());
@@ -58,11 +59,11 @@ public class RangeAttackState : EnemyState
 		Vector2 directionToTarget = (TargetPos - EnemyPos).normalized;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
-		    BulletMono bullet = PoolManager.Instance.Pop(Bullet.BulletEnum) as BulletMono;
-			bullet.transform.position = enemy.transform.position;
-			bullet.Shoot(directionToTarget);
 			yield return new WaitForSeconds(ShootDelay);
+		    BulletMono bullet = PoolManager.Instance.Pop(Bullet.BulletEnum) as BulletMono;
+			bullet.gameObject.transform.position = EnemyPos;
+			bullet.Shoot(directionToTarget);
 		}
-		AttackCoroutine = null;
+		yield return AttackCoroutine = null;
 	}
 }

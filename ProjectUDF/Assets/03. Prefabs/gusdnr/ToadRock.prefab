@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 228956374508918599}
   - component: {fileID: 8788087053429627656}
   - component: {fileID: 5363835820647729700}
-  - component: {fileID: 5074923153897559526}
+  - component: {fileID: 4624706665982695528}
   m_Layer: 0
   m_Name: ToadRock
   m_TagString: Untagged
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.64
---- !u!114 &5074923153897559526
+--- !u!114 &4624706665982695528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,21 +158,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7328841657428460188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adfc148c53168cc4d9b56af49f1b215d, type: 3}
+  m_Script: {fileID: 11500000, guid: 55351602427530a498e9647fd9a3daf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
+    enumtype: 0
     prefab: {fileID: 0}
-    ID: 0
     name: 
-    count: 0
+    count: 15
     description: 
-  enumtype: 3
-  speed: 20
-  liveTime: 4
+  BulletEnum: 3
+  BulletLifeTime: 5
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
   WhatIsObstacle:
     serializedVersion: 2
     m_Bits: 512
+  minSpeed: 2
+  maxSpeed: 8

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2217930106001241608}
   - component: {fileID: 1501681514312381634}
   - component: {fileID: 2982901365068365486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4062291805599463285}
   - component: {fileID: 4863638401569227931}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,13 +307,13 @@ GameObject:
   - component: {fileID: 1029384989352067280}
   - component: {fileID: 2021701440125315277}
   - component: {fileID: 5944336970387843557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gagoyle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4878746993511537314
 Transform:
   m_ObjectHideFlags: 0
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 980937258069129774}
   - component: {fileID: 2713300422486971275}
   - component: {fileID: 2404828517859115588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

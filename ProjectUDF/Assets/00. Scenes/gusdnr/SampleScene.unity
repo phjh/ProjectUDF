@@ -348,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &71327804
 Transform:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NowTime: 90
-  MaxTime: 30
+  MaxTime: 600
   TimerText: {fileID: 1245684842}
 --- !u!1 &335722527
 GameObject:
@@ -16342,7 +16342,6 @@ MonoBehaviour:
   poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
   player: {fileID: 2106515471}
   VirtualCam: {fileID: 498083036}
-  InventoryArray: []
   gameState: 0
   gameResult: 0
 --- !u!114 &1050577572
@@ -17208,10 +17207,6 @@ PrefabInstance:
     - target: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
       propertyPath: m_Name
       value: DialysisStatue
-      objectReference: {fileID: 0}
-    - target: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7879911316788705856, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22019,7 +22014,7 @@ Transform:
   m_GameObject: {fileID: 7082944650661911878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -2, z: 0}
+  m_LocalPosition: {x: -9.7, y: 1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22101,10 +22096,6 @@ PrefabInstance:
     - target: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       propertyPath: m_Name
       value: SmallGolem
-      objectReference: {fileID: 0}
-    - target: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6953739570643884676, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22222,10 +22213,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1178535978}
     m_Modifications:
-    - target: {fileID: 1649807269980909697, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4878746993511537314, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -22269,10 +22256,6 @@ PrefabInstance:
     - target: {fileID: 5394705337465943607, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
       propertyPath: m_Name
       value: Gagoyle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5394705337465943607, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22576,7 +22559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1001 &7151440736410475093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22798,7 +22781,7 @@ MonoBehaviour:
     name: StoneToad
     count: 10
     description: "\uAC1C\uAD6C\uB9AC\uC11D\uC0C1"
-  ChaseState: {fileID: 11400000, guid: 7b4e1dd377877f742ba3157a796dd21d, type: 2}
+  ChaseState: {fileID: 11400000, guid: 096062fc813888046af4326787954df8, type: 2}
   AttackState: {fileID: 11400000, guid: 0733dc8f91a2a0d499fe9fa61c829725, type: 2}
   CooldownState: {fileID: 11400000, guid: 5f9365fa071b34849ab1dd323592a2cd, type: 2}
   maxHealth: 10

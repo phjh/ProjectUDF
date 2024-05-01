@@ -4,8 +4,10 @@ using UnityEngine;
 
 public abstract class BulletMono : PoolableMono
 {
+    [Header("Set Bullet Pooling Type")]
     [SerializeField]
     public PoolObjectListEnum BulletEnum;
+    [Header("Set Bullet Value")]
     [SerializeField]
     protected float BulletLifeTime;
     [SerializeField]
