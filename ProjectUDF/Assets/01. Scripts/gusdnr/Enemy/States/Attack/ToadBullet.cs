@@ -20,12 +20,15 @@ public class ToadBullet : BulletMono
 	public override void ResetPoolingItem()
 	{
 		if(RockRB == null) RockRB = GetComponent<Rigidbody2D>();
+		transform.Rotate(0, 0, 0);
+		transform.localRotation = Quaternion.Euler(Vector3.zero);
+		RockRB.velocity = Vector3.zero;
 	}
 
 	public override void Shoot(Vector2 direction)
 	{
-		StartCoroutine(BulletSpeedControl(direction, defaultTime));
 		StartCoroutine(RotateBullet());
+		StartCoroutine(BulletSpeedControl(direction, defaultTime));
 		Invoke(nameof(PushBullet), BulletLifeTime);
 	}
 
@@ -46,11 +49,9 @@ public class ToadBullet : BulletMono
 
 	private IEnumerator RotateBullet()
 	{
-		float roatationZ = 0;
 		while (true)
 		{
-			roatationZ += 0.05f;
-			transform.Rotate(0, 0, roatationZ, Space.Self);
+			transform.Rotate(0, 0, 20, Space.Self);
 			yield return null;
 		}
 	}

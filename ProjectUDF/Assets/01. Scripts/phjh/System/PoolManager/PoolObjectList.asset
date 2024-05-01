@@ -26,7 +26,7 @@ MonoBehaviour:
   - enumtype: 3
     prefab: {fileID: 4624706665982695528, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
     name: ToadBullet
-    count: 15
+    count: 30
     description: "\uB450\uAEBC\uBE44 \uCD1D\uC54C"
   - enumtype: 4
     prefab: {fileID: 1202540577100628141, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
