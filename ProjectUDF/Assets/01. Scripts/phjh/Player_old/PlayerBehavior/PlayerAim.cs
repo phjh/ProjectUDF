@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAim : MonoBehaviour
 {
     public int Angle;
-
+    public Vector2 Mousedir;
     public float RotZ = 0;
 
     protected void Start()
@@ -16,8 +16,8 @@ public class PlayerAim : MonoBehaviour
     private void SetRotation()
     {
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(PlayerMain.Instance.inputReader.AimPosition);
-        Vector2 dir = (worldMousePos - transform.position);
-        float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Mousedir = (worldMousePos - transform.position);
+        float rotZ = Mathf.Atan2(Mousedir.y, Mousedir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
         RotZ = rotZ;
 

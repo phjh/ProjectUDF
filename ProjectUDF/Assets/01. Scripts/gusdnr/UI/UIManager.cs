@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -35,6 +36,9 @@ public class UIManager : MonoSingleton<UIManager>
 	public bool IsActivePopUp {	get; set; } = false;
 	public static event EventHandler OnResearchEnd;
 	#endregion
+
+	[Tooltip("¸Â¾ÒÀ»¶§ ¶ã »¡°£ È­¸é")]
+	public Image BloodScreen;
 
 	private void Awake()
 	{
@@ -160,4 +164,18 @@ public class UIManager : MonoSingleton<UIManager>
 	}
 
 	#endregion
+
+	public void ShowBloodScreen(float time)
+	{
+		if (BloodScreen == null)
+			Debug.LogError("UIManager BloodScreen Is Null!!!!!");
+
+		Sequence seq = DOTween.Sequence();
+		Color nowcolor = BloodScreen.color;
+		Color endcolor = nowcolor;
+		endcolor.a = 1;
+		seq.Append(BloodScreen.DOColor(endcolor, time).SetEase(Ease.InOutSine))
+		   .Append(BloodScreen.DOColor(nowcolor, time).SetEase(Ease.OutSine));
+	}
+
 }

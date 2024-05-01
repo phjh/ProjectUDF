@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Slider slider;
 
+    private bool isFixed = false;
+
     protected void OnEnable()
     {
         GameManager.Instance.UpdateState(GameStates.Start);
@@ -103,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
             CalculatePlayerMovement();
         else 
             StopImmediately();
-        if (!PlayerMain.Instance.isDodging)
+        if (!(PlayerMain.Instance.isDodging || isFixed))
             Move();
     }
 
@@ -115,4 +117,13 @@ public class PlayerMovement : MonoBehaviour
             PlayerMain.Instance.stat.EditModifierStat(Stats.MoveSpeed, 0.5f);
         }
     }
+
+    public void SetFixedDir(bool onoff, Vector2 dir)
+    {
+        isFixed = onoff;
+        lastinputDir = dir;
+        _rigidbody.velocity = dir;
+    }
+
+
 }

@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class PlayerBaseAttack : PlayerWeaponAttack
 {
+    [SerializeField]
+    protected float damageFactor;
+
     [SerializeField]
     protected GameObject attackRange;
 
@@ -31,5 +35,7 @@ public abstract class PlayerBaseAttack : PlayerWeaponAttack
         //기존 함수 실행
         Invoke(nameof(OnAttackEnd), timeToAttacking);
     }
+
+
 
 }

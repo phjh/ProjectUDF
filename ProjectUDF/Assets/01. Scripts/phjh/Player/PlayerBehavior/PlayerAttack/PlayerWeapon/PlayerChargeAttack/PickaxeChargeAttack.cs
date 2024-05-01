@@ -1,26 +1,11 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 {
-    [SerializeField]
-    GameObject attackRange;
-    [SerializeField]
-    Collider2D atkcollider;
-
-    float charged = 0;
-
-    protected override void TryAttack()
-    {
-        if (!CanAttack())
-            return;
-
-        base.TryAttack();
-        Debug.Log("attack Invoked");
-        OnAttackStart();
-    }
-
 
     public override void OnAttackPrepare()
     {
@@ -30,8 +15,10 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         _showRange = true;
         attackRange.SetActive(true);
         charged += Time.deltaTime;
-        float scale = Mathf.Lerp(1.4f, 1.8f, Mathf.Clamp(charged / maxChargedFactor, 0, 1));
-        attackRange.transform.localScale = new Vector3(scale, scale, scale);
+        float scale = GetChargedFactor(charged);
+        attackRange.transform.DOScale(new Vector3(scale, scale, scale), 0.2f);
+        //float scale = Mathf.Lerp(1.4f, 1.8f, Mathf.Clamp(charged / 1, 0, 1));
+        //attackRange.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     protected override void OnAttackStart()
@@ -40,7 +27,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
             return;
 
         float baseFactor = _damageFactor;
-        _damageFactor = Mathf.Lerp(_damageFactor, maxChargedFactor, Mathf.Clamp(charged / maxChargedFactor, 0, 1));
+        _damageFactor = GetChargedFactor(charged);
 
         StopAiming();
 
@@ -49,7 +36,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         PlayerMain.Instance.canAttack = false;
 
         //데미지 구하기
-        float damage = CalculateDamage();
+        float damage = CalculateDamage(_damageFactor);
         Debug.Log("damage : " + damage);
 
         atkcollider.enabled = true;

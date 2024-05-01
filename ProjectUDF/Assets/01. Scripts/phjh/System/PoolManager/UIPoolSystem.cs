@@ -18,11 +18,11 @@ public class UIPoolSystem : MonoSingleton<UIPoolSystem>
         TextMeshPro tmp = mono.GetComponent<TextMeshPro>();
         tmp.text = damage.ToString();
         Debug.Log(2);
-        tmp.fontSize = 3 + damage / strength;
+        tmp.fontSize = 4;
         if (isCritical)
         {
             time += 0.2f;
-            tmp.fontSize += 0.5f;
+            tmp.fontSize *= 1.25f;
             tmp.color = Color.red;
         }
         else

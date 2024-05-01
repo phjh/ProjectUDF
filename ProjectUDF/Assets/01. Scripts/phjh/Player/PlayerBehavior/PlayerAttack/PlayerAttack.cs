@@ -7,8 +7,7 @@ using UnityEngine;
 public abstract class PlayerAttack : MonoBehaviour
 {
     //데미지 관련
-    [SerializeField]
-    protected float _damageFactor;
+    protected float _damageFactor { get; set; }
     protected bool _isCritical = false;
 
     private float recentDamage;
@@ -43,19 +42,19 @@ public abstract class PlayerAttack : MonoBehaviour
         StrengthStatValue = PlayerMain.Instance.stat.Strength.GetValue();
     }
 
-    protected float CalculateDamage()
+    protected float CalculateDamage(float factor)
     {
         GetRecentDamage();
         float damage = 0;
         bool critical = false;
-        if (UnityEngine.Random.Range(0, 100.0f) < LuckyStatValue + baseCriticalChance)
+        if (UnityEngine.Random.Range(0, 100.0f) < PlayerMain.Instance.stat.Lucky.GetValue() + baseCriticalChance)
         {
-            damage = recentDamage * 1.3f * _damageFactor;
+            damage = recentDamage * 1.3f * factor;
             critical = true;
         }
         else
         {
-            damage = StrengthStatValue * _damageFactor;
+            damage = PlayerMain.Instance.stat.Strength.GetValue() * factor;
         }
         recentDamage = Mathf.Ceil(damage * 10) / 10;
         _isCritical = critical;

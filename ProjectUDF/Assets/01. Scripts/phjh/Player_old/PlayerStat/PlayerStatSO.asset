@@ -27,6 +27,6 @@ MonoBehaviour:
     fixedModifiers: []
     persentedModifiers: []
   Lucky:
-    baseValue: 30
+    baseValue: 0
     fixedModifiers: []
     persentedModifiers: []

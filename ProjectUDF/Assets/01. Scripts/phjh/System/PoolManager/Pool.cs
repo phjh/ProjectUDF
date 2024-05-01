@@ -21,12 +21,7 @@ class Pool<T> where T : PoolableMono
         }
     }
 
-    public void ChangeParent(Transform parent)
-    {
-
-    }
-
-    public T Pop()
+    public T Pop(Transform parent = null)
     {
         T obj = null;
         if (_pool.Count <= 0)
@@ -36,6 +31,8 @@ class Pool<T> where T : PoolableMono
         else
         {
             obj = _pool.Pop();
+            if(parent != null)
+                obj.transform.SetParent(parent);
             obj.gameObject.SetActive(true);
         }
         return obj;

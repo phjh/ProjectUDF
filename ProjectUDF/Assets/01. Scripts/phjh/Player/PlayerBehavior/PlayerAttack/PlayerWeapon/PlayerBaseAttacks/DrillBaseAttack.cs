@@ -4,22 +4,34 @@ using UnityEngine;
 
 public class DrillBaseAttack : PlayerBaseAttack
 {
-    Queue<GameObject> hitCooldownObjs = new();
+    PlayerMovement move;
 
-    [SerializeField]
-    private float hitCooldown;
+    private void Start()
+    {
+        move = GetComponentInParent<PlayerMovement>();
+    }
 
     public override void OnAttackPrepare()
-    {        
+    {
+        if (move == null)
+            Debug.LogError("move is null");
+
+        if (PlayerMain.Instance.isDodging)
+        {
+            Debug.Log("Dodging");
+            return;
+        }
+
+        move.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized);
+
         //공격범위 표시
         attackRange.gameObject.SetActive(true);
 
         //공격중
-        PlayerMain.Instance.isAttacking = true;
         PlayerMain.Instance.canAttack = false;
 
         //데미지 구하기
-        float damage = CalculateDamage();
+        float damage = CalculateDamage(damageFactor);
         Debug.Log("damage : " + damage);
 
         //이펙트 재생
@@ -34,6 +46,7 @@ public class DrillBaseAttack : PlayerBaseAttack
     protected override void OnAttackStart()
     {
         base.OnAttackStart();
+        PlayerMain.Instance.isAttacking = true;
     }
 
     protected override void OnAttacking()
@@ -41,6 +54,7 @@ public class DrillBaseAttack : PlayerBaseAttack
         Debug.Log("onattacking");
         attackRange.gameObject.SetActive(false);
         atkcollider.enabled = false;
+        move.SetFixedDir(false, Vector2.zero);
 
         base.OnAttacking();
     }
@@ -53,20 +67,4 @@ public class DrillBaseAttack : PlayerBaseAttack
         PlayerMain.Instance.isAttacking = false;
         Debug.Log("onattackend");
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy) && !hitCooldownObjs.Contains(collision.gameObject))
-        {
-            hitCooldownObjs.Enqueue(collision.gameObject);
-            EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
-            enemy.Damage(PlayerMain.Instance.recentDamage);
-            GameManager.Instance.ShakeCamera();
-            Invoke(nameof(SetCooldownObjList), hitCooldown);
-        }
-    }
-
-    void SetCooldownObjList() => hitCooldownObjs.Dequeue();
-
 }

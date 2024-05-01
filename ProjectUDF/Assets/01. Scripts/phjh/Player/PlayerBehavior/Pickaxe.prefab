@@ -265,6 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c350bdf17f1ae84a955c89d9f245bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitCooldown: 0
+  isStay: 0
 --- !u!1 &5586323257060552860
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c350bdf17f1ae84a955c89d9f245bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitCooldown: 0
+  isStay: 0
 --- !u!60 &3046778784671741044
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -410,10 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5097f1bc0bc8248ac2a5d87b63a255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageFactor: 0.8
-  baseCriticalChance: 5
   timeToAttacking: 0.4
   timeToEnd: 1
+  damageFactor: 0.8
   attackRange: {fileID: 5153493427256639049}
   atkcollider: {fileID: 77453866806912406}
 --- !u!114 &3156076401394511702
@@ -428,14 +431,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dc486f1caae5b47b7deddbe8a39eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageFactor: 0.8
-  baseCriticalChance: 5
   timeToAttacking: 0.6
   timeToEnd: 1
-  maxChargeTime: 1
-  maxChargedFactor: 1.2
   attackRange: {fileID: 608402362552861492}
   atkcollider: {fileID: 3046778784671741044}
+  ChargeInfo:
+  - time: 0
+    factor: 1
+  - time: 0.5
+    factor: 1.3
+  - time: 1
+    factor: 1.7
 --- !u!1 &8606450476936734289
 GameObject:
   m_ObjectHideFlags: 0

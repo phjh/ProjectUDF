@@ -18,6 +18,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
             return;
 
         //공격 범위 표시
+        Debug.Log("prepare");
         _showRange = true;
         attackRange.gameObject.SetActive(true);
     }
@@ -35,7 +36,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         PlayerMain.Instance.canAttack = false;
 
         //데미지 구하기
-        float damage = CalculateDamage();
+        float damage = CalculateDamage(damageFactor);
         Debug.Log("damage : " + damage);
 
         //공격범위 고정

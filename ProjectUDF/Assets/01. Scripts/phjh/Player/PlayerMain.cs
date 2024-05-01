@@ -33,6 +33,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public bool isDodging { get; set; }
 
+    public GameObject BloodScreen;
 
     bool isInvincible;
 
@@ -104,6 +105,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         //stat.EditPlayerHP(-1);
         Debug.Log(stat.CurHP);
         StartCoroutine(Invincible());
+        UIManager.Instance.ShowBloodScreen(invincibleTime);
 
         if (stat.CurHP <= 0)
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
@@ -119,11 +121,13 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         isInvincible = true;
 
+
         float time = 0;
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         Material baseMat = renderer.material;
         renderer.material = hitMat;
 
+        GameManager.Instance.ShakeCamera();
         while (time < invincibleTime)
         {
             MaterialPropertyBlock mpb = new();
