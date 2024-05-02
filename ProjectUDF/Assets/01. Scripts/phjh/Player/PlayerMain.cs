@@ -52,12 +52,20 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public float recentDamage { get; set; }
     public bool isCritical { get; set; }
 
-    public int nowStone;
+    public int EquipMainOre;
 
-    #endregion
+	#endregion
+	private void OnEnable()
+	{
+		OreInventory.Instance.OnChangeMainOre += EquipStone;
+	}
 
+	private void OnDisable()
+	{
+		OreInventory.Instance.OnChangeMainOre -= EquipStone;
+	}
 
-    private void Awake()
+	private void Awake()
     {
         GameManager.Instance.player = this;
 
@@ -67,7 +75,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         if(inputReader == null)
             Debug.LogError("input reader is null!");
 
-        nowStone = 1;
+        EquipMainOre = 1;
 
         canMove = true;
         canDodging = true;
@@ -85,7 +93,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         stat = stat.Clone();
 
         SetWeapon(nowWeapon);
-    }
+	}
 
     private void Update()
     {
@@ -165,9 +173,9 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         nowSkill = skill;
     }
 
-    public void EquipStone(int type)
+    private void EquipStone(Stats statName)
     {
-        
+        EquipMainOre = (int)statName;
     }
 
 	#endregion

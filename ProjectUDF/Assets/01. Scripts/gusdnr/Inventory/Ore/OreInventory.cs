@@ -22,8 +22,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public Stats MainOreType;
 	public List<Stats> SubOreType;
 
-	public event Action OnEquipMainOre;
-	public event Action OnUnequipMainOre;
+	public event Action<Stats> OnChangeMainOre;
 	#endregion
 
 	private void Start()
@@ -118,13 +117,14 @@ public class OreInventory : MonoSingleton<OreInventory>
 		if (OreList[statNumber] <= 0) OreList[statNumber] -= 1;
 		else return;
 		MainOreType = statName;
-		OnEquipMainOre();
+		OnChangeMainOre(MainOreType);
 	}
 
 	public void UnequipMain()
 	{
 		if(MainOreType == Stats.None) return;
 		MainOreType = Stats.None;
+		OnChangeMainOre(MainOreType);
 	}
 
 	public void EquipSub(Stats statName, int index)

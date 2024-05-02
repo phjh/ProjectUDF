@@ -17,7 +17,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
             return;
 
         if (!stoneActived)
-            AdditionalAttack[PlayerMain.Instance.nowStone].Invoke();
+            AdditionalAttack[PlayerMain.Instance.EquipMainOre].Invoke();
 
         stoneActived = true;
 
