@@ -10,7 +10,8 @@ public enum Stats
     Lucky = 1,
     MoveSpeed = 2,
     AttackSpeed = 3,
-    HP = 4
+    HP = 4,
+	None = 5,
 }
 
 [CreateAssetMenu(fileName = "New Player Stat", menuName = "SO/Player/PlayerStat")]

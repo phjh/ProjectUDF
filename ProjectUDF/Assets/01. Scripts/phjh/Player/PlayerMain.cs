@@ -87,7 +87,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         SetWeapon(nowWeapon);
     }
 
-
     private void Update()
     {
         if (Input.GetMouseButton(0))
@@ -96,7 +95,9 @@ public class PlayerMain : MonoSingleton<PlayerMain>
             chargeAttack.OnAttackPrepare();
     }
 
-    public void Attack(PlayerAttack attack)
+	#region Methods
+
+	public void Attack(PlayerAttack attack)
     {
         attack.Attack(attack);
     }
@@ -166,10 +167,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public void EquipStone(int type)
     {
-
+        
     }
 
-    //public void 
-
-
+	#endregion
 }

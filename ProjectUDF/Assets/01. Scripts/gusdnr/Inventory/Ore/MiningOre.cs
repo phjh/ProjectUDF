@@ -18,7 +18,7 @@ public class MiningOre : MonoBehaviour
 	public OreSO[] OreDatas;
 	public OreSO CurOreData;
 
-	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stats, CurOreData.value);
+	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stat, CurOreData.value);
 
 	private void OnEnable()
 	{
