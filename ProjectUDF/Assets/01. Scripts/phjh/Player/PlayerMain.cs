@@ -33,8 +33,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public bool isDodging { get; set; }
 
-    public GameObject BloodScreen;
-
     bool isInvincible;
 
     [Tooltip("무적시간")]
@@ -54,6 +52,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public float recentDamage { get; set; }
     public bool isCritical { get; set; }
 
+    public int nowStone;
+
     #endregion
 
 
@@ -64,7 +64,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
         if(inputReader == null)
             Debug.LogError("input reader is null!");
-            
+
+        nowStone = 1;
 
         canMove = true;
         canDodging = true;
@@ -160,5 +161,13 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         nowSkill = skill;
     }
+
+    public void EquipStone(int type)
+    {
+
+    }
+
+    //public void 
+
 
 }

@@ -2,20 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 {
 
-    private void Start()
+    protected override void Start()
     {
-        //여기서 넣어준다
+        base.Start();
     }
 
     public override void OnAttackPrepare()
     {
         if (!CanAttack())
             return;
+
+        if (!stoneActived)
+            AdditionalAttack[PlayerMain.Instance.nowStone].Invoke();
+
+        stoneActived = true;
 
         //공격 범위 표시
         Debug.Log("prepare");
@@ -71,6 +75,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         attackRange.gameObject.SetActive(false);
         PlayerMain.Instance.canAttack = true;
         PlayerMain.Instance.isAttacking = false;
+        stoneActived = false;
         Debug.Log("onattackend");
     }
 
@@ -100,4 +105,23 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         //
     }
 
+    protected override void StrengthStoneAttack()
+    {
+        attackRange.transform.localScale = attackRange.transform.localScale * 1.2f;
+    }
+
+    protected override void LuckyStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void AttackSpeedStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void MoveSpeedStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
 }

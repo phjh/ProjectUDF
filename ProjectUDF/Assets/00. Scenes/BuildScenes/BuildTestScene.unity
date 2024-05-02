@@ -819,7 +819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &417455670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4749,7 +4749,6 @@ MonoBehaviour:
   IconList: []
   Cards: []
   BloodScreen: {fileID: 1197452590}
-  Bloodtime: 1
 --- !u!114 &1063725066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15969,9 +15968,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 1491603921}
     m_Modifications:
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: nowStone
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: nowWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
+      objectReference: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
     - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1

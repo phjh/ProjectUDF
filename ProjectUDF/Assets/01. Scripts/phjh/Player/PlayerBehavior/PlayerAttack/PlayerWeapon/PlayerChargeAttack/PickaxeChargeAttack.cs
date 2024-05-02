@@ -79,4 +79,24 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
     {
         PlayerMain.Instance.playerAim.enabled = false;
     }
+
+    protected override void StrengthStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void LuckyStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void AttackSpeedStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void MoveSpeedStoneAttack()
+    {
+        throw new NotImplementedException();
+    }
 }

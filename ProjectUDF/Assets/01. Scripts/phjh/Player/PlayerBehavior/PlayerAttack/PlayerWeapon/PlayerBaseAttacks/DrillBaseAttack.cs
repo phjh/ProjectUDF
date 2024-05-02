@@ -6,8 +6,9 @@ public class DrillBaseAttack : PlayerBaseAttack
 {
     PlayerMovement move;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         move = GetComponentInParent<PlayerMovement>();
     }
 
@@ -66,5 +67,25 @@ public class DrillBaseAttack : PlayerBaseAttack
         PlayerMain.Instance.canAttack = true;
         PlayerMain.Instance.isAttacking = false;
         Debug.Log("onattackend");
+    }
+
+    protected override void StrengthStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void LuckyStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void AttackSpeedStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void MoveSpeedStoneAttack()
+    {
+        throw new System.NotImplementedException();
     }
 }

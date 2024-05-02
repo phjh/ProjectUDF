@@ -61,4 +61,24 @@ public class DrillChargeAttack : PlayerChargeAttack
         PlayerMain.Instance.isAttacking = false;
         Debug.Log("chargeAttackend");
     }
+
+    protected override void StrengthStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void LuckyStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void AttackSpeedStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void MoveSpeedStoneAttack()
+    {
+        throw new System.NotImplementedException();
+    }
 }
