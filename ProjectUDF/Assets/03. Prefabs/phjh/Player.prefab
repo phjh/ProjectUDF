@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Angle: 0
+  Mousedir: {x: 0, y: 0}
   RotZ: 0
 --- !u!1 &1662512883880881109
 GameObject:
@@ -337,6 +338,7 @@ MonoBehaviour:
   nowWeapon: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
   nowSkill: {fileID: 0}
   invincibleTime: 0.4
+  nowStone: 0
 --- !u!1 &2602279828284038195
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +523,6 @@ GameObject:
   - component: {fileID: 8744345411920787041}
   - component: {fileID: 5306210994658130486}
   - component: {fileID: 2683292138049835736}
-  - component: {fileID: 4261336945713826533}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -624,22 +625,6 @@ CapsuleCollider2D:
   m_Size: {x: 0.59123856, y: 0.2560511}
   m_Direction: 1
 --- !u!114 &2683292138049835736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3968285693306686658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 173b62d073917b940946a96f9159f70d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxInInvnetory: 7
-  OreList: 00000000000000000000000000000000
-  GemList: 00000000000000000000000000000000
-  NeedToUpgrade: 3
---- !u!114 &4261336945713826533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

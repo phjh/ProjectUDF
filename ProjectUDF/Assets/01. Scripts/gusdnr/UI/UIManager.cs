@@ -15,6 +15,7 @@ public class UIManager : MonoSingleton<UIManager>
 	[Header("Ore Pocket")]
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;
+	public RectTransform IconContainer;
 	public TMP_Text OreName;
 	public TMP_Text OreDesc;
 	#endregion
@@ -100,9 +101,9 @@ public class UIManager : MonoSingleton<UIManager>
 		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
 		soHoledr.SettingOreData(data);
 
-		newOre.transform.SetParent(PocketUIParent);
+		newOre.transform.SetParent(IconContainer);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
-		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-200, 200), 0, 0);
+		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, -240), 0, 0);
 		IconList.Add(newOre);
 
 	}

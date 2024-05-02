@@ -36,7 +36,7 @@ public class StatusManager : MonoBehaviour
 	public void GameSet()
 	{
 		SettingHearts();
-		//objects = GetComponentsInChildren<GameObject>();
+		//objects = transform.GetComponentsInChildren<GameObject>();
 		//ShowStatus();
 	}
 
@@ -104,10 +104,10 @@ public class StatusManager : MonoBehaviour
 	}
 	public void HideStatus()
 	{
-		//foreach(GameObject obj in objects)
-		//{
-		//	obj.SetActive(false);
-		//}
+		foreach (GameObject obj in objects)
+		{
+			obj.SetActive(false);
+		}
 	}
 	#endregion
 }

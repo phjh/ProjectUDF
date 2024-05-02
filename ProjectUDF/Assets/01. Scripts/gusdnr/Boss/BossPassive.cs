@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BossPassive : MonoBehaviour
+public class BossPassive : ScriptableObject
 {
     public float ActiveTickTime;
 
