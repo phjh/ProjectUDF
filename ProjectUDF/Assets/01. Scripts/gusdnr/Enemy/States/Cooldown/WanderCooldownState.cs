@@ -15,7 +15,6 @@ public class WanderCooldownState : EnemyState
 
 	private Vector2 EnemyPos;
 	private Vector2 EndPoint;
-	private Vector2 targetDirection;
 
 	public override EnemyState Clone()
 	{
@@ -67,25 +66,25 @@ public class WanderCooldownState : EnemyState
 		if (HitObstacle)
 		{
 			//장애물 위치로 지정
-			Vector2 HitPos = HitObstacle.point;
+			EndPoint = HitObstacle.point;
 			//콜라이더 크기만큼 빼주어 A* Graph 이탈 방지
-			HitPos.x = (HitPos.x > EnemyPos.x) ? HitPos.x - 0.5f : HitPos.x + 0.5f;
-			HitPos.y = (HitPos.y > EnemyPos.y) ? HitPos.y - 0.5f : HitPos.y + 0.5f;
-
-			//탐지 위치 주변 노드 찾기
-			NNInfoInternal nearestNodeInfo = gridGraph.GetNearest(HitPos, NNConstraint.None);
-			//탐지된 노드 지정
-			GraphNode nearestNode = nearestNodeInfo.node;
-			//노드 위치 Unity World Position화
-			Vector3 worldPosition = (Vector3)nearestNode.position;
-			//도착 지점 설정
-			EndPoint = worldPosition;
+			EndPoint.x = (EndPoint.x > EnemyPos.x) ? EndPoint.x - 0.5f : EndPoint.x + 0.5f;
+			EndPoint.y = (EndPoint.y > EnemyPos.y) ? EndPoint.y - 0.5f : EndPoint.y + 0.5f;
 		}
 		else if (!HitObstacle)
 		{
 			//도착 지점 현재 위치에서 방향 벡터와 돌진 거리만큼 곱한 값으로 지정
 			EndPoint = EnemyPos + (moveDIr * distance);
 		}
+		//탐지 위치 주변 노드 찾기
+		NNInfoInternal nearestNodeInfo = gridGraph.GetNearest(EndPoint, NNConstraint.None);
+		//탐지된 노드 지정
+		GraphNode nearestNode = nearestNodeInfo.node;
+		//노드 위치 Unity World Position화
+		Vector3 worldPosition = (Vector3)nearestNode.position;
+		//도착 지점 설정
+		EndPoint = worldPosition;
+
 		enemy.CheckForFacing(moveDIr);
 
 		var wanderSeq = DOTween.Sequence();

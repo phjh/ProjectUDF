@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MiniGolem Cooldown State", menuName = "SO/State/Cooldown/Stop")] 
+[CreateAssetMenu(fileName = "SmallGolem Cooldown State", menuName = "SO/State/Cooldown/Stop")] 
 public class StopCooldownState : EnemyState
 {
 	public override EnemyState Clone()

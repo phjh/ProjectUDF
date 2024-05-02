@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 1202540577100628141}
   - component: {fileID: 2590111094863271189}
   - component: {fileID: 5260032936566297420}
+  - component: {fileID: 6419871545269007782}
   m_Layer: 8
   m_Name: DialysisStatue
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7879911316788705856
 Transform:
   m_ObjectHideFlags: 0
@@ -128,6 +129,34 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.66}
   m_Size: {x: 1.2429495, y: 2.9899397}
   m_Direction: 0
+--- !u!114 &6419871545269007782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2958134122714308492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &3531288292814293142
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7639865083392084567}
   - component: {fileID: 4816776745749753058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

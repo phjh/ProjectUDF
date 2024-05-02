@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
 	public int sfxPlayerCount;
 	[SerializeField]
 	private List<AudioClips> sfxClips;
-	private List<AudioSource> sfxPlayers = null;
+	private List<SFXSource> sfxPlayers = new List<SFXSource>();
 	
 
 	private void Awake()
@@ -54,6 +54,12 @@ public class SoundManager : MonoBehaviour
 	}
 
 	#region Methods
+
+	public void StopAllAudio()
+	{
+		StopBGM();
+		StopAllSFX();
+	}
 
 	#region BGM
 	public void PlayBGM(string name, float pitch = 1.0f)
@@ -82,14 +88,6 @@ public class SoundManager : MonoBehaviour
 	#endregion
 
 	#region SFX
-	private void PlaySFXClip(AudioSource player, AudioClip clip, Transform point, float volume = 0.5f, float pitch = 1.0f)
-	{
-		player.transform.position = point.position;
-		player.volume = volume;
-		player.pitch = pitch;
-		player.PlayOneShot(clip);
-	}
-
 	public void PlaySFX(string name, Transform playPoint, float volume = .5f, float pitch = 1.0f)
 	{
 		AudioClip audioClip = GetAudioClip(name, SoundType.Effect);
@@ -97,15 +95,15 @@ public class SoundManager : MonoBehaviour
 		{
 			for (int p = 0; p < sfxPlayers.Count; p++)
 			{
-				if (!sfxPlayers[p].isPlaying)
+				if (!sfxPlayers[p].IsPlaying)
 				{
-					PlaySFXClip(sfxPlayers[p], audioClip, playPoint, volume, pitch);
-					return;
+					sfxPlayers[p].PopAudio(audioClip, playPoint, volume, pitch);
 				}
 			}
 			Debug.LogWarning("All Audio Player're Running!");
-			AudioSource newPlayer = MakeSFXPlayer();
-			PlaySFXClip(newPlayer, audioClip, playPoint, volume, pitch);
+			SFXSource newPlayer = MakeSFXPlayer();
+			newPlayer.PopAudio(audioClip, playPoint, volume, pitch);
+			sfxPlayerCount = sfxPlayers.Count;
 			return;
 		}
 		else
@@ -123,31 +121,38 @@ public class SoundManager : MonoBehaviour
 		}
 	}
 
-	private AudioSource MakeSFXPlayer()
+	private SFXSource MakeSFXPlayer()
 	{
-		GameObject player = Instantiate(sfxPlayerObj);
-		player.transform.SetParent(transform);
-		player.transform.position = Vector2.zero;
-		AudioSource source = player.GetComponent<AudioSource>();
-		if (source != null)
+		if(sfxPlayers == null) sfxPlayers = new List<SFXSource>();
+
+		GameObject newSourceObj = Instantiate(sfxPlayerObj);
+		newSourceObj.name = newSourceObj.name.Replace("(Clone)", "");
+		SFXSource source = newSourceObj.GetComponent<SFXSource>();
+		source.transform.SetParent(transform);
+		source.transform.position = Vector2.zero;
+		source.InitObject();
+
+		AudioSource audio = source.audioPlayer;
+		if (audio == null)
 		{
-			player.AddComponent<AudioSource>();
-			source = player.GetComponent<AudioSource>();
+			source.gameObject.AddComponent<AudioSource>();
+			audio = source.GetSource();
 		}
-		source.playOnAwake = false;
-		if (source.isPlaying) source.Stop();
-		sfxPlayers.Add(source);
+
+		if(audio != null)
+		{
+			sfxPlayers.Add(source);
+		}
 		return source;
 	}
 
-
-	public void StopAllSFX()
+	public void StopAllSFX() //모든 음향 효과 재생 종료
 	{
 		// 재생기 전부 재생 스탑, 음반 빼기
-		foreach (AudioSource audioSource in sfxPlayers)
+		foreach (SFXSource audioSource in sfxPlayers)
 		{
-			audioSource.clip = null;
-			audioSource.Stop();
+			audioSource.audioPlayer.clip = null;
+			audioSource.PushAudio();
 		}
 		// 효과음 Dictionary 비우기
 	}

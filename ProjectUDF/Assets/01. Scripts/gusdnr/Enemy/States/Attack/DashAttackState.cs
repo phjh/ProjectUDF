@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/Dash")]
 public class DashAttackState : EnemyState
@@ -11,6 +12,7 @@ public class DashAttackState : EnemyState
 	[Header("Dash Values")]
 	public float DashTime;
 	public float DashDistance;
+	public LayerMask WhatIsEnemy;
 	public LayerMask WhatIsObstacle;
 
 	private GridGraph gridGraph;
@@ -28,6 +30,7 @@ public class DashAttackState : EnemyState
 		clone.LockOnTime = LockOnTime;
 		clone.DashTime = DashTime;
 		clone.DashDistance = DashDistance;
+		clone.WhatIsEnemy = WhatIsEnemy;
 		clone.WhatIsObstacle = WhatIsObstacle;
 		return clone;
 	}
@@ -109,10 +112,20 @@ public class DashAttackState : EnemyState
 		}
 		enemy.CheckForFacing(directionToTarget);
 		var dashSeq = DOTween.Sequence();
-
+		
 		dashSeq.Append(enemy.transform.DOMove(EndPoint, DashTime).SetEase(Ease.OutCirc));
 
-		dashSeq.Play().OnComplete(() =>
+		dashSeq.Play()
+		.OnUpdate(() =>
+		{
+			PlayerMain player;
+			player = Physics2D.OverlapCircle(enemy.EnemyRB.position, 4, WhatIsEnemy).GetComponent<PlayerMain>();
+			if (player != null)
+			{
+				player.GetDamage();
+			}
+		})
+		.OnComplete(() =>
 		{
 			AttackCoroutine = null;
 		});
