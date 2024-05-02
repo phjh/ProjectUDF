@@ -14,12 +14,18 @@ public abstract class PlayerWeaponAttack : PlayerAttack
 
     // 햔재광석 선언, Dcttionary / 리스트 작성
     protected bool stoneActived;
+    protected bool isActiveonce;
 
     protected bool _showRange;
 
     protected virtual void Start()
     {
         Init();
+    }
+
+    protected void InvokeStoneAttack()
+    {
+
     }
 
     protected void Init()

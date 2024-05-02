@@ -73,6 +73,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
 		if (player == null) player = PlayerMain.Instance;
 
+        perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         AstarPath.active.Scan();
 	}
 

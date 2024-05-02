@@ -59,6 +59,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     private void Awake()
     {
+        GameManager.Instance.player = this;
+
         if(stat == null)
             Debug.LogError("Stat is null!");
 

@@ -819,7 +819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &417455670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4716,7 +4716,6 @@ MonoBehaviour:
   poollistSO: {fileID: 11400000, guid: 4e4bda04b46fcac45b40b537d5ba16b9, type: 2}
   player: {fileID: 0}
   VirtualCam: {fileID: 326119213}
-  InventoryArray: []
   gameState: 0
   gameResult: 0
 --- !u!114 &1063725065
