@@ -13,7 +13,7 @@ public abstract class PlayerWeaponAttack : PlayerAttack
     protected float timeToEnd;
 
     // 햔재광석 선언, Dcttionary / 리스트 작성
-    protected float stoneActived;
+    protected bool stoneActived;
 
     protected bool _showRange;
 
