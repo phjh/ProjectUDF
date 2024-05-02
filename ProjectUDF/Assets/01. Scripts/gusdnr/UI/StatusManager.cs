@@ -28,6 +28,11 @@ public class StatusManager : MonoBehaviour
 		GameManager.OnStart -= GameSet;
 	}
 
+	private void Start()
+	{
+		GameSet();
+	}
+
 	public void GameSet()
 	{
 		SettingHearts();
@@ -50,6 +55,7 @@ public class StatusManager : MonoBehaviour
 
 	public void DrawHearts()
 	{
+		Debug.Log("Draw Player HP");
 		for(int i = 0; i < hearts.Count; i++)
 		{
 			int heartStatusRemainder = (int)Mathf.Clamp(playerStat.CurHP - i, 0 , 1);
