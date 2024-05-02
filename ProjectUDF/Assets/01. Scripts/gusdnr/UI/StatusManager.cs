@@ -39,7 +39,7 @@ public class StatusManager : MonoBehaviour
 	public void SettingHearts()
 	{
 		playerStat = GameManager.Instance.player.stat;
-
+		Debug.Assert(playerStat != null, "Player Stat is null");
 		int heartToMake = playerStat.MaxHP;
 		for (int i = 0; i < heartToMake; i++)
 		{

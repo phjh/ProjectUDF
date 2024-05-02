@@ -17461,6 +17461,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba72df54d448542498a8f55e2eceacde, type: 2}
   IconList: []
   Cards: []
+  BloodScreen: {fileID: 0}
 --- !u!1 &1527250497
 GameObject:
   m_ObjectHideFlags: 0
