@@ -75,11 +75,17 @@ public class OreInventory : MonoSingleton<OreInventory>
 	private void AddGemStone(Stats statName)
 	{
 		statNumber = (int)statName;
-		OreList[statNumber] -= NeedToUpgrade;
+		RemoveInventory(statNumber, 0, NeedToUpgrade);
 		GemList[statNumber] += 1;
 		status.EditModifierStat(statName, 5);
 		status.EditModifierStat(statName, 2, true);
 		CheckOreCount();
+	}
+
+	private void RemoveInventory(int statNumber, int statValue, int removeCount = 1)
+	{
+		OreList[statNumber] -= removeCount;
+		if(statValue != 0) status.EditModifierStat((Stats)statNumber, statValue);
 	}
 
 	#endregion
@@ -114,17 +120,18 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public void EquipMain(Stats statName)
 	{
 		statNumber = (int)statName;
-		if (OreList[statNumber] <= 0) OreList[statNumber] -= 1;
+		OreSO data = UIManager.Instance.OreDatas[statNumber];
+		if (OreList[statNumber] <= 0) RemoveInventory(statNumber, data.value);
 		else return;
 		MainOreType = statName;
-		OnChangeMainOre(MainOreType);
+		OnChangeMainOre?.Invoke(MainOreType);
 	}
 
 	public void UnequipMain()
 	{
 		if(MainOreType == Stats.None) return;
 		MainOreType = Stats.None;
-		OnChangeMainOre(MainOreType);
+		OnChangeMainOre?.Invoke(MainOreType);
 	}
 
 	public void EquipSub(Stats statName, int index)
@@ -139,10 +146,11 @@ public class OreInventory : MonoSingleton<OreInventory>
 		}
 	}
 
-	public void UnequipMain(int index)
+	public void UnequipSub(int index)
 	{
 		if (SubOreType[index] == Stats.None) return;
-		SubOreType[index] = Stats.None;
+		AddOre(SubOreType[index], 1);
+		SubOreType[index] = Stats.None;	
 	}
 
 	#endregion
