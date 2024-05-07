@@ -49,7 +49,7 @@ namespace Spine.Unity.Examples {
 			if (timeToNextColor <= 0) {
 				timeToNextColor = timeInterval;
 
-				Color newColor =  randomColors.Evaluate(UnityEngine.Random.value);
+				Color newColor = randomColors.Evaluate(UnityEngine.Random.value);
 				mpb.SetColor(colorPropertyName, newColor);
 				GetComponent<MeshRenderer>().SetPropertyBlock(mpb);
 			}

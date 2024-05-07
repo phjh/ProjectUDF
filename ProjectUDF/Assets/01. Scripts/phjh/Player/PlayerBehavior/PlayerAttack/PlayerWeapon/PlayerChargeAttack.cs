@@ -40,6 +40,16 @@ public abstract class PlayerChargeAttack : PlayerWeaponAttack
         OnAttackStart();
     }
 
+    protected int HowlongCharged(float time)
+    {
+        for (int i = 0; i < ChargeInfo.Count; i++)
+        {
+            if (ChargeInfo[i].time > time)
+                return i;
+        }
+        return ChargeInfo.Count;
+    }
+
     protected float GetChargedFactor(float time)
     {
         for (int i = 0; i < ChargeInfo.Count; i++)

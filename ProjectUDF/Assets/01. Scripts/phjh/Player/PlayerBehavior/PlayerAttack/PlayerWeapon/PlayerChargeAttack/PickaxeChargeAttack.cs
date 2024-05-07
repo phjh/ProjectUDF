@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 {
@@ -25,6 +26,8 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
     {
         if (!_showRange)
             return;
+
+        InvokeStoneAttack();
 
         float baseFactor = _damageFactor;
         _damageFactor = GetChargedFactor(charged);
@@ -92,11 +95,22 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 
     protected override void AttackSpeedStoneAttack()
     {
-        throw new NotImplementedException();
+        Debug.Log("강공격은 공속관련이 없어요");
     }
 
     protected override void MoveSpeedStoneAttack()
     {
-        throw new NotImplementedException();
+        Debug.Log("이속 돌 강공격 이벤트");
+        StartCoroutine(MoveSpeedStoneDash());
     }
+
+
+    IEnumerator MoveSpeedStoneDash()
+    {
+        int step = HowlongCharged(charged) + 1;
+        PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized * step * 5);
+        yield return new WaitForSeconds(0.5f);
+        PlayerMain.Instance.playerMove.SetFixedDir(false, Vector2.zero);
+    }
+
 }

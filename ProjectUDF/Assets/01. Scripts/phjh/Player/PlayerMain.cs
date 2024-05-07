@@ -27,6 +27,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public PlayerSkillAttack nowSkill;
 
+    public PlayerMovement playerMove { get; set; }
+
     public bool canMove { get; set; }
 
     public bool canDodging {  get; set; }
@@ -67,6 +69,11 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         if(inputReader == null)
             Debug.LogError("input reader is null!");
 
+        if (transform.parent.TryGetComponent<PlayerMovement>(out PlayerMovement move))
+            playerMove = move;
+        else
+            Debug.LogError("Error while get PlayerMovement in Playermain");
+
         nowStone = 1;
 
         canMove = true;
@@ -87,6 +94,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         SetWeapon(nowWeapon);
     }
 
+    public int testStone;
 
     private void Update()
     {
@@ -94,12 +102,22 @@ public class PlayerMain : MonoSingleton<PlayerMain>
             baseAttack.OnAttackPrepare();
         else if (Input.GetMouseButton(1))
             chargeAttack.OnAttackPrepare();
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            UnEquipStone();
+            EquipStone(testStone);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+            UnEquipStone();
     }
 
     public void Attack(PlayerAttack attack)
     {
         attack.Attack(attack);
     }
+
+    #region 플레이어 체력 관련
 
     public void GetDamage()
     {
@@ -124,7 +142,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         isInvincible = true;
 
-
         float time = 0;
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         Material baseMat = renderer.material;
@@ -134,7 +151,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         while (time < invincibleTime)
         {
             MaterialPropertyBlock mpb = new();
-            Color newColor = randomColors.Evaluate(Mathf.Lerp(0,1,(Mathf.Sin(time/invincibleTime * 5)+1)/2)) * brightness;
+            Color newColor = randomColors.Evaluate(Mathf.Lerp(0,1,(Mathf.Sin(time/invincibleTime * 7)+1)/2)) * brightness;
             mpb.SetColor("_Black", newColor);
             renderer.SetPropertyBlock(mpb);
             time += Time.deltaTime;
@@ -147,6 +164,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         isInvincible = false;
 
     }
+
+    #endregion
 
     public void SetWeapon(PlayerWeapon weapon)
     {
@@ -164,12 +183,27 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         nowSkill = skill;
     }
 
-    public void EquipStone(int type)
-    {
+    #region 플레이어 공격 - 돌 장착,해제
 
+    public void EquipStone(int stoneType)    //돌 장착할때 부르는 메서드
+    {
+        if (nowStone != 0)
+            UnEquipStone();
+
+        nowStone = stoneType;
     }
 
-    //public void 
+    public void UnEquipStone()  //돌 장착 해제할때 부르는 메서드
+    {
+        if (baseAttack.isActiveonce)
+            baseAttack.AdditionalAttack[nowStone].Invoke();
 
+        if (chargeAttack.isActiveonce)
+            chargeAttack.AdditionalAttack[nowStone].Invoke();
+
+        nowStone = 0;
+    }
+
+    #endregion
 
 }

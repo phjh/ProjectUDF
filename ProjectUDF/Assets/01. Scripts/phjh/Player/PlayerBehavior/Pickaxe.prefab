@@ -161,7 +161,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.5, y: 0, z: -1}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9113206555605830172}
@@ -416,9 +416,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToAttacking: 0.4
   timeToEnd: 1
+  isActiveonce: 0
   damageFactor: 0.8
   attackRange: {fileID: 5153493427256639049}
   atkcollider: {fileID: 77453866806912406}
+  StrengthStoneMultiply: 1.5
+  AttackSpeedStoneFactor: 1
+  attackSpeedStoneComboResetTime: 1
 --- !u!114 &3156076401394511702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToAttacking: 0.6
   timeToEnd: 1
+  isActiveonce: 0
   attackRange: {fileID: 608402362552861492}
   atkcollider: {fileID: 3046778784671741044}
   ChargeInfo:

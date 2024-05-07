@@ -14,7 +14,7 @@ public abstract class PlayerWeaponAttack : PlayerAttack
 
     // 햔재광석 선언, Dcttionary / 리스트 작성
     protected bool stoneActived;
-    protected bool isActiveonce;
+    public bool isActiveonce;
 
     protected bool _showRange;
 
@@ -25,7 +25,11 @@ public abstract class PlayerWeaponAttack : PlayerAttack
 
     protected void InvokeStoneAttack()
     {
-
+        if (isActiveonce)
+            return;
+        if (stoneActived)
+            return;
+        AdditionalAttack[PlayerMain.Instance.nowStone].Invoke();
     }
 
     protected void Init()

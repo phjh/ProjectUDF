@@ -173,9 +173,9 @@ public class UIManager : MonoSingleton<UIManager>
 		Sequence seq = DOTween.Sequence();
 		Color nowcolor = BloodScreen.color;
 		Color endcolor = nowcolor;
-		endcolor.a = 1;
+		endcolor.a = 0.8f;
 		seq.Append(BloodScreen.DOColor(endcolor, time).SetEase(Ease.InOutSine))
-		   .Append(BloodScreen.DOColor(nowcolor, time).SetEase(Ease.OutSine));
+		   .Append(BloodScreen.DOColor(nowcolor, time).SetEase(Ease.OutQuad));
 	}
 
 }

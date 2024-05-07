@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class DrillBaseAttack : PlayerBaseAttack
 {
-    PlayerMovement move;
 
     protected override void Start()
     {
         base.Start();
-        move = GetComponentInParent<PlayerMovement>();
     }
 
     public override void OnAttackPrepare()
     {
-        if (move == null)
+        if (PlayerMain.Instance.playerMove == null)
             Debug.LogError("move is null");
 
         if (PlayerMain.Instance.isDodging)
@@ -23,7 +21,7 @@ public class DrillBaseAttack : PlayerBaseAttack
             return;
         }
 
-        move.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized);
+        PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized);
 
         //공격범위 표시
         attackRange.gameObject.SetActive(true);
@@ -55,7 +53,7 @@ public class DrillBaseAttack : PlayerBaseAttack
         Debug.Log("onattacking");
         attackRange.gameObject.SetActive(false);
         atkcollider.enabled = false;
-        move.SetFixedDir(false, Vector2.zero);
+        PlayerMain.Instance.playerMove.SetFixedDir(false, Vector2.zero);
 
         base.OnAttacking();
     }

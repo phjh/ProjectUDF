@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 {
+    float baseFactor;
 
     protected override void Start()
     {
         base.Start();
+        baseFactor = damageFactor;
     }
 
     public override void OnAttackPrepare()
@@ -16,8 +18,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         if (!CanAttack())
             return;
 
-        if (!stoneActived)
-            AdditionalAttack[PlayerMain.Instance.nowStone].Invoke();
+        InvokeStoneAttack();
 
         stoneActived = true;
 
@@ -90,24 +91,21 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         PlayerMain.Instance.playerAim.enabled = false;
     }
 
-    void OnForceStoneSelectedAction()
-    {
-        //범위증가~~
-
-
-        //마우스 누르기 시작한시간
-
-        //마우스 떼서 공격한 시간
-
-        //기본 계수를 받아
-        //뎀지 식의 계수를 대체해주고
-        //공격이 끝나면 원래의 기본계수로 변경 / 광석바꿀때 다시 세팅되게 바꾸기
-        //
-    }
-
+    [SerializeField]
+    [Tooltip("힘의돌 쓸때 범위 증가 계수")]
+    private float StrengthStoneMultiply;
     protected override void StrengthStoneAttack()
     {
-        attackRange.transform.localScale = attackRange.transform.localScale * 1.2f;
+        if (!isActiveonce)
+        {
+            attackRange.transform.localScale = attackRange.transform.localScale * StrengthStoneMultiply;
+            isActiveonce = true;
+        }
+        else
+        {
+            attackRange.transform.localScale = attackRange.transform.localScale / StrengthStoneMultiply;
+            isActiveonce = false;
+        }
     }
 
     protected override void LuckyStoneAttack()
@@ -115,13 +113,42 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         throw new NotImplementedException();
     }
 
+
+    [SerializeField]
+    [Tooltip("공속돌 쓸때 크라켄 계수")]
+    private float AttackSpeedStoneFactor;
+    [SerializeField]
+    [Tooltip("공속돌 콤보 초기화 시간")]
+    private float attackSpeedStoneComboResetTime;
+    int nowattack;
+    float beforeTime;
     protected override void AttackSpeedStoneAttack()
     {
-        throw new NotImplementedException();
+        damageFactor = baseFactor;
+        if(beforeTime + attackSpeedStoneComboResetTime < Time.time) //콤보깨짐
+        {
+            nowattack = 0;
+            beforeTime = Time.time;
+            nowattack++;
+        }
+        else
+        {
+            if(nowattack == 2)
+            {
+                damageFactor += AttackSpeedStoneFactor;
+                nowattack = 0;
+            }
+            else
+            {
+                nowattack++;
+                beforeTime = Time.time;
+            }
+        }
+
     }
 
     protected override void MoveSpeedStoneAttack()
     {
-        throw new NotImplementedException();
+        Debug.Log("좌클엔 이속 효과가 없어요!");
     }
 }
