@@ -122,8 +122,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 		statNumber = (int)statName;
 		if (OreList[statNumber] <= 0)
 		{
-			OreSO data = UIManager.Instance.OreDatas[statNumber];
-			RemoveInventory(statNumber, data.value);
+			int value = UIManager.Instance.OreDatas[statNumber].value;
+			RemoveInventory(statNumber, value);
 		}
 		else return;
 		MainOreType = statName;
@@ -147,8 +147,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 			statNumber = (int)statName;
 			if (OreList[statNumber] <= 0)
 			{
-				OreSO data = UIManager.Instance.OreDatas[statNumber];
-				RemoveInventory(statNumber, data.value);
+				int value = UIManager.Instance.OreDatas[statNumber].value;
+				RemoveInventory(statNumber, value);
 			}
 			else return;
 			SubOreType[index] = statName;

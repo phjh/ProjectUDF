@@ -54,7 +54,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public float recentDamage { get; set; }
     public bool isCritical { get; set; }
 
-    public int nowStone;
     public int EquipMainOre;
 
 	#endregion
@@ -84,7 +83,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         else
             Debug.LogError("Error while get PlayerMovement in Playermain");
 
-        nowStone = 1;
         EquipMainOre = 1;
 
         canMove = true;
@@ -105,22 +103,20 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         SetWeapon(nowWeapon);
     }
 
-    public int testStone;
-
     private void Update()
     {
         if (Input.GetMouseButton(0))
             baseAttack.OnAttackPrepare();
         else if (Input.GetMouseButton(1))
             chargeAttack.OnAttackPrepare();
-
+        /*
         if (Input.GetKeyDown(KeyCode.G))
         {
             UnEquipStone();
-            EquipStone(testStone);
+            EquipStone();
         }
         if (Input.GetKeyDown(KeyCode.H))
-            UnEquipStone();
+            UnEquipStone();*/
     }
 
 	#region Methods
@@ -196,33 +192,25 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         nowSkill = skill;
     }
 
-    #region 플레이어 공격 - 돌 장착,해제
+	#region 플레이어 공격 - 돌 장착,해제
 
-    public void EquipStone(int stoneType)    //돌 장착할때 부르는 메서드
-    {
-        if (nowStone != 0)
-            UnEquipStone();
+	private void EquipStone(Stats statName)
+	{
+		EquipMainOre = (int)statName;
+        if(statName == Stats.None) UnEquipStone();
+	}
 
-        nowStone = stoneType;
-    }
 
-    public void UnEquipStone()  //돌 장착 해제할때 부르는 메서드
+	public void UnEquipStone()  //돌 장착 해제할때 부르는 메서드
     {
         if (baseAttack.isActiveonce)
-            baseAttack.AdditionalAttack[nowStone].Invoke();
+            baseAttack.AdditionalAttack[EquipMainOre].Invoke();
 
         if (chargeAttack.isActiveonce)
-            chargeAttack.AdditionalAttack[nowStone].Invoke();
-
-        nowStone = 0;
+            chargeAttack.AdditionalAttack[EquipMainOre].Invoke();
     }
 
     #endregion
-
-    private void EquipStone(Stats statName)
-    {
-        EquipMainOre = (int)statName;
-    }
 
 	#endregion
 }

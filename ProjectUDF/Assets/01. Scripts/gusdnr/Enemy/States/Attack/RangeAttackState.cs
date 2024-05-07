@@ -59,11 +59,12 @@ public class RangeAttackState : EnemyState
 		Vector2 directionToTarget;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
-			yield return new WaitForSeconds(ShootDelay);
 			directionToTarget = (TargetPos - EnemyPos).normalized;
 			BulletMono bullet = PoolManager.Instance.Pop(Bullet.BulletEnum) as BulletMono;
 			bullet.gameObject.transform.position = new Vector3(EnemyPos.x, EnemyPos.y + 0.5f);
 			bullet.Shoot(directionToTarget);
+			yield return new WaitForSeconds(ShootDelay);
+			TargetPos = enemy.Target.position;
 		}
 		yield return AttackCoroutine = null;
 	}

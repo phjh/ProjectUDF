@@ -12,7 +12,7 @@ public abstract class PlayerWeaponAttack : PlayerAttack
     [SerializeField]
     protected float timeToEnd;
 
-    // 햔재광석 선언, Dcttionary / 리스트 작성
+    // 현재광석 선언, Dcttionary / 리스트 작성
     protected bool stoneActived;
     public bool isActiveonce;
 
@@ -29,7 +29,7 @@ public abstract class PlayerWeaponAttack : PlayerAttack
             return;
         if (stoneActived)
             return;
-        AdditionalAttack[PlayerMain.Instance.nowStone].Invoke();
+        AdditionalAttack[PlayerMain.Instance.EquipMainOre].Invoke();
     }
 
     protected void Init()
