@@ -120,8 +120,11 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public void EquipMain(Stats statName)
 	{
 		statNumber = (int)statName;
-		OreSO data = UIManager.Instance.OreDatas[statNumber];
-		if (OreList[statNumber] <= 0) RemoveInventory(statNumber, data.value);
+		if (OreList[statNumber] <= 0)
+		{
+			OreSO data = UIManager.Instance.OreDatas[statNumber];
+			RemoveInventory(statNumber, data.value);
+		}
 		else return;
 		MainOreType = statName;
 		OnChangeMainOre?.Invoke(MainOreType);
@@ -132,6 +135,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 		if(MainOreType == Stats.None) return;
 		MainOreType = Stats.None;
 		OnChangeMainOre?.Invoke(MainOreType);
+		UnequipSub(0);
+		UnequipSub(1);
 	}
 
 	public void EquipSub(Stats statName, int index)
@@ -140,7 +145,11 @@ public class OreInventory : MonoSingleton<OreInventory>
 		{
 			if (index > SubOreType.Count) return;
 			statNumber = (int)statName;
-			if (OreList[statNumber] <= 0) OreList[statNumber] -= 1;
+			if (OreList[statNumber] <= 0)
+			{
+				OreSO data = UIManager.Instance.OreDatas[statNumber];
+				RemoveInventory(statNumber, data.value);
+			}
 			else return;
 			SubOreType[index] = statName;
 		}
@@ -149,8 +158,9 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public void UnequipSub(int index)
 	{
 		if (SubOreType[index] == Stats.None) return;
-		AddOre(SubOreType[index], 1);
-		SubOreType[index] = Stats.None;	
+		OreSO data = UIManager.Instance.OreDatas[(int)SubOreType[index]];
+		AddOre(SubOreType[index], data.value);
+		SubOreType[index] = Stats.None;
 	}
 
 	#endregion
