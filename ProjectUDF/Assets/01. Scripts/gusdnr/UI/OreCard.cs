@@ -101,7 +101,7 @@ public class OreCard : UIMono
 
 	#region Manage Ores
 
-	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stats, CurOreData.value);
+	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stat, CurOreData.value);
 
 	private int tempSO = 0;
 	private void SetRandomOre()

@@ -9,7 +9,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	#region Variables
 
 	//Another Components
-	private PlayerStats status; //추후 플레이어가 가지고 있는 플레이어 스탯 SO 가져오는 부분 추가 필요 *****
+	private PlayerStats status;
 
 	//Values
 	public int MaxInInvnetory = 7; //광석 소지 개수
@@ -18,12 +18,17 @@ public class OreInventory : MonoSingleton<OreInventory>
 	[Range(1, 5)] public int NeedToUpgrade = 3; //업그레이드에 필요한 광석 개수
 
 	private static int statNumber; //함수 사용시 스탯 번호를 가지고 있는 변수
+
+	public Stats MainOreType;
+	public List<Stats> SubOreType;
+
+	public event Action<Stats> OnChangeMainOre;
 	#endregion
 
 	private void Start()
 	{
 		status = GameManager.Instance?.player.stat;
-		if(status == null) Debug.LogError($"Player Status is NULL [Player : {GameManager.Instance.player}]");
+		if (status == null) Debug.LogError($"Player Status is NULL [Player : {GameManager.Instance.player}]");
 		ResetOreList();
 	}
 
@@ -33,13 +38,20 @@ public class OreInventory : MonoSingleton<OreInventory>
 	{
 		OreList = Enumerable.Repeat(0, 4).ToList();
 		GemList = Enumerable.Repeat(0, 4).ToList();
+
+		MainOreType = Stats.None;
+		SubOreType = new List<Stats>();
+		for (int c = 0; c < SubOreType.Count; c++)
+		{
+			SubOreType[c] = Stats.None;
+		}
 	}
 
 	#region Add Methods
 
 	public void AddOre(Stats statName, int statValue) //외부 호출형 스탯 증가 함수
 	{
-		int statNumber = (int)statName;
+		statNumber = (int)statName;
 		if (statNumber == 4)
 		{
 			status.EditPlayerHP(statValue);
@@ -63,11 +75,17 @@ public class OreInventory : MonoSingleton<OreInventory>
 	private void AddGemStone(Stats statName)
 	{
 		statNumber = (int)statName;
-		OreList[statNumber] -= NeedToUpgrade;
+		RemoveInventory(statNumber, 0, NeedToUpgrade);
 		GemList[statNumber] += 1;
 		status.EditModifierStat(statName, 5);
 		status.EditModifierStat(statName, 2, true);
 		CheckOreCount();
+	}
+
+	private void RemoveInventory(int statNumber, int statValue, int removeCount = 1)
+	{
+		OreList[statNumber] -= removeCount;
+		if(statValue != 0) status.EditModifierStat((Stats)statNumber, statValue);
 	}
 
 	#endregion
@@ -96,6 +114,56 @@ public class OreInventory : MonoSingleton<OreInventory>
 		int UpgradeOreCount = GemList.Sum();
 		return NormalOreCount + UpgradeOreCount;
 	}
+
+	#region Equip Methods
+
+	public void EquipMain(Stats statName)
+	{
+		statNumber = (int)statName;
+		if (OreList[statNumber] <= 0)
+		{
+			OreSO data = UIManager.Instance.OreDatas[statNumber];
+			RemoveInventory(statNumber, data.value);
+		}
+		else return;
+		MainOreType = statName;
+		OnChangeMainOre?.Invoke(MainOreType);
+	}
+
+	public void UnequipMain()
+	{
+		if(MainOreType == Stats.None) return;
+		MainOreType = Stats.None;
+		OnChangeMainOre?.Invoke(MainOreType);
+		UnequipSub(0);
+		UnequipSub(1);
+	}
+
+	public void EquipSub(Stats statName, int index)
+	{
+		if (MainOreType != Stats.None)
+		{
+			if (index > SubOreType.Count) return;
+			statNumber = (int)statName;
+			if (OreList[statNumber] <= 0)
+			{
+				OreSO data = UIManager.Instance.OreDatas[statNumber];
+				RemoveInventory(statNumber, data.value);
+			}
+			else return;
+			SubOreType[index] = statName;
+		}
+	}
+
+	public void UnequipSub(int index)
+	{
+		if (SubOreType[index] == Stats.None) return;
+		OreSO data = UIManager.Instance.OreDatas[(int)SubOreType[index]];
+		AddOre(SubOreType[index], data.value);
+		SubOreType[index] = Stats.None;
+	}
+
+	#endregion
 
 	#endregion
 }

@@ -11,7 +11,7 @@ public class OreSO : ScriptableObject
     public string OreDesc = "Empty";
 
     [Header("Ore Increase Stat")]
-    public Stats stats;
+    public Stats stat;
     public int value;
     public int valuePersent;
 }

@@ -28,10 +28,15 @@ public class StatusManager : MonoBehaviour
 		GameManager.OnStart -= GameSet;
 	}
 
+	private void Start()
+	{
+		GameSet();
+	}
+
 	public void GameSet()
 	{
 		SettingHearts();
-		//objects = GetComponentsInChildren<GameObject>();
+		//objects = transform.GetComponentsInChildren<GameObject>();
 		//ShowStatus();
 	}
 
@@ -39,7 +44,7 @@ public class StatusManager : MonoBehaviour
 	public void SettingHearts()
 	{
 		playerStat = GameManager.Instance.player.stat;
-
+		Debug.Assert(playerStat != null, "Player Stat is null");
 		int heartToMake = playerStat.MaxHP;
 		for (int i = 0; i < heartToMake; i++)
 		{
@@ -50,6 +55,7 @@ public class StatusManager : MonoBehaviour
 
 	public void DrawHearts()
 	{
+		Debug.Log("Draw Player HP");
 		for(int i = 0; i < hearts.Count; i++)
 		{
 			int heartStatusRemainder = (int)Mathf.Clamp(playerStat.CurHP - i, 0 , 1);
@@ -98,10 +104,10 @@ public class StatusManager : MonoBehaviour
 	}
 	public void HideStatus()
 	{
-		//foreach(GameObject obj in objects)
-		//{
-		//	obj.SetActive(false);
-		//}
+		foreach (GameObject obj in objects)
+		{
+			obj.SetActive(false);
+		}
 	}
 	#endregion
 }

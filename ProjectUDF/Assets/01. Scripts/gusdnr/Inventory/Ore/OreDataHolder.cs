@@ -25,7 +25,7 @@ public class OreDataHolder : MonoBehaviour
 	{
 		UIManager.Instance.OreName.text = $"{HoldingData.OreName}";
 		string desc = "";
-		switch(HoldingData.stats)
+		switch(HoldingData.stat)
 		{
 			case Stats.Strength: desc = "Иы"; break;
 			case Stats.Lucky: desc = "Заїо"; break;

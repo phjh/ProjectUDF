@@ -55,11 +55,21 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public bool isCritical { get; set; }
 
     public int nowStone;
+    public int EquipMainOre;
 
-    #endregion
+	#endregion
 
+	private void OnEnable()
+	{
+		OreInventory.Instance.OnChangeMainOre += EquipStone;
+	}
 
-    private void Awake()
+	private void OnDisable()
+	{
+		OreInventory.Instance.OnChangeMainOre -= EquipStone;
+	}
+
+	private void Awake()
     {
         GameManager.Instance.player = this;
 
@@ -75,6 +85,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
             Debug.LogError("Error while get PlayerMovement in Playermain");
 
         nowStone = 1;
+        EquipMainOre = 1;
 
         canMove = true;
         canDodging = true;
@@ -112,7 +123,9 @@ public class PlayerMain : MonoSingleton<PlayerMain>
             UnEquipStone();
     }
 
-    public void Attack(PlayerAttack attack)
+	#region Methods
+
+	public void Attack(PlayerAttack attack)
     {
         attack.Attack(attack);
     }
@@ -206,4 +219,10 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     #endregion
 
+    private void EquipStone(Stats statName)
+    {
+        EquipMainOre = (int)statName;
+    }
+
+	#endregion
 }
