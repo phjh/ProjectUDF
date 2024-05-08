@@ -294,7 +294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAD11\uBB3C \uD6A8\uACFC"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b9dd05be57768c45b7e9f17e8930db6, type: 2}
   m_sharedMaterial: {fileID: -2231837024520905498, guid: 1b9dd05be57768c45b7e9f17e8930db6, type: 2}
@@ -7961,7 +7961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAD11\uBB3C\uC774\uB984"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b9dd05be57768c45b7e9f17e8930db6, type: 2}
   m_sharedMaterial: {fileID: -2231837024520905498, guid: 1b9dd05be57768c45b7e9f17e8930db6, type: 2}
@@ -17899,6 +17899,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 086a9d85b74876e4f8f350c5e3c8ba48, type: 2}
   - {fileID: 11400000, guid: 53bf343fbca31c347b7b9b048109b6b6, type: 2}
   - {fileID: 11400000, guid: 1f7bbac246bccec41a13729883a29c0a, type: 2}
+  - {fileID: 11400000, guid: e13383081ed472f48bee2f04378b2eac, type: 2}
+  - {fileID: 11400000, guid: a45933dbdc0cea240bfa2a8fca01f87c, type: 2}
   GemDatas:
   - {fileID: 11400000, guid: c19d046f8aef4e640b7868e44143b7fa, type: 2}
   - {fileID: 11400000, guid: 23bd166e987d77545ae4827356f67de9, type: 2}

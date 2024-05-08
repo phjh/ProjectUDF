@@ -37,14 +37,4 @@ public class OreDataHolder : MonoBehaviour
 		if(HoldingData.valuePersent != 0) desc += $"\n[{HoldingData.valuePersent}% ¡ı∞°]";
 		UIManager.Instance.OreDesc.text = desc;
 	}
-
-	public void UnEquipMainOre()
-	{
-		OreInventory.Instance.UnequipMain();
-	}
-
-	public void UnEquipSubOre(int index)
-	{
-		OreInventory.Instance.UnequipSub(index);
-	}
 }

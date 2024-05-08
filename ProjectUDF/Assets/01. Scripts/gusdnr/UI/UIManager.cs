@@ -82,7 +82,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void CalculateInventory(List<int> baseList, List<OreSO> dataList) //Calculate To In OreInventoryList
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < (int)Stats.HP; i++)
 		{
 			int createPrefabCount = baseList[i];
 			if (createPrefabCount != 0)
@@ -98,11 +98,11 @@ public class UIManager : MonoSingleton<UIManager>
 	private void AddOreIcon(OreSO data) //Make Ore Icon Image
 	{
 		GameObject newOre = Instantiate(OrePrefab);
-		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
-		soHoledr.SettingOreData(data);
+		OreDataHolder soHolder = newOre.GetComponent<OreDataHolder>();
+		soHolder.SettingOreData(data);
 
 		newOre.transform.SetParent(IconContainer);
-		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
+		newOre.name = newOre.name.Replace("(Clone)", $"[{soHolder.HoldingData.name}]");
 		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, -240), 0, 0);
 		IconList.Add(newOre);
 

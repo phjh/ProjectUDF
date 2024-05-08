@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OreSprite: {fileID: 21300000, guid: 07e42dd24f64a494689e9f6697e5ab1d, type: 3}
   OreName: None
-  OreDesc: 
+  OreDesc: None
   stat: 5
   value: 0
   valuePersent: 0

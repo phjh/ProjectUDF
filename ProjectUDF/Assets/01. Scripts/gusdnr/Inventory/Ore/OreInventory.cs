@@ -40,7 +40,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 		GemList = Enumerable.Repeat(0, 4).ToList();
 
 		MainOreType = Stats.None;
-		SubOreType = new List<Stats>();
+		SubOreType = new List<Stats>(2);
 		for (int c = 0; c < SubOreType.Count; c++)
 		{
 			SubOreType[c] = Stats.None;
@@ -132,8 +132,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void UnequipMain()
 	{
-		if(MainOreType == Stats.None) return;
-		MainOreType = Stats.None;
+		if(MainOreType != Stats.None) MainOreType = Stats.None;
 		OnChangeMainOre?.Invoke(MainOreType);
 		UnequipSub(0);
 		UnequipSub(1);
