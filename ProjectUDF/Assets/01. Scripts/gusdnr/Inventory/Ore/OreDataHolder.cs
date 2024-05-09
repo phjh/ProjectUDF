@@ -11,12 +11,6 @@ public class OreDataHolder : MonoBehaviour
 	private void Awake()
 	{
 		HolderImage = GetComponent<Image>();
-		UIManager.Instance._OreInfo.GetHolder += SetHolder;
-	}
-
-	private void SetHolder(OreDataHolder holder)
-	{
-		holder = this;
 	}
 
 	public void SettingOreData(OreSO OreData)
@@ -29,6 +23,7 @@ public class OreDataHolder : MonoBehaviour
 
 	public void ShowOreInfo()
 	{
+		UIManager.Instance._OreInfo.SetUpHolder(this);
 		UIManager.Instance._OreInfo.ShowUI();
 		UIManager.Instance.OreName.text = $"{HoldingData.OreName}";
 		string desc = "";

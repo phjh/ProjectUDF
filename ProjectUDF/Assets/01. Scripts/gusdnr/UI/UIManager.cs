@@ -35,7 +35,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	#region Mining
 	private int failCount = 0;
-	public bool IsActivePopUp {	get; set; } = false;
+	public bool IsActivePopUp { get; set; } = false;
 	public static event EventHandler OnResearchEnd;
 	#endregion
 
@@ -49,18 +49,18 @@ public class UIManager : MonoSingleton<UIManager>
 		PocketUIParent.gameObject.SetActive(IsOnInventoryUI);
 		SetScreenFilter(IsOnInventoryUI);
 	}
-    private void OnEnable()
-    {
-        //MapSystem.Instance.RoomClearEvent += ShowMining;
+	private void OnEnable()
+	{
+		//MapSystem.Instance.RoomClearEvent += ShowMining;
 		OreInventory.Instance.ChangeContents += SetOreList;
-    }
+	}
 
 	#region Mining UI
 	public void CountFail()
 	{
 		failCount += 1;
 		Debug.Log(failCount);
-		if(failCount == 3)
+		if (failCount == 3)
 		{
 			for (int i = 0; i < Cards.Count; i++)
 			{
@@ -74,9 +74,12 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void SetOreList() //Setting Ores
 	{
-		for(int icon = 0; icon < IconList.Count(); icon++)
+		if (IconList.Count() != 0)
 		{
-			Destroy(Instance.IconList[icon]);
+			for (int icon = 0; icon < IconList.Count(); icon++)
+			{
+				Destroy(Instance.IconList[icon]);
+			}
 		}
 		IconList.Clear();
 		IconList = new List<GameObject>();
@@ -149,7 +152,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void ShowMining()
 	{
-		if(IsOnInventoryUI == true) CloseMining();
+		if (IsOnInventoryUI == true) CloseMining();
 		IsActivePopUp = true;
 		failCount = 0;
 		SetScreenFilter(IsActivePopUp);

@@ -15,12 +15,10 @@ public class OreInfo : UIMono
 
 	private bool IsShowed = false;
 
-	public event Action<OreDataHolder> GetHolder;
     public OreDataHolder SelectIcon { get; set; } = null;
 
 	public override void ShowUI()
 	{
-		GetHolder?.Invoke(SelectIcon);
 		if(IsShowed == false) gameObject.SetActive(true);
 		SetOreInfo();
 		SetClickEvent();
@@ -33,6 +31,8 @@ public class OreInfo : UIMono
 		SelectIcon = null;
 		gameObject.SetActive(false);
 	}
+
+	public void SetUpHolder(OreDataHolder selected) => SelectIcon = selected;
 
 	private void SetClickEvent()
 	{

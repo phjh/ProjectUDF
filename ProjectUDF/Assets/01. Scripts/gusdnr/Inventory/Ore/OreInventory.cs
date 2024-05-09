@@ -26,7 +26,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public event Action<Stats> OnChangeMainOre;
 	#endregion
 
-	private void Start()
+	private void Awake()
 	{
 		status = GameManager.Instance?.player.stat;
 		if (status == null) Debug.LogError($"Player Status is NULL [Player : {GameManager.Instance.player}]");
@@ -37,15 +37,11 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void ResetOreList() //광물 목록 초기화용
 	{
+		MainOreType = Stats.None;
+		SubOreType = new List<Stats>(2){ Stats.None, Stats.None };
+
 		OreList = Enumerable.Repeat(0, 4).ToList();
 		GemList = Enumerable.Repeat(0, 4).ToList();
-
-		MainOreType = Stats.None;
-		SubOreType = new List<Stats>(2);
-		for (int c = 0; c < SubOreType.Count; c++)
-		{
-			SubOreType[c] = Stats.None;
-		}
 	}
 
 	#region Add Methods

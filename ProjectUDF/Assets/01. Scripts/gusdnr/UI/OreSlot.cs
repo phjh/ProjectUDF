@@ -12,7 +12,7 @@ public class OreSlot : UIMono
 
 	private Image SlotImage;
 
-	private void Awake()
+	private void Start()
 	{
 		SlotImage = GetComponent<Image>();
 		if(EquipOreType == null) EquipDataInSlot((int)Stats.None);

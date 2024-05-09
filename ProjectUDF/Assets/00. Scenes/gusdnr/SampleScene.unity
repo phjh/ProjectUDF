@@ -23167,8 +23167,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: MainOreType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: SubOre.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: SubOreType.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: SubOreType.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: SubOreType.Array.data[1]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Name
@@ -23854,7 +23870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &7151440736410475093
 PrefabInstance:
   m_ObjectHideFlags: 0
