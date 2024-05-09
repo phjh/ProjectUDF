@@ -16,6 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;
 	public RectTransform IconContainer;
+	public GameObject OreInfo;
 	public TMP_Text OreName;
 	public TMP_Text OreDesc;
 	#endregion

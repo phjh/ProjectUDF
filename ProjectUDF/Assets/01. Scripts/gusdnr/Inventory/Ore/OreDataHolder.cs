@@ -23,6 +23,7 @@ public class OreDataHolder : MonoBehaviour
 
 	public void PrintOreDesc()
 	{
+		UIManager.Instance.OreInfo.SetActive(true);
 		UIManager.Instance.OreName.text = $"{HoldingData.OreName}";
 		string desc = "";
 		switch(HoldingData.stat)
@@ -36,5 +37,19 @@ public class OreDataHolder : MonoBehaviour
 		desc += $"\n[{HoldingData.value} 증가]";
 		if(HoldingData.valuePersent != 0) desc += $"\n[{HoldingData.valuePersent}% 증가]";
 		UIManager.Instance.OreDesc.text = desc;
+	}
+
+	public void PrintNone()
+	{
+		UIManager.Instance.OreName.text = $" ";
+		UIManager.Instance.OreDesc.text = $" ";
+	}
+
+	public void EquipOreData(int SubIndex = -1)
+	{
+		if(SubIndex == -1) OreInventory.Instance.EquipMain(HoldingData.stat);
+		if(SubIndex != -1) OreInventory.Instance.EquipSub(HoldingData.stat, SubIndex);
+
+		Destroy(gameObject);
 	}
 }

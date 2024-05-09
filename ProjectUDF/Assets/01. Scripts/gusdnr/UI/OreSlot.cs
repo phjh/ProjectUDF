@@ -5,48 +5,49 @@ using UnityEngine.UI;
 
 public class OreSlot : UIMono
 {
+	[Header("Slot Values")]
 	[SerializeField] private bool IsMain;
-	[Range(0,1)][SerializeField] private int Index;
+	[Range(-1,1)][SerializeField] private int Index;
 	public OreSO EquipOreType;
+
 	private Image SlotImage;
 
 	private void Awake()
 	{
 		SlotImage = GetComponent<Image>();
+		if(EquipOreType == null) EquipDataInSlot((int)Stats.None);
 	}
 
 	public override void ShowUI()
 	{
+		int OreStatNumber = (int)Stats.None;
 		if (IsMain)
 		{
-			int OreStatNumber = (int)OreInventory.Instance.MainOreType;
-			EquipOreType = UIManager.Instance.OreDatas[OreStatNumber];
+			OreStatNumber = (int)OreInventory.Instance.MainOreType;
 		}
 		else if (!IsMain)
 		{
-			int OreStatNumber = (int)OreInventory.Instance.SubOreType[Index];
-			EquipOreType = UIManager.Instance.OreDatas[OreStatNumber];
+			OreStatNumber = (int)OreInventory.Instance.SubOreType[Index];
 		}
-		EquipOre();
+		EquipDataInSlot(OreStatNumber);
 	}
 
-	public void EquipOre()
+	public void EquipDataInSlot(int dataListIndex)
 	{
+		EquipOreType = UIManager.Instance.OreDatas[dataListIndex];
 		SlotImage.sprite = EquipOreType.OreSprite;
 	}
 
 	public void UnEquipMainOre()
 	{
 		OreInventory.Instance.UnequipMain();
-		EquipOreType = UIManager.Instance.OreDatas[(int)Stats.None];
-		SlotImage.sprite = EquipOreType.OreSprite;
+		EquipDataInSlot((int)Stats.None);
 	}
 
 	public void UnEquipSubOre()
 	{
 		OreInventory.Instance.UnequipSub(Index);
-		EquipOreType = UIManager.Instance.OreDatas[(int)Stats.None];
-		SlotImage.sprite = EquipOreType.OreSprite;
+		EquipDataInSlot((int)Stats.None);
 	}
 
 	public override void CloseUI()
