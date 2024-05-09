@@ -7,11 +7,17 @@ using UnityEngine.UI;
 
 public class OreInfo : UIMono
 {
+	[Serializable]
+	public struct SlotPair
+	{
+		public Button SlotButton;
+		public OreSlot SlotObject;
+	}
+
 	[Header("OreInfo Value")]
 	public TMP_Text OreName;
 	public TMP_Text OreDesc;
-    public Button MainEquip;
-    public List<Button> SubEquip = new List<Button>(2);
+	public List<SlotPair> SlotList = new List<SlotPair>();
 
 	private bool IsShowed = false;
 
@@ -43,9 +49,9 @@ public class OreInfo : UIMono
 	private void SetClickEvent()
 	{
 		if (SelectIcon == null) return;
-		MainEquip.onClick.AddListener(() => SelectIcon?.EquipOreData(-1));
-		SubEquip[0].onClick.AddListener(() => SelectIcon?.EquipOreData(0));
-		SubEquip[1].onClick.AddListener(() => SelectIcon?.EquipOreData(1));
+		SlotList[0].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(-1));
+		SlotList[1].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(0));
+		SlotList[2].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(1));
 	}
 
 	private void SetOreInfo()

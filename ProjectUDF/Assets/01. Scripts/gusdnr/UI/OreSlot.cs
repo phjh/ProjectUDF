@@ -33,12 +33,6 @@ public class OreSlot : UIMono
 		EquipDataInSlot(OreStatNumber);
 	}
 
-	public void EquipDataInSlot(int dataIndex)
-	{
-		EquipOreType = UIManager.Instance.OreDatas[dataIndex];
-		SlotImage.sprite = EquipOreType.OreSprite;
-	}
-
 	public void UnEquipMainOre()
 	{
 		OreInventory.Instance.UnequipMain();
@@ -51,11 +45,23 @@ public class OreSlot : UIMono
 		EquipDataInSlot((int)Stats.None);
 	}
 
+	public void EquipDataInSlot(int dataIndex)
+	{
+		EquipOreType = UIManager.Instance.OreDatas[dataIndex];
+		SlotImage.sprite = EquipOreType.OreSprite;
+	}
+
 	public override void CloseUI()
 	{
-		if(EquipOreType != null)
+		int OreStatNumber = (int)Stats.None;
+		if (IsMain)
 		{
-			return;
+			OreStatNumber = (int)OreInventory.Instance.MainOreType;
 		}
+		else if (!IsMain)
+		{
+			OreStatNumber = (int)OreInventory.Instance.SubOreType[Index];
+		}
+		EquipDataInSlot(OreStatNumber);
 	}
 }
