@@ -44,6 +44,7 @@ public class OreDataHolder : MonoBehaviour
 	{
 		if(SubIndex == -1) OreInventory.Instance.EquipMain(HoldingData.stat);
 		if(SubIndex != -1) OreInventory.Instance.EquipSub(HoldingData.stat, SubIndex);
+		Debug.Log($"Main {OreInventory.Instance.MainOreType} : Sub {OreInventory.Instance.SubOreType[0]} {OreInventory.Instance.SubOreType[1]}");
 		UIManager.Instance._OreInfo.CloseUI();
 		Destroy(gameObject);
 	}

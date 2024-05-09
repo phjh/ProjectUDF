@@ -19,7 +19,12 @@ public class OreInfo : UIMono
 
 	public override void ShowUI()
 	{
-		if(IsShowed == false) gameObject.SetActive(true);
+		Debug.Log("Active Info");
+		if(IsShowed == false)
+		{
+			gameObject.SetActive(true);
+			IsShowed = true;
+		}
 		SetOreInfo();
 		SetClickEvent();
 	}
@@ -30,6 +35,7 @@ public class OreInfo : UIMono
 		OreDesc.text = "";
 		SelectIcon = null;
 		gameObject.SetActive(false);
+		IsShowed = false;
 	}
 
 	public void SetUpHolder(OreDataHolder selected) => SelectIcon = selected;

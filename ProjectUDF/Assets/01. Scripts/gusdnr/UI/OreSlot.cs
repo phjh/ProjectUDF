@@ -12,9 +12,9 @@ public class OreSlot : UIMono
 
 	private Image SlotImage;
 
-	private void Start()
+	private void Awake()
 	{
-		SlotImage = GetComponent<Image>();
+		SlotImage = GetComponentInChildren<Image>();
 		if(EquipOreType == null) EquipDataInSlot((int)Stats.None);
 		ShowUI();
 	}

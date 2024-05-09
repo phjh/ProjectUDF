@@ -203,6 +203,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
 	public void UnEquipStone()  //돌 장착 해제할때 부르는 메서드
     {
+        if(EquipMainOre == (int)Stats.None) return;
         if (baseAttack.isActiveonce)
             baseAttack.AdditionalAttack[EquipMainOre].Invoke();
 
