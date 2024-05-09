@@ -16,7 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;
 	public RectTransform IconContainer;
-	public GameObject OreInfo;
+	public OreInfo _OreInfo;
 	public TMP_Text OreName;
 	public TMP_Text OreDesc;
 	#endregion
@@ -49,9 +49,10 @@ public class UIManager : MonoSingleton<UIManager>
 		PocketUIParent.gameObject.SetActive(IsOnInventoryUI);
 		SetScreenFilter(IsOnInventoryUI);
 	}
-    private void Start()
+    private void OnEnable()
     {
         //MapSystem.Instance.RoomClearEvent += ShowMining;
+		OreInventory.Instance.ChangeContents += SetOreList;
     }
 
 	#region Mining UI
@@ -73,7 +74,13 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void SetOreList() //Setting Ores
 	{
+		for(int icon = 0; icon < IconList.Count(); icon++)
+		{
+			Destroy(Instance.IconList[icon]);
+		}
 		IconList.Clear();
+		IconList = new List<GameObject>();
+
 		InOreList = OreInventory.Instance.OreList;
 		CalculateInventory(InOreList, OreDatas);
 
@@ -104,7 +111,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 		newOre.transform.SetParent(IconContainer);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHolder.HoldingData.name}]");
-		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, -240), 0, 0);
+		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, 240), 0, 0);
 		IconList.Add(newOre);
 
 	}
@@ -118,6 +125,8 @@ public class UIManager : MonoSingleton<UIManager>
 		{
 			SetScreenFilter(true);
 			PocketUIParent.gameObject.SetActive(true);
+
+			_OreInfo.CloseUI();
 			SetOreList();
 			IsOnInventoryUI = true;
 		}
@@ -131,6 +140,7 @@ public class UIManager : MonoSingleton<UIManager>
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			PocketUIParent.gameObject.SetActive(false);
+			_OreInfo.CloseUI();
 			SetScreenFilter(false);
 			IsOnInventoryUI = false;
 		}

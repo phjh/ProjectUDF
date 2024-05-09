@@ -16,6 +16,7 @@ public class OreSlot : UIMono
 	{
 		SlotImage = GetComponent<Image>();
 		if(EquipOreType == null) EquipDataInSlot((int)Stats.None);
+		ShowUI();
 	}
 
 	public override void ShowUI()
@@ -32,9 +33,9 @@ public class OreSlot : UIMono
 		EquipDataInSlot(OreStatNumber);
 	}
 
-	public void EquipDataInSlot(int dataListIndex)
+	public void EquipDataInSlot(int dataIndex)
 	{
-		EquipOreType = UIManager.Instance.OreDatas[dataListIndex];
+		EquipOreType = UIManager.Instance.OreDatas[dataIndex];
 		SlotImage.sprite = EquipOreType.OreSprite;
 	}
 

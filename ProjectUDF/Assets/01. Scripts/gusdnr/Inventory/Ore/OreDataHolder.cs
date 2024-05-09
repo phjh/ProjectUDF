@@ -11,6 +11,12 @@ public class OreDataHolder : MonoBehaviour
 	private void Awake()
 	{
 		HolderImage = GetComponent<Image>();
+		UIManager.Instance._OreInfo.GetHolder += SetHolder;
+	}
+
+	private void SetHolder(OreDataHolder holder)
+	{
+		holder = this;
 	}
 
 	public void SettingOreData(OreSO OreData)
@@ -21,9 +27,9 @@ public class OreDataHolder : MonoBehaviour
 		//현재 광석의 데이터를 설명 보드 측으로 보내주거나, 설명하는 UI 등장
 	}
 
-	public void PrintOreDesc()
+	public void ShowOreInfo()
 	{
-		UIManager.Instance.OreInfo.SetActive(true);
+		UIManager.Instance._OreInfo.ShowUI();
 		UIManager.Instance.OreName.text = $"{HoldingData.OreName}";
 		string desc = "";
 		switch(HoldingData.stat)
@@ -39,17 +45,11 @@ public class OreDataHolder : MonoBehaviour
 		UIManager.Instance.OreDesc.text = desc;
 	}
 
-	public void PrintNone()
-	{
-		UIManager.Instance.OreName.text = $" ";
-		UIManager.Instance.OreDesc.text = $" ";
-	}
-
 	public void EquipOreData(int SubIndex = -1)
 	{
 		if(SubIndex == -1) OreInventory.Instance.EquipMain(HoldingData.stat);
 		if(SubIndex != -1) OreInventory.Instance.EquipSub(HoldingData.stat, SubIndex);
-
+		UIManager.Instance._OreInfo.CloseUI();
 		Destroy(gameObject);
 	}
 }
