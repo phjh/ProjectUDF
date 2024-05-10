@@ -118,7 +118,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 	{
 		if(MainOreType != Stats.None) return;
 		statNumber = (int)statName;
-		if (OreList[statNumber] <= 0)
+		if (OreList[statNumber] > 0)
 		{
 			int value = UIManager.Instance.OreDatas[statNumber].value;
 			RemoveInventory(statNumber, value);
