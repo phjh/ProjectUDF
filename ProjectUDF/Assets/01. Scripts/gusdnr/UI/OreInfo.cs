@@ -50,8 +50,13 @@ public class OreInfo : UIMono
 	{
 		if (SelectIcon == null) return;
 		SlotList[0].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(-1));
+		SlotList[0].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
+
 		SlotList[1].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(0));
+		SlotList[1].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
+
 		SlotList[2].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(1));
+		SlotList[2].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
 	}
 
 	private void SetOreInfo()

@@ -116,7 +116,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void EquipMain(Stats statName)
 	{
-		if(MainOreType != Stats.None) return;
+		if(MainOreType != Stats.None) MainOreType = Stats.None;
 		statNumber = (int)statName;
 		if (OreList[statNumber] > 0)
 		{
@@ -138,9 +138,10 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void EquipSub(Stats statName, int index)
 	{
+		if (index >= SubOreType.Count) return;
+
 		if (MainOreType != Stats.None)
 		{
-			if (index > SubOreType.Count) return;
 			statNumber = (int)statName;
 			if (OreList[statNumber] <= 0)
 			{
@@ -148,8 +149,15 @@ public class OreInventory : MonoSingleton<OreInventory>
 				RemoveInventory(statNumber, value);
 			}
 			else return;
-			if (SubOreType[index] != Stats.None) UnequipSub(index);
+			if (SubOreType[index] != Stats.None)
+			{
+				UnequipSub(index);
+			}	
 			SubOreType[index] = statName;
+		}
+		else if (MainOreType != Stats.None)
+		{
+			return;
 		}
 	}
 

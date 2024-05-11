@@ -14,7 +14,7 @@ public class OreSlot : UIMono
 
 	private void Awake()
 	{
-		SlotImage = GetComponentInChildren<Image>();
+		SlotImage = transform.Find("SlotButton").GetComponent<Image>();
 		if(EquipOreType == null) EquipDataInSlot((int)Stats.None);
 		ShowUI();
 	}
