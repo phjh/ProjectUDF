@@ -29,4 +29,4 @@ MonoBehaviour:
     monsterPos: {x: -3, y: 3}
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
     monsterPos: {x: 5, y: -4}
-  exit: 0
+  exit: 000000000300000002000000

@@ -447,6 +447,39 @@ MonoBehaviour:
     factor: 1.3
   - time: 1
     factor: 1.7
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -4.0058804
+      outSlope: -4.0058804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06611266
+    - serializedVersion: 3
+      time: 0.4098369
+      value: 0.3995136
+      inSlope: -1.1665399
+      outSlope: -1.1665399
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.31246576
+    - serializedVersion: 3
+      time: 0.983551
+      value: 0.005622864
+      inSlope: 0.00421609
+      outSlope: 0.00421609
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.32125106
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8606450476936734289
 GameObject:
   m_ObjectHideFlags: 0

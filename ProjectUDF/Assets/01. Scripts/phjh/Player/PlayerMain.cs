@@ -66,7 +66,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
 	private void OnDisable()
 	{
-		OreInventory.Instance.OnChangeMainOre -= EquipStone;
+		//OreInventory.Instance.OnChangeMainOre -= EquipStone;
 	}
 
 	private void Awake()

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -124,6 +125,5 @@ public class PlayerMovement : MonoBehaviour
         lastinputDir = dir;
         _rigidbody.velocity = dir;
     }
-
 
 }

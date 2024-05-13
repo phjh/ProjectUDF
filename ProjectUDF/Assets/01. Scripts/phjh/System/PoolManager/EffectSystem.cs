@@ -3,50 +3,52 @@ using UnityEngine;
 
 class EffectSystem : MonoSingleton<EffectSystem>
 {
-    public void EffectInvoker(EffectPoolingPair pair, Vector3 targetPos, float waitDuration, Transform parent = null) => StartCoroutine(EffectInvoke(pair.enumtype, targetPos, waitDuration, parent));
+    public void EffectInvoker(EffectPoolingPair pair, Vector3 targetPos, float waitDuration, Transform parent = null) => EffectInvoke(pair.enumtype, targetPos, waitDuration, parent);
     public void EffectInvoker(EffectPoolingPair pair, Vector3 targetPos, float waitDuration, float rot, Vector3 rotTransform, Transform parent = null) 
-        => StartCoroutine(EffectInvoke(pair.enumtype, targetPos, waitDuration, rot, rotTransform, parent));
-    public void EffectInvoker(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null) => StartCoroutine(EffectInvoke(type, targetPos, waitDuration));
+        => EffectInvoke(pair.enumtype, targetPos, waitDuration, rot, rotTransform, parent);
+    public void EffectInvoker(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null) => EffectInvoke(type, targetPos, waitDuration);
 
-    public void EffectsInvoker(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null) => StartCoroutine(EffectsInvoke(type, targetPos, waitDuration));
+    public void EffectsInvoker(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null) => EffectsInvoke(type, targetPos, waitDuration);
     public void EffectInvoker(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, float rot, Vector3 rotTransform, Transform parent = null) 
-        => StartCoroutine(EffectInvoke(type, targetPos, waitDuration, rot, rotTransform, parent));
+        => EffectInvoke(type, targetPos, waitDuration, rot, rotTransform, parent);
 
-    private IEnumerator EffectInvoke(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null)
+    private void EffectInvoke(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null)
     {
-        PoolableMono poolItem = PoolManager.Instance.Pop(type);
-        poolItem.transform.position = targetPos;
-        if (parent != null)
-            poolItem.transform.SetParent(parent);
+        PoolableMono poolItem = BasePop(type, targetPos,waitDuration, parent);
         poolItem.GetComponent<ParticleSystem>().Play();
-        yield return new WaitForSeconds(waitDuration);
-        PoolManager.Instance.Push(poolItem, type);
     }
 
-    private IEnumerator EffectInvoke(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, float rot, Vector3 rotTransform,Transform parent = null)
+    private void EffectInvoke(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, float rot, Vector3 rotTransform,Transform parent = null)
     {
-        PoolableMono poolItem = PoolManager.Instance.Pop(type);
-        poolItem.transform.position = targetPos;
+        PoolableMono poolItem = BasePop(type, targetPos,waitDuration, parent);
         poolItem.transform.position += Quaternion.Euler(0, 0, rot) * rotTransform;
         poolItem.transform.rotation = Quaternion.Euler(0, 0, rot);
-        if(parent != null)
-            poolItem.transform.SetParent(parent);
         poolItem.GetComponent<ParticleSystem>().Play();
-        yield return new WaitForSeconds(waitDuration);
-        PoolManager.Instance.Push(poolItem, type);
     }
 
-    private IEnumerator EffectsInvoke(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null)
+    private void EffectsInvoke(PoolEffectListEnum type, Vector3 targetPos, float waitDuration, Transform parent = null)
     {
-        PoolableMono poolItem = PoolManager.Instance.Pop(type);
-        poolItem.transform.position = targetPos;
-        if (parent != null)
-            poolItem.transform.SetParent(parent);
-        foreach(var particles in poolItem.GetComponentsInChildren<ParticleSystem>())
+        PoolableMono poolItem = BasePop(type, targetPos, waitDuration, parent);
+        foreach (var particles in poolItem.GetComponentsInChildren<ParticleSystem>())
         {
             particles.Play(); 
         }
-        yield return new WaitForSeconds(waitDuration);
-        PoolManager.Instance.Push(poolItem, type);
     }
+
+    public PoolableMono BasePop(PoolEffectListEnum type,Vector3 spawnPos,float waitDuration, Transform parent = null)
+    {
+        PoolableMono poolItem = PoolManager.Instance.Pop(type);
+        poolItem.transform.position = spawnPos;
+        if (parent != null)
+            poolItem.transform.SetParent(parent);
+        StartCoroutine(BasePush(poolItem, type, waitDuration));
+        return poolItem;
+    }
+
+    IEnumerator BasePush(PoolableMono mono, PoolEffectListEnum type, float time)
+    {
+        yield return new WaitForSeconds(time);
+        PoolManager.Instance.Push(mono, type);
+    }
+
 }

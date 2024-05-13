@@ -12,7 +12,7 @@ public struct MonsterInfo
 [Serializable]
 public enum Exit
 {
-    Down,
+    Down=0,
     Right,
     Up,
     Left
@@ -36,7 +36,8 @@ public class RoomInfoSO : ScriptableObject
     //건들면 안됨
     public List<MonsterInfo> spawnMonsters; //소환될 몬스터들
 
-    public Exit exit;
+    [Tooltip("출구 위치들")]
+    public List<Exit> exit;
 
     public RoomInfoSO CloneAndSetting()
     {
@@ -49,8 +50,11 @@ public class RoomInfoSO : ScriptableObject
     {
         var a = Instantiate(this);
         a.GenerateRandomMonsterInfo();
-        a.SetExitPoint();
-        Debug.Log(a);
+        //a.SetExitPoint();
+        if (exit.Count == 0)
+        {
+            Debug.LogError("exit room is not exist");
+        }
         return a;
     }
 
@@ -92,10 +96,10 @@ public class RoomInfoSO : ScriptableObject
         }
     }
 
-    public void SetExitPoint()
-    {
-        int rand = UnityEngine.Random.Range(0, 4);
-        exit = (Exit)rand;
-    }
+    //public void SetExitPoint()
+    //{
+    //    int rand = UnityEngine.Random.Range(0, 4);
+    //    exit = (Exit)rand;
+    //}
 
 }

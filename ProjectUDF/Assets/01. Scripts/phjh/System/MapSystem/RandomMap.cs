@@ -24,6 +24,8 @@ public class RandomMap : MonoBehaviour
     public int leftMonsters = 0;
     public float roomStartTime = 0;
 
+    public bool IsRandomExit = false;
+
     private void Start()
     {
         floors[nowFloor] = floors[nowFloor].CloneAndSetting();      //¿©±â RandomºÙÀÌ¸é µÊ
@@ -122,8 +124,26 @@ public class RandomMap : MonoBehaviour
     //Å»Ãâ±¸ ·£´ý½ºÆù 
     void PortalSpawn()
     {
-        int rand = UnityEngine.Random.Range(0, Portals.Count);
-        Portals[rand].gameObject.SetActive(true);
+        bool spawned = false;
+        if (!IsRandomExit)
+        {
+            foreach (var exit in floors[nowFloor].roomLists[nowRoom].exit)
+            {
+                Portals[(int)exit].gameObject.SetActive(true);
+                spawned = true;
+            }
+            return;
+        }
+        foreach(var exit in floors[nowFloor].roomLists[nowRoom].exit)
+        {              
+            if(Random.Range(0,10) < 4)
+            {
+                Portals[(int)exit].gameObject.SetActive(true);
+                spawned = true;
+            }
+        }
+        if (spawned == false)
+            Portals[(int)floors[nowFloor].roomLists[nowRoom].exit[Random.Range(0, floors[nowFloor].roomLists[nowRoom].exit.Count)]].SetActive(true);
     }
 
     public void RoomTimerInit()
@@ -134,10 +154,11 @@ public class RandomMap : MonoBehaviour
 
     public void RoomEffectInit()
     {
-        dirtEffect.Stop();
+        dirtEffect.Pause();
         roomStartTime = Time.time;
         var em = dirtEffect.emission;
         em.rateOverTime = 0;
+        dirtEffect.Stop();
         dirtEffect.Play();
     }
 
@@ -159,6 +180,11 @@ public class RandomMap : MonoBehaviour
 
     void SetRoomMap()
     {
+        foreach(var portal in Portals)
+        {
+            portal.SetActive(false);
+        }
+
         Destroy(nowMap.gameObject);
         if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
             nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab, transform.position, Quaternion.identity);

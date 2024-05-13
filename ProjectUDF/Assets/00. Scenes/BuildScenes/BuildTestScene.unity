@@ -190,6 +190,8 @@ MonoBehaviour:
   OreList: 00000000000000000000000000000000
   GemList: 00000000000000000000000000000000
   NeedToUpgrade: 3
+  MainOreType: 0
+  SubOreType: 
 --- !u!4 &36367257
 Transform:
   m_ObjectHideFlags: 0
@@ -429,7 +431,7 @@ GameObject:
   - component: {fileID: 236249253}
   - component: {fileID: 236249252}
   m_Layer: 0
-  m_Name: portal (3)
+  m_Name: portal1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,7 +446,7 @@ Transform:
   m_GameObject: {fileID: 236249250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -9.31, z: 0}
+  m_LocalPosition: {x: 0, y: -8.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -598,7 +600,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 7.5
+    OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -3885,7 +3887,7 @@ GameObject:
   - component: {fileID: 880914186}
   - component: {fileID: 880914185}
   m_Layer: 0
-  m_Name: portal
+  m_Name: portal3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4374,7 +4376,7 @@ GameObject:
   - component: {fileID: 997512819}
   - component: {fileID: 997512818}
   m_Layer: 0
-  m_Name: portal (1)
+  m_Name: portal4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4733,6 +4735,7 @@ MonoBehaviour:
   ScreenFilter: {fileID: 560626594}
   OrePrefab: {fileID: 5946013628519930447, guid: 6bd540a759e1f3447b14ac5dce9d56e4, type: 3}
   PocketUIParent: {fileID: 68059808}
+  IconContainer: {fileID: 0}
   OreName: {fileID: 1483767865}
   OreDesc: {fileID: 1066080382}
   OreDatas:
@@ -9834,7 +9837,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9912,7 +9915,7 @@ GameObject:
   - component: {fileID: 1130662633}
   - component: {fileID: 1130662632}
   m_Layer: 0
-  m_Name: portal (2)
+  m_Name: portal2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10456,15 +10459,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c16faea073099a540825229e2ce4e18d, type: 2}
   dirtEffect: {fileID: 1096857226}
   Portals:
+  - {fileID: 236249250}
+  - {fileID: 1130662629}
   - {fileID: 880914182}
   - {fileID: 997512815}
-  - {fileID: 1130662629}
   ExitPrefab: {fileID: 0}
   nowFloor: 0
   nowRoom: 0
   nowWave: -1
   leftMonsters: 0
   roomStartTime: 0
+  IsRandomExit: 1
 --- !u!114 &1313287487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15381,10 +15386,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 236249251}
+  - {fileID: 1130662630}
   - {fileID: 880914183}
   - {fileID: 997512816}
-  - {fileID: 1130662630}
-  - {fileID: 236249251}
   m_Father: {fileID: 1491603921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1835053925
@@ -15968,12 +15973,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: nowStone
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: nowWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
+      objectReference: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: testStone
       value: 3
@@ -15981,6 +15986,10 @@ PrefabInstance:
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: brightness
       value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: EquipMainOre
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Materials.Array.size

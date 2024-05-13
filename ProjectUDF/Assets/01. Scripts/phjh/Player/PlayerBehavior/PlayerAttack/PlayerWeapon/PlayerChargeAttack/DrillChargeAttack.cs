@@ -24,6 +24,8 @@ public class DrillChargeAttack : PlayerChargeAttack
         if (!_showRange)
             return;
 
+        InvokeStoneAttack();
+
         float baseFactor = _damageFactor;
         _damageFactor = GetChargedFactor(charged);
 
@@ -64,7 +66,8 @@ public class DrillChargeAttack : PlayerChargeAttack
 
     protected override void StrengthStoneAttack()
     {
-        throw new System.NotImplementedException();
+        int step = HowlongCharged(charged) + 1;
+
     }
 
     protected override void LuckyStoneAttack()
@@ -74,7 +77,7 @@ public class DrillChargeAttack : PlayerChargeAttack
 
     protected override void AttackSpeedStoneAttack()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("공속 차징엔 읎다");
     }
 
     protected override void MoveSpeedStoneAttack()

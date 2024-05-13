@@ -1,7 +1,9 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -85,8 +87,18 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 
     protected override void StrengthStoneAttack()
     {
-        throw new NotImplementedException();
+        int step = HowlongCharged(charged) + 1;
+
+        //이펙트 만들어준다
+        PoolableMono poolitem = EffectSystem.Instance.BasePop(PoolEffectListEnum.CannonFire, transform.position, 1 + step / 6);
+        poolitem.GetComponent<ParticleSystem>().Play();
+
+        Vector3 dir = PlayerMain.Instance.playerAim.Mousedir.normalized * step * 0.9f;
+
+        poolitem.transform.DOMove(transform.position + dir, 0.5f + step / 6);
+
     }
+
 
     protected override void LuckyStoneAttack()
     {
@@ -101,15 +113,25 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
     protected override void MoveSpeedStoneAttack()
     {
         Debug.Log("이속 돌 강공격 이벤트");
+        //int step = HowlongCharged(charged) + 1;
+        //Vector3 targetPos = PlayerMain.Instance.playerAim.Mousedir.normalized * step * 2;
+        //PlayerMain.Instance.playerMove.Dash(0.5f, transform.position + targetPos);
+
         StartCoroutine(MoveSpeedStoneDash());
     }
 
-
+    public AnimationCurve curve;
     IEnumerator MoveSpeedStoneDash()
     {
         int step = HowlongCharged(charged) + 1;
-        PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized * step * 5);
-        yield return new WaitForSeconds(0.5f);
+        float time = 0;
+        while(time < 0.5f)
+        {
+            PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized * step * curve.Evaluate(time * 2) * 4);
+            yield return new WaitForSeconds(0.02f);
+            time += 0.02f;
+
+        }
         PlayerMain.Instance.playerMove.SetFixedDir(false, Vector2.zero);
     }
 

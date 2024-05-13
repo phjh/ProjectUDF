@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DrillBaseAttack : PlayerBaseAttack
-{
+{ 
+    private GameObject baseAttackRange;
+    private Collider2D baseCollider;
+    private float moveMultiply = 1;
+
+    private bool exceptionAttack = false;
 
     protected override void Start()
     {
+        baseAttackRange = attackRange;
+        atkSpeedcol = AttackSpeedStoneObj.GetComponentInChildren<Collider2D>();
         base.Start();
     }
 
@@ -21,7 +28,8 @@ public class DrillBaseAttack : PlayerBaseAttack
             return;
         }
 
-        PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized);
+        InvokeStoneAttack();
+
 
         //공격범위 표시
         attackRange.gameObject.SetActive(true);
@@ -33,8 +41,15 @@ public class DrillBaseAttack : PlayerBaseAttack
         float damage = CalculateDamage(damageFactor);
         Debug.Log("damage : " + damage);
 
+        if (exceptionAttack)
+        {
+
+            return;
+        }
+
         //이펙트 재생
         //EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.MineCustom, attackRange.transform.position + Vector3.up / 3, 0.4f);
+        PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized * moveMultiply);
 
         //움직임 제한
         PlayerMain.Instance.canMove = false;
@@ -46,6 +61,8 @@ public class DrillBaseAttack : PlayerBaseAttack
     {
         base.OnAttackStart();
         PlayerMain.Instance.isAttacking = true;
+        if(exceptionAttack)
+            atkcollider.enabled = true;
     }
 
     protected override void OnAttacking()
@@ -67,23 +84,54 @@ public class DrillBaseAttack : PlayerBaseAttack
         Debug.Log("onattackend");
     }
 
+    [SerializeField]
+    [Tooltip("힘의돌 쓸때 범위 증가 계수")]
+    private float StrengthStoneMultiply;
     protected override void StrengthStoneAttack()
     {
-        throw new System.NotImplementedException();
+        if (!isActiveonce)
+        {
+            attackRange.transform.localScale = attackRange.transform.localScale * StrengthStoneMultiply;
+            moveMultiply = 1.5f;
+            isActiveonce = true;
+        }
+        else
+        {
+            attackRange.transform.localScale = attackRange.transform.localScale / StrengthStoneMultiply;
+            moveMultiply = 1;
+            isActiveonce = false;
+        }
     }
 
     protected override void LuckyStoneAttack()
     {
-        throw new System.NotImplementedException();
+
     }
 
+    public GameObject AttackSpeedStoneObj;
+    private Collider2D atkSpeedcol;
     protected override void AttackSpeedStoneAttack()
     {
-        throw new System.NotImplementedException();
+        //플레이어 차징공격처럼 바꿔준다
+        if (!isActiveonce)
+        {
+            exceptionAttack = true;
+            attackRange = AttackSpeedStoneObj;
+            atkcollider = atkSpeedcol;
+            isActiveonce = true;
+        }
+        else
+        {
+            exceptionAttack = false;
+            attackRange = baseAttackRange;
+            atkcollider = baseCollider;
+            isActiveonce = false;
+        }
     }
 
     protected override void MoveSpeedStoneAttack()
     {
-        throw new System.NotImplementedException();
+        //없음
+        Debug.Log("드릴 이속광석 효과는 없어요");
     }
 }

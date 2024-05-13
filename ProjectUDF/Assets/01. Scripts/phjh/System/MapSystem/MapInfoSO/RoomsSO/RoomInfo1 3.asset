@@ -21,4 +21,5 @@ MonoBehaviour:
   - {fileID: 3469863099141652256, guid: a1188d32532bf9b45949380ea602f79b, type: 3}
   - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
   - {fileID: 8792368968789631320, guid: 4ff22e9e19729be4daa23d610376a19d, type: 3}
-  spawnMonster: []
+  spawnMonsters: []
+  exit: 000000000300000002000000

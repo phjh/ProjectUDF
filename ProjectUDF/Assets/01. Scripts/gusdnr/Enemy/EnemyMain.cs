@@ -217,7 +217,6 @@ public class EnemyMain : PoolableMono
 	{
         if (collision.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement move))
         {
-			Debug.LogWarning($"{this.gameObject.name} - is invoked this");
             PlayerMain.Instance.GetDamage();
         }
     }
