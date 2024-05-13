@@ -48,12 +48,14 @@ public class OreInfo : UIMono
 
 	private void SetClickEvent()
 	{
-		if (SelectIcon == null) return;
+		if (SelectIcon == null) return; //예외 처리
+
 		if (SelectIcon.HoldingData.valuePersent == 0)
 		{
 			SlotList.ForEach(pair =>
 			{
 				pair.SlotButton.gameObject.SetActive(true);
+				pair.SlotButton.interactable = true;
 			});
 		}
 		else if (SelectIcon.HoldingData.valuePersent != 0)
@@ -63,6 +65,13 @@ public class OreInfo : UIMono
 				pair.SlotButton.gameObject.SetActive(false);
 			});
 		}
+
+		if(OreInventory.Instance.MainOreType == Stats.None)
+		{
+			SlotList[1].SlotButton.interactable = false;
+			SlotList[2].SlotButton.interactable = false;
+		}
+
 		SlotList[0].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(-1));
 		SlotList[0].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
 
