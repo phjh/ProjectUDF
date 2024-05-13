@@ -56,6 +56,7 @@ public class OreCard : UIMono
 
 	public void CloseDefault()
 	{
+		LinkedBtn.interactable = false;
 		var seq = DOTween.Sequence();
 
 		transform.localScale = Vector3.one * 0.1f;
@@ -75,6 +76,7 @@ public class OreCard : UIMono
 	
 	public override void CloseUI()
 	{
+		LinkedBtn.interactable = false;
 		var seq = DOTween.Sequence();
 		GetOre();
 		transform.localScale = Vector3.one * 0.1f;
@@ -98,7 +100,10 @@ public class OreCard : UIMono
 
 	#region Manage Ores
 
-	public void GetOre() => OreInventory.Instance.AddOre(CurOreData.stat, CurOreData.value);
+	public void GetOre()
+	{
+		OreInventory.Instance.AddOre(CurOreData.stat, CurOreData.value);
+	}
 
 	private int tempSO = 0;
 	private void SetRandomOre()

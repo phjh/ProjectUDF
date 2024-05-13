@@ -21,12 +21,12 @@ public class OreInfo : UIMono
 
 	private bool IsShowed = false;
 
-    public OreDataHolder SelectIcon { get; set; } = null;
+	public OreDataHolder SelectIcon { get; set; } = null;
 
 	public override void ShowUI()
 	{
 		Debug.Log("Active Info");
-		if(IsShowed == false)
+		if (IsShowed == false)
 		{
 			gameObject.SetActive(true);
 			IsShowed = true;
@@ -49,14 +49,28 @@ public class OreInfo : UIMono
 	private void SetClickEvent()
 	{
 		if (SelectIcon == null) return;
+		if (SelectIcon.HoldingData.valuePersent == 0)
+		{
+			SlotList.ForEach(pair =>
+			{
+				pair.SlotButton.gameObject.SetActive(true);
+			});
+		}
+		else if (SelectIcon.HoldingData.valuePersent != 0)
+		{
+			SlotList.ForEach(pair =>
+			{
+				pair.SlotButton.gameObject.SetActive(false);
+			});
+		}
 		SlotList[0].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(-1));
 		SlotList[0].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
 
 		SlotList[1].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(0));
-		SlotList[1].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
+		SlotList[1].SlotButton.onClick.AddListener(() => SlotList[1].SlotObject?.ShowUI());
 
 		SlotList[2].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(1));
-		SlotList[2].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
+		SlotList[2].SlotButton.onClick.AddListener(() => SlotList[2].SlotObject?.ShowUI());
 	}
 
 	private void SetOreInfo()

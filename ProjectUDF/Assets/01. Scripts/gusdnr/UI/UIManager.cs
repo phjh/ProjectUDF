@@ -114,7 +114,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 		newOre.transform.SetParent(IconContainer);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHolder.HoldingData.name}]");
-		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, 240), 0, 0);
+		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, 240), -50, 0);
 		IconList.Add(newOre);
 
 	}
