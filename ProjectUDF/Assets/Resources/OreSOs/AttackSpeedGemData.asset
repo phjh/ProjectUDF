@@ -16,6 +16,6 @@ MonoBehaviour:
   OreName: "\uAD6C\uC774\uB204\uC2A4 \uC6D0\uC11D"
   OreDesc: "\uBB18\uD55C \uB290\uB08C\uC744 \uC8FC\uB294 \uBCF4\uB77C\uC0C9\uC758
     \uC6D0\uC11D,\uD68D\uB4DD \uC2DC \uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD55C\uB2E4."
-  stats: 3
+  stat: 3
   value: 5
   valuePersent: 2

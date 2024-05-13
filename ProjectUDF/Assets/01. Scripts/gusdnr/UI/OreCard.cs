@@ -21,14 +21,11 @@ public class OreCard : UIMono
 	public Button LinkedBtn;
 	[SerializeField] private GameObject ResetBtn;
 
-	[Header("SO Values")]
-	public OreSO[] OreDatas;
 	public OreSO CurOreData;
 
 	private void Awake()
 	{
 		SetRandomOre();
-		Debug.Log($"Random Ore Setting Complete : {CurOreData}");
 		DOTween.Init();
 		transform.localScale = Vector3.one * 0.1f;
 		UIManager.Instance.Cards.Add(this);
@@ -106,7 +103,7 @@ public class OreCard : UIMono
 	private int tempSO = 0;
 	private void SetRandomOre()
 	{
-		tempSO = Random.Range(0, OreDatas.Length);
+		tempSO = Random.Range(0, (int)Stats.HP);
 		LinkedBtn.interactable = true;
 		OreImage.color = new Vector4(1, 1, 1, 1);
 		if (FailToResearch == null) FailToResearch += UIManager.Instance.CountFail;
@@ -118,10 +115,10 @@ public class OreCard : UIMono
 		float successRate = Random.value;
 		if (successRate <= 0.8f) //추후 재채광 성공 확률로 치환 예정
 		{
-			int resetTempSO = Random.Range(0, OreDatas.Length);
+			int resetTempSO = Random.Range(0, (int)Stats.HP);
 			while (resetTempSO == tempSO)
 			{
-				resetTempSO = Random.Range(0, OreDatas.Length);
+				resetTempSO = Random.Range(0, (int)Stats.HP);
 			}
 			tempSO = resetTempSO;
 			SetData();
@@ -138,7 +135,7 @@ public class OreCard : UIMono
 
 	public void SetData()
 	{
-		CurOreData = OreDatas[tempSO];
+		CurOreData = UIManager.Instance.OreDatas[tempSO];
 		OreImage.sprite = CurOreData.OreSprite;
 		#region 설명 문자열 단행 추가
 		string desc = CurOreData.OreDesc;

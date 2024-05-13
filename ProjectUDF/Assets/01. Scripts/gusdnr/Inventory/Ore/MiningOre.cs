@@ -28,6 +28,7 @@ public class MiningOre : MonoBehaviour
 
 	#region 외부 호출용 함수들
 	private int tempSO = 0;
+
 	private void SetRandomOre()
 	{
 		tempSO = Random.Range(0, OreDatas.Length);

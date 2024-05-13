@@ -16,6 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;
 	public RectTransform IconContainer;
+	public OreInfo _OreInfo;
 	public TMP_Text OreName;
 	public TMP_Text OreDesc;
 	#endregion
@@ -34,7 +35,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	#region Mining
 	private int failCount = 0;
-	public bool IsActivePopUp {	get; set; } = false;
+	public bool IsActivePopUp { get; set; } = false;
 	public static event EventHandler OnResearchEnd;
 	#endregion
 
@@ -48,17 +49,18 @@ public class UIManager : MonoSingleton<UIManager>
 		PocketUIParent.gameObject.SetActive(IsOnInventoryUI);
 		SetScreenFilter(IsOnInventoryUI);
 	}
-    private void Start()
-    {
-        //MapSystem.Instance.RoomClearEvent += ShowMining;
-    }
+	private void OnEnable()
+	{
+		//MapSystem.Instance.RoomClearEvent += ShowMining;
+		OreInventory.Instance.ChangeContents += SetOreList;
+	}
 
 	#region Mining UI
 	public void CountFail()
 	{
 		failCount += 1;
 		Debug.Log(failCount);
-		if(failCount == 3)
+		if (failCount == 3)
 		{
 			for (int i = 0; i < Cards.Count; i++)
 			{
@@ -72,7 +74,16 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void SetOreList() //Setting Ores
 	{
+		if (IconList.Count() != 0)
+		{
+			for (int icon = 0; icon < IconList.Count(); icon++)
+			{
+				Destroy(Instance.IconList[icon]);
+			}
+		}
 		IconList.Clear();
+		IconList = new List<GameObject>();
+
 		InOreList = OreInventory.Instance.OreList;
 		CalculateInventory(InOreList, OreDatas);
 
@@ -82,7 +93,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	private void CalculateInventory(List<int> baseList, List<OreSO> dataList) //Calculate To In OreInventoryList
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < (int)Stats.HP; i++)
 		{
 			int createPrefabCount = baseList[i];
 			if (createPrefabCount != 0)
@@ -98,12 +109,12 @@ public class UIManager : MonoSingleton<UIManager>
 	private void AddOreIcon(OreSO data) //Make Ore Icon Image
 	{
 		GameObject newOre = Instantiate(OrePrefab);
-		OreDataHolder soHoledr = newOre.GetComponent<OreDataHolder>();
-		soHoledr.SettingOreData(data);
+		OreDataHolder soHolder = newOre.GetComponent<OreDataHolder>();
+		soHolder.SettingOreData(data);
 
 		newOre.transform.SetParent(IconContainer);
-		newOre.name = newOre.name.Replace("(Clone)", $"[{soHoledr.HoldingData.name}]");
-		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, -240), 0, 0);
+		newOre.name = newOre.name.Replace("(Clone)", $"[{soHolder.HoldingData.name}]");
+		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, 240), 0, 0);
 		IconList.Add(newOre);
 
 	}
@@ -117,6 +128,8 @@ public class UIManager : MonoSingleton<UIManager>
 		{
 			SetScreenFilter(true);
 			PocketUIParent.gameObject.SetActive(true);
+
+			_OreInfo.CloseUI();
 			SetOreList();
 			IsOnInventoryUI = true;
 		}
@@ -130,6 +143,7 @@ public class UIManager : MonoSingleton<UIManager>
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			PocketUIParent.gameObject.SetActive(false);
+			_OreInfo.CloseUI();
 			SetScreenFilter(false);
 			IsOnInventoryUI = false;
 		}
@@ -138,7 +152,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void ShowMining()
 	{
-		if(IsOnInventoryUI == true) CloseMining();
+		if (IsOnInventoryUI == true) CloseMining();
 		IsActivePopUp = true;
 		failCount = 0;
 		SetScreenFilter(IsActivePopUp);

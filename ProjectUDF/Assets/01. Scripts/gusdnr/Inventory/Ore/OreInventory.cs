@@ -22,10 +22,11 @@ public class OreInventory : MonoSingleton<OreInventory>
 	public Stats MainOreType;
 	public List<Stats> SubOreType;
 
+	public event Action ChangeContents;
 	public event Action<Stats> OnChangeMainOre;
 	#endregion
 
-	private void Start()
+	private void Awake()
 	{
 		status = GameManager.Instance?.player.stat;
 		if (status == null) Debug.LogError($"Player Status is NULL [Player : {GameManager.Instance.player}]");
@@ -36,15 +37,11 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void ResetOreList() //광물 목록 초기화용
 	{
+		MainOreType = Stats.None;
+		SubOreType = new List<Stats>(2){ Stats.None, Stats.None };
+
 		OreList = Enumerable.Repeat(0, 4).ToList();
 		GemList = Enumerable.Repeat(0, 4).ToList();
-
-		MainOreType = Stats.None;
-		SubOreType = new List<Stats>();
-		for (int c = 0; c < SubOreType.Count; c++)
-		{
-			SubOreType[c] = Stats.None;
-		}
 	}
 
 	#region Add Methods
@@ -119,11 +116,12 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void EquipMain(Stats statName)
 	{
+		if(MainOreType != Stats.None) MainOreType = Stats.None;
 		statNumber = (int)statName;
-		if (OreList[statNumber] <= 0)
+		if (OreList[statNumber] > 0)
 		{
-			OreSO data = UIManager.Instance.OreDatas[statNumber];
-			RemoveInventory(statNumber, data.value);
+			int value = UIManager.Instance.OreDatas[statNumber].value;
+			RemoveInventory(statNumber, value);
 		}
 		else return;
 		MainOreType = statName;
@@ -132,8 +130,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void UnequipMain()
 	{
-		if(MainOreType == Stats.None) return;
-		MainOreType = Stats.None;
+		if(MainOreType != Stats.None) MainOreType = Stats.None;
 		OnChangeMainOre?.Invoke(MainOreType);
 		UnequipSub(0);
 		UnequipSub(1);
@@ -141,17 +138,26 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void EquipSub(Stats statName, int index)
 	{
+		if (index >= SubOreType.Count) return;
+
 		if (MainOreType != Stats.None)
 		{
-			if (index > SubOreType.Count) return;
 			statNumber = (int)statName;
 			if (OreList[statNumber] <= 0)
 			{
-				OreSO data = UIManager.Instance.OreDatas[statNumber];
-				RemoveInventory(statNumber, data.value);
+				int value = UIManager.Instance.OreDatas[statNumber].value;
+				RemoveInventory(statNumber, value);
 			}
 			else return;
+			if (SubOreType[index] != Stats.None)
+			{
+				UnequipSub(index);
+			}	
 			SubOreType[index] = statName;
+		}
+		else if (MainOreType != Stats.None)
+		{
+			return;
 		}
 	}
 
@@ -161,8 +167,9 @@ public class OreInventory : MonoSingleton<OreInventory>
 		OreSO data = UIManager.Instance.OreDatas[(int)SubOreType[index]];
 		AddOre(SubOreType[index], data.value);
 		SubOreType[index] = Stats.None;
+		ChangeContents?.Invoke();
 	}
-
+	
 	#endregion
 
 	#endregion
