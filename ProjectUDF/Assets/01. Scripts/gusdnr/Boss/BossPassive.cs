@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class BossPassive : ScriptableObject
 {
-    public float ActiveTickTime;
+	[HideInInspector] protected BossMain bossMain;
+	public virtual void Initialize(BossMain bossMain)
+	{
+		this.bossMain = bossMain;
+	}
 
-    public virtual void PassiveActive() { }
+    public float ActiveTickTime;
+	public virtual void PassiveActive() { }
 }
