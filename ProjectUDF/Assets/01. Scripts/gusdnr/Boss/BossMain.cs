@@ -16,6 +16,12 @@ public class BossMain : MonoBehaviour
 		Died = 5,
     }
 
+    public struct PatternPair
+    {
+        [Range(0,100)] public float SelectPersent;
+        public BossPattern DoPattern;
+    }
+
     [Header("Boss Status")]
     public BossDataSO BossData;
     public BossState CurBossState;
@@ -28,7 +34,7 @@ public class BossMain : MonoBehaviour
     public BossPattern MovingPattern;
     public BossPattern CooldownPattern;
     public BossPattern[] PassivePatterns;
-    public BossPattern[] ActivePatterns;
+    public PatternPair[] ActivePatterns;
 
     private Animator ConditionSetter;
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
@@ -102,5 +108,9 @@ public class BossMain : MonoBehaviour
         }
 	}
 
-
+    private void SelectPattern()
+    {
+        int SelectedPattern; 
+        //ActivePatterns[]
+    }
 }

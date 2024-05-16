@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossPattern : ScriptableObject
 {
-	public bool IsActivePattern = false;
-	public bool IsPassive = false;
+	public bool IsActive= false;
+	public bool IsThisPassive = false;
 	public float PassiveCool = 0f;
 
 	protected BossMain bossMain;
