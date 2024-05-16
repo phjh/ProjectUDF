@@ -109,14 +109,14 @@ public class PlayerMain : MonoSingleton<PlayerMain>
             baseAttack.OnAttackPrepare();
         else if (Input.GetMouseButton(1))
             chargeAttack.OnAttackPrepare();
-        /*
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             UnEquipStone();
-            EquipStone();
+            EquipStone((Stats)EquipMainOre);
         }
         if (Input.GetKeyDown(KeyCode.H))
-            UnEquipStone();*/
+            UnEquipStone();
     }
 
 	#region Methods
@@ -196,7 +196,9 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
 	private void EquipStone(Stats statName)
 	{
-		EquipMainOre = (int)statName;
+		EquipMainOre = (int)statName % 5;
+        if (EquipMainOre > 4)
+            Debug.LogWarning("maybe index out of range");
         if(statName == Stats.None) UnEquipStone();
 	}
 
@@ -209,6 +211,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
         if (chargeAttack.isActiveonce)
             chargeAttack.AdditionalAttack[EquipMainOre].Invoke();
+
     }
 
     #endregion

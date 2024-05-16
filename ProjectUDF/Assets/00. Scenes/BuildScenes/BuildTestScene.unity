@@ -4736,6 +4736,7 @@ MonoBehaviour:
   OrePrefab: {fileID: 5946013628519930447, guid: 6bd540a759e1f3447b14ac5dce9d56e4, type: 3}
   PocketUIParent: {fileID: 68059808}
   IconContainer: {fileID: 0}
+  _OreInfo: {fileID: 0}
   OreName: {fileID: 1483767865}
   OreDesc: {fileID: 1066080382}
   OreDatas:
@@ -10407,7 +10408,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1303904213}
-  - component: {fileID: 1303904215}
   - component: {fileID: 1303904214}
   m_Layer: 0
   m_Name: MapSystem
@@ -10441,18 +10441,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b13c5c2c81e257845a40054366fea3db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1303904215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303904212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e1d389b3e803094f8c14f6ef0c566bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floors:
@@ -15978,7 +15966,7 @@ PrefabInstance:
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: nowWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
+      objectReference: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: testStone
       value: 3

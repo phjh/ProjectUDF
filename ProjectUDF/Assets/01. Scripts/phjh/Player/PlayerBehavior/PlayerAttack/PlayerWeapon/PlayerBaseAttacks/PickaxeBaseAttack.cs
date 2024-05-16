@@ -110,7 +110,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 
     protected override void LuckyStoneAttack()
     {
-        throw new NotImplementedException();
+        Debug.Log("asdf");
     }
 
 

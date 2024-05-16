@@ -72,7 +72,7 @@ public class DrillChargeAttack : PlayerChargeAttack
 
     protected override void LuckyStoneAttack()
     {
-        throw new System.NotImplementedException();
+
     }
 
     protected override void AttackSpeedStoneAttack()
@@ -82,6 +82,6 @@ public class DrillChargeAttack : PlayerChargeAttack
 
     protected override void MoveSpeedStoneAttack()
     {
-        throw new System.NotImplementedException();
+
     }
 }

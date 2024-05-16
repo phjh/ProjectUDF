@@ -8,7 +8,7 @@ public class Portal : MonoBehaviour
     {
         if(collision.gameObject == GameManager.Instance.player.gameObject)
         {
-            MapSystem.Instance.ActionInvoker(MapEvents.MapStart);
+            MapSystem.Instance.OnRoomStart();
             GameManager.Instance.player.transform.parent.transform.position = new Vector2(0,0);
             this.gameObject.SetActive(false);
         }

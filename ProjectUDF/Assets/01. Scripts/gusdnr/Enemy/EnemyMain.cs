@@ -153,7 +153,7 @@ public class EnemyMain : PoolableMono
 	{
 		IsDead = true;
 		StateMachine.CurrentState.ExitState();
-		MapSystem.Instance.ActionInvoker(MapEvents.MonsterKill);
+		MapSystem.Instance.OnMonsterDead();
 		StopAllCoroutines();
 		PoolManager.Instance.Push(this, pair.enumtype);
 	}

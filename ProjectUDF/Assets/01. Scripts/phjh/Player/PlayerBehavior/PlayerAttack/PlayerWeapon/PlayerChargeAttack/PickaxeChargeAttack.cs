@@ -102,7 +102,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 
     protected override void LuckyStoneAttack()
     {
-        throw new NotImplementedException();
+
     }
 
     protected override void AttackSpeedStoneAttack()
