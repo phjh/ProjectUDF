@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class BossMain : MonoBehaviour
 {
     public enum BossState
     {
         None = 0,
-        Cooldown = 1,
-        Attack = 2,
-        InCC = 3,
-		Died = 4,
+        Idle = 1,
+        Cooldown = 2,
+        Attack = 3,
+        InCC = 4,
+		Died = 5,
     }
 
     [Header("Boss Status")]
@@ -22,16 +24,25 @@ public class BossMain : MonoBehaviour
 
     [Header("Manage Pattern")]
     [Range(0, 10)] public float PatternTerm;
+    public BossPattern MovingPattern;
+    public BossPattern CooldownPattern;
     public BossPattern[] PassivePatterns;
     public BossPattern[] ActivePatterns;
 
+    private Animator ConditionSetter;
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
     private List<WaitForSeconds> PassiveWaits = new List<WaitForSeconds>();
+
+    private bool IsAttack { get; set; } = false;
+    private bool IsOutCC { get; set; } = false;
+    private bool IsCooldown { get; set; } = false;
+    private bool IsMoving { get; set; } = false;
 
 	private void Awake()
 	{
 		IsAlive = true;
         CurHP = BossData.MaxHP;
+		ConditionSetter = GetComponent<Animator>();
 		TargetTrm = GameManager.Instance.player.transform;
 	}
 
