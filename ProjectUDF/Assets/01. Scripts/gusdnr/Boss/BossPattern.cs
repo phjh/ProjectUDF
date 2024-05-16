@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossPattern : ScriptableObject
 {
 	public bool IsActive = false;
+	public bool IsPassive = false;
+	public float PassiveCool = 0f;
 
 	protected BossMain bossMain;
 	public virtual void Initialize(BossMain bossMain)

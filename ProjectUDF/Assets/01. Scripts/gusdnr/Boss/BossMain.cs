@@ -22,7 +22,7 @@ public class BossMain : MonoBehaviour
 
     [Header("Manage Pattern")]
     [Range(0, 10)] public float PatternTerm;
-    public BossPassive[] PassivePatterns;
+    public BossPattern[] PassivePatterns;
     public BossPattern[] ActivePatterns;
 
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
@@ -43,19 +43,19 @@ public class BossMain : MonoBehaviour
         }	
 	}
 
-	public void StartPassivePattern(BossPassive passive)
+	public void StartPassivePattern(BossPattern passive)
     {
-        float tickTime = passive.ActiveTickTime;
+        float tickTime = passive.PassiveCool;
         PassiveWaits.Add(new WaitForSeconds(tickTime));
-        PassiveCoroutines.Add(StartCoroutine(StartPassive(tickTime, passive)));
+        PassiveCoroutines.Add(StartCoroutine(StartPassive(passive, PassiveWaits.Count - 1)));
     }
 
-    private IEnumerator StartPassive(float tick, BossPassive passive)
+    private IEnumerator StartPassive(BossPattern passive, int count)
     {
         while (IsAlive)
         {
-            passive?.PassiveActive();
-			yield return new WaitForSeconds(tick);
+            passive?.ActivePattern();
+			yield return PassiveWaits[count];
         }
     }
 }
