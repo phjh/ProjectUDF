@@ -138,24 +138,29 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void EquipSub(Stats statName, int index)
 	{
-		if (index >= SubOreType.Count) return;
+		Debug.Log($"Add Index : {index}");
+		//if (index > SubOreType.Count) return;
 
 		if (MainOreType != Stats.None)
 		{
+			Debug.Log($"Sub {index} : {SubOreType[index]} [MAX INDEX= {SubOreType.Count}]");
+			if (SubOreType[index] != Stats.None)
+			{
+				UnequipSub(index);
+			}
+
 			statNumber = (int)statName;
-			if (OreList[statNumber] <= 0)
+
+			if (OreList[statNumber] > 0)
 			{
 				int value = UIManager.Instance.OreDatas[statNumber].value;
 				RemoveInventory(statNumber, value);
 			}
 			else return;
-			if (SubOreType[index] != Stats.None)
-			{
-				UnequipSub(index);
-			}	
+			
 			SubOreType[index] = statName;
 		}
-		else if (MainOreType != Stats.None)
+		else if (MainOreType == Stats.None)
 		{
 			return;
 		}

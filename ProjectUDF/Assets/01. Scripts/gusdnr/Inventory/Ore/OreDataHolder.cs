@@ -7,7 +7,7 @@ public class OreDataHolder : MonoBehaviour
 {
 	private Image HolderImage;
 	public OreSO HoldingData;
-	
+
 	private void Awake()
 	{
 		HolderImage = GetComponent<Image>();
@@ -15,10 +15,8 @@ public class OreDataHolder : MonoBehaviour
 
 	public void SettingOreData(OreSO OreData)
 	{
-		Debug.Log("Method");
 		HoldingData = OreData;
 		HolderImage.sprite = OreData.OreSprite;
-		//현재 광석의 데이터를 설명 보드 측으로 보내주거나, 설명하는 UI 등장
 	}
 
 	public void ShowOreInfo()
@@ -48,7 +46,7 @@ public class OreDataHolder : MonoBehaviour
 			UIManager.Instance._OreInfo.CloseUI();
 			Destroy(gameObject);
 		}
-		if (SubIndex <= -1)
+		else if (SubIndex > -1 && SubIndex <= OreInventory.Instance.SubOreType.Count)
 		{
 			if (OreInventory.Instance.MainOreType != Stats.None)
 			{

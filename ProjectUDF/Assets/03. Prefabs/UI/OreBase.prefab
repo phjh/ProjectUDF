@@ -192,7 +192,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
+    m_DisabledColor: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -822,10 +822,4 @@ MonoBehaviour:
   OreImage: {fileID: 8346295426213694724}
   LinkedBtn: {fileID: 7145268759733321714}
   ResetBtn: {fileID: 1481203200526487512}
-  OreDatas:
-  - {fileID: 11400000, guid: 51d6e66a1e894004fad85ea29f5e67e9, type: 2}
-  - {fileID: 11400000, guid: 086a9d85b74876e4f8f350c5e3c8ba48, type: 2}
-  - {fileID: 11400000, guid: 1f7bbac246bccec41a13729883a29c0a, type: 2}
-  - {fileID: 11400000, guid: 53bf343fbca31c347b7b9b048109b6b6, type: 2}
-  - {fileID: 11400000, guid: e13383081ed472f48bee2f04378b2eac, type: 2}
   CurOreData: {fileID: 0}

@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossPattern : MonoBehaviour
+public class BossPattern : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public bool IsActive = false;
+	public bool IsPassive = false;
+	public float PassiveCool = 0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	protected BossMain bossMain;
+	public virtual void Initialize(BossMain bossMain)
+	{
+		this.bossMain = bossMain;
+	}
+
+	public virtual void EnterPattern() { }
+	public virtual void ActivePattern() { }
+	public virtual void ExitPattern() { }
 }
