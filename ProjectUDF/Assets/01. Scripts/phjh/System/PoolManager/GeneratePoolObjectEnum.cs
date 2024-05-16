@@ -50,7 +50,7 @@ public class AutoEnumBuilder : Editor
         sb.Append("}\n\n");
 
         string enumLocation = Application.dataPath + "\\01. Scripts\\phjh\\System\\PoolManager\\PoolObjectEnum.cs";
-        ReloadAssets.Equals(enumLocation, sb);
+        Equals(enumLocation, sb);
         File.WriteAllText(enumLocation, sb.ToString());
 
     }

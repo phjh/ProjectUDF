@@ -8,8 +8,8 @@ public class Portal : MonoBehaviour
     {
         if(collision.gameObject == GameManager.Instance.player.gameObject)
         {
+            MapSystem.Instance.OnPortalEnter(this.transform, GameManager.Instance.player.transform.parent.transform);
             MapSystem.Instance.OnRoomStart();
-            GameManager.Instance.player.transform.parent.transform.position = new Vector2(0,0);
             this.gameObject.SetActive(false);
         }
     }
