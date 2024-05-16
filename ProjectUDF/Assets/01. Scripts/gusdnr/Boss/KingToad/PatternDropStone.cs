@@ -12,6 +12,8 @@ public class PatternDropStone : BossPattern
 	public override void ActivePattern()
 	{
 		TargetPos = bossMain.TargetTrm.position;
+		CircleCollider2D AttackRange = new CircleCollider2D();
+		AttackRange.radius = AttackRadius;
 		Debug.Log("보스 낙석 장판 POP");
 		Debug.Log("보스 낙석 장판 PUSH");
 	}

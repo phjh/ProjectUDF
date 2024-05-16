@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class BossMain : MonoBehaviour
     private Animator ConditionSetter;
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
     private List<WaitForSeconds> PassiveWaits = new List<WaitForSeconds>();
+    private BossPattern SelectedPattern;
 
     private bool IsAttack { get; set; } = false;
     private bool IsOutCC { get; set; } = false;
@@ -69,4 +71,36 @@ public class BossMain : MonoBehaviour
 			yield return PassiveWaits[count];
         }
     }
+
+    private void SetState(BossState bs)
+    {
+        CurBossState = bs;
+        if(CurBossState == BossState.InCC)
+        {
+            CancelAttack();
+        }
+        if(CurBossState == BossState.Died)
+        {
+            CancelAttack();
+			StopPassive();
+        }
+    }
+
+	private void StopPassive()
+	{
+		for(int c = 0; c <  PassiveWaits.Count; c++)
+        {
+            StopCoroutine(PassiveCoroutines[c]);
+        }
+	}
+
+	private void CancelAttack()
+	{
+		if(SelectedPattern != null)
+        {
+            SelectedPattern.ExitPattern();
+        }
+	}
+
+
 }
