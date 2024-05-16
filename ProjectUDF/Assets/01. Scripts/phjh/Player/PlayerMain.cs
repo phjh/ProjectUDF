@@ -196,8 +196,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
 	private void EquipStone(Stats statName)
 	{
-		EquipMainOre = (int)statName % 5;
-        if (EquipMainOre > 4)
+		EquipMainOre = ((int)statName + 1) % 6;
+		if (EquipMainOre > 4)
             Debug.LogWarning("maybe index out of range");
         if(statName == Stats.None) UnEquipStone();
 	}
