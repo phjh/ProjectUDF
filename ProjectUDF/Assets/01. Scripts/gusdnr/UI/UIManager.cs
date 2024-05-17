@@ -11,7 +11,7 @@ public class UIManager : MonoSingleton<UIManager>
 	#region UI Objects
 	[Header("Default")]
 	public GameObject ScreenFilter;
-
+	
 	[Header("Ore Pocket")]
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;

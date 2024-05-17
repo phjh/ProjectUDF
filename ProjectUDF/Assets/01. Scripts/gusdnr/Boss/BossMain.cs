@@ -13,13 +13,7 @@ public class BossMain : MonoBehaviour
         Cooldown = 2,
         Attack = 3,
         InCC = 4,
-		Died = 5,
-    }
-
-    public struct PatternPair
-    {
-        [Range(0,100)] public float SelectPersent;
-        public BossPattern DoPattern;
+		Die = 5,
     }
 
     [Header("Boss Status")]
@@ -34,7 +28,7 @@ public class BossMain : MonoBehaviour
     public BossPattern MovingPattern;
     public BossPattern CooldownPattern;
     public BossPattern[] PassivePatterns;
-    public PatternPair[] ActivePatterns;
+    public BossPattern[] ActivePatterns;
 
     private Animator ConditionSetter;
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
@@ -56,10 +50,15 @@ public class BossMain : MonoBehaviour
 
 	private void Start()
 	{
-	    foreach(var pattern in PassivePatterns)
-        {
-            StartPassivePattern(pattern);
-        }	
+		foreach (var pattern in ActivePatterns)
+		{
+            pattern.Initialize(this);
+		}
+		foreach (var pattern in PassivePatterns)
+		{
+            pattern.Initialize(this);
+			StartPassivePattern(pattern);
+		}
 	}
 
 	public void StartPassivePattern(BossPattern passive)
@@ -81,14 +80,21 @@ public class BossMain : MonoBehaviour
     private void SetState(BossState bs)
     {
         CurBossState = bs;
-        if(CurBossState == BossState.InCC)
+        switch (CurBossState)
         {
-            CancelAttack();
-        }
-        if(CurBossState == BossState.Died)
-        {
-            CancelAttack();
-			StopPassive();
+            case BossState.None:
+                break;
+            case BossState.Idle:
+                break;
+            case BossState.Attack:
+				SelectActivePattern();
+                break;
+			case BossState.InCC:
+				CancelAttack();
+                break;
+			case BossState.Die:
+                DieBoss();
+                break;
         }
     }
 
@@ -108,9 +114,27 @@ public class BossMain : MonoBehaviour
         }
 	}
 
-    private void SelectPattern()
+    private void SelectActivePattern()
     {
-        int SelectedPattern; 
-        //ActivePatterns[]
+        if(SelectedPattern != null) SelectedPattern.ExitPattern();
+        int selectIndex = UnityEngine.Random.Range(0,ActivePatterns.Length);
+		SelectedPattern = ActivePatterns[selectIndex];
+        SelectedPattern.EnterPattern();
+    }
+
+    private void DieBoss()
+    {
+        if(CurBossState != BossState.Die) return;
+		CancelAttack();
+		StopPassive();
+	}
+
+    public void Damage(float damage)
+    {
+        CurHP = damage;
+        if(CurHP <= 0)
+        {
+			SetState(BossState.Die);
+		}
     }
 }
