@@ -10,10 +10,11 @@ public class BossMain : MonoBehaviour
     {
         None = 0,
         Idle = 1,
-        Cooldown = 2,
+        Moving = 2,
         Attack = 3,
-        InCC = 4,
-		Die = 5,
+        Cooldown = 4,
+        InCC = 5,
+		Die = 6,
     }
 
     [Header("Boss Status")]
@@ -72,6 +73,7 @@ public class BossMain : MonoBehaviour
     {
         while (IsAlive)
         {
+            if(!IsAlive) break;
             passive?.ActivePattern();
 			yield return PassiveWaits[count];
         }
@@ -86,9 +88,13 @@ public class BossMain : MonoBehaviour
                 break;
             case BossState.Idle:
                 break;
-            case BossState.Attack:
+			case BossState.Moving:
+				break;
+			case BossState.Attack:
 				SelectActivePattern();
                 break;
+			case BossState.Cooldown:
+				break;
 			case BossState.InCC:
 				CancelAttack();
                 break;
@@ -122,9 +128,15 @@ public class BossMain : MonoBehaviour
         SelectedPattern.EnterPattern();
     }
 
+    private void StartCooldown()
+    {
+    
+    }
+
     private void DieBoss()
     {
         if(CurBossState != BossState.Die) return;
+        IsAlive = false;
 		CancelAttack();
 		StopPassive();
 	}

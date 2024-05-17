@@ -632,7 +632,8 @@ MonoBehaviour:
   MovingPattern: {fileID: 0}
   CooldownPattern: {fileID: 0}
   PassivePatterns: []
-  ActivePatterns: []
+  ActivePatterns:
+  - {fileID: 0}
 --- !u!1 &135313831
 GameObject:
   m_ObjectHideFlags: 0
