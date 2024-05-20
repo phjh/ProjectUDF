@@ -37,23 +37,16 @@ public class PlayerAnimation : MonoBehaviour
     [SpineAnimation]
     public List<string> MoveAnimations;
 
-    [SpineAnimation]
-    public List<string> leftAttackAnimations;
+    private List<AnimationReferenceAsset> leftAttackAnimations;
 
-    [SpineAnimation]
-    public List<string> chargingAttack;
+    private List<AnimationReferenceAsset> chargingAttack;
     
-    [SpineAnimation]
-    public List<string> rightAttackAnimations;
+    private List<AnimationReferenceAsset> rightAttackAnimations;
 
-    [SpineAnimation]
-    public List<string> PickaxeIdleAnimations;
+    private List<AnimationReferenceAsset> WeaponIdleAnimations;
 
     [SpineAnimation]
     public List<string> DodgeAnimation;
-
-    [SpineAnimation]
-    public string hitAnimation;
 
     [SpineAnimation]
     public string dieAnimation;
@@ -200,7 +193,7 @@ public class PlayerAnimation : MonoBehaviour
                 }
 
                 aimAngle = aim.Angle;
-                skeletonAnimation.AnimationState.SetAnimation(0, PickaxeIdleAnimations[aimAngle], false).AnimationStart = time;
+                skeletonAnimation.AnimationState.SetAnimation(0, WeaponIdleAnimations[aimAngle], false).AnimationStart = time;
                 isRightPressed = true;
 
                 yield return new WaitForSeconds(fixedTime);
@@ -250,4 +243,24 @@ public class PlayerAnimation : MonoBehaviour
         if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
             skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
     }
+
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            SetAnimations();
+            Debug.LogWarning("X Pressed");
+        }
+    }
+
+    public void SetAnimations(/*List<string> weaponIdle,List<string> leftAttack,List<string> charging, List<string> rightAttack*/)
+    {
+        leftAttackAnimations = PlayerMain.Instance.nowWeapon.leftAttackAnimations;
+        Debug.LogWarning("excuted");
+        WeaponIdleAnimations = PlayerMain.Instance.nowWeapon.WeaponIdleAnimations;
+        chargingAttack = PlayerMain.Instance.nowWeapon.chargingAttack;
+        rightAttackAnimations = PlayerMain.Instance.nowWeapon.rightAttackAnimations;
+    }
+
 }

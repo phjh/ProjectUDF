@@ -1,7 +1,6 @@
 using Cinemachine;
 using System;
 using UnityEngine;
-using TreeEditor;
 
 public enum GameStates
 {

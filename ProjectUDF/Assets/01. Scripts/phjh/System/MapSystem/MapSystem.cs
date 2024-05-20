@@ -30,32 +30,32 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     public event Action MonsterKilledEvent; //6번 -> 몹이 죽을때마다 실행할 이벤트, 몹이 죽을때 연결해주면 된다.
 
-    public void ActionInvoker(MapEvents e)
-    {
-        switch ((int)e)
-        {
-            case 1:
-                FloorStartEvent?.Invoke();
-                break;
-            //case 2:
-            //    FloorClearEvent?.Invoke();
-                //break;
-            case 3:
-                RoomStartEvent?.Invoke();
-                break;
-            case 4:
-                RoomClearEvent?.Invoke();
-                break;
-            case 5:
-                MonsterWaveClearEvent?.Invoke();
-                break;
-            case 6:
-                MonsterKilledEvent?.Invoke();
-                break;
-            default:
-                break;
-        }
-    }
+    //public void ActionInvoker(MapEvents e)
+    //{
+    //    switch ((int)e)
+    //    {
+    //        case 1:
+    //            FloorStartEvent?.Invoke();
+    //            break;
+    //        //case 2:
+    //        //    FloorClearEvent?.Invoke();
+    //            //break;
+    //        case 3:
+    //            RoomStartEvent?.Invoke();
+    //            break;
+    //        case 4:
+    //            RoomClearEvent?.Invoke();
+    //            break;
+    //        case 5:
+    //            MonsterWaveClearEvent?.Invoke();
+    //            break;
+    //        case 6:
+    //            MonsterKilledEvent?.Invoke();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
     [SerializeField]
     private List<MapInfoSO> floors;
@@ -119,17 +119,11 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     private void OnEnable()
     {
-        MapSystem.Instance.RoomClearEvent += OnRoomClear;
-        MapSystem.Instance.RoomStartEvent += OnRoomStart;
-        MapSystem.Instance.MonsterWaveClearEvent += WaveClear;
         MapSystem.Instance.MonsterKilledEvent += OnMonsterDead;
     }
 
     private void OnDisable()
     {
-        MapSystem.Instance.RoomClearEvent -= OnRoomClear;
-        MapSystem.Instance.RoomStartEvent -= OnRoomStart;
-        MapSystem.Instance.MonsterWaveClearEvent -= WaveClear;
         MapSystem.Instance.MonsterKilledEvent -= OnMonsterDead;
     }
 
@@ -166,6 +160,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         SetRoomMap();
         SetLeftMonsters();
         SpawnMonsters();
+        RoomClearEvent?.Invoke();
     }
 
     void OnRoomClear()

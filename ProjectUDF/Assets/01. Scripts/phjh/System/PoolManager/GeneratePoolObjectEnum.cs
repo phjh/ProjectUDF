@@ -4,9 +4,10 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 
 [CustomEditor(typeof(GameManager))]
-public class AutoEnumBuilder : Editor
+public class GeneratePoolObjectEnum : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -56,3 +57,5 @@ public class AutoEnumBuilder : Editor
     }
 
 }
+
+#endif
