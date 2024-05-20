@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DrillChargeAttack : PlayerChargeAttack
 {
-    
+
 
     public override void OnAttackPrepare()
     {
@@ -82,6 +82,26 @@ public class DrillChargeAttack : PlayerChargeAttack
 
     protected override void MoveSpeedStoneAttack()
     {
+        Debug.Log("이속 돌 강공격 이벤트");
+        //int step = HowlongCharged(charged) + 1;
+        //Vector3 targetPos = PlayerMain.Instance.playerAim.Mousedir.normalized * step * 2;
+        //PlayerMain.Instance.playerMove.Dash(0.5f, transform.position + targetPos);
 
+        StartCoroutine(MoveSpeedStoneDash());
+    }
+
+    public AnimationCurve curve;
+    IEnumerator MoveSpeedStoneDash()
+    {
+        int step = HowlongCharged(charged) + 1;
+        float time = 0;
+        while (time < step / 1.5f) 
+        {
+            PlayerMain.Instance.playerMove.SetFixedDir(true, PlayerMain.Instance.playerAim.Mousedir.normalized * step * curve.Evaluate(time * 2) * 4);
+            yield return new WaitForSeconds(0.02f);
+            time += 0.02f;
+
+        }
+        PlayerMain.Instance.playerMove.SetFixedDir(false, Vector2.zero);
     }
 }

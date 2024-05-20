@@ -19,7 +19,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     //층 따라 시작되는 이벤트 (삭제 예정)
     public event Action FloorStartEvent; //1번  -> 층을 새작할때 실행된다.  랜덤층 생성이 여기서 이루어졌다.
-    public event Action FloorClearEvent; //2번  ->  각 층을 클리어 했을때 실행된다. 다음층으로 가는 포탈 생성을 여기서 할 예정이다
+    //public event Action FloorClearEvent; //2번  ->  각 층을 클리어 했을때 실행된다. 다음층으로 가는 포탈 생성을 여기서 할 예정이다
 
     //방 마다 시작되는 이벤트
     public event Action RoomStartEvent;  //3번   ->  각 방에 들어갈때 실행된다.  시간제한이 여기 포함된다
@@ -30,32 +30,32 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     public event Action MonsterKilledEvent; //6번 -> 몹이 죽을때마다 실행할 이벤트, 몹이 죽을때 연결해주면 된다.
 
-    public void ActionInvoker(MapEvents e)
-    {
-        switch ((int)e)
-        {
-            case 1:
-                FloorStartEvent?.Invoke();
-                break;
-            case 2:
-                FloorClearEvent?.Invoke();
-                break;
-            case 3:
-                RoomStartEvent?.Invoke();
-                break;
-            case 4:
-                RoomClearEvent?.Invoke();
-                break;
-            case 5:
-                MonsterWaveClearEvent?.Invoke();
-                break;
-            case 6:
-                MonsterKilledEvent?.Invoke();
-                break;
-            default:
-                break;
-        }
-    }
+    //public void ActionInvoker(MapEvents e)
+    //{
+    //    switch ((int)e)
+    //    {
+    //        case 1:
+    //            FloorStartEvent?.Invoke();
+    //            break;
+    //        //case 2:
+    //        //    FloorClearEvent?.Invoke();
+    //            //break;
+    //        case 3:
+    //            RoomStartEvent?.Invoke();
+    //            break;
+    //        case 4:
+    //            RoomClearEvent?.Invoke();
+    //            break;
+    //        case 5:
+    //            MonsterWaveClearEvent?.Invoke();
+    //            break;
+    //        case 6:
+    //            MonsterKilledEvent?.Invoke();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
     [SerializeField]
     private List<MapInfoSO> floors;
@@ -119,19 +119,11 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     private void OnEnable()
     {
-        MapSystem.Instance.FloorClearEvent += StageGenerate;
-        MapSystem.Instance.RoomClearEvent += OnRoomClear;
-        MapSystem.Instance.RoomStartEvent += OnRoomStart;
-        MapSystem.Instance.MonsterWaveClearEvent += WaveClear;
         MapSystem.Instance.MonsterKilledEvent += OnMonsterDead;
     }
 
     private void OnDisable()
     {
-        MapSystem.Instance.FloorClearEvent -= StageGenerate;
-        MapSystem.Instance.RoomClearEvent -= OnRoomClear;
-        MapSystem.Instance.RoomStartEvent -= OnRoomStart;
-        MapSystem.Instance.MonsterWaveClearEvent -= WaveClear;
         MapSystem.Instance.MonsterKilledEvent -= OnMonsterDead;
     }
 
@@ -168,9 +160,10 @@ public class MapSystem : MonoSingleton<MapSystem>
         SetRoomMap();
         SetLeftMonsters();
         SpawnMonsters();
+        RoomClearEvent?.Invoke();
     }
 
-    public void OnRoomClear()
+    void OnRoomClear()
     {
         PortalSpawn();
         if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
@@ -188,7 +181,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     public void OnFloorClear()
     {
-
+        StageGenerate();
     }
 
     #endregion
@@ -248,11 +241,24 @@ public class MapSystem : MonoSingleton<MapSystem>
             Portals[(int)floors[nowFloor].roomLists[nowRoom].exit[UnityEngine.Random.Range(0, floors[nowFloor].roomLists[nowRoom].exit.Count)]].SetActive(true);
     }
 
-    public void Portal(GameObject obj)
+    public void OnPortalEnter(Transform obj,Transform player)
     {
-        foreach(var i in Portals)
+        SetRoomMap();
+        for(int i=0;i<Portals.Count;i++)
         {
+            if(obj == Portals[i].transform)
+            {
+                int target = (i + 2) % Portals.Count;
+                Vector3 dir = Vector3.zero;
+                if (i % 2 == 1)
+                    dir.x = i * -1 + 2;
+                else if (i % 2 == 0)
+                    dir.y = i - 1;
 
+                player.position = Portals[target].transform.position + (dir * 2);
+
+                return;
+            }
         }
     }
 

@@ -187,6 +187,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""bad66c1d-0b08-41f8-8ca2-70cbb0d943f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,6 +207,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c8a4dba-b7c7-49a9-a74a-081f81de8661"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -233,6 +253,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // GameSystem
         m_GameSystem = asset.FindActionMap("GameSystem", throwIfNotFound: true);
         m_GameSystem_Pause = m_GameSystem.FindAction("Pause", throwIfNotFound: true);
+        m_GameSystem_Inventory = m_GameSystem.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -373,11 +394,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GameSystem;
     private List<IGameSystemActions> m_GameSystemActionsCallbackInterfaces = new List<IGameSystemActions>();
     private readonly InputAction m_GameSystem_Pause;
+    private readonly InputAction m_GameSystem_Inventory;
     public struct GameSystemActions
     {
         private @Controls m_Wrapper;
         public GameSystemActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_GameSystem_Pause;
+        public InputAction @Inventory => m_Wrapper.m_GameSystem_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_GameSystem; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -390,6 +413,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IGameSystemActions instance)
@@ -397,6 +423,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IGameSystemActions instance)
@@ -434,5 +463,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IGameSystemActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

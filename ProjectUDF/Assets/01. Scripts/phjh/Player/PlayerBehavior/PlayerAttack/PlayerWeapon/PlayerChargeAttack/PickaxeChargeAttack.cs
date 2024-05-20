@@ -3,9 +3,7 @@ using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 {

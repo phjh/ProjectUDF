@@ -36,7 +36,7 @@ public class PlayerAtkDectector : MonoBehaviour
         }
         else if(collision.CompareTag("Enemy"))
         {
-            Debug.Log("¿Ã∞≈ ø÷∂‰?");
+            Debug.Log("¿Ã∞≈ ø÷∂‰?"); 
         }
         else
         {

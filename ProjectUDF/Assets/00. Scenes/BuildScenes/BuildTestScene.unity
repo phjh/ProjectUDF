@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 8
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -4630,7 +4630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABIIewWL6TRYAIAABwFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMFy2jAQ/RVG5yZjOyQpvbWEJD0kMCGdXHwR0hprkCVGkgMkw793V7axQ6dcEO+93X27WvHJlPFbEMG6B6fkk5XAfowYndm3UU8+wp6vrVmqD+g0b0qGkkQ8al54UBbxlMK8rSA4JX6atSZxgmBtVGFdNZNrmFofPMIF1x6QcjZQtEHoc8T2+HUxoZADnrJbOn3gaZKMjngUYAK4XtoJO1mjqo3QvNqCJMu9OLu+zFp9ml2OE/rcxACDbbXaJGqE1Vr51hULh23s+oUfqGepOHYYbVDDJah1GSj/MHBeFB5Ca83xw51yOKgmI/tlm+lV3G8af+9c11TjOs2ioybp0z/8RRrpwtnqsaubJlQjlEps0KHgPgzGO4TvvhqvzY7rDV9peCvBPNsHZ2sjkQyuptDaQ3bX/zy1Ni1BbHq8sXoG1tv/XxL1cIzd76daVas49XEDLLWNs44rAA7v5TcajgviW9uIkos/Hl75erhJLXGvnA9ItXJD9la2diRlszgz6qYOU+sMRLg1vQXDdTgsME04v8IzblD2jLnn9Gba4i3XPYWzkAj3+iQ5oxZ2d7osX9rdE/hyXgetDPSmiXjGOU2tMc2GDWfShS1rV3AxCFvXSn5dLfadS3F1he/iZpUlkNxcZOlkzG+zNBOpHBfJhMXdUwb75HrRGG3Hg7dm+uQG94wyzlc+cKGh+0uRju8e1EdlB0NXprBL4QDMvMlxsg4Oy+CrlDOpcERLCEGZeOPsM2faig3I/JQoj73O9sHxvM+Ss616t4GQnE3jv0fOCD5t88LBu4IdFe+SHdnxL1BLAwQUAAAICAAASCHsClSau20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kkViSrKxsYmBgVmSkUGqgZmukaGlSaK5kaFRsmGKSZqBpVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAASCHsFi+k0WACAAAcBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAASCHsClSau20AAAB4AAAACQAkAAAAAAAAAAAAAACtAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAGUDAAAAAA==
+    dataString: UEsDBBQAAAgIAABIIeze8p1YagIAACYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjOyQpvbWEJD0kMKWdXHwR0hprkCVGkgMkw3/vrmxjh/hi+e2+3bcf8gdTxu9ABOsenZLPVgL7MWJ0Zt9GvfEJDnxjzUq9Q+fzqmQoyYlHnz88KIt4SjRvKwhOiZ9mo8k5QbA2qrCumssNzKwPHuGCaw9ocjYQ2yD0MWIHfI2nRDniKbuj0zuepsnohEcBJoDrXTvHcXqV3ST4pFlLaPxrIzSvdiBJfE/Lbq6ylplmVxMiJreRYLDA1jeJPsJqrXyrj4XjLtb/hx+peqk41hoFUeklqE0ZKP6QuCgKD6EV6/jxXjlsWROR/bJNHyvut42+N65rynGTZlFRE/T5i32cRnPhbPXU5U0TyhFKJbaoUHAfBo0ewvefhddmz/WWrzW8lmBe7KOztZFoDK4mau0hu+8/z6XNShDbHm+kXoD17uu4uqlSDadY/WGmVbWOXZ80wErb2Ou4DOBwLr9RcFwV38pGlFT88/CXb4Y71RoelPMBTa27IXlrWztyZfPYM6qmDjPrDES4Fb0Dw3U4LjFMuBzhhW2Q9sLywOn2tMlbW3cpLigR7v2T5MK0tPvzsHxp98/gy0UdtDLQiybDC/ZpZo1pNmzYk462ql3BxYC2qZX8vFrsO5fi+hrvxe06SyC5HWfpdMLvsjQTqZwUyZTF3VMG6+R62Qht24NTM31wg3tGERdrH7jQ0P1cpOP7R/Ve2UHTlSnsSjgAs2hinKWDwzR4K+VcKmzRCkJQJk6cfeRMW7EFmZ8D5bHW+SE4nvdRcrZTbzYQkrNZ/I/kjODzNi8dvCnYU/Iu2Imd/gNQSwMEFAAACAgAAEgh7ApUmrttAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJJFYkqysbGJgYFZkpFBqoGZrpGhpUmiuZGhUbJhikmagaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAEgh7N7ynVhqAgAAJgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAEgh7ApUmrttAAAAeAAAAAkAJAAAAAAAAAAAAAAAtwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABvAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -9838,7 +9838,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -15983,10 +15983,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 558db1ea53a17114ea6867dceab0e899, type: 2}
     - target: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4476657445718928097, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e586cb6353f83f047a3799435cfd8657, type: 2}
     - target: {fileID: 5403100208602973642, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Mesh
       value: 

@@ -51,7 +51,7 @@ public class UIManager : MonoSingleton<UIManager>
 	}
 	private void OnEnable()
 	{
-		//MapSystem.Instance.RoomClearEvent += ShowMining;
+		MapSystem.Instance.RoomClearEvent += ShowMining;
 		OreInventory.Instance.ChangeContents += SetOreList;
 	}
 

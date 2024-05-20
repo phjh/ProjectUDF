@@ -4,9 +4,10 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 
 [CustomEditor(typeof(GameManager))]
-public class AutoEnumBuilder : Editor
+public class GeneratePoolObjectEnum : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -19,7 +20,7 @@ public class AutoEnumBuilder : Editor
 
     }
 
-    private void GenerateEnum()
+    void GenerateEnum()
     {
         StringBuilder sb = new StringBuilder();
         List<PoolingPair> list1 = GameManager.Instance.poollistSO.PoolObjectLists;
@@ -50,7 +51,11 @@ public class AutoEnumBuilder : Editor
         sb.Append("}\n\n");
 
         string enumLocation = Application.dataPath + "\\01. Scripts\\phjh\\System\\PoolManager\\PoolObjectEnum.cs";
+        Equals(enumLocation, sb);
         File.WriteAllText(enumLocation, sb.ToString());
+
     }
 
 }
+
+#endif
