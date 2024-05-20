@@ -11,10 +11,12 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     public event Action<Vector2> MovementEvent;
     public event Action DodgeEvent;
     public event Action PauseEvent;
+    public event Action InventoryEvent;
 
     public Vector2 AimPosition { get; private set; } //마우스는 이벤트방식이 아니기 때문에
     private Controls _playerInputAction;
     private Controls _gameSystemAction;
+
 
     private void OnEnable()
     {
@@ -49,13 +51,6 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     {
         DodgeEvent?.Invoke();
     }
-    #endregion
-
-    #region GameSystem Inputs
-    public void OnPause(InputAction.CallbackContext context)
-    {
-        PauseEvent?.Invoke();
-    }
 
     public void OnBaseAttack(InputAction.CallbackContext context)
     {
@@ -72,5 +67,20 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
             PlayerMain.Instance.Attack(PlayerMain.Instance.chargeAttack);
         }
     }
+    #endregion
+
+    #region GameSystem Inputs
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+            PauseEvent?.Invoke();
+    }
+
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            InventoryEvent?.Invoke();
+    }
+
     #endregion
 }

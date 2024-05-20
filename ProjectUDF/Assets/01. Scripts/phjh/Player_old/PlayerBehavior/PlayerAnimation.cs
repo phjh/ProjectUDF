@@ -263,4 +263,18 @@ public class PlayerAnimation : MonoBehaviour
         rightAttackAnimations = PlayerMain.Instance.nowWeapon.rightAttackAnimations;
     }
 
+    public void SetAnimation(SkeletonAnimation animator, AnimationReferenceAsset animation, int track = 0, bool loop = true, float startTime = 0f)
+    {
+        animator.AnimationState.SetAnimation(track, animation, loop).Reverse = false;
+        animator.AnimationState.SetAnimation(track, animation, loop).AnimationStart = startTime;
+        
+    }
+
+    float reverseTime = 0;
+    public void SetReverseAnimation(SkeletonAnimation animator, AnimationReferenceAsset animation, int track = 0)
+    {
+        animator.AnimationState.SetAnimation(track, animation, true).Reverse = true;
+
+    }
+
 }
