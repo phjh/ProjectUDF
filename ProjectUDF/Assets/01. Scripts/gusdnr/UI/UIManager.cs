@@ -11,7 +11,7 @@ public class UIManager : MonoSingleton<UIManager>
 	#region UI Objects
 	[Header("Default")]
 	public GameObject ScreenFilter;
-	
+
 	[Header("Ore Pocket")]
 	public GameObject OrePrefab;
 	public RectTransform PocketUIParent;
@@ -122,22 +122,21 @@ public class UIManager : MonoSingleton<UIManager>
 	#endregion
 
 	#region Manage UI
-	public void ShowPocket()
+	public void ManagePocketUI()
 	{
-		if (IsOnInventoryUI == false && IsActivePopUp == false)
+		if (IsOnInventoryUI == false)
 		{
-			SetScreenFilter(true);
-			PocketUIParent.gameObject.SetActive(true);
+			if (IsActivePopUp == false)
+			{
+				SetScreenFilter(true);
+				PocketUIParent.gameObject.SetActive(true);
 
-			_OreInfo.CloseUI();
-			SetOreList();
-			IsOnInventoryUI = true;
+				_OreInfo.CloseUI();
+				SetOreList();
+				IsOnInventoryUI = true;
+				GameManager.Instance.UpdateState(GameStates.PauseUIOn);
+			}
 		}
-		GameManager.Instance.UpdateState(GameStates.PauseUIOn);
-	}
-
-	public void ClosePocket()
-	{
 		if (IsOnInventoryUI == true)
 		{
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
@@ -146,8 +145,8 @@ public class UIManager : MonoSingleton<UIManager>
 			_OreInfo.CloseUI();
 			SetScreenFilter(false);
 			IsOnInventoryUI = false;
+			GameManager.Instance.UpdateState(GameStates.Playing);
 		}
-		GameManager.Instance.UpdateState(GameStates.Playing);
 	}
 
 	public void ShowMining()
