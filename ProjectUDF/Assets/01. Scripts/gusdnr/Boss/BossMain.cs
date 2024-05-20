@@ -61,46 +61,30 @@ public class BossMain : MonoBehaviour
 		{
             pattern.Initialize(this);
 		}
-		foreach (var pattern in PassivePatterns)
+		for(int p = 0; p < PassivePatterns.Length; p++)
 		{
-            pattern.Initialize(this);
-			StartPassivePattern(pattern);
+            PassivePatterns[p].Initialize(this);
+			StartPassivePattern(PassivePatterns[p], p);
 		}
 	}
 
-	public void StartPassivePattern(BossPattern passive)
-    {
-        float tickTime = passive.PassiveCool;
-        PassiveWaits.Add(new WaitForSeconds(tickTime));
-        PassiveCoroutines.Add(StartCoroutine(StartPassive(passive, PassiveWaits.Count - 1)));
-    }
-
-    private IEnumerator StartPassive(BossPattern passive, int count)
-    {
-        while (IsAlive)
-        {
-            if(!IsAlive) break;
-            passive?.ActivePattern();
-			yield return PassiveWaits[count];
-        }
-    }
-
-    private void SetState(BossState bs)
-    {
-        CurBossState = bs;
-        switch (CurBossState)
-        {
-            case BossState.None:
-                break;
-            case BossState.Idle:
+	private void SetState(BossState bs)
+	{
+		CurBossState = bs;
+		switch (CurBossState)
+		{
+			case BossState.None:
+				break;
+			case BossState.Idle:
 				StateMachine.ChangeState(IdlePattern);
 				break;
 			case BossState.Moving:
+                if(!CanMove) return;
 				StateMachine.ChangeState(MovingPattern);
 				break;
 			case BossState.Attack:
 				SelectActivePattern();
-                break;
+				break;
 			case BossState.Cooldown:
 				StartCooldown();
 				break;
@@ -108,8 +92,27 @@ public class BossMain : MonoBehaviour
 				StateMachine.ChangeState(InCCPattern);
 				break;
 			case BossState.Die:
-                DieBoss();
-                break;
+				DieBoss();
+				break;
+		}
+	}
+
+	#region Passive Methods
+
+	public void StartPassivePattern(BossPattern passive, int count)
+    {
+        float tickTime = passive.PassiveCool;
+        PassiveWaits.Add(new WaitForSeconds(tickTime));
+        PassiveCoroutines.Add(StartCoroutine(ActivePassive(passive, count)));
+    }
+
+    private IEnumerator ActivePassive(BossPattern passive, int count)
+    {
+        while (IsAlive)
+        {
+            if(!IsAlive) break;
+            passive?.ActivePattern();
+			yield return PassiveWaits[count];
         }
     }
 
@@ -120,6 +123,8 @@ public class BossMain : MonoBehaviour
             StopCoroutine(PassiveCoroutines[c]);
         }
 	}
+
+	#endregion
 
     private void SelectActivePattern()
     {
