@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class BossMain : MonoBehaviour
 {
     public enum BossState
@@ -26,16 +25,19 @@ public class BossMain : MonoBehaviour
 
     [Header("Manage Pattern")]
     [Range(0, 10)] public float PatternTerm;
+    public BossPattern IdlePattern;
     public BossPattern MovingPattern;
     public BossPattern CooldownPattern;
+    public BossPattern InCCPattern;
     public BossPattern[] PassivePatterns;
     public BossPattern[] ActivePatterns;
 
-    private Animator ConditionSetter;
+    
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
     private List<WaitForSeconds> PassiveWaits = new List<WaitForSeconds>();
-    private BossPattern SelectedPattern;
+    private BossStateMachine StateMachine;
 
+    private bool CanMove { get; set ; } = true;
     private bool IsAttack { get; set; } = false;
     private bool IsOutCC { get; set; } = false;
     private bool IsCooldown { get; set; } = false;
@@ -45,12 +47,16 @@ public class BossMain : MonoBehaviour
 	{
 		IsAlive = true;
         CurHP = BossData.MaxHP;
-		ConditionSetter = GetComponent<Animator>();
 		TargetTrm = GameManager.Instance.player.transform;
 	}
 
 	private void Start()
 	{
+		IdlePattern.Initialize(this);
+		MovingPattern.Initialize(this);
+		CooldownPattern.Initialize(this);               
+		InCCPattern.Initialize(this);
+
 		foreach (var pattern in ActivePatterns)
 		{
             pattern.Initialize(this);
@@ -87,17 +93,20 @@ public class BossMain : MonoBehaviour
             case BossState.None:
                 break;
             case BossState.Idle:
-                break;
+				StateMachine.ChangeState(IdlePattern);
+				break;
 			case BossState.Moving:
+				StateMachine.ChangeState(MovingPattern);
 				break;
 			case BossState.Attack:
 				SelectActivePattern();
                 break;
 			case BossState.Cooldown:
+				StartCooldown();
 				break;
 			case BossState.InCC:
-				CancelAttack();
-                break;
+				StateMachine.ChangeState(InCCPattern);
+				break;
 			case BossState.Die:
                 DieBoss();
                 break;
@@ -112,32 +121,23 @@ public class BossMain : MonoBehaviour
         }
 	}
 
-	private void CancelAttack()
-	{
-		if(SelectedPattern != null)
-        {
-            SelectedPattern.ExitPattern();
-        }
-	}
-
     private void SelectActivePattern()
     {
-        if(SelectedPattern != null) SelectedPattern.ExitPattern();
         int selectIndex = UnityEngine.Random.Range(0,ActivePatterns.Length);
-		SelectedPattern = ActivePatterns[selectIndex];
-        SelectedPattern.EnterPattern();
+        StateMachine.ChangeState(ActivePatterns[selectIndex]);
     }
 
     private void StartCooldown()
     {
-    
-    }
+        IsCooldown = true;
+		StateMachine.ChangeState(CooldownPattern);
+	}
 
     private void DieBoss()
     {
         if(CurBossState != BossState.Die) return;
         IsAlive = false;
-		CancelAttack();
+		StateMachine.CancelAttack();
 		StopPassive();
 	}
 
