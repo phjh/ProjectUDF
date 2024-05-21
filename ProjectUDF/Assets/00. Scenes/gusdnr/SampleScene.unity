@@ -601,17 +601,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276bb57c3f304354ea91b8e6c6d3a844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossData: {fileID: 0}
+  BossData: {fileID: 11400000, guid: a4995f504898d674a9a9f961cf712779, type: 2}
   CurBossState: 0
-  CurHP: 0
   IsAlive: 0
+  CanMove: 1
   TargetTrm: {fileID: 0}
   PatternTerm: 0
   IdlePattern: {fileID: 0}
   MovingPattern: {fileID: 0}
   CooldownPattern: {fileID: 0}
   InCCPattern: {fileID: 0}
-  PassivePatterns: []
+  PassivePatterns:
+  - {fileID: 0}
   ActivePatterns:
   - {fileID: 0}
 --- !u!1 &135313831
@@ -828,23 +829,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &219310977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-  m_PrefabInstance: {fileID: 2106515470}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &219310983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219310977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cdc4308a3d249f42a41d072e40a248d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &263793722
 GameObject:
   m_ObjectHideFlags: 0
@@ -13658,10 +13642,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 219310983}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
 --- !u!114 &2106515471 stripped
 MonoBehaviour:

@@ -19,7 +19,6 @@ public class BossMain : MonoBehaviour
     [Header("Boss Status")]
     public BossDataSO BossData;
     public BossState CurBossState;
-    public float CurHP;
     public bool IsAlive;
     public bool CanMove;
     [HideInInspector] public Transform TargetTrm;
@@ -36,7 +35,11 @@ public class BossMain : MonoBehaviour
     
     private List<Coroutine> PassiveCoroutines = new List<Coroutine>();
     private List<WaitForSeconds> PassiveWaits = new List<WaitForSeconds>();
+    private Rigidbody2D BossRB;
     public BossStateMachine StateMachine { get; set; }
+
+    public float CurHP { get; set; }
+    public float MaxHP{ get; set; }
 
     public bool IsAttack { get; set; } = false;
     public bool IsHaveCC { get; set; } = false;
@@ -46,7 +49,8 @@ public class BossMain : MonoBehaviour
 	private void Awake()
 	{
 		IsAlive = true;
-        CurHP = BossData.MaxHP;
+        CurHP = MaxHP = BossData.MaxHP;
+		BossRB = GetComponent<Rigidbody2D>();
 		TargetTrm = GameManager.Instance.player.transform;
 	}
 
@@ -68,6 +72,8 @@ public class BossMain : MonoBehaviour
             PassivePatterns[p].Initialize(this);
 			StartPassivePattern(PassivePatterns[p], p);
 		}
+
+        StateMachine.Initialize(IdlePattern);
 	}
 
 	private void Update()
