@@ -25,7 +25,6 @@ public class PatternDropStone : BossPattern
 		AttackRange.radius = AttackRadius;
 		Debug.Log("보스 낙석 장판 POP");
 		Debug.Log("보스 낙석 장판 PUSH");
-		ExitPattern();
 	}
 
 	public override void ExitPattern()

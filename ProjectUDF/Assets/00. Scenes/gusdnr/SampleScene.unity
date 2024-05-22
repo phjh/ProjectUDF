@@ -607,14 +607,14 @@ MonoBehaviour:
   CanMove: 1
   TargetTrm: {fileID: 0}
   PatternTerm: 0
-  IdlePattern: {fileID: 0}
+  IdlePattern: {fileID: 11400000, guid: 8e72e559079195c4da6483660e75dfd2, type: 2}
   MovingPattern: {fileID: 0}
   CooldownPattern: {fileID: 0}
-  InCCPattern: {fileID: 0}
+  InCCPattern: {fileID: 11400000, guid: 98d5cccad3996194db94ac1047209c69, type: 2}
   PassivePatterns:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 1e2db7004e5d0f44397f4917233cc118, type: 2}
   ActivePatterns:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9e55fd04fb31591408674a1ce7231a7b, type: 2}
 --- !u!1 &135313831
 GameObject:
   m_ObjectHideFlags: 0

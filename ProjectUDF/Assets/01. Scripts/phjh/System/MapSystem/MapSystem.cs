@@ -58,7 +58,7 @@ public class MapSystem : MonoSingleton<MapSystem>
     //}
 
     [SerializeField]
-    private List<MapInfoSO> floors;
+    private List<FloorInfoSO> floors;
 
     [SerializeField]
     private ParticleSystem dirtEffect;
@@ -71,17 +71,16 @@ public class MapSystem : MonoSingleton<MapSystem>
     public GameObject ExitPrefab;
 
     public int nowFloor = 0;
-    public int nowRoom = 0;
+    public int roomCount = 0;
     public int nowWave = -1;
     public int leftMonsters = 0;
     public float roomStartTime = 0;
-
     public bool IsRandomExit = false;
 
     private void Start()
     {
         floors[nowFloor] = floors[nowFloor].CloneAndSetting();      //여기 Random붙이면 됨
-        nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab);
+        nowMap = Instantiate(floors[nowFloor].floorRoomInfo[roomCount].MapPrefab);
         dirtEffect.Play();
         WaveClear();
         SetRoomMap();
@@ -104,7 +103,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
             roomStartTime -= 10;
         }
-        if (Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[nowRoom].timeLimit)
+        if (Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[roomCount].timeLimit)
         {
             Debug.Log("Time over");
         }
@@ -140,10 +139,10 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     void WaveClear()
     {
-        if (nowWave == floors[nowFloor].floorRoomInfo[nowRoom].monsterWaves - 1)
+        if (nowWave == floors[nowFloor].floorRoomInfo[roomCount].monsterWaves - 1)
         {
             nowWave = 0;
-            nowRoom++;
+            roomCount++;
             OnRoomClear();
         }
         else
@@ -161,16 +160,16 @@ public class MapSystem : MonoSingleton<MapSystem>
         SetLeftMonsters();
         SpawnMonsters();
         RoomClearEvent?.Invoke();
-    }
+	}
 
     void OnRoomClear()
     {
         PortalSpawn();
-        if (nowRoom == floors[nowFloor].floorRoomInfo.Count)
+        if (roomCount == floors[nowFloor].floorRoomInfo.Count)
         {
             OnFloorClear();
             nowFloor++;
-            nowRoom = 0;
+            roomCount = 0;
         }
     }
 
@@ -186,16 +185,16 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     #endregion
 
-    void SetLeftMonsters() => leftMonsters = floors[nowFloor].floorRoomInfo[nowRoom].numberOfMonsters[0];
+    void SetLeftMonsters() => leftMonsters = floors[nowFloor].floorRoomInfo[roomCount].numberOfMonsters[0];
 
     //몬스터 소환하는 메서드
     void SpawnMonsters()
     {
-        MapInfoSO nowFloor = floors[this.nowFloor];
-        leftMonsters = nowFloor.floorRoomInfo[nowRoom].numberOfMonsters[nowWave];
+        FloorInfoSO nowFloor = floors[this.nowFloor];
+        leftMonsters = nowFloor.floorRoomInfo[roomCount].numberOfMonsters[nowWave];
 
         int i = 0;
-        foreach (var monsters in nowFloor.floorRoomInfo[nowRoom].spawnMonsters)
+        foreach (var monsters in nowFloor.floorRoomInfo[roomCount].spawnMonsters)
         {
             if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
             {
@@ -222,14 +221,14 @@ public class MapSystem : MonoSingleton<MapSystem>
         bool spawned = false;
         if (!IsRandomExit)
         {
-            foreach (var exit in floors[nowFloor].roomLists[nowRoom].exit)
+            foreach (var exit in floors[nowFloor].roomList[roomCount].exit)
             {
                 Portals[(int)exit].gameObject.SetActive(true);
                 spawned = true;
             }
             return;
         }
-        foreach (var exit in floors[nowFloor].roomLists[nowRoom].exit)
+        foreach (var exit in floors[nowFloor].roomList[roomCount].exit)
         {
             if (UnityEngine.Random.Range(0, 10) < 4)
             {
@@ -238,7 +237,7 @@ public class MapSystem : MonoSingleton<MapSystem>
             }
         }
         if (spawned == false)
-            Portals[(int)floors[nowFloor].roomLists[nowRoom].exit[UnityEngine.Random.Range(0, floors[nowFloor].roomLists[nowRoom].exit.Count)]].SetActive(true);
+            Portals[(int)floors[nowFloor].roomList[roomCount].exit[UnityEngine.Random.Range(0, floors[nowFloor].roomList[roomCount].exit.Count)]].SetActive(true);
     }
 
     public void OnPortalEnter(Transform obj,Transform player)
@@ -264,7 +263,8 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     public void RoomTimerInit()
     {
-        TimeManager.Instance.NowTime = floors[nowFloor].floorRoomInfo[nowRoom].timeLimit;
+        TimeManager.Instance.StopTimer();
+		TimeManager.Instance.NowTime = floors[nowFloor].floorRoomInfo[roomCount].timeLimit;
         TimeManager.Instance.StartTimer();
     }
 
@@ -281,7 +281,7 @@ public class MapSystem : MonoSingleton<MapSystem>
     //층 마다 생성
     void StageGenerate()
     {
-        MapInfoSO newMap = floors[0].CloneAndSetting();
+        FloorInfoSO newMap = floors[0].CloneAndSetting(false);
         floors.Add(newMap);
     }
 
@@ -293,8 +293,8 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
 
         Destroy(nowMap.gameObject);
-        if (nowRoom != floors[nowFloor].floorRoomInfo.Count)
-            nowMap = Instantiate(floors[nowFloor].floorRoomInfo[nowRoom].MapPrefab, transform.position, Quaternion.identity);
+        if (roomCount != floors[nowFloor].floorRoomInfo.Count)
+            nowMap = Instantiate(floors[nowFloor].floorRoomInfo[roomCount].MapPrefab, transform.position, Quaternion.identity);
         AstarPath.active.Scan();
     }
 

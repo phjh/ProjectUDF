@@ -18,7 +18,7 @@ public enum Exit
     Left
 }
 
-[CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")]
+[CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")] 
 public class RoomInfoSO : ScriptableObject
 {
     [Header("방 정보들")]
@@ -41,21 +41,21 @@ public class RoomInfoSO : ScriptableObject
 
     public RoomInfoSO CloneAndSetting()
     {
-        var a = Instantiate(this);
-        Debug.Log(a);
-        return a;
+        var thisMap = Instantiate(this);
+        Debug.Log(thisMap);
+        return thisMap;
     }
 
     public RoomInfoSO CloneAndSettingRandom()
     {
-        var a = Instantiate(this);
-        a.GenerateRandomMonsterInfo();
+        var thisMap = Instantiate(this);
+		thisMap.GenerateRandomMonsterInfo();
         //a.SetExitPoint();
         if (exit.Count == 0)
         {
             Debug.LogError("exit room is not exist");
         }
-        return a;
+        return thisMap;
     }
 
     private void GenerateRandomMonsterInfo()
