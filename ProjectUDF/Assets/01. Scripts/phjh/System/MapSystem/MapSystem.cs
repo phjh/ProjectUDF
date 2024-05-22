@@ -83,7 +83,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         nowMap = Instantiate(floors[nowFloor].floorRoomInfo[roomCount].MapPrefab);
         dirtEffect.Play();
         WaveClear();
-        SetRoomMap();
+        SetNextRoom();
         RoomTimerInit();
         RoomEffectInit();
     }
@@ -156,7 +156,7 @@ public class MapSystem : MonoSingleton<MapSystem>
     {
         RoomTimerInit();
         RoomEffectInit();
-        SetRoomMap();
+        SetNextRoom();
         SetLeftMonsters();
         SpawnMonsters();
         RoomClearEvent?.Invoke();
@@ -164,12 +164,15 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     void OnRoomClear()
     {
-        PortalSpawn();
         if (roomCount == floors[nowFloor].floorRoomInfo.Count)
         {
             OnFloorClear();
             nowFloor++;
             roomCount = 0;
+        }
+        else
+        {
+            PortalSpawn();
         }
     }
 
@@ -202,7 +205,7 @@ public class MapSystem : MonoSingleton<MapSystem>
             }
             else
             {
-                Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not spawned");
+                Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
             }
 
             Debug.Log($"i : {i + 1}, monsterpos : {monsters.monsterObj.transform.position}");
@@ -218,13 +221,13 @@ public class MapSystem : MonoSingleton<MapSystem>
     //Å»Ãâ±¸ ·£´ý½ºÆù 
     void PortalSpawn()
     {
-        bool spawned = false;
+        bool isSpawnPortal = false;
         if (!IsRandomExit)
         {
             foreach (var exit in floors[nowFloor].roomList[roomCount].exit)
             {
                 Portals[(int)exit].gameObject.SetActive(true);
-                spawned = true;
+                isSpawnPortal = true;
             }
             return;
         }
@@ -233,16 +236,16 @@ public class MapSystem : MonoSingleton<MapSystem>
             if (UnityEngine.Random.Range(0, 10) < 4)
             {
                 Portals[(int)exit].gameObject.SetActive(true);
-                spawned = true;
+                isSpawnPortal = true;
             }
         }
-        if (spawned == false)
+        if (isSpawnPortal == false)
             Portals[(int)floors[nowFloor].roomList[roomCount].exit[UnityEngine.Random.Range(0, floors[nowFloor].roomList[roomCount].exit.Count)]].SetActive(true);
     }
 
     public void OnPortalEnter(Transform obj,Transform player)
     {
-        SetRoomMap();
+        SetNextRoom();
         for(int i=0;i<Portals.Count;i++)
         {
             if(obj == Portals[i].transform)
@@ -285,7 +288,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         floors.Add(newMap);
     }
 
-    void SetRoomMap()
+    void SetNextRoom()
     {
         foreach (var portal in Portals)
         {
@@ -299,8 +302,6 @@ public class MapSystem : MonoSingleton<MapSystem>
     }
 
     #region Flow Methods
-
-
 
     void RoomClear()
     {
