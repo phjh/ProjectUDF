@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class TimeManager : MonoSingleton<TimeManager>
 {
-    public float NowTime;
+    public float RemainTime;
     [SerializeField] private float MaxTime;
 
     public TMP_Text TimerText;
@@ -45,9 +45,9 @@ public class TimeManager : MonoSingleton<TimeManager>
 	public void ResetTimer()
 	{
 		StopTimer();
-		NowTime = MaxTime;
+		RemainTime = MaxTime;
 		TimerText.gameObject.SetActive(true);
-		DisplayTime(NowTime);
+		DisplayTime(RemainTime);
 	}
 
 	public void StopTimer()
@@ -73,7 +73,7 @@ public class TimeManager : MonoSingleton<TimeManager>
 
     private IEnumerator WorkingTimer() //타이머용 코루틴
     {
-        while(NowTime > 0)
+        while(RemainTime > 0)
         {
 			if (!IsWorkingTimer) // IsWorkingTimer가 false일 때 타이머 종료
 			{
@@ -81,8 +81,8 @@ public class TimeManager : MonoSingleton<TimeManager>
 				yield break;
 			}
 
-			NowTime -= Time.deltaTime;
-			DisplayTime(NowTime);
+			RemainTime -= Time.deltaTime;
+			DisplayTime(RemainTime);
 
             yield return null;
 		}

@@ -1,6 +1,7 @@
 using MapDefine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -67,7 +68,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	[Header("InGame Room's Values")]
     public float roomStartTime = 0;
-    public int nowWave = -1;
+    public int waveCount = -1;
     public int leftMonsters = 0;
     public bool IsRandomExit = false;
 
@@ -132,24 +133,28 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     private void WaveClear()
     {
-        if (nowWave == CurRoom.monsterWaves - 1)
+		TimeManager.Instance.RemainTime += CurRoom.RoomWaveData[waveCount].AddTime;
+		waveCount++;
+		if (waveCount == CurRoom.RoomWaveData.Count)
         {
-            nowWave = 0;
+            waveCount = 0;
             roomCount++;
             OnRoomClear();
             RoomClearEvent?.Invoke();
         }
-        else
+        else if(waveCount < CurRoom.RoomWaveData.Count)
         {
-            nowWave++;
-            SpawnMonsters();
+			SpawnMonsters();
+		}
+        else if(waveCount > CurRoom.RoomWaveData.Count)
+        {
+            Debug.LogWarning($"Out Of Index : WaveCount [{waveCount}]");
         }
     }
 
     public void OnRoomStart()
     {
         SetNextRoom();
-        SetLeftMonsters();
         SpawnMonsters();
 	}
 
@@ -163,7 +168,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
         else
         {
-            PortalSpawn();
+			PortalSpawn();
         }
     }
 
@@ -179,32 +184,46 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	#endregion
 
-	private void SetLeftMonsters() => leftMonsters = CurRoom.numberOfMonsters[0];
-
     //몬스터 소환하는 메서드
     private void SpawnMonsters()
     {
-        leftMonsters = CurRoom.numberOfMonsters[nowWave];
-
-        int i = 0;
-        foreach (var monsters in CurRoom.spawnMonsters)
+        if(CurRoom.RoomWaveData == null)
         {
-            if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
+			Debug.LogWarning($"{CurRoom.name}'s WaveData is Null");
+			return;
+		}
+
+		if (CurRoom.RoomWaveData[waveCount] == null)
+		{
+			Debug.LogWarning($"{CurRoom.name}'s in WaveData[{waveCount}] is No Data");
+			return;
+		}
+
+		List<MonsterInfo> SpawnList = CurRoom.RoomWaveData[waveCount].AppearMonsterInfo;
+		leftMonsters = SpawnList.Count;
+
+        for (int summonCount = 0; summonCount < leftMonsters; summonCount++)
+        {
+			if (SpawnList[summonCount].monsterObj == null)
+			{
+				Debug.LogWarning($"{CurRoom.name}'s in WaveData[{summonCount}] Object is Null");
+			}
+
+			if (SpawnList[summonCount].monsterPos == null)
+			{
+				Debug.LogWarning($"{CurRoom.name}'s in WaveData[{summonCount}] Position is Null");
+			}
+
+			if (SpawnList[summonCount].monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
             {
-                obj.CustomInstantiate(monsters.monsterPos, obj.pair.enumtype);
-            }
+                obj.CustomInstantiate(SpawnList[summonCount].monsterPos, obj.pair.enumtype);
+
+				Debug.Log($"Summon Success : NAME[{SpawnList[summonCount].monsterObj.name}] POS[{SpawnList[summonCount].monsterObj.transform.position}]");
+			}
             else
             {
-                Debug.LogWarning(monsters.monsterObj.name + $"({monsters.monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
+                Debug.LogWarning(SpawnList[summonCount].monsterObj.name + $"({SpawnList[summonCount].monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
             }
-
-            Debug.Log($"i : {i + 1}, monsterpos : {monsters.monsterObj.transform.position}");
-            //스폰 정보 없애기
-            i++;
-            if (i >= leftMonsters)
-                break;
-
-            //대충 여기서 웨이브보다 많이 스폰시 break
         }
     }
 
@@ -257,7 +276,7 @@ public class MapSystem : MonoSingleton<MapSystem>
     public void RoomTimerInit()
     {
         TimeManager.Instance.StopTimer();
-		TimeManager.Instance.NowTime = CurRoom.timeLimit;
+		TimeManager.Instance.RemainTime = CurRoom.timeLimit;
         TimeManager.Instance.StartTimer();
     }
 

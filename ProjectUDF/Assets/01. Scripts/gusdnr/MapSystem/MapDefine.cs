@@ -46,5 +46,12 @@ namespace MapDefine
 		public List<Vector3Int> PlacedPoses = new List<Vector3Int>();
 	}
 
+	[Serializable]
+	public class WaveData
+	{
+		[Range(0, 15)]public int AddTime;
+		public List<MonsterInfo> AppearMonsterInfo;
+	}
+
 	#endregion
 }

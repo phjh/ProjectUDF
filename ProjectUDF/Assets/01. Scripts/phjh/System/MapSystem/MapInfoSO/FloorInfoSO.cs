@@ -14,7 +14,6 @@ public class FloorInfoSO : ScriptableObject
     [Header("방 목록")]
     public List<RoomInfoSO> roomList; //방 리스트들
 	public RoomInfoSO BossRoom;
-    //[HideInInspector]
     public List<RoomInfoSO> floorRoomInfo; //이번 층에서 나올 방들
 
     public FloorInfoSO CloneAndSetting(bool isRandom = false)

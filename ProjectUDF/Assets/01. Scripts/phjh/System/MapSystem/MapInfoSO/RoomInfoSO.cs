@@ -13,10 +13,7 @@ public class RoomInfoSO : ScriptableObject
     [Range(30, 600)]public float timeLimit = 120;
 
     [Header("Monster Data")]
-    [Range(1, 5)]public int monsterWaves;
-    public List<int> numberOfMonsters;
-    public List<GameObject> spawnMonsterList; //소환 가능성있는 몬스터들
-    public List<MonsterInfo> spawnMonsters; //소환될 몬스터들
+    public List<WaveData> RoomWaveData;
 
     [Tooltip("출구 위치")]
     public List<Exit> exits;
@@ -37,7 +34,6 @@ public class RoomInfoSO : ScriptableObject
 	public RoomInfoSO CloneAndSetting(bool isRandom = false)
     {
         var CloneInfo = Instantiate(this);
-        
 		CloneInfo.SetTileMapComponent();
         
         if(isRandom) CloneInfo.GenerateRandomMonsterInfo();
@@ -53,40 +49,19 @@ public class RoomInfoSO : ScriptableObject
 
     private void GenerateRandomMonsterInfo()
     {
-        if (numberOfMonsters.Count != monsterWaves)
+        for (int waveCount = 0; waveCount < RoomWaveData.Count; waveCount++)
         {
-            Debug.LogError("값 틀림 : monsterWaves");
-            return;
-        }
-        for (int waveCount = 0; waveCount < monsterWaves; waveCount++)
-        {
-            for (int monsterCount = 0; monsterCount < numberOfMonsters[waveCount]; monsterCount++)
-            {
-                int rand = UnityEngine.Random.Range(0, spawnMonsterList.Count);
-                MonsterInfo monster;
-                monster.monsterObj = spawnMonsterList[rand];
-                monster.monsterPos = new Vector2(UnityEngine.Random.Range(-11, 11), UnityEngine.Random.Range(-6, 3));
-                spawnMonsters.Add(monster);
-            }
-        }
-    }
+			int before = UnityEngine.Random.Range(0, RoomWaveData.Count);
+			int after = 0;
 
-    /*public void DebugMonsters()
-    {
-        int i = 0;
-        for(int a = 0; a < numberOfMonsters.Count; a++)
-        {
-            string str = "\n";
-            str += this.name + "\n";
-            int l = numberOfMonsters[a];
-            for(int b = 0; b < l; b++)
-            {
-                str += spawnMonsters[i] + " | ";
-                i++;
-            }
-            Debug.Log($"{str} __ {a}번째 웨이브 몹");
-        }
-    }*/
+			do { after = UnityEngine.Random.Range(0, RoomWaveData.Count); }
+			while (before != after);
+
+			WaveData tempMonInfo = RoomWaveData[before];
+			RoomWaveData[before] = RoomWaveData[after];
+			RoomWaveData[after] = tempMonInfo;
+		}
+    }
 
 	#region Save Tilemap Data Method
 

@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 0
   TileObject: {fileID: 0}
   timeLimit: 100
-  monsterWaves: 3
-  numberOfMonsters: 010000000100000001000000
-  spawnMonsterList: []
+  monsterWaves: 2
+  numberOfMonsters: 
+  spawnMonsters: []
+  WaveData: []
   exits: 
