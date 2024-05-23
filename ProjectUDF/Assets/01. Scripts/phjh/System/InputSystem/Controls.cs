@@ -71,6 +71,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SKill"",
+                    ""type"": ""Button"",
+                    ""id"": ""390705ef-137e-4678-aedc-9f52add6ec39"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""ChargeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49fd4740-e6bf-482a-b386-2ac1b0527b0f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SKill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -250,6 +270,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_BaseAttack = m_Player.FindAction("BaseAttack", throwIfNotFound: true);
         m_Player_ChargeAttack = m_Player.FindAction("ChargeAttack", throwIfNotFound: true);
+        m_Player_SKill = m_Player.FindAction("SKill", throwIfNotFound: true);
         // GameSystem
         m_GameSystem = asset.FindActionMap("GameSystem", throwIfNotFound: true);
         m_GameSystem_Pause = m_GameSystem.FindAction("Pause", throwIfNotFound: true);
@@ -320,6 +341,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_BaseAttack;
     private readonly InputAction m_Player_ChargeAttack;
+    private readonly InputAction m_Player_SKill;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @BaseAttack => m_Wrapper.m_Player_BaseAttack;
         public InputAction @ChargeAttack => m_Wrapper.m_Player_ChargeAttack;
+        public InputAction @SKill => m_Wrapper.m_Player_SKill;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -353,6 +376,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ChargeAttack.started += instance.OnChargeAttack;
             @ChargeAttack.performed += instance.OnChargeAttack;
             @ChargeAttack.canceled += instance.OnChargeAttack;
+            @SKill.started += instance.OnSKill;
+            @SKill.performed += instance.OnSKill;
+            @SKill.canceled += instance.OnSKill;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -372,6 +398,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ChargeAttack.started -= instance.OnChargeAttack;
             @ChargeAttack.performed -= instance.OnChargeAttack;
             @ChargeAttack.canceled -= instance.OnChargeAttack;
+            @SKill.started -= instance.OnSKill;
+            @SKill.performed -= instance.OnSKill;
+            @SKill.canceled -= instance.OnSKill;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -459,6 +488,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnDodge(InputAction.CallbackContext context);
         void OnBaseAttack(InputAction.CallbackContext context);
         void OnChargeAttack(InputAction.CallbackContext context);
+        void OnSKill(InputAction.CallbackContext context);
     }
     public interface IGameSystemActions
     {

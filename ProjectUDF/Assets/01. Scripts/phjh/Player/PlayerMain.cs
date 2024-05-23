@@ -195,11 +195,12 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public void SkillChange(PlayerSkillAttack skill)
     {
         nowSkill = skill;
+        
     }
 
-	#region 플레이어 공격 - 돌 장착,해제
+    #region 플레이어 공격 - 돌 장착,해제
 
-	private void EquipStone(Stats statName)
+    private void EquipStone(Stats statName)
 	{
 		EquipMainOre = ((int)statName + 1) % 6;
         if (EquipMainOre > 4)

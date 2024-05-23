@@ -1,8 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.XR;
 
 
 [CreateAssetMenu(fileName = "FloorInfoSO", menuName = "SO/Map/FloorInfo")]
