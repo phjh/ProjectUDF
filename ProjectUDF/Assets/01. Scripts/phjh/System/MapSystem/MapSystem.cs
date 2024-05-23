@@ -59,28 +59,28 @@ public class MapSystem : MonoSingleton<MapSystem>
     //    }
     //}
 
+    [Header("MapSystem Datas")]
     [SerializeField]
     private List<FloorInfoSO> floors;
 
-    [SerializeField]
-    private ParticleSystem dirtEffect;
-
-    [SerializeField]
-    private List<GameObject> Portals;
-
+    [Header("Map System's Objects")]
+    [SerializeField] private List<GameObject> Portals;
+    [SerializeField] private GameObject ExitPrefab;
     [SerializeField] private Tilemap ObstacleTileMap;
     [SerializeField] private Tilemap DecorateTileMap;
+	[SerializeField] private ParticleSystem dirtEffect;
 
-    public GameObject ExitPrefab;
-
-    public int nowFloor = 0;
+	[Header("Map System's Values")]
+    public int floorCount = 0;
     public int roomCount = 0;
+
+	[Header("InGame Room's Values")]
+    public float roomStartTime = 0;
     public int nowWave = -1;
     public int leftMonsters = 0;
-    public float roomStartTime = 0;
     public bool IsRandomExit = false;
 
-    private List<RoomInfoSO> CurFloorRoomList => floors[nowFloor].floorRoomInfo;
+    private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo;
     private RoomInfoSO CurRoom => CurFloorRoomList[roomCount];
 
 	private void OnEnable()
@@ -95,7 +95,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void Start()
     {
-        floors[nowFloor] = floors[nowFloor].CloneAndSetting();      //여기 Random붙이면 됨
+        floors[floorCount] = floors[floorCount].CloneAndSetting();      //여기 Random붙이면 됨
         dirtEffect.Play();
         WaveClear();
         SetNextRoom();
@@ -171,7 +171,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         if (roomCount == CurFloorRoomList.Count)
         {
             OnFloorClear();
-            nowFloor++;
+            floorCount++;
             roomCount = 0;
         }
         else
