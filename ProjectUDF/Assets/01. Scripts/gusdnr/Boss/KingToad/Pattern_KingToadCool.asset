@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
-  m_Name: RoomInfo1
+  m_Script: {fileID: 11500000, guid: ed92448ebc2dbf345a9279f21a906093, type: 3}
+  m_Name: Pattern_KingToadCool
   m_EditorClassIdentifier: 
-  id: 0
-  TileObject: {fileID: 0}
-  timeLimit: 100
-  RoomWaveData: []
-  exits: 
+  IsActive: 0
+  IsThisPassive: 0
+  PassiveCool: 0
