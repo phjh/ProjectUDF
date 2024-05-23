@@ -75,7 +75,7 @@ public class BossMain : MonoBehaviour
 
         StateMachine.Initialize(IdlePattern);
 	}
-
+    
 	private void Update()
 	{
 		StateMachine.CurrentPattern.ActivePattern();

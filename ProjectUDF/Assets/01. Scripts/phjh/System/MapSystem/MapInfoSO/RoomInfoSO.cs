@@ -1,31 +1,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-[Serializable]
-public struct MonsterInfo 
-{
-    public GameObject monsterObj;
-    public Vector2 monsterPos;
-}
-
-[Serializable]
-public enum Exit
-{
-    Down=0,
-    Right,
-    Up,
-    Left
-}
+using UnityEngine.Tilemaps;
+using MapDefine;
 
 [CreateAssetMenu(fileName = "RoomInfo", menuName = "SO/Map/RoomsInfo")] 
 public class RoomInfoSO : ScriptableObject
 {
     [Header("방 정보들")]
     public int id;
-    public int monsterWaves;
-    public GameObject MapPrefab;
-    public float timeLimit = 100;
+    [Range(1, 5)]public int monsterWaves;
+    [SerializeField] private GameObject TileObject;
+    [Range(30, 600)]public float timeLimit = 120;
 
     [Header("웨이브별 나오는 몬스터 수")]
     public List<int> numberOfMonsters;
@@ -39,7 +25,17 @@ public class RoomInfoSO : ScriptableObject
     [Tooltip("출구 위치들")]
     public List<Exit> exit;
 
-    public RoomInfoSO CloneAndSetting()
+    [HideInInspector] public PlacedTileData Obstacle;
+    [HideInInspector] public PlacedTileData Decorate;
+    private Tilemap ObstacleMap;
+    private Tilemap DecorateMap;
+
+	private void OnEnable()
+	{
+		SetTileMapComponent();
+	}
+
+	public RoomInfoSO CloneAndSetting()
     {
         var thisMap = Instantiate(this);
         Debug.Log(thisMap);
@@ -96,10 +92,60 @@ public class RoomInfoSO : ScriptableObject
         }
     }
 
-    //public void SetExitPoint()
-    //{
-    //    int rand = UnityEngine.Random.Range(0, 4);
-    //    exit = (Exit)rand;
-    //}
+	#region Save Tilemap Data Method
+
+	private void SetTileMapComponent()
+	{
+		ObstacleMap = TileObject.transform.Find("ObstacleTile").GetComponent<Tilemap>();
+		DecorateMap = TileObject.transform.Find("DecorateTile").GetComponent<Tilemap>();
+
+		if (ObstacleMap != null && DecorateMap != null)
+		{
+			SaveRoomData();
+		}
+        else
+        {
+            Debug.Assert(ObstacleMap != null, "ObstacleMap Is Null");
+            Debug.Assert(DecorateMap != null, "DecorateMap Is Null");
+        }
+	}
+
+	private void SaveRoomData()
+    {
+        Obstacle = SavePlacedTIleData(ObstacleMap);
+        Decorate = SavePlacedTIleData(DecorateMap);
+    }
+
+    private PlacedTileData SavePlacedTIleData(Tilemap tilemap)
+    {
+        BoundsInt bounds = tilemap.cellBounds;
+        Vector3Int PlacedPos = new Vector3Int();
+
+        PlacedTileData TempContainer = new PlacedTileData();
+        for(int x = bounds.min.x; x < bounds.max.x; x++)
+        {
+            for(int y = bounds.min.y; y < bounds.max.y; y++)
+            {
+                PlacedPos = new Vector3Int(x, y, 0);
+				TileBase tempTile = tilemap.GetTile(PlacedPos);
+
+                if(tempTile != null)
+                {
+                    TempContainer.PlacedTiles.Add(tempTile);
+                    TempContainer.PlacedPoses.Add(PlacedPos);
+                }
+            }
+        }
+
+        return TempContainer;
+    }
+
+	#endregion
+
+	//public void SetExitPoint()
+	//{
+	//    int rand = UnityEngine.Random.Range(0, 4);
+	//    exit = (Exit)rand;
+	//}
 
 }

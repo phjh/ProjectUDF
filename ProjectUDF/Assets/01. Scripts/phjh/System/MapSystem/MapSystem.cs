@@ -1,6 +1,8 @@
+using MapDefine;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public enum MapEvents
 {
@@ -66,7 +68,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     [SerializeField]
     private List<GameObject> Portals;
 
-    private GameObject nowMap;
+    [SerializeField] private Tilemap ObstacleTileMap;
+    [SerializeField] private Tilemap DecorateTileMap;
 
     public GameObject ExitPrefab;
 
@@ -77,17 +80,28 @@ public class MapSystem : MonoSingleton<MapSystem>
     public float roomStartTime = 0;
     public bool IsRandomExit = false;
 
-    private void Start()
+    private List<RoomInfoSO> CurFloorRoomList => floors[nowFloor].floorRoomInfo;
+    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount];
+
+	private void OnEnable()
+	{
+		MapSystem.Instance.MonsterKilledEvent += OnMonsterDead;
+	}
+
+	private void OnDisable()
+	{
+		MapSystem.Instance.MonsterKilledEvent -= OnMonsterDead;
+	}
+
+	private void Start()
     {
         floors[nowFloor] = floors[nowFloor].CloneAndSetting();      //여기 Random붙이면 됨
-        nowMap = Instantiate(floors[nowFloor].floorRoomInfo[roomCount].MapPrefab);
         dirtEffect.Play();
         WaveClear();
         SetNextRoom();
         RoomTimerInit();
         RoomEffectInit();
     }
-
 
     private void Update()
     {
@@ -103,7 +117,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
             roomStartTime -= 10;
         }
-        if (Time.time - roomStartTime > floors[nowFloor].floorRoomInfo[roomCount].timeLimit)
+        if (Time.time - roomStartTime > CurRoom.timeLimit)
         {
             Debug.Log("Time over");
         }
@@ -114,16 +128,6 @@ public class MapSystem : MonoSingleton<MapSystem>
             emission.rateOverTime = Mathf.Lerp(0, 20f, spawnRate / 40f);
 
         }
-    }
-
-    private void OnEnable()
-    {
-        MapSystem.Instance.MonsterKilledEvent += OnMonsterDead;
-    }
-
-    private void OnDisable()
-    {
-        MapSystem.Instance.MonsterKilledEvent -= OnMonsterDead;
     }
 
     #region GameFlow
@@ -139,7 +143,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     void WaveClear()
     {
-        if (nowWave == floors[nowFloor].floorRoomInfo[roomCount].monsterWaves - 1)
+        if (nowWave == CurRoom.monsterWaves - 1)
         {
             nowWave = 0;
             roomCount++;
@@ -164,7 +168,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     void OnRoomClear()
     {
-        if (roomCount == floors[nowFloor].floorRoomInfo.Count)
+        if (roomCount == CurFloorRoomList.Count)
         {
             OnFloorClear();
             nowFloor++;
@@ -188,16 +192,15 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     #endregion
 
-    void SetLeftMonsters() => leftMonsters = floors[nowFloor].floorRoomInfo[roomCount].numberOfMonsters[0];
+    void SetLeftMonsters() => leftMonsters = CurRoom.numberOfMonsters[0];
 
     //몬스터 소환하는 메서드
     void SpawnMonsters()
     {
-        FloorInfoSO nowFloor = floors[this.nowFloor];
-        leftMonsters = nowFloor.floorRoomInfo[roomCount].numberOfMonsters[nowWave];
+        leftMonsters = CurRoom.numberOfMonsters[nowWave];
 
         int i = 0;
-        foreach (var monsters in nowFloor.floorRoomInfo[roomCount].spawnMonsters)
+        foreach (var monsters in CurRoom.spawnMonsters)
         {
             if (monsters.monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
             {
@@ -224,14 +227,14 @@ public class MapSystem : MonoSingleton<MapSystem>
         bool isSpawnPortal = false;
         if (!IsRandomExit)
         {
-            foreach (var exit in floors[nowFloor].roomList[roomCount].exit)
+            foreach (var exit in CurRoom.exit)
             {
                 Portals[(int)exit].gameObject.SetActive(true);
                 isSpawnPortal = true;
             }
             return;
-        }
-        foreach (var exit in floors[nowFloor].roomList[roomCount].exit)
+        }       
+        foreach (var exit in CurRoom.exit)
         {
             if (UnityEngine.Random.Range(0, 10) < 4)
             {
@@ -240,7 +243,7 @@ public class MapSystem : MonoSingleton<MapSystem>
             }
         }
         if (isSpawnPortal == false)
-            Portals[(int)floors[nowFloor].roomList[roomCount].exit[UnityEngine.Random.Range(0, floors[nowFloor].roomList[roomCount].exit.Count)]].SetActive(true);
+            Portals[(int)CurRoom.exit[UnityEngine.Random.Range(0, CurRoom.exit.Count)]].SetActive(true);
     }
 
     public void OnPortalEnter(Transform obj,Transform player)
@@ -267,7 +270,7 @@ public class MapSystem : MonoSingleton<MapSystem>
     public void RoomTimerInit()
     {
         TimeManager.Instance.StopTimer();
-		TimeManager.Instance.NowTime = floors[nowFloor].floorRoomInfo[roomCount].timeLimit;
+		TimeManager.Instance.NowTime = CurRoom.timeLimit;
         TimeManager.Instance.StartTimer();
     }
 
@@ -294,11 +297,22 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
             portal.SetActive(false);
         }
+        if (roomCount != CurFloorRoomList.Count)
 
-        Destroy(nowMap.gameObject);
-        if (roomCount != floors[nowFloor].floorRoomInfo.Count)
-            nowMap = Instantiate(floors[nowFloor].floorRoomInfo[roomCount].MapPrefab, transform.position, Quaternion.identity);
+        {
+		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
+		    SetTileData(DecorateTileMap, CurRoom.Decorate);
+        }
         AstarPath.active.Scan();
+    }
+
+    private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData)
+    {
+        SetTilemap.ClearAllTiles();
+        for(int count = 0; count < LoadData.PlacedPoses.Count; count++)
+        {
+            SetTilemap.SetTile(LoadData.PlacedPoses[count], LoadData.PlacedTiles[count]);
+        }
     }
 
     #region Flow Methods

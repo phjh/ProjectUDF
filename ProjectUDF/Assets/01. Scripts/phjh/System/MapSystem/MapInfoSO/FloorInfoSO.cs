@@ -10,6 +10,7 @@ public class FloorInfoSO : ScriptableObject
 {
     [Header("층 변수")]
     public int ReachToBoss = 0;
+
     [Header("방 목록")]
     public List<RoomInfoSO> roomList; //방 리스트들
 	public RoomInfoSO BossRoom;
