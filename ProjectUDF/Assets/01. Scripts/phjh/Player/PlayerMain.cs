@@ -17,6 +17,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public Action OnAttackEvent;
 
+    public Action OnWeaponSetting;
+
     #region 움직임 관련 변수들
 
     public PlayerWeapon nowWeapon;
@@ -48,6 +50,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public PlayerAim playerAim { get; private set; }
 
     public bool canAttack { get; set; }
+    public bool preparingAttack { get; set; }
     public bool isAttacking { get; set; }
     public bool baseAttackPrepare { get; set; }
     public bool chargeAttackPrepare { get; set; }
@@ -117,6 +120,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         }
         if (Input.GetKeyDown(KeyCode.H))
             UnEquipStone();
+        if (Input.GetKeyDown(KeyCode.Tab))
+            UIManager.Instance.ManagePocketUI();
     }
 
 	#region Methods
@@ -184,7 +189,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
             baseAttack = baseAtk;
         if (nowWeaponObj.TryGetComponent<PlayerChargeAttack>(out var chargeAtk))
             chargeAttack = chargeAtk;
-
+        OnWeaponSetting?.Invoke();
     }
 
     public void SkillChange(PlayerSkillAttack skill)

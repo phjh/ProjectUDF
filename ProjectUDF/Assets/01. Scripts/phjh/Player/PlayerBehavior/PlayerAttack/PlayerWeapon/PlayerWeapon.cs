@@ -18,15 +18,6 @@ public class PlayerWeapon : ScriptableObject
 
     public List<AnimationReferenceAsset> WeaponIdleAnimations;
 
-    public static List<string> ToStringArray(List<AnimationReferenceAsset> asset)
-    {
-        List<string> str = new();
-        foreach(var item in asset)
-        {
-            str.Add(item.ToString());
-        }
-        return str;
-    }
 
     public float GetCaculateDamage()
     {

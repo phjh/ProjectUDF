@@ -30,6 +30,7 @@ public class DrillBaseAttack : PlayerBaseAttack
 
         InvokeStoneAttack();
 
+        PlayerMain.Instance.preparingAttack = true;
 
         //공격범위 표시
         attackRange.gameObject.SetActive(true);
@@ -70,6 +71,7 @@ public class DrillBaseAttack : PlayerBaseAttack
         Debug.Log("onattacking");
         attackRange.gameObject.SetActive(false);
         atkcollider.enabled = false;
+        PlayerMain.Instance.preparingAttack = false;
         PlayerMain.Instance.playerMove.SetFixedDir(false, Vector2.zero);
 
         base.OnAttacking();

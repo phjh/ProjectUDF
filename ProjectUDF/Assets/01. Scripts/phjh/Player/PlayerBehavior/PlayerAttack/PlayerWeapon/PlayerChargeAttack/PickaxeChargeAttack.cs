@@ -101,6 +101,27 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
     protected override void LuckyStoneAttack()
     {
 
+
+
+        List<Stats> stones = PlayerMain.Instance.baseAttack.GetLuckyStones();
+
+        float additionalFactor = 0;
+
+        if (stones.Count <= 1)
+        {
+            stones.Clear();
+            return;
+        }
+        else if (stones.Count == 2)
+        {
+            //대충 2개일때 족보 실행시켜준다
+        }
+        else
+        {
+            //대충 3개일때의 족보 실행시킨다
+        }
+
+        PlayerMain.Instance.baseAttack.SetLuckyStones(new List<Stats>());
     }
 
     protected override void AttackSpeedStoneAttack()

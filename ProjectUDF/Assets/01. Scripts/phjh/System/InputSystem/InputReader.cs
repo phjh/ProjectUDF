@@ -71,14 +71,16 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     #region GameSystem Inputs
     public void OnPause(InputAction.CallbackContext context)
     {
-        if(context.performed)
             PauseEvent?.Invoke();
     }
 
     public void OnInventory(InputAction.CallbackContext context)
     {
         if (context.performed)
-            InventoryEvent?.Invoke();
+        {
+            UIManager.Instance.ManagePocketUI();
+            InventoryEvent.Invoke();
+        }
     }
 
     #endregion

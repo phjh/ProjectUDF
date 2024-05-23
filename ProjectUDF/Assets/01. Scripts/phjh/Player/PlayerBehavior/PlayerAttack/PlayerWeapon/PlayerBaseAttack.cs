@@ -35,6 +35,4 @@ public abstract class PlayerBaseAttack : PlayerWeaponAttack
         Invoke(nameof(OnAttackEnd), timeToAttacking);
     }
 
-
-
 }

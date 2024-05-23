@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public abstract class PlayerWeaponAttack : PlayerAttack
@@ -25,9 +26,9 @@ public abstract class PlayerWeaponAttack : PlayerAttack
 
     protected void InvokeStoneAttack()
     {
-        if (isActiveonce)
-            return;
         if (stoneActived)
+            return;
+        if (isActiveonce)
             return;
         AdditionalAttack[PlayerMain.Instance.EquipMainOre].Invoke();
     }
@@ -65,5 +66,15 @@ public abstract class PlayerWeaponAttack : PlayerAttack
     protected abstract void LuckyStoneAttack();
     protected abstract void AttackSpeedStoneAttack();
     protected abstract void MoveSpeedStoneAttack();
+
+    public virtual List<Stats> GetLuckyStones()
+    {
+        return new List<Stats>();
+    }
+    
+    public virtual void SetLuckyStones(List<Stats> statList)
+    {
+
+    }
 
 }

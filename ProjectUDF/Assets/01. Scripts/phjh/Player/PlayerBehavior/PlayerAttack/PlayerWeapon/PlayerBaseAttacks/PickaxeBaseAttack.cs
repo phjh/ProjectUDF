@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 {
+    public List<Image> objs;
+    
+    List<Stats> luckStones = new();
     float baseFactor;
-
+    
     protected override void Start()
     {
         base.Start();
@@ -110,7 +114,12 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
 
     protected override void LuckyStoneAttack()
     {
-        Debug.Log("asdf");
+        if (luckStones.Count < 3)
+        {
+            int randomStone = UnityEngine.Random.Range(0, 4);
+            luckStones.Add((Stats)randomStone);
+            objs[luckStones.Count-1].sprite = UIManager.Instance.OreDatas[randomStone].OreSprite;
+        }
     }
 
 
@@ -151,4 +160,22 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
     {
         Debug.Log("좌클엔 이속 효과가 없어요!");
     }
+
+    public override List<Stats> GetLuckyStones()
+    {
+        return luckStones;
+    }
+
+    public override void SetLuckyStones(List<Stats> statList)
+    {
+        //luckStones = statList;
+        luckStones.Clear();
+        for (int i = 0; i < 3; i++) 
+        {
+            objs[i].sprite = null;
+            objs[i].gameObject.SetActive(false);
+            //objs[i].sprite = UIManager.Instance.OreDatas[(int)statList[i]].OreSprite;
+        }
+    }
+
 }
