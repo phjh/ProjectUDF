@@ -9,24 +9,20 @@ public class RoomInfoSO : ScriptableObject
 {
     [Header("방 정보들")]
     public int id;
-    [Range(1, 5)]public int monsterWaves;
     [SerializeField] private GameObject TileObject;
     [Range(30, 600)]public float timeLimit = 120;
 
-    [Header("웨이브별 나오는 몬스터 수")]
+    [Header("Monster Data")]
+    [Range(1, 5)]public int monsterWaves;
     public List<int> numberOfMonsters;
-
-    [Header("몬스터 리스트")]
     public List<GameObject> spawnMonsterList; //소환 가능성있는 몬스터들
-    //[HideInInspector]
-    //건들면 안됨
     public List<MonsterInfo> spawnMonsters; //소환될 몬스터들
 
-    [Tooltip("출구 위치들")]
+    [Tooltip("출구 위치")]
     public List<Exit> exits;
 
-    [HideInInspector] public PlacedTileData Obstacle;
-    [HideInInspector] public PlacedTileData Decorate;
+    [HideInInspector] public PlacedTileData Obstacle { get; private set; }
+    [HideInInspector] public PlacedTileData Decorate { get; private set; }
     private Tilemap ObstacleMap;
     private Tilemap DecorateMap;
 
@@ -61,10 +57,9 @@ public class RoomInfoSO : ScriptableObject
             Debug.LogError("값 틀림 : monsterWaves");
             return;
         }
-        for (int i = 0; i < monsterWaves; i++)
+        for (int waveCount = 0; waveCount < monsterWaves; waveCount++)
         {
-            int a = numberOfMonsters[i];
-            for (int j = 0; j < a; j++)
+            for (int monsterCount = 0; monsterCount < numberOfMonsters[waveCount]; monsterCount++)
             {
                 int rand = UnityEngine.Random.Range(0, spawnMonsterList.Count);
                 MonsterInfo monster;
@@ -75,7 +70,7 @@ public class RoomInfoSO : ScriptableObject
         }
     }
 
-    public void DebugMonsters()
+    /*public void DebugMonsters()
     {
         int i = 0;
         for(int a = 0; a < numberOfMonsters.Count; a++)
@@ -90,18 +85,18 @@ public class RoomInfoSO : ScriptableObject
             }
             Debug.Log($"{str} __ {a}번째 웨이브 몹");
         }
-    }
+    }*/
 
 	#region Save Tilemap Data Method
 
-	private void SetTileMapComponent()
+	private void SetTileMapComponent() //타일맵 컴포넌트를 받고, 각 타일 데이터를 세팅하는 함수를 작동시키는 곳
 	{
 		if(ObstacleMap == null) ObstacleMap = TileObject.transform.Find("ObstacleTile").GetComponent<Tilemap>();
 		if(DecorateMap == null) DecorateMap = TileObject.transform.Find("DecorateTile").GetComponent<Tilemap>();
 
 		if (ObstacleMap != null && DecorateMap != null)
 		{
-			SaveRoomData();
+			SaveRoomData(); //타일 데이터 세팅 함수
 		}
         else
         {
@@ -112,8 +107,8 @@ public class RoomInfoSO : ScriptableObject
 
 	private void SaveRoomData()
     {
-        Obstacle = SavePlacedTIleData(ObstacleMap);
-        Decorate = SavePlacedTIleData(DecorateMap);
+        Obstacle = SavePlacedTIleData(ObstacleMap); //데이터 반환 할당
+        Decorate = SavePlacedTIleData(DecorateMap); //데이터 반환 할당
     }
 
     private PlacedTileData SavePlacedTIleData(Tilemap tilemap)
@@ -121,31 +116,25 @@ public class RoomInfoSO : ScriptableObject
         BoundsInt bounds = tilemap.cellBounds;
         Vector3Int PlacedPos = new Vector3Int();
 
-        PlacedTileData TempContainer = new PlacedTileData();
-        for(int x = bounds.min.x; x < bounds.max.x; x++)
+        PlacedTileData TempContainer = new PlacedTileData(); //배치 타일 데이터
+        for(int x = bounds.min.x; x < bounds.max.x; x++) //바운드의 X 값만큼
         {
-            for(int y = bounds.min.y; y < bounds.max.y; y++)
+            for(int y = bounds.min.y; y < bounds.max.y; y++) //바운드의 Y 값만큼
             {
                 PlacedPos = new Vector3Int(x, y, 0);
 				TileBase tempTile = tilemap.GetTile(PlacedPos);
 
-                if(tempTile != null)
+                if(tempTile != null) //타일이 배치되어 있다면
                 {
-                    TempContainer.PlacedTiles.Add(tempTile);
-                    TempContainer.PlacedPoses.Add(PlacedPos);
+                    TempContainer.PlacedTiles.Add(tempTile); //해당 타일을 데이터에 넣음
+                    TempContainer.PlacedPoses.Add(PlacedPos); //해당 타일 좌표를 데이터에 넣음
                 }
             }
         }
 
-        return TempContainer;
+        return TempContainer; //배치 타일 데이터 반환
     }
 
 	#endregion
-
-	//public void SetExitPoint()
-	//{
-	//    int rand = UnityEngine.Random.Range(0, 4);
-	//    exit = (Exit)rand;
-	//}
 
 }

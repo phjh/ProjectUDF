@@ -71,8 +71,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     public int leftMonsters = 0;
     public bool IsRandomExit = false;
 
-    private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo;
-    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount];
+    private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //현재 층의 방 목록
+    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //현재 층의 방 목록 중 선택된 방
 
 	private void OnEnable()
 	{
@@ -285,7 +285,6 @@ public class MapSystem : MonoSingleton<MapSystem>
             portal.SetActive(false);
         }
         if (roomCount != CurFloorRoomList.Count)
-
         {
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
@@ -296,7 +295,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 		RoomEffectInit();
 	}
 
-    private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData)
+    private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData) //현재 층의 현재 방이 가지고 있는 배치 타일 데이터를 호출해 배치함
     {
         SetTilemap.ClearAllTiles();
         for(int count = 0; count < LoadData.PlacedPoses.Count; count++)
