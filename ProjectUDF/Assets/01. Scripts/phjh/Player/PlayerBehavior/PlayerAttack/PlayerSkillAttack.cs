@@ -10,8 +10,6 @@ public abstract class PlayerSkillAttack : PlayerAttack
     protected int _coolattackTime;
     protected int _coolattackTimeSet;
 
-    public List<AnimationReferenceAsset> animation; //스킬 애니메이션 필요없을시 삭제 혹은 수정
-
     protected override void OnEnable()
     {
         PlayerMain.Instance.OnAttackEvent += ReduceCooltime;

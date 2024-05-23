@@ -32,6 +32,7 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
         }
 
         _playerInputAction.Player.Enable(); //활성화
+        _playerInputAction.GameSystem.Enable(); //까먹지 말자
     }
 
     #region Player Inputs
@@ -66,6 +67,12 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
             PlayerMain.Instance.Attack(PlayerMain.Instance.chargeAttack);
         }
     }
+
+    public void OnSKill(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            PlayerMain.Instance.Attack(PlayerMain.Instance.nowSkill);
+    }
     #endregion
 
     #region GameSystem Inputs
@@ -78,10 +85,12 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     {
         if (context.performed)
         {
+            Debug.Log("TTTT");
             UIManager.Instance.ManagePocketUI();
             InventoryEvent.Invoke();
         }
     }
+
 
     #endregion
 }

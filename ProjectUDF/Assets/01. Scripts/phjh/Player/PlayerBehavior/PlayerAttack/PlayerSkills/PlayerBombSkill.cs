@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBombSkill : PlayerSkillAttack
 {
@@ -11,6 +12,8 @@ public class PlayerBombSkill : PlayerSkillAttack
     private bool skillused = false;
 
     private Coroutine coroutine;
+
+    public Slider Slider;
 
     protected override void TryAttack()
     {
@@ -30,8 +33,15 @@ public class PlayerBombSkill : PlayerSkillAttack
 
     IEnumerator InvokeSkillWithWait()
     {
-        yield return new WaitForSeconds(bombtime);
+        float time = 0;
+        if(time < bombtime)
+        {
+            Slider.value = time / bombtime;
+            yield return new WaitForSeconds(Time.fixedTime);
+        }
         InvokeSkill();
+        yield return new WaitForSeconds(0.1f);
+        EndSkill();
     }
 
     private void InvokeSkill()
@@ -40,6 +50,11 @@ public class PlayerBombSkill : PlayerSkillAttack
         skillused = false;
 
         //스킬 이펙트와 콜라이더 구현
+
+    }
+
+    private void EndSkill()
+    {
 
     }
 
