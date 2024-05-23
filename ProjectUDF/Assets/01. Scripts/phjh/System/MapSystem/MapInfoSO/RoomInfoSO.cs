@@ -92,8 +92,14 @@ public class RoomInfoSO : ScriptableObject
 
 	private void SetTileMapComponent() //타일맵 컴포넌트를 받고, 각 타일 데이터를 세팅하는 함수를 작동시키는 곳
 	{
-		if(ObstacleMap == null) ObstacleMap = TileObject.transform.Find("ObstacleTile").GetComponent<Tilemap>();
-		if(DecorateMap == null) DecorateMap = TileObject.transform.Find("DecorateTile").GetComponent<Tilemap>();
+		if (TileObject == null)
+        {
+            Debug.LogError($"{this.name}'s TileObject Is Null");
+            return;
+        }
+
+		if (TileObject.transform.Find("ObstacleTile").TryGetComponent(out ObstacleMap) == false) Debug.LogError("Can't Get Obstacle Tile!!");
+		if(TileObject.transform.Find("DecorateTile").TryGetComponent(out DecorateMap) == false) Debug.LogError("Can't Get Decorate Tile!!");
 
 		if (ObstacleMap != null && DecorateMap != null)
 		{

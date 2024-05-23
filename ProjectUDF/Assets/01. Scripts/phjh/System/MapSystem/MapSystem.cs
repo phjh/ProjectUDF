@@ -294,9 +294,15 @@ public class MapSystem : MonoSingleton<MapSystem>
 		RoomTimerInit();
 		RoomEffectInit();
 	}
-
+    
     private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData) //현재 층의 현재 방이 가지고 있는 배치 타일 데이터를 호출해 배치함
     {
+        if(LoadData == null)
+        {
+            Debug.LogError($"{floorCount}F{roomCount}R : {SetTilemap.name}'s Data is Null");
+            return;
+        }
+
         SetTilemap.ClearAllTiles();
         for(int count = 0; count < LoadData.PlacedPoses.Count; count++)
         {

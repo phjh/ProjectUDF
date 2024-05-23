@@ -12,19 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f563a02afb69b40862aee6eb7f04e2, type: 3}
   m_Name: firstFloorSO
   m_EditorClassIdentifier: 
-  ReachToBoss: 3
+  ReachToBoss: 0
   roomList:
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   BossRoom: {fileID: 0}
-  floorRoomInfo:
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
+  floorRoomInfo: []
