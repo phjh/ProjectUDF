@@ -25,7 +25,7 @@ public class FloorInfoSO : ScriptableObject
         return clone;
     }
 
-    private void GenerateMapInfoSO(bool isRandom =false)
+    private void GenerateMapInfoSO(bool isRandom)
     {
         Debug.Log("Start Map Info Generating");
         List<int> SelectedRooms = new List<int>(); // 최근 선택된 방의 ID를 저장할 리스트

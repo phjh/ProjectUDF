@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: firstFloorSO
   m_EditorClassIdentifier: 
   ReachToBoss: 0
-  roomList: []
+  roomList:
+  - {fileID: 0}
+  - {fileID: 0}
   BossRoom: {fileID: 0}
   floorRoomInfo: []
