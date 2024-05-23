@@ -4,15 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum MapEvents
-{
-    FloorStart = 1,
-    FloorClear = 2,
-    MapStart =3,
-    MapClear = 4,
-    WaveClear = 5,
-    MonsterKill = 6
-}
 
 public class MapSystem : MonoSingleton<MapSystem>
 {
@@ -99,8 +90,6 @@ public class MapSystem : MonoSingleton<MapSystem>
         dirtEffect.Play();
         WaveClear();
         SetNextRoom();
-        RoomTimerInit();
-        RoomEffectInit();
     }
 
     private void Update()
@@ -141,7 +130,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
     }
 
-    void WaveClear()
+    private void WaveClear()
     {
         if (nowWave == CurRoom.monsterWaves - 1)
         {
@@ -158,15 +147,13 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     public void OnRoomStart()
     {
-        RoomTimerInit();
-        RoomEffectInit();
         SetNextRoom();
         SetLeftMonsters();
         SpawnMonsters();
         RoomClearEvent?.Invoke();
 	}
 
-    void OnRoomClear()
+	private void OnRoomClear()
     {
         if (roomCount == CurFloorRoomList.Count)
         {
@@ -190,12 +177,12 @@ public class MapSystem : MonoSingleton<MapSystem>
         StageGenerate();
     }
 
-    #endregion
+	#endregion
 
-    void SetLeftMonsters() => leftMonsters = CurRoom.numberOfMonsters[0];
+	private void SetLeftMonsters() => leftMonsters = CurRoom.numberOfMonsters[0];
 
     //몬스터 소환하는 메서드
-    void SpawnMonsters()
+    private void SpawnMonsters()
     {
         leftMonsters = CurRoom.numberOfMonsters[nowWave];
 
@@ -221,20 +208,20 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
     }
 
-    //탈출구 랜덤스폰 
-    void PortalSpawn()
+	//탈출구 랜덤스폰 
+	private void PortalSpawn()
     {
         bool isSpawnPortal = false;
         if (!IsRandomExit)
         {
-            foreach (var exit in CurRoom.exit)
+            foreach (var exit in CurRoom.exits)
             {
                 Portals[(int)exit].gameObject.SetActive(true);
                 isSpawnPortal = true;
             }
             return;
         }       
-        foreach (var exit in CurRoom.exit)
+        foreach (var exit in CurRoom.exits)
         {
             if (UnityEngine.Random.Range(0, 10) < 4)
             {
@@ -243,7 +230,7 @@ public class MapSystem : MonoSingleton<MapSystem>
             }
         }
         if (isSpawnPortal == false)
-            Portals[(int)CurRoom.exit[UnityEngine.Random.Range(0, CurRoom.exit.Count)]].SetActive(true);
+            Portals[(int)CurRoom.exits[UnityEngine.Random.Range(0, CurRoom.exits.Count)]].SetActive(true);
     }
 
     public void OnPortalEnter(Transform obj,Transform player)
@@ -284,14 +271,14 @@ public class MapSystem : MonoSingleton<MapSystem>
         dirtEffect.Play();
     }
 
-    //층 마다 생성
-    void StageGenerate()
+	//층 마다 생성
+	private void StageGenerate()
     {
-        FloorInfoSO newMap = floors[0].CloneAndSetting(false);
+        FloorInfoSO newMap = floors[floorCount].CloneAndSetting(false);
         floors.Add(newMap);
     }
 
-    void SetNextRoom()
+	private void SetNextRoom()
     {
         foreach (var portal in Portals)
         {
@@ -304,7 +291,10 @@ public class MapSystem : MonoSingleton<MapSystem>
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
         }
         AstarPath.active.Scan();
-    }
+        
+		RoomTimerInit();
+		RoomEffectInit();
+	}
 
     private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData)
     {

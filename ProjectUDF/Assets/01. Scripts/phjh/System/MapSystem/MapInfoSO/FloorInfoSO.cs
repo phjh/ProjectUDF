@@ -34,8 +34,8 @@ public class FloorInfoSO : ScriptableObject
 			int roomNumber = IsSelectedChecking(SelectedRooms);
 
 			// 방 정보 추가
-			if(isRandom) floorRoomInfo.Add(roomList[roomNumber].CloneAndSettingRandom());
-			else floorRoomInfo.Add(roomList[roomNumber].CloneAndSetting());
+			if(isRandom) floorRoomInfo.Add(roomList[roomNumber].CloneAndSetting(true));
+			else floorRoomInfo.Add(roomList[roomNumber].CloneAndSetting(false));
 
 			// 리스트 업데이트
 			SelectedRooms.Add(roomList[roomNumber].id);

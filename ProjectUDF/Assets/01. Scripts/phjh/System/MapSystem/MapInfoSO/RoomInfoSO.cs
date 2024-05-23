@@ -23,7 +23,7 @@ public class RoomInfoSO : ScriptableObject
     public List<MonsterInfo> spawnMonsters; //소환될 몬스터들
 
     [Tooltip("출구 위치들")]
-    public List<Exit> exit;
+    public List<Exit> exits;
 
     [HideInInspector] public PlacedTileData Obstacle;
     [HideInInspector] public PlacedTileData Decorate;
@@ -32,26 +32,26 @@ public class RoomInfoSO : ScriptableObject
 
 	private void OnEnable()
 	{
-		SetTileMapComponent();
+		if (TileObject != null)
+		{
+		    SetTileMapComponent();
+		}
 	}
 
-	public RoomInfoSO CloneAndSetting()
+	public RoomInfoSO CloneAndSetting(bool isRandom = false)
     {
-        var thisMap = Instantiate(this);
-        Debug.Log(thisMap);
-        return thisMap;
-    }
+        var CloneInfo = Instantiate(this);
+		CloneInfo.SetTileMapComponent();
+        
+        if(isRandom) CloneInfo.GenerateRandomMonsterInfo();
 
-    public RoomInfoSO CloneAndSettingRandom()
-    {
-        var thisMap = Instantiate(this);
-		thisMap.GenerateRandomMonsterInfo();
-        //a.SetExitPoint();
-        if (exit.Count == 0)
-        {
-            Debug.LogError("exit room is not exist");
-        }
-        return thisMap;
+		if (CloneInfo.exits.Count == 0)
+		{
+			Debug.LogError("exits room is not exist");
+		}
+
+		Debug.Assert(CloneInfo == null, $"Success To Clone RoomInfo : ID [{CloneInfo.id}]");
+        return CloneInfo;
     }
 
     private void GenerateRandomMonsterInfo()
@@ -96,8 +96,8 @@ public class RoomInfoSO : ScriptableObject
 
 	private void SetTileMapComponent()
 	{
-		ObstacleMap = TileObject.transform.Find("ObstacleTile").GetComponent<Tilemap>();
-		DecorateMap = TileObject.transform.Find("DecorateTile").GetComponent<Tilemap>();
+		if(ObstacleMap == null) ObstacleMap = TileObject.transform.Find("ObstacleTile").GetComponent<Tilemap>();
+		if(DecorateMap == null) DecorateMap = TileObject.transform.Find("DecorateTile").GetComponent<Tilemap>();
 
 		if (ObstacleMap != null && DecorateMap != null)
 		{

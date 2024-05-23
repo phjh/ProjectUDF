@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 236249253}
   - component: {fileID: 236249252}
   m_Layer: 0
-  m_Name: portal1
+  m_Name: Portal_Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3887,7 +3887,7 @@ GameObject:
   - component: {fileID: 880914186}
   - component: {fileID: 880914185}
   m_Layer: 0
-  m_Name: portal3
+  m_Name: Portal_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4376,7 +4376,7 @@ GameObject:
   - component: {fileID: 997512819}
   - component: {fileID: 997512818}
   m_Layer: 0
-  m_Name: portal4
+  m_Name: Portal_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9916,7 +9916,7 @@ GameObject:
   - component: {fileID: 1130662633}
   - component: {fileID: 1130662632}
   m_Layer: 0
-  m_Name: portal2
+  m_Name: Portal_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10445,18 +10445,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floors:
   - {fileID: 11400000, guid: c16faea073099a540825229e2ce4e18d, type: 2}
-  dirtEffect: {fileID: 1096857226}
   Portals:
   - {fileID: 236249250}
   - {fileID: 1130662629}
   - {fileID: 880914182}
   - {fileID: 997512815}
   ExitPrefab: {fileID: 0}
-  nowFloor: 0
-  nowRoom: 0
+  ObstacleTileMap: {fileID: 0}
+  DecorateTileMap: {fileID: 0}
+  dirtEffect: {fileID: 1096857226}
+  floorCount: 0
+  roomCount: 0
+  roomStartTime: 0
   nowWave: -1
   leftMonsters: 0
-  roomStartTime: 0
   IsRandomExit: 1
 --- !u!114 &1313287487
 MonoBehaviour:
