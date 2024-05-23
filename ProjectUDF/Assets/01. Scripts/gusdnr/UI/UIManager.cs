@@ -53,6 +53,7 @@ public class UIManager : MonoSingleton<UIManager>
 	{
 		MapSystem.Instance.RoomClearEvent += ShowMining;
 		OreInventory.Instance.ChangeContents += SetOreList;
+		PlayerMain.Instance.inputReader.InventoryEvent += ManagePocketUI;
 	}
 
 	#region Mining UI
@@ -124,6 +125,7 @@ public class UIManager : MonoSingleton<UIManager>
 	#region Manage UI
 	public void ManagePocketUI()
 	{
+		Debug.LogWarning("managePocketui");
 		if (IsOnInventoryUI == false)
 		{
 			if (IsActivePopUp == false)
