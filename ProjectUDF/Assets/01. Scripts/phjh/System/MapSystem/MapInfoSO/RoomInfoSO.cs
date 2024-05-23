@@ -37,6 +37,7 @@ public class RoomInfoSO : ScriptableObject
 	public RoomInfoSO CloneAndSetting(bool isRandom = false)
     {
         var CloneInfo = Instantiate(this);
+        
 		CloneInfo.SetTileMapComponent();
         
         if(isRandom) CloneInfo.GenerateRandomMonsterInfo();

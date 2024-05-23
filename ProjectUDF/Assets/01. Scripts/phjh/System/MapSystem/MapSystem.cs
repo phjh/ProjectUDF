@@ -137,6 +137,7 @@ public class MapSystem : MonoSingleton<MapSystem>
             nowWave = 0;
             roomCount++;
             OnRoomClear();
+            RoomClearEvent?.Invoke();
         }
         else
         {
@@ -150,7 +151,6 @@ public class MapSystem : MonoSingleton<MapSystem>
         SetNextRoom();
         SetLeftMonsters();
         SpawnMonsters();
-        RoomClearEvent?.Invoke();
 	}
 
 	private void OnRoomClear()

@@ -119,6 +119,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
             int randomStone = UnityEngine.Random.Range(0, 4);
             luckStones.Add((Stats)randomStone);
             objs[luckStones.Count-1].sprite = UIManager.Instance.OreDatas[randomStone].OreSprite;
+            objs[luckStones.Count-1].gameObject.SetActive(true);
         }
     }
 

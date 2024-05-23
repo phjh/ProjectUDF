@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,6 +7,7 @@ namespace MapDefine
 {
 	#region Structs
 
+	[Serializable]
 	public struct MonsterInfo
 	{
 		public GameObject monsterObj;

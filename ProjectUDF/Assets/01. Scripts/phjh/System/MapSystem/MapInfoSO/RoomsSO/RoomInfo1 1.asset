@@ -13,20 +13,16 @@ MonoBehaviour:
   m_Name: RoomInfo1 1
   m_EditorClassIdentifier: 
   id: 1
-  monsterWaves: 2
-  MapPrefab: {fileID: 8708210958227143556, guid: 099a4fa0adfe617488f9d910bd55f4b7, type: 3}
+  TileObject: {fileID: 3447964171512033632, guid: 8968c41d0125d6f4e8aadc688c70de02, type: 3}
   timeLimit: 100
-  numberOfMonsters: 0200000003000000
+  monsterWaves: 2
+  numberOfMonsters: 0100000002000000
   spawnMonsterList: []
   spawnMonsters:
-  - monsterObj: {fileID: 5666205405589921430, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
-    monsterPos: {x: 4, y: 4}
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: -2, y: -2}
-  - monsterObj: {fileID: 5666205405589921430, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
     monsterPos: {x: 0, y: 0}
-  - monsterObj: {fileID: 5666205405589921430, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
-    monsterPos: {x: -3, y: 3}
   - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 5, y: -4}
-  exit: 000000000300000002000000
+    monsterPos: {x: 0, y: 0}
+  - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+    monsterPos: {x: 2, y: 3}
+  exits: 020000000300000000000000
