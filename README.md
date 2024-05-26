@@ -1,7 +1,10 @@
 # 프로젝트 설명
 ## 졸업 작품
 ### 경기 게임 마이스터고 UDF팀 졸업작품
-### 멤버 : 김보민, 박현욱, 오지홍
+### 멤버 
+### 김보민 - [학교 포트폴리오 사이트](https://ggm.gondr.net/user/profile/178)
+### 박현욱 - [학교 포트폴리오 사이트](https://ggm.gondr.net/user/profile/183) 
+### 오지홍 - [학교 포트폴리오 사이트](https://ggm.gondr.net/user/profile/171)
 
 ___
 #### - 프로젝트 시작일 : 24/03/04 ~
