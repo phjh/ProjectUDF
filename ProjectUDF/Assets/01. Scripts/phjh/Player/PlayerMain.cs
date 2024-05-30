@@ -107,6 +107,11 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         stat.SetOwner(this);
         stat = stat.Clone();
 
+        if(LobbyToGame.Instance != null)
+        {
+            nowWeapon = LobbyToGame.Instance.GetnowWeapon();
+            LobbyToGame.Instance.DeleteThis();
+        }
         SetWeapon(nowWeapon);
         SkillChange(nowSkill);
     }
@@ -215,6 +220,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         }
 
         nowSkill = Instantiate(skill);
+        nowSkill.gameObject.SetActive(false);
     }
 
     #region 플레이어 공격 - 돌 장착,해제

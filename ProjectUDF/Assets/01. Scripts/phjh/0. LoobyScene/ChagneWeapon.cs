@@ -23,6 +23,7 @@ public class ChagneWeapon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             PlayerMain.Instance.SetWeapon(weapon);
+            LobbyToGame.Instance.SetNowWeapon(weapon);
         }
     }
 
@@ -31,6 +32,7 @@ public class ChagneWeapon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) || Input.GetKey(KeyCode.F))
         {
             PlayerMain.Instance.SetWeapon(weapon);
+            LobbyToGame.Instance.SetNowWeapon(weapon);
         }
     }
 

@@ -16811,29 +16811,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 1491603921}
     m_Modifications:
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: hitMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eb50b18baa7ca84ab3f847f23c3519e, type: 2}
-    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: nowWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
+      objectReference: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
     - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eb50b18baa7ca84ab3f847f23c3519e, type: 2}
     - target: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4476657445718928097, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: skeletonDataAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 423ce9e993a1832418b472721db5aefc, type: 2}
     - target: {fileID: 5403100208602973642, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Mesh
       value: 

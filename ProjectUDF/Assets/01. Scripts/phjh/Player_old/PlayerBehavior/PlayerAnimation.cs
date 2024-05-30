@@ -149,23 +149,24 @@ public class PlayerAnimation : MonoBehaviour
             {
                 isLeftPressed = true;
                 aimAngle = aim.Angle;
-                //if (_inputDirection == Vector2.zero)
-                //{
-                //    skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
-                //}
-                //else
-                //{
-                //    int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
-                //    if (attackingdir >= 3 && attackingdir <= 5)
-                //    {
-                //        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
-                //    }
-                //    else
-                //    {
-                //        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
-                //    }
-                //}
-                skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
+                if (_inputDirection == Vector2.zero)
+                {
+                    skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
+                }
+                else
+                {
+                    int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
+                    if (attackingdir >= 3 && attackingdir <= 5)
+                    {
+                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
+                    }
+                    else
+                    {
+                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
+                    }
+                }
+                if (additionalAnimations.Count > 1)
+                    skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
                 skeletonAnimation.AnimationState.SetAnimation(0, chargingAttack[aimAngle], true).AnimationStart = time;
                 yield return new WaitForSeconds(fixedTime);
                 continue;
@@ -184,18 +185,18 @@ public class PlayerAnimation : MonoBehaviour
             if (Input.GetMouseButton(1) && PlayerMain.Instance.canAttack)
             {
                 aimAngle = aim.Angle;
-                //if (_inputDirection == Vector2.zero)
-                //    skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
-                //else
-                //{
-                //    int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
-                //    if (attackingdir >=3 && attackingdir <= 5)
-                //        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f-time;
-                //    else
-                //        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
-                //}
-
-                skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
+                if (_inputDirection == Vector2.zero)
+                    skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
+                else
+                {
+                    int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
+                    if (attackingdir >= 3 && attackingdir <= 5)
+                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
+                    else
+                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
+                }
+                if (additionalAnimations.Count > 1)
+                    skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
                 skeletonAnimation.AnimationState.SetAnimation(0, WeaponIdleAnimations[aimAngle], false).AnimationStart = time;
                 if(additionalAnimations.Count != 0 && !isRightPressed)
                 {

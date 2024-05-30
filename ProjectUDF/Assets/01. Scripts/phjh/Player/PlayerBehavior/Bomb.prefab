@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coolattackTime: 0
-  bombtime: 3
+  damageFactor: 1.2
+  bombtime: 1
   Slider: {fileID: 2235318093631414815}
 --- !u!1 &3102021777887216616
 GameObject:
