@@ -8,6 +8,8 @@ public class BossPattern : ScriptableObject
 	public bool IsThisPassive = false;
 	public float PassiveCool = 0f;
 
+	public BossMain.BossState[] NextState;
+
 	protected BossMain bossMain;
 	public virtual void Initialize(BossMain bossMain)
 	{

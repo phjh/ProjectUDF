@@ -71,6 +71,7 @@ public class BossMain : MonoBehaviour
 		{
             PassivePatterns[p].Initialize(this);
 			StartPassivePattern(PassivePatterns[p], p);
+            Debug.Log("Active Passive");
 		}
 
         StateMachine.Initialize(IdlePattern);
@@ -78,7 +79,7 @@ public class BossMain : MonoBehaviour
     
 	private void Update()
 	{
-		StateMachine.CurrentPattern.ActivePattern();
+		StateMachine.CurrentPattern?.ActivePattern();
 	}
 
 	public void SetState(BossState bs)

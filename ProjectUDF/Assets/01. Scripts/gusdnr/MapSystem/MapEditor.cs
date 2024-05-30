@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEditor.VersionControl;
+
 
 
 
@@ -30,7 +32,6 @@ public class MapEditor : MonoBehaviour
 	private GameObject EditingMap;
 	private string MapObjectName;
 
-	[ContextMenu("Create_Map")]
 	public void CreateDefaultMap()
 	{
 		if (EditingMap != null)
@@ -50,7 +51,6 @@ public class MapEditor : MonoBehaviour
 		#endregion
 	}
 
-	[ContextMenu("Save_Map")]
 	public void SaveMap()
 	{
 		if (EditingMap == null) return;
@@ -59,7 +59,6 @@ public class MapEditor : MonoBehaviour
 			Application.dataPath + $"/Resources/Map/{number.FloorNumber}/{MapObjectName}.prefab");
 	}
 
-	[ContextMenu("Load_Map")]
 	public void LoadMap()
 	{
 		if (EditingMap != null)
@@ -82,7 +81,6 @@ public class MapEditor : MonoBehaviour
 		}
 	}
 
-	[ContextMenu("Reset_Map")]
 	public void ResetMap()
 	{
 		Tilemap[] tilemap = EditingMap.GetComponentsInChildren<Tilemap>();

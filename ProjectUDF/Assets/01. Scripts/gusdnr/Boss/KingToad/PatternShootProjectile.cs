@@ -7,6 +7,7 @@ public class PatternShootProjectile : BossPattern
 {
     //[SerializeField] private GameObject ProjectileObjet;
     [SerializeField] private int ShootCount = 3;
+    [SerializeField] private float ShootTerm = 0.5f;
 
 	private Vector3 TargetPosition;
 	private Coroutine AttackCoroutine;
@@ -30,7 +31,7 @@ public class PatternShootProjectile : BossPattern
 	public override void ExitPattern()
 	{
 		IsActive = false;
-		bossMain.SetState(BossMain.BossState.Cooldown);
+		bossMain.SetState(NextState[0]);
 	}
 
 	private IEnumerator Shooting()
@@ -38,8 +39,7 @@ public class PatternShootProjectile : BossPattern
 		for (int i = 0; i < ShootCount; i++)
 		{
 			Debug.Log("Shoot Projectile");
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(ShootTerm);
 		}
-		yield return null;
 	}
 }

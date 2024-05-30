@@ -9,15 +9,15 @@ public class PatternKingToadIdle : BossPattern
 	{
 		if(bossMain.IsCooldown == false && bossMain.IsAttack == false)
 		{
-			bossMain.SetState(BossMain.BossState.Attack);
+			bossMain.SetState(NextState[0]);
 		}
 		else if (bossMain.IsCooldown == true)
 		{
-			bossMain.SetState(BossMain.BossState.Cooldown);
+			bossMain.SetState(NextState[1]);
 		}
 		else if(bossMain.IsHaveCC == true)
 		{
-			bossMain.SetState(BossMain.BossState.InCC);
+			bossMain.SetState(NextState[2]);
 		}
 	}
 }

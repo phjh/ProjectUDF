@@ -30,6 +30,6 @@ public class PatternDropStone : BossPattern
 	public override void ExitPattern()
 	{
 		bossMain.IsAttack = false;
-		bossMain.SetState(BossMain.BossState.Cooldown);
+		bossMain.SetState(NextState[0]);
 	}
 }
