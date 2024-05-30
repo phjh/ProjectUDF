@@ -16,6 +16,7 @@ public class DrillChargeAttack : PlayerChargeAttack
         _showRange = true;
         attackRange.SetActive(true);
         charged += Time.deltaTime;
+        PlayerMain.Instance.isInvincible = true;
     }
 
     protected override void OnAttackStart()
@@ -51,6 +52,7 @@ public class DrillChargeAttack : PlayerChargeAttack
         PlayerMain.Instance.canMove = true;
         atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
+        PlayerMain.Instance.isInvincible = false;
 
         Invoke(nameof(OnAttackEnd), timeToEnd);
     }

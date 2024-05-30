@@ -41,7 +41,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public bool isDodging { get; set; }
 
-    bool isInvincible;
+    public bool isInvincible { get; set; }
 
     [Tooltip("무적시간")]
     public float invincibleTime = 0.4f;
@@ -110,7 +110,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         if(LobbyToGame.Instance != null)
         {
             nowWeapon = LobbyToGame.Instance.GetnowWeapon();
-            LobbyToGame.Instance.DeleteThis();
+            //LobbyToGame.Instance.DeleteThis();
         }
         SetWeapon(nowWeapon);
         SkillChange(nowSkill);
