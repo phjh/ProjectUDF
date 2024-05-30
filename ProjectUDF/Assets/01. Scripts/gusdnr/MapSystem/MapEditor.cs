@@ -65,7 +65,9 @@ public class MapEditor : MonoBehaviour
 		}
 
 		MapObjectName = $"{number.FloorNumber}F{number.RooomNumber}R";
-		EditingMap = Resources.Load<GameObject>($"MapMap/{number.FloorNumber}/{MapObjectName}");
+		EditingMap = Resources.Load<GameObject>($"Resources/Map/{number.FloorNumber}/{MapObjectName}.prefab");
+		Debug.Log(Application.dataPath + $"/Resources/Map/{number.FloorNumber}/{MapObjectName}.prefab");
+
 		if(EditingMap != null)
 		{
 			Debug.Log("Complete to Load");
