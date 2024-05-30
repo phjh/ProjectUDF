@@ -23,7 +23,7 @@ MonoBehaviour:
     - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       monsterPos: {x: 10, y: 2}
     - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
-      monsterPos: {x: -1, y: 5}
+      monsterPos: {x: -1, y: -1}
   - AddTime: 10
     AppearMonsterInfo:
     - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}

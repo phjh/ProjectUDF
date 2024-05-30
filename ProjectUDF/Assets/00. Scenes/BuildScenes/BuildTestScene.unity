@@ -16811,6 +16811,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1491603921}
     m_Modifications:
     - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: hitMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 27c8e8b5cc379444a908a4276c850962, type: 2}
+    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: nowWeapon
       value: 
       objectReference: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
