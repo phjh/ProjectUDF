@@ -32,6 +32,8 @@ public abstract class PlayerSkillAttack : PlayerAttack
             Debug.Log($"cooltime (leftCooltime : {_coolattackTime - (_coolattackTimeSet)}");
             return;
         }
+        this.gameObject.SetActive(true);
+        transform.position = PlayerMain.Instance.transform.position;
     }
 
     private void ReduceCooltime() => _coolattackTime--;

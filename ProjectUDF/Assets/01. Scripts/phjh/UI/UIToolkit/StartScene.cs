@@ -24,7 +24,7 @@ public class StartScene : MonoBehaviour
 
         btn.RegisterCallback<ClickEvent>(e =>
         {
-            SceneManager.LoadScene("BuildTestScene");
+            SceneManager.LoadScene((int)SceneList.LobbyScene);
         });
 
 

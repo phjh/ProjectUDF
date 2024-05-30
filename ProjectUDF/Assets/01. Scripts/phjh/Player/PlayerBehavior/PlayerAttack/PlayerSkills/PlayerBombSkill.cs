@@ -14,12 +14,18 @@ public class PlayerBombSkill : PlayerSkillAttack
     private Coroutine coroutine;
 
     public Slider Slider;
+    private Collider2D collider;
+
+    private void Start()
+    {
+        collider = GetComponentInChildren<Collider2D>();
+    }
 
     protected override void TryAttack()
     {
         if (skillused && Time.time - lastSkillusedTime <= 3f)
         {
-            InvokeSkill();
+            EndSkill(); 
             StopCoroutine(coroutine);
             coroutine = null;
         }
@@ -40,7 +46,7 @@ public class PlayerBombSkill : PlayerSkillAttack
             yield return new WaitForSeconds(Time.fixedTime);
         }
         InvokeSkill();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
         EndSkill();
     }
 
@@ -48,6 +54,7 @@ public class PlayerBombSkill : PlayerSkillAttack
     {
         lastSkillusedTime = 0f;
         skillused = false;
+        collider.enabled = true;
 
         //스킬 이펙트와 콜라이더 구현
 
@@ -55,7 +62,13 @@ public class PlayerBombSkill : PlayerSkillAttack
 
     private void EndSkill()
     {
+        collider.enabled = false;
+        this.gameObject.SetActive(false);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 
 }

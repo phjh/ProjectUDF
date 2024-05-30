@@ -1,10 +1,12 @@
 using Spine.Unity;
 using System;
 using System.Collections;
-using System.Runtime.Serialization;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
-using UnityEngine.Rendering;
+
+public enum PlayerStates
+{
+
+}
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
@@ -18,6 +20,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public Action OnAttackEvent;
 
     public Action OnWeaponSetting;
+
+    public PlayerStates state;
 
     #region 움직임 관련 변수들
 
@@ -104,6 +108,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         stat = stat.Clone();
 
         SetWeapon(nowWeapon);
+        SkillChange(nowSkill);
     }
 
     private void Update()
@@ -120,8 +125,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         }
         if (Input.GetKeyDown(KeyCode.H))
             UnEquipStone();
-        if (Input.GetKeyDown(KeyCode.Tab))
-            UIManager.Instance.ManagePocketUI();
     }
 
 	#region Methods
@@ -183,6 +186,15 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public void SetWeapon(PlayerWeapon weapon)
     {
+        if(weapon == null)
+        {
+            Debug.LogWarning($"Waepon is null");
+            return;
+        }
+
+        if (isAttacking || !canAttack)
+            return;
+
         nowWeapon = weapon;
         nowWeaponObj = Instantiate(nowWeapon.weaponObj, playerAim.transform);
         if(nowWeaponObj.TryGetComponent<PlayerBaseAttack>(out var baseAtk))
@@ -190,12 +202,19 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         if (nowWeaponObj.TryGetComponent<PlayerChargeAttack>(out var chargeAtk))
             chargeAttack = chargeAtk;
         OnWeaponSetting?.Invoke();
+
+        UnEquipStone();
     }
 
     public void SkillChange(PlayerSkillAttack skill)
     {
-        nowSkill = skill;
-        
+        if(skill == null)
+        {
+            Debug.LogWarning($"Skill is null");
+            return;
+        }
+
+        nowSkill = Instantiate(skill);
     }
 
     #region 플레이어 공격 - 돌 장착,해제

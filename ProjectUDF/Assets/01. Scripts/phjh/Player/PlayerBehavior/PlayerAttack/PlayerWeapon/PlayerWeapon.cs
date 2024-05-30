@@ -18,6 +18,8 @@ public class PlayerWeapon : ScriptableObject
 
     public List<AnimationReferenceAsset> WeaponIdleAnimations;
 
+    public List<AnimationReferenceAsset> AdditionalAnimations;
+
 
     public float GetCaculateDamage()
     {
