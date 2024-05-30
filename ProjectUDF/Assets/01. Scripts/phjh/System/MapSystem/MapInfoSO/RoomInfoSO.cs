@@ -9,7 +9,7 @@ public class RoomInfoSO : ScriptableObject
 {
     [Header("방 정보들")]
     public int id;
-    [SerializeField] private GameObject TileObject;
+    public GameObject TileObject;
     [Range(30, 600)]public float timeLimit = 120;
 
     [Header("Monster Data")]
