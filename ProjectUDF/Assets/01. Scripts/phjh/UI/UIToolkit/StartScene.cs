@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class StartScene : MonoBehaviour
 {
     private UIDocument _uiDocument;
+    public SceneList NextScene;
 
     private void Awake()
     {
@@ -24,9 +25,17 @@ public class StartScene : MonoBehaviour
 
         btn.RegisterCallback<ClickEvent>(e =>
         {
-            SceneManager.LoadScene("BuildTestScene");
+            SceneManager.LoadScene((int)NextScene);
         });
 
 
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+            SceneManager.LoadScene((int)NextScene);
+
+    }
+
 }

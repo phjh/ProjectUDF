@@ -10,6 +10,9 @@ public abstract class PlayerSkillAttack : PlayerAttack
     protected int _coolattackTime;
     protected int _coolattackTimeSet;
 
+    [SerializeField]
+    protected float damageFactor = 1f;
+
     protected override void OnEnable()
     {
         PlayerMain.Instance.OnAttackEvent += ReduceCooltime;
@@ -32,6 +35,8 @@ public abstract class PlayerSkillAttack : PlayerAttack
             Debug.Log($"cooltime (leftCooltime : {_coolattackTime - (_coolattackTimeSet)}");
             return;
         }
+        this.gameObject.SetActive(true);
+        transform.position = PlayerMain.Instance.transform.position;
     }
 
     private void ReduceCooltime() => _coolattackTime--;

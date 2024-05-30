@@ -42,10 +42,10 @@ public abstract class PlayerAttack : MonoBehaviour
         StrengthStatValue = PlayerMain.Instance.stat.Strength.GetValue();
     }
 
-    protected float CalculateDamage(float factor)
+    protected float CalculateDamage(float factor, bool isSkill = false)
     {
         GetRecentDamage();
-        float damage = 0;
+        float damage = PlayerMain.Instance.stat.Strength.GetValue();
         bool critical = false;
         if (UnityEngine.Random.Range(0, 100.0f) < PlayerMain.Instance.stat.Lucky.GetValue() + baseCriticalChance)
         {
@@ -54,12 +54,15 @@ public abstract class PlayerAttack : MonoBehaviour
         }
         else
         {
-            damage = PlayerMain.Instance.stat.Strength.GetValue() * factor;
+            damage *= factor;
         }
-        recentDamage = Mathf.Ceil(damage * 10) / 10;
+        if (!isSkill)
+        {
+            recentDamage = Mathf.Ceil(damage * 10) / 10;
+            SetRecentDamage();
+        }
         _isCritical = critical;
         PlayerMain.Instance.isCritical = critical;
-        SetRecentDamage();
         return damage;
     }
 

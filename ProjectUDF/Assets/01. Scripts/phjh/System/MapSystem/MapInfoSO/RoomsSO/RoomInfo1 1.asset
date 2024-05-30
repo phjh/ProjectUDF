@@ -15,14 +15,17 @@ MonoBehaviour:
   id: 1
   TileObject: {fileID: 3447964171512033632, guid: 8968c41d0125d6f4e8aadc688c70de02, type: 3}
   timeLimit: 100
-  monsterWaves: 2
-  numberOfMonsters: 0100000002000000
-  spawnMonsterList: []
-  spawnMonsters:
-  - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 0, y: 0}
-  - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 0, y: 0}
-  - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    monsterPos: {x: 2, y: 3}
+  RoomWaveData:
+  - AddTime: 15
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 0, y: 0}
+  - AddTime: 15
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 0, y: 0}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 4, y: 3}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -2, y: 0}
   exits: 020000000300000000000000

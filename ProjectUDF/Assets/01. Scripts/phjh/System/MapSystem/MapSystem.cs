@@ -133,7 +133,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     private void WaveClear()
     {
-		TimeManager.Instance.RemainTime += CurRoom.RoomWaveData[waveCount].AddTime;
+		//TimeManager.Instance.RemainTime += CurRoom.RoomWaveData[waveCount].AddTime;
 		waveCount++;
 		if (waveCount == CurRoom.RoomWaveData.Count)
         {
