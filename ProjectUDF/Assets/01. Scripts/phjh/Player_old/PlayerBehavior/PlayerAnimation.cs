@@ -201,8 +201,10 @@ public class PlayerAnimation : MonoBehaviour
                 if(additionalAnimations.Count != 0 && !isRightPressed)
                 {
                     SetAnimation(skeletonAnimation, additionalAnimations[0], 0, false, 0);
+                    PlayerMain.Instance.canMove = false;
                     yield return new WaitForSeconds(additionalAnimations[0].Animation.Duration/2);
                 }
+                PlayerMain.Instance.canMove = true;
                 isRightPressed = true;
 
                 yield return new WaitForSeconds(fixedTime);
@@ -215,8 +217,10 @@ public class PlayerAnimation : MonoBehaviour
                 if (additionalAnimations.Count > 1)
                 {
                     SetAnimation(skeletonAnimation, additionalAnimations[1], 0, false, 0);
+                    PlayerMain.Instance.canMove = false;
                     yield return new WaitForSeconds(additionalAnimations[1].Animation.Duration/2);
                 }
+                PlayerMain.Instance.canMove = true;
                 yield return new WaitForSeconds(rightAttackAnimations[0].Animation.Duration + 0.1f);
                 lastMoveDirection = (MoveDirectionList)aimAngle;
                 isRightPressed = false;

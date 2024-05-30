@@ -13,26 +13,20 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     public event Action InventoryEvent;
 
     public Vector2 AimPosition { get; private set; } //마우스는 이벤트방식이 아니기 때문에
-    private Controls _playerInputAction;
-    private Controls _gameSystemAction;
+    private Controls _inputAction;
 
 
     private void OnEnable()
     {
-        if (_playerInputAction == null)
+        if (_inputAction == null)
         {
-            _playerInputAction = new Controls();
-            _playerInputAction.Player.SetCallbacks(this); //플레이어 인풋이 발생하면 이 인스턴스를 연결해주고
+            _inputAction = new Controls();
+            _inputAction.Player.SetCallbacks(this); //플레이어 인풋이 발생하면 이 인스턴스를 연결해주고
+            _inputAction.GameSystem.SetCallbacks(this); 
         }
         
-        if(_gameSystemAction == null)
-        {
-            _gameSystemAction = new Controls();
-            _gameSystemAction.Player.SetCallbacks(this);
-        }
-
-        _playerInputAction.Player.Enable(); //활성화
-        _playerInputAction.GameSystem.Enable(); //까먹지 말자
+        _inputAction.Player.Enable(); //활성화
+        _inputAction.GameSystem.Enable(); //까먹지 말자
     }
 
     #region Player Inputs
@@ -85,7 +79,6 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     {
         if (context.performed)
         {
-            Debug.Log("TTTT");
             UIManager.Instance.ManagePocketUI();
             InventoryEvent.Invoke();
         }
