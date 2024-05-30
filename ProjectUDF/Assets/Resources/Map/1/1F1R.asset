@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 101
   TileObject: {fileID: 5117116589226468409, guid: d63619697ddc27e4590598e50cab177d, type: 3}
-  timeLimit: 120
+  timeLimit: 140
   RoomWaveData:
-  - AddTime: 5
+  - AddTime: 15
     AppearMonsterInfo:
     - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       monsterPos: {x: -7, y: 3}

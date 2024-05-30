@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
+  m_Name: 1F2R
+  m_EditorClassIdentifier: 
+  id: 102
+  TileObject: {fileID: 1417803606014520388, guid: c6647cd336099504f8c974fcc7f804ac, type: 3}
+  timeLimit: 140
+  RoomWaveData:
+  - AddTime: 5
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: 7, y: -4.5}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: -3, y: -5}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: -10, y: 3}
+  - AddTime: 10
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      monsterPos: {x: -4, y: 3}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: 10, y: -2.5}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: -10, y: 3}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -9, y: -1}
+  - AddTime: 5
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: -4, y: -4}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: 2, y: 2.5}
+    - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      monsterPos: {x: 9.5, y: 2.5}
+  exits: 010000000300000002000000
