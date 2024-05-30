@@ -14,7 +14,7 @@ public abstract class PoolableMono : MonoBehaviour
     public void CustomInstantiate(Vector2 pos, PoolObjectListEnum objenum)
     {
         PoolableMono poolItem = PoolManager.Instance.Pop(objenum);
-        poolItem.transform.position = pos;
+        poolItem.transform.localPosition = pos;
     }
 
 
