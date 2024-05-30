@@ -16,7 +16,14 @@ public abstract class BulletMono : PoolableMono
     protected string WhatIsObstacle = "Obstacle";
 
     public virtual void Shoot(Vector2 direction) { }
-    protected void PushBullet()
+    public virtual void Shoot(Transform direction) { }
+
+	private void OnEnable()
+	{
+		Debug.Assert(BulletEnum != PoolObjectListEnum.None, $"{gameObject.name}'s Bullet Enum is None [NullRef,PLZ Checking Inspector]");
+	}
+
+	protected void PushBullet()
     {
         StopAllCoroutines();
         PoolManager.Instance.Push(this, BulletEnum);

@@ -31,7 +31,7 @@ public class PatternShootProjectile : BossPattern
 	public override void ExitPattern()
 	{
 		IsActive = false;
-		bossMain.SetState(BossMain.BossState.Cooldown);
+		bossMain.SetState(NextState[0]);
 	}
 
 	private IEnumerator Shooting()
