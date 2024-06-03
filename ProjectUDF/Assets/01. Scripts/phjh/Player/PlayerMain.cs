@@ -23,6 +23,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public PlayerStates state;
 
+    public bool IsUIPopuped = false;
+
     #region 움직임 관련 변수들
 
     public PlayerWeapon nowWeapon;
@@ -118,11 +120,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
-            baseAttack.OnAttackPrepare();
-        else if (Input.GetMouseButton(1))
-            chargeAttack.OnAttackPrepare();
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             UnEquipStone();
@@ -130,6 +127,15 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         }
         if (Input.GetKeyDown(KeyCode.H))
             UnEquipStone();
+
+        if (IsUIPopuped)
+            return;
+
+        if (Input.GetMouseButton(0))
+            baseAttack.OnAttackPrepare();
+        else if (Input.GetMouseButton(1))
+            chargeAttack.OnAttackPrepare();
+
     }
 
 	#region Methods

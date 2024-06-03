@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PlayerMain.Instance.canMove)
+        if (PlayerMain.Instance.canMove && !PlayerMain.Instance.IsUIPopuped)
             CalculatePlayerMovement();
         else 
             StopImmediately();

@@ -18,6 +18,7 @@ public enum PoolEffectListEnum
 	CannonCharge,
 	CannonFire,
 	CannonRebound,
+	ExplosionEffect,
 }
 
 public enum PoolUIListEnum 

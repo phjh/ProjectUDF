@@ -57,6 +57,7 @@ public class PlayerBombSkill : PlayerSkillAttack
         lastSkillusedTime = 0f;
         skillused = false;
         collider.enabled = true;
+        EffectSystem.Instance.EffectInvoker(PoolEffectListEnum.ExplosionEffect, this.transform.position, 0.2f);
 
         //스킬 이펙트와 콜라이더 구현
 
@@ -85,9 +86,9 @@ public class PlayerBombSkill : PlayerSkillAttack
             Debug.Log("Connected trigger damage : " + PlayerMain.Instance.recentDamage);
             hitList.Add(collision.gameObject);
             EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), CalculateDamage(damageFactor, true), 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
+            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, CalculateDamage(damageFactor, true), 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);
-            GameManager.Instance.ShakeCamera();
+            GameManager.Instance.ShakeCamera(5);
         }
         else if (collision.CompareTag("Enemy"))
         {
@@ -99,16 +100,16 @@ public class PlayerBombSkill : PlayerSkillAttack
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy) && !hitCooldownObjs.Contains(collision.gameObject))
-        {
-            hitCooldownObjs.Enqueue(collision.gameObject);
-            EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
-            enemy.Damage(PlayerMain.Instance.recentDamage);
-            GameManager.Instance.ShakeCamera();
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.TryGetComponent<EnemyMain>(out EnemyMain enemy) && !hitCooldownObjs.Contains(collision.gameObject))
+    //    {
+    //        hitCooldownObjs.Enqueue(collision.gameObject);
+    //        EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
+    //        UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), CalculateDamage(damageFactor, true), 0.5f, collision.transform.position, PlayerMain.Instance.isCritical) ;
+    //        enemy.Damage(PlayerMain.Instance.recentDamage);
+    //        GameManager.Instance.ShakeCamera(5);
+    //    }
+    //}
 
 }

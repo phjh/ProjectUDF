@@ -25,6 +25,8 @@ public abstract class PlayerSkillAttack : PlayerAttack
 
     protected override void TryAttack()
     {
+        if (PlayerMain.Instance.preparingAttack)
+            return;
         if(_coolattackTime <= 0)
         {
             _coolattackTime = _coolattackTimeSet;

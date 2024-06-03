@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class UIPoolSystem : MonoSingleton<UIPoolSystem>
 {
-    public void PopupDamageText(PoolUIListEnum type, float strength, float damage, float time, Vector3 trm, bool isCritical = false) => StartCoroutine(DamageTextSetting(type, strength, damage, time, trm, isCritical));
+    public void PopupDamageText(PoolUIListEnum type, float damage, float time, Vector3 trm, bool isCritical = false) => StartCoroutine(DamageTextSetting(type, damage, time, trm, isCritical));
 
-    private IEnumerator DamageTextSetting(PoolUIListEnum type, float strength, float damage, float time, Vector3 trm, bool isCritical)
+    private IEnumerator DamageTextSetting(PoolUIListEnum type, float damage, float time, Vector3 trm, bool isCritical)
     {
         Debug.Log(0);
         PoolableMono mono = PoolManager.Instance.Pop(type);

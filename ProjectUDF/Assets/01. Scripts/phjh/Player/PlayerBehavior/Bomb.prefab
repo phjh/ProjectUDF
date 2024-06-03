@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8431678583396000578}
-  - component: {fileID: 2548887514806271339}
+  - component: {fileID: 395593116046054860}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 2214342719271688888}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2548887514806271339
+--- !u!114 &395593116046054860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,9 +238,9 @@ GameObject:
   - component: {fileID: 1084622389315838270}
   - component: {fileID: 4044101949198062573}
   - component: {fileID: 3517386915158233398}
-  - component: {fileID: 5027429770039893321}
+  - component: {fileID: 4707255412843298420}
   m_Layer: 0
-  m_Name: Square
+  m_Name: BombRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,7 +348,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.4718475
---- !u!114 &5027429770039893321
+--- !u!114 &4707255412843298420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -357,11 +357,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4841284612082058720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c350bdf17f1ae84a955c89d9f245bdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c84de11688196146ae5da668ae69a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitCooldown: 1
-  isStay: 0
+  _coolattackTime: 0
+  damageFactor: 1.2
+  bombtime: 1
+  Slider: {fileID: 2235318093631414815}
 --- !u!1 &6705563974267954284
 GameObject:
   m_ObjectHideFlags: 0

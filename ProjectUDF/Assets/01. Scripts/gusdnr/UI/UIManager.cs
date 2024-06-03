@@ -125,14 +125,16 @@ public class UIManager : MonoSingleton<UIManager>
 	#region Manage UI
 	public void ManagePocketUI()
 	{
-		Debug.LogWarning("managePocketui");
+		if (PlayerMain.Instance.IsUIPopuped)
+			return;
+
 		if (IsOnInventoryUI == false)
 		{
 			if (IsActivePopUp == false)
 			{
 				SetScreenFilter(true);
 				PocketUIParent.gameObject.SetActive(true);
-
+				PlayerMain.Instance.IsUIPopuped = true;
 				_OreInfo.CloseUI();
 				SetOreList();
 				IsOnInventoryUI = true;
@@ -148,12 +150,17 @@ public class UIManager : MonoSingleton<UIManager>
 			SetScreenFilter(false);
 			IsOnInventoryUI = false;
 			GameManager.Instance.UpdateState(GameStates.Playing);
+			PlayerMain.Instance.IsUIPopuped = false;
 		}
 	}
 
 	public void ShowMining()
 	{
-		if (IsOnInventoryUI == true) CloseMining();
+        if (PlayerMain.Instance.IsUIPopuped)
+            return;
+
+        if (IsOnInventoryUI == true) CloseMining();
+		PlayerMain.Instance.IsUIPopuped = true;
 		IsActivePopUp = true;
 		failCount = 0;
 		SetScreenFilter(IsActivePopUp);
@@ -166,7 +173,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void CloseMining()
 	{
-		IsActivePopUp = false;
+        PlayerMain.Instance.IsUIPopuped = false;
+        IsActivePopUp = false;
 		SetScreenFilter(IsActivePopUp);
 		GameManager.Instance.UpdateState(GameStates.Playing);
 	}

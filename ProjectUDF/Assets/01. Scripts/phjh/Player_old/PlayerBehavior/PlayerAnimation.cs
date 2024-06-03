@@ -297,6 +297,11 @@ public class PlayerAnimation : MonoBehaviour
         animator.AnimationState.SetAnimation(track, animation, true).Reverse = true;
     }
 
+    public void SetAnimationAsEmpty(SkeletonAnimation animator, int track)
+    {
+        animator.AnimationState.SetEmptyAnimation(track, 0);
+    }
+
     int[] arr = { 1, 7, 3, 5, 0, 4, 2, 6 };
     List<AnimationReferenceAsset> GetSortedAnimationList(List<AnimationReferenceAsset> animation)
     {

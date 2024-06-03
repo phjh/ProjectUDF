@@ -30,7 +30,7 @@ public class PlayerAtkDectector : MonoBehaviour
             Debug.Log("Connected trigger damage : " + PlayerMain.Instance.recentDamage);
             hitList.Add(collision.gameObject);
             EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
+            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);
             GameManager.Instance.ShakeCamera();
         }
@@ -53,7 +53,7 @@ public class PlayerAtkDectector : MonoBehaviour
         {
             hitCooldownObjs.Enqueue(collision.gameObject);
             EffectSystem.Instance.EffectsInvoker(PoolEffectListEnum.HitEffect, transform.position + (collision.gameObject.transform.position - transform.position) / 2, 0.3f);
-            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.stat.Strength.GetValue(), PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
+            UIPoolSystem.Instance.PopupDamageText(PoolUIListEnum.DamageText, PlayerMain.Instance.recentDamage, 0.5f, collision.transform.position, PlayerMain.Instance.isCritical);
             enemy.Damage(PlayerMain.Instance.recentDamage);
             GameManager.Instance.ShakeCamera();
             Invoke(nameof(SetCooldownObjList), hitCooldown);
