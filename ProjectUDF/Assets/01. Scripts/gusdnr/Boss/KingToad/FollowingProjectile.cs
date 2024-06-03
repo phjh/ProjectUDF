@@ -15,19 +15,16 @@ public class FollowingProjectile : BulletMono
 	private bool isActiveRange = false;
 
 	private Transform Target;
-	private Coroutine AttackCoroutine;
-	private BoxCollider2D AttackRange;
 
 	public override void ResetPoolingItem()
 	{
-		attackCount = 0;
 		Target = null;
-		AttackCoroutine = null;
+
+		attackCount = 0;
 		isActiveRange = false;
-		if(AttackRange == null) GetComponent<BoxCollider2D>();
 	}
 
-	private void FixedUpdate()
+	private void Update()
 	{
         if (Target != null)
         {
@@ -38,14 +35,14 @@ public class FollowingProjectile : BulletMono
 	private void MoveProjctile()
 	{
 		Vector3 movedir = (transform.localPosition - Target.position).normalized;
-		transform.localPosition = movedir * moveSpeed * Time.fixedDeltaTime;
+		transform.localPosition += movedir * moveSpeed * Time.deltaTime;
 	}
 
 	public override void Shoot(Transform direction)
 	{
 		Target = direction;
 
-		AttackCoroutine = StartCoroutine(ProjectileCoroutine());
+		StartCoroutine(ProjectileCoroutine());
 	}
 
 	private IEnumerator ProjectileCoroutine()
@@ -64,7 +61,7 @@ public class FollowingProjectile : BulletMono
 	{
 		if (attackRanges[attackCount] != null)
 		{
-			AttackRange.size = attackRanges[attackCount];
+			transform.localScale = attackRanges[attackCount];
 		}
 		else
 		{

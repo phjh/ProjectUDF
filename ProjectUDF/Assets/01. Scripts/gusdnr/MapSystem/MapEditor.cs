@@ -65,16 +65,15 @@ public class MapEditor : MonoBehaviour
 		}
 
 		MapObjectName = $"{number.FloorNumber}F{number.RooomNumber}R";
-		EditingMap = Resources.Load<GameObject>($"Resources/Map/{number.FloorNumber}/{MapObjectName}.prefab");
-		Debug.Log(Application.dataPath + $"/Resources/Map/{number.FloorNumber}/{MapObjectName}.prefab");
+		GameObject resource = Resources.Load($"Map/{number.FloorNumber}/{MapObjectName}") as GameObject;
 
-		if(EditingMap != null)
+		if(resource != null)
 		{
 			Debug.Log("Complete to Load");
-			EditingMap = Instantiate(EditingMap);
+			EditingMap = Instantiate(resource);
 			EditingMap.transform.name = MapObjectName;
 		}
-		else if(EditingMap == null)
+		else if(resource == null)
 		{
 			Debug.Log("Can't find Object / Craete New Map");
 			CreateDefaultMap();
