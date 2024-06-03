@@ -10,6 +10,7 @@ public enum PlayerStates
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
+    
     public PlayerStats stat;
     public InputReader inputReader;
 

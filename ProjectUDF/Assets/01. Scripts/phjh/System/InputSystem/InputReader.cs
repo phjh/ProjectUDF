@@ -10,7 +10,6 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
     public event Action<Vector2> MovementEvent;
     public event Action DodgeEvent;
     public event Action PauseEvent;
-    public event Action InventoryEvent;
 
     public Vector2 AimPosition { get; private set; } //마우스는 이벤트방식이 아니기 때문에
     private Controls _inputAction;
@@ -43,7 +42,8 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
 
     public void OnDodge(InputAction.CallbackContext context)
     {
-        DodgeEvent?.Invoke();
+        if(!PlayerMain.Instance.preparingAttack)
+            DodgeEvent?.Invoke();
     }
 
     public void OnBaseAttack(InputAction.CallbackContext context)
@@ -77,10 +77,11 @@ public class InputReader : ScriptableObject, IPlayerActions, IGameSystemActions
 
     public void OnInventory(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        Debug.LogWarning("tab entered");
+        if (context.started)
         {
+            Debug.LogWarning("tab entered2");
             UIManager.Instance.ManagePocketUI();
-            InventoryEvent.Invoke();
         }
     }
 
