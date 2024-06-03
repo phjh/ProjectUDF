@@ -21,17 +21,21 @@ public class PatternShockWave : BossPattern
 	public override void EnterPattern()
 	{
 		ResetValues();
-
+		AttackCoroutine = bossMain.StartCoroutine(ActiveShockWave());
 	}
 
 	public override void ActivePattern()
 	{
-		base.ActivePattern();
+		if(AttackCoroutine == null)
+		{
+			ExitPattern();
+		}
 	}
 
 	public override void ExitPattern()
 	{
 		ResetValues();
+		bossMain.SetState(NextState[0]);
 	}
 
 	private void ResetValues()
@@ -46,8 +50,16 @@ public class PatternShockWave : BossPattern
 
 		for(int c = 0; c < RepeatCount; c++)
 		{
-			ShockWaveZones[AttackPoses[c]].gameObject.SetActive(true);
-			yield return SetAttackOrder();
+			if (ShockWaveZones[AttackPoses[c]] == null)
+			{
+				Debug.LogWarning($"Non Object [Index : {AttackPoses[c]}]");
+			}
+			else
+			{
+				ShockWaveZones[AttackPoses[c]].gameObject.SetActive(true);
+				yield return new WaitForSeconds(AttackTerm);
+				ShockWaveZones[AttackPoses[c]].gameObject.SetActive(false);
+			}
 		}
 	}
 

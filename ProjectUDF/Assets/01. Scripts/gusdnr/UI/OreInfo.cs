@@ -23,6 +23,13 @@ public class OreInfo : UIMono
 
 	public OreDataHolder SelectIcon { get; set; } = null;
 
+	public void RefreshEquips()
+	{
+		SlotList[0].SlotObject?.ShowUI();
+		SlotList[1].SlotObject?.ShowUI();
+		SlotList[2].SlotObject?.ShowUI();
+	}
+
 	public override void ShowUI()
 	{
 		Debug.Log("Active Info");
@@ -33,6 +40,7 @@ public class OreInfo : UIMono
 		}
 		SetOreInfo();
 		SetClickEvent();
+		RefreshEquips();
 	}
 
 	public override void CloseUI()
@@ -42,6 +50,8 @@ public class OreInfo : UIMono
 		SelectIcon = null;
 		gameObject.SetActive(false);
 		IsShowed = false;
+
+		RefreshEquips();
 	}
 
 	public void SetUpHolder(OreDataHolder selected) => SelectIcon = selected;

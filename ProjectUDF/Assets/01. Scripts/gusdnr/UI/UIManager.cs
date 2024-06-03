@@ -25,7 +25,7 @@ public class UIManager : MonoSingleton<UIManager>
 	[Header("Data List")]
 	public List<OreSO> OreDatas;
 	public List<OreSO> GemDatas;
-	[HideInInspector] public List<GameObject> IconList;
+	public List<GameObject> IconList;
 	[HideInInspector] public List<OreCard> Cards;
 
 	private List<int> InOreList; //실제 리스트 할당
@@ -53,6 +53,14 @@ public class UIManager : MonoSingleton<UIManager>
 	{
 		MapSystem.Instance.RoomClearEvent += ShowMining;
 		OreInventory.Instance.ChangeContents += SetOreList;
+		OreInventory.Instance.ChangeContents += _OreInfo.RefreshEquips;
+	}
+
+	private void OnDisable()
+	{
+		MapSystem.Instance.RoomClearEvent -= ShowMining;
+		OreInventory.Instance.ChangeContents -= SetOreList;
+		OreInventory.Instance.ChangeContents -= _OreInfo.RefreshEquips;
 	}
 
 	#region Mining UI
@@ -89,6 +97,24 @@ public class UIManager : MonoSingleton<UIManager>
 
 		InGemList = OreInventory.Instance.GemList;
 		CalculateInventory(InGemList, GemDatas);
+
+		_OreInfo.RefreshEquips();
+	}
+
+	public void RemoveIcon(int statNumber)
+	{
+		foreach(GameObject item in IconList)
+		{
+			if (item.TryGetComponent<OreDataHolder>(out var dataHolder))
+			{
+				if (dataHolder.HoldingData.stat == (Stats)statNumber)
+				{
+					IconList.Remove(item);
+					Destroy(item.gameObject);
+					break;
+				}
+			}
+		};
 	}
 
 	private void CalculateInventory(List<int> baseList, List<OreSO> dataList) //Calculate To In OreInventoryList
@@ -106,7 +132,7 @@ public class UIManager : MonoSingleton<UIManager>
 		}
 	}
 
-	private void AddOreIcon(OreSO data) //Make Ore Icon Image
+	public void AddOreIcon(OreSO data) //Make Ore Icon Image
 	{
 		GameObject newOre = Instantiate(OrePrefab);
 		OreDataHolder soHolder = newOre.GetComponent<OreDataHolder>();
@@ -116,7 +142,6 @@ public class UIManager : MonoSingleton<UIManager>
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHolder.HoldingData.name}]");
 		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, 240), -50, 0);
 		IconList.Add(newOre);
-
 	}
 
 	#endregion
@@ -141,7 +166,7 @@ public class UIManager : MonoSingleton<UIManager>
 		}
 		else if (IsOnInventoryUI == true)
 		{
-		Debug.LogWarning(4);
+			Debug.LogWarning(4);
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			PocketUIParent.gameObject.SetActive(false);
@@ -155,10 +180,10 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void ShowMining()
 	{
-        if (PlayerMain.Instance.IsUIPopuped)
-            return;
+		if (PlayerMain.Instance.IsUIPopuped)
+			return;
 
-        if (IsOnInventoryUI == true) CloseMining();
+		if (IsOnInventoryUI == true) CloseMining();
 		PlayerMain.Instance.IsUIPopuped = true;
 		IsActivePopUp = true;
 		failCount = 0;
@@ -172,8 +197,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 	public void CloseMining()
 	{
-        PlayerMain.Instance.IsUIPopuped = false;
-        IsActivePopUp = false;
+		PlayerMain.Instance.IsUIPopuped = false;
+		IsActivePopUp = false;
 		SetScreenFilter(IsActivePopUp);
 		GameManager.Instance.UpdateState(GameStates.Playing);
 	}

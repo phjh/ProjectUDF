@@ -30,25 +30,30 @@ public class OreSlot : UIMono
 		{
 			OreStatNumber = (int)OreInventory.Instance.SubOreType[Index];
 		}
+		Debug.Log($"IsMain{IsMain} [{Index}] [Equip : {(Stats)OreStatNumber}]");
 		EquipDataInSlot(OreStatNumber);
 	}
 
 	public void UnEquipMainOre()
 	{
 		OreInventory.Instance.UnequipMain();
-		EquipDataInSlot((int)Stats.None);
+		//EquipDataInSlot((int)Stats.None);
 	}
 
 	public void UnEquipSubOre()
 	{
 		OreInventory.Instance.UnequipSub(Index);
-		EquipDataInSlot((int)Stats.None);
+		//EquipDataInSlot((int)Stats.None);
 	}
 
 	public void EquipDataInSlot(int dataIndex)
 	{
+		if(!IsMain)
+		Debug.Log($"[{Index}] Activate [Before : {EquipOreType?.stat}]");
 		EquipOreType = UIManager.Instance.OreDatas[dataIndex];
 		SlotImage.sprite = EquipOreType.OreSprite;
+		if(!IsMain)
+		Debug.Log($"[{Index}] Activate [After : {EquipOreType?.stat}]");
 	}
 
 	public override void CloseUI()
