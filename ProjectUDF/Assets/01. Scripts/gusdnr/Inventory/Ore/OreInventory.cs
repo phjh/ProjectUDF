@@ -168,10 +168,13 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 	public void UnequipSub(int index)
 	{
-		if (SubOreType[index] == Stats.None) return;
 		OreSO data = UIManager.Instance.OreDatas[(int)SubOreType[index]];
-		AddOre(SubOreType[index], data.value);
-		SubOreType[index] = Stats.None;
+		Debug.Log($"{data} [index:{index}]");
+		if (data.stat != Stats.None)
+		{
+			AddOre(SubOreType[index], data.value);
+			SubOreType[index] = Stats.None;
+		}
 		ChangeContents?.Invoke();
 	}
 	
