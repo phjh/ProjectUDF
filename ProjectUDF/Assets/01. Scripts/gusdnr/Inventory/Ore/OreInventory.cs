@@ -42,6 +42,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 
 		OreList = Enumerable.Repeat(0, 4).ToList();
 		GemList = Enumerable.Repeat(0, 4).ToList();
+
+		ChangeContents?.Invoke();
 	}
 
 	#region Add Methods
@@ -126,6 +128,9 @@ public class OreInventory : MonoSingleton<OreInventory>
 		}
 		else return;
 		MainOreType = statName;
+
+		UIManager.Instance._OreInfo.RefreshEquips();
+
 		OnChangeMainOre?.Invoke(MainOreType);
 		ChangeContents?.Invoke();
 	}
@@ -166,6 +171,8 @@ public class OreInventory : MonoSingleton<OreInventory>
 			return;
 		}
 
+		UIManager.Instance._OreInfo.RefreshEquips();
+
 		ChangeContents?.Invoke();
 	}
 
@@ -178,6 +185,7 @@ public class OreInventory : MonoSingleton<OreInventory>
 			UIManager.Instance.AddOreIcon(data);
 		}
 		SubOreType[index] = Stats.None;
+		UIManager.Instance._OreInfo.RefreshEquips();
 
 		ChangeContents?.Invoke();
 	}

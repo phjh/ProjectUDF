@@ -53,14 +53,12 @@ public class UIManager : MonoSingleton<UIManager>
 	{
 		MapSystem.Instance.RoomClearEvent += ShowMining;
 		OreInventory.Instance.ChangeContents += SetOreList;
-		OreInventory.Instance.ChangeContents += _OreInfo.RefreshEquips;
 	}
 
 	private void OnDisable()
 	{
 		MapSystem.Instance.RoomClearEvent -= ShowMining;
 		OreInventory.Instance.ChangeContents -= SetOreList;
-		OreInventory.Instance.ChangeContents -= _OreInfo.RefreshEquips;
 	}
 
 	#region Mining UI
@@ -97,23 +95,27 @@ public class UIManager : MonoSingleton<UIManager>
 
 		InGemList = OreInventory.Instance.GemList;
 		CalculateInventory(InGemList, GemDatas);
-
-		_OreInfo.RefreshEquips();
 	}
 
 	public void RemoveIcon(int statNumber)
 	{
+		bool isRemoveOneIcon = false;
+
 		foreach(GameObject item in IconList)
 		{
+			if(isRemoveOneIcon) break;
+
 			if (item.TryGetComponent<OreDataHolder>(out var dataHolder))
 			{
 				if (dataHolder.HoldingData.stat == (Stats)statNumber)
 				{
 					IconList.Remove(item);
 					Destroy(item.gameObject);
-					break;
+					isRemoveOneIcon = true;
 				}
 			}
+
+			if(isRemoveOneIcon) break;
 		};
 	}
 
@@ -137,7 +139,7 @@ public class UIManager : MonoSingleton<UIManager>
 		GameObject newOre = Instantiate(OrePrefab);
 		OreDataHolder soHolder = newOre.GetComponent<OreDataHolder>();
 		soHolder.SettingOreData(data);
-
+		
 		newOre.transform.SetParent(IconContainer);
 		newOre.name = newOre.name.Replace("(Clone)", $"[{soHolder.HoldingData.name}]");
 		newOre.transform.localPosition = new Vector3(UnityEngine.Random.Range(-240, 240), -50, 0);
@@ -166,7 +168,6 @@ public class UIManager : MonoSingleton<UIManager>
 		}
 		else if (IsOnInventoryUI == true)
 		{
-			Debug.LogWarning(4);
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			PocketUIParent.gameObject.SetActive(false);
