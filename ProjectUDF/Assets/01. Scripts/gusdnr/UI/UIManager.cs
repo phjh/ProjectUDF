@@ -126,13 +126,10 @@ public class UIManager : MonoSingleton<UIManager>
 	{
 		if (!IsOnInventoryUI && PlayerMain.Instance.IsUIPopuped)
 			return;
-		Debug.LogWarning(1);
 		if (IsOnInventoryUI == false)
 		{
-		Debug.LogWarning(2);
 			if (IsActivePopUp == false)
 			{
-		Debug.LogWarning(3);
 				SetScreenFilter(true);
 				PocketUIParent.gameObject.SetActive(true);
 				PlayerMain.Instance.IsUIPopuped = true;

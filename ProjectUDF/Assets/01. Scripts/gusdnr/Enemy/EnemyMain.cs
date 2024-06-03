@@ -213,13 +213,13 @@ public class EnemyMain : PoolableMono
 	}
 	#endregion
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-        if (collision.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement move))
-        {
-            PlayerMain.Instance.GetDamage();
-        }
-    }
+	//private void OnTriggerEnter2D(Collider2D collision)
+	//{
+ //       if (collision.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement move))
+ //       {
+ //           PlayerMain.Instance.GetDamage();
+ //       }
+ //   }
 
 	#endregion
 }
