@@ -5,16 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Pattern_ShootProjectile", menuName = "SO/Boss/KingToad/Pattern_ShootProjectile")]
 public class PatternShootProjectile : BossPattern
 {
-    //[SerializeField] private GameObject ProjectileObjet;
-    [SerializeField] private int ShootCount = 3;
+    [SerializeField] private BulletMono ProjectileObjet;
     [SerializeField] private float ShootTerm = 0.5f;
 
-	private Vector3 TargetPosition;
+	[SerializeField] private Transform[] ShootPositions;
+	
+	private Transform Target;
 	private Coroutine AttackCoroutine;
 
 	public override void EnterPattern()
 	{
-		TargetPosition = bossMain.TargetTrm.position;
+		Target = bossMain.TargetTrm;
 		IsActive = true;
 		//오브젝트 풀링을 이용해 발사할 오브젝트 미리 생성
 		AttackCoroutine = bossMain.StartCoroutine(Shooting());
@@ -36,9 +37,10 @@ public class PatternShootProjectile : BossPattern
 
 	private IEnumerator Shooting()
 	{
-		for (int i = 0; i < ShootCount; i++)
+		for (int i = 0; i < ShootPositions.Length; i++)
 		{
-			Debug.Log("Shoot Projectile");
+			ProjectileObjet.CustomInstantiate(ShootPositions[i].position, ProjectileObjet.BulletEnum);
+			ProjectileObjet.Shoot(Target);
 			yield return new WaitForSeconds(ShootTerm);
 		}
 	}
