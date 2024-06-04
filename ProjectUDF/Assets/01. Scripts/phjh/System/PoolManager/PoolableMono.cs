@@ -16,6 +16,12 @@ public abstract class PoolableMono : MonoBehaviour
         PoolableMono poolItem = PoolManager.Instance.Pop(objenum);
         poolItem.transform.localPosition = pos;
     }
+	public PoolableMono InstantiateReturnObject(Vector2 pos, PoolObjectListEnum objenum)
+	{
+		PoolableMono poolItem = PoolManager.Instance.Pop(objenum);
+		poolItem.transform.localPosition = pos;
+        return poolItem;
+	}
 
 
 

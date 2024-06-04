@@ -34,7 +34,7 @@ public class DropStoneBullet : BulletMono
 
 	private void MoveProjctile()
 	{
-		Vector3 movedir = (transform.localPosition - Target.position).normalized;
+		Vector3 movedir = (Target.position - transform.localPosition).normalized;
 		transform.localPosition += movedir * ChaseSpeed * Time.deltaTime;
 	}
 

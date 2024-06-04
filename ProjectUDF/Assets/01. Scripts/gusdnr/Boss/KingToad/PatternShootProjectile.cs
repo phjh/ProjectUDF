@@ -36,8 +36,8 @@ public class PatternShootProjectile : BossPattern
 	{
 		for (int i = 0; i < ShootCount; i++)
 		{
-			ProjectileObjet.CustomInstantiate(bossMain.transform.position, ProjectileObjet.BulletEnum);
-			ProjectileObjet.Shoot(Target);
+			BulletMono follow = ProjectileObjet.InstantiateReturnObject(bossMain.transform.position, ProjectileObjet.BulletEnum).GetComponent<BulletMono>();
+			follow.Shoot(Target);
 			Debug.Log($"[{ShootCount}]");
 			yield return new WaitForSeconds(ShootTerm);
 		}
