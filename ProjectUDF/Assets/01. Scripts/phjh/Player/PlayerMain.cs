@@ -10,7 +10,7 @@ public enum PlayerStates
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
-    
+    public LayerMask ImmunityLayer;
     public PlayerStats stat;
     public InputReader inputReader;
 

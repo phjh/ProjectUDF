@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class DrillChargeAttack : PlayerChargeAttack
 {
-
-
     public override void OnAttackPrepare()
     {
         Debug.Log("preparing");
