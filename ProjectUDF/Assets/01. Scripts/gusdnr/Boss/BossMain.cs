@@ -115,7 +115,7 @@ public class BossMain : MonoBehaviour
 
 	public void StartPassivePattern(BossPattern passive, int count)
     {
-        float tickTime = passive.PassiveCool;
+        float tickTime = passive.IfPassiveCool;
         PassiveWaits.Add(new WaitForSeconds(tickTime));
         PassiveCoroutines.Add(StartCoroutine(ActivePassive(passive, count)));
     }

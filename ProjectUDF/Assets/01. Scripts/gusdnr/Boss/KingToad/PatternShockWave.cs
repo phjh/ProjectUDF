@@ -26,9 +26,9 @@ public class PatternShockWave : BossPattern
 
 	public override void ActivePattern()
 	{
-		if(AttackCoroutine == null)
+		if(attackCount == RepeatCount + 1)
 		{
-			ExitPattern();
+
 		}
 	}
 
@@ -48,19 +48,21 @@ public class PatternShockWave : BossPattern
 	{
 		yield return SetAttackOrder();
 
-		for(int c = 0; c < RepeatCount; c++)
+		for(attackCount = 0; attackCount < RepeatCount; attackCount++)
 		{
-			if (ShockWaveZones[AttackPoses[c]] == null)
+			if (ShockWaveZones[AttackPoses[attackCount]] == null)
 			{
-				Debug.LogWarning($"Non Object [Index : {AttackPoses[c]}]");
+				Debug.LogWarning($"Non Object [Index : {AttackPoses[attackCount]}]");
 			}
 			else
 			{
-				ShockWaveZones[AttackPoses[c]].gameObject.SetActive(true);
+				ShockWaveZones[AttackPoses[attackCount]].gameObject.SetActive(true);
 				yield return new WaitForSeconds(AttackTerm);
-				ShockWaveZones[AttackPoses[c]].gameObject.SetActive(false);
+				ShockWaveZones[AttackPoses[attackCount]].gameObject.SetActive(false);
 			}
 		}
+
+		IsActive = false;
 	}
 
 	private IEnumerator SetAttackOrder()

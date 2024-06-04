@@ -7,17 +7,18 @@ public class PatternKingToadIdle : BossPattern
 {
 	public override void EnterPattern()
 	{
-		if(bossMain.IsCooldown == false && bossMain.IsAttack == false)
+		if (bossMain.IsHaveCC == true)
+		{
+			bossMain.SetState(NextState[2]);
+		}
+
+		if (bossMain.IsCooldown == false && bossMain.IsAttack == false)
 		{
 			bossMain.SetState(NextState[0]);
 		}
 		else if (bossMain.IsCooldown == true)
 		{
 			bossMain.SetState(NextState[1]);
-		}
-		else if(bossMain.IsHaveCC == true)
-		{
-			bossMain.SetState(NextState[2]);
 		}
 	}
 }

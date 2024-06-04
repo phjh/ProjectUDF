@@ -6,6 +6,7 @@ public enum PoolObjectListEnum
 	ToadBullet,
 	TuseokStatue,
 	Gagoyle,
+	KingToadFollow,
 }
 
 public enum PoolEffectListEnum 

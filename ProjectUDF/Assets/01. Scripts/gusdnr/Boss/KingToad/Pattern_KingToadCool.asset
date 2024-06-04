@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Pattern_KingToadCool
   m_EditorClassIdentifier: 
   IsActive: 0
-  IsThisPassive: 0
-  PassiveCool: 0
+  IfPassiveCool: 0
+  NextState: 01000000

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 0
   IsThisPassive: 0
-  PassiveCool: 0
-  AttackRadius: 1.5
+  PassiveCool: 5
+  NextState: 01000000

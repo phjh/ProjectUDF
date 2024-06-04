@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33253bdde724e7f4db6f0baac1fb076d, type: 3}
   m_Name: Pattern_InCC
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
   IsThisPassive: 0
   PassiveCool: 0
+  NextState: 01000000

@@ -38,6 +38,12 @@ MonoBehaviour:
     name: Gagoyle
     count: 10
     description: "\uAC00\uACE0\uC77C"
+  - enumtype: 6
+    prefab: {fileID: 5590503244200413130, guid: f8eab62e60fe13f4e8124e1b3b3e0c01, type: 3}
+    name: KingToadFollow
+    count: 5
+    description: "\uC655 \uB450\uAEBC\uBE44\uC6A9 \uD50C\uB808\uC774\uC5B4 \uCD94\uC801
+      \uC624\uBE0C\uC81D"
   PoolEffectLists:
   - enumtype: 1
     prefab: {fileID: 5365508972865829658, guid: b3eafb45a43ba0b4d86c7e964bdf1188, type: 3}

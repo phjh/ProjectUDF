@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class BossPattern : ScriptableObject
 {
-	public bool IsActive= false;
-	public bool IsThisPassive = false;
-	public float PassiveCool = 0f;
+	[HideInInspector] public bool IsActive= false;
+	public float IfPassiveCool = 0f;
 
 	public BossMain.BossState[] NextState;
 
@@ -16,7 +15,19 @@ public class BossPattern : ScriptableObject
 		this.bossMain = bossMain;
 	}
 
-	public virtual void EnterPattern() { }
-	public virtual void ActivePattern() { }
-	public virtual void ExitPattern() { }
+	public virtual void EnterPattern()
+	{
+		IsActive = true;
+	}
+	public virtual void ActivePattern()
+	{
+		if (IsActive == false)
+		{
+			ExitPattern();
+		}
+	}
+	public virtual void ExitPattern()
+	{
+		IsActive = false;
+	}
 }
