@@ -27,6 +27,5 @@ public class PatternDropStone : BossPattern
 	public override void ExitPattern()
 	{
 		bossMain.IsAttack = false;
-		bossMain.SetState(NextState[0]);
 	}
 }

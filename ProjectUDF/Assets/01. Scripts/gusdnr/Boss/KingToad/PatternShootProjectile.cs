@@ -24,22 +24,20 @@ public class PatternShootProjectile : BossPattern
 	{
 		if (AttackCoroutine == null)
 		{
-			ExitPattern();
+			bossMain.SetState(NextState[0]);
 		}
 	}
 
 	public override void ExitPattern()
 	{
-		bossMain.SetState(NextState[0]);
 	}
 
 	private IEnumerator Shooting()
 	{
-		BulletMono projectile = null;
 		for (int i = 0; i < ShootCount; i++)
 		{
-			projectile.CustomInstantiate(bossMain.transform.position, ProjectileObjet.BulletEnum);
-			projectile.Shoot(Target);
+			ProjectileObjet.CustomInstantiate(bossMain.transform.position, ProjectileObjet.BulletEnum);
+			ProjectileObjet.Shoot(Target);
 			Debug.Log($"[{ShootCount}]");
 			yield return new WaitForSeconds(ShootTerm);
 		}

@@ -27,14 +27,13 @@ public class PatternShockWave : BossPattern
 	{
 		if (AttackCoroutine == null)
 		{
-			ExitPattern();
+			bossMain.SetState(NextState[0]);
 		}
 	}
 
 	public override void ExitPattern()
 	{
 		ResetValues();
-		bossMain.SetState(NextState[0]);
 	}
 
 	private void ResetValues()

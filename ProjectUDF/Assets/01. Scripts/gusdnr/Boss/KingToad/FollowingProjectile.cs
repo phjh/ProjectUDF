@@ -38,11 +38,13 @@ public class FollowingProjectile : BulletMono
 		Vector3 movedir = (transform.localPosition - Target.position).normalized;
 		transform.localPosition += movedir * moveSpeed * Time.deltaTime;
 	}
-
 	public override void Shoot(Transform direction)
 	{
+		if (gameObject.activeInHierarchy == false)
+		{
+			gameObject.SetActive(true);
+		}
 		Target = direction;
-
 		ProjectileCoroutine = StartCoroutine(ChangeScale());
 		Invoke(nameof(PushBullet), BulletLifeTime);
 	}

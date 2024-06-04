@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2245909726578740037}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.8, y: -3.11, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -100,11 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
-    prefab: {fileID: 0}
-    name: 
-    count: 15
-    description: 
+    enumtype: 6
+    prefab: {fileID: 5590503244200413130}
+    name: KingToadFollow
+    count: 20
+    description: "\uC655 \uB450\uAEBC\uBE44\uC6A9 \uD50C\uB808\uC774\uC5B4 \uCD94\uC801
+      \uC624\uBE0C\uC81D"
   BulletEnum: 6
   BulletLifeTime: 3
   WhatIsEnemy: Player

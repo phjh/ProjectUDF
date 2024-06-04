@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Pattern_KTDropStone
   m_EditorClassIdentifier: 
   IsActive: 0
-  IsThisPassive: 0
-  PassiveCool: 5
+  IfPassiveCool: 5
   NextState: 01000000

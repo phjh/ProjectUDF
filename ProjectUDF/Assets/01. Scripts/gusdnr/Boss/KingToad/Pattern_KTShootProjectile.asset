@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 0
   IfPassiveCool: 0
-  NextState: 00000000
+  NextState: 01000000
   ProjectileObjet: {fileID: 5590503244200413130, guid: f8eab62e60fe13f4e8124e1b3b3e0c01, type: 3}
   ShootTerm: 0.7
   ShootCount: 5
