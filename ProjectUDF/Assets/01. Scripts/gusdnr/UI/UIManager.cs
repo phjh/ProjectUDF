@@ -141,7 +141,6 @@ public class UIManager : MonoSingleton<UIManager>
 		}
 		else if (IsOnInventoryUI == true)
 		{
-		Debug.LogWarning(4);
 			for (int i = 0; i < IconList.Count; i++) Destroy(Instance.IconList[i]);
 			IconList.Clear();
 			PocketUIParent.gameObject.SetActive(false);
