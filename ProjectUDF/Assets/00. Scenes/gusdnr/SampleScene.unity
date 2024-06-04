@@ -641,9 +641,9 @@ MonoBehaviour:
   IsAlive: 1
   CanMove: 0
   TargetTrm: {fileID: 0}
-  PatternTerm: 0
+  PatternTerm: 5
   IdlePattern: {fileID: 11400000, guid: 8e72e559079195c4da6483660e75dfd2, type: 2}
-  MovingPattern: {fileID: 0}
+  MovingPattern: {fileID: 11400000, guid: 8e72e559079195c4da6483660e75dfd2, type: 2}
   CooldownPattern: {fileID: 11400000, guid: 05e75cf9fe28eac40bd087f7413fc2bb, type: 2}
   InCCPattern: {fileID: 11400000, guid: 98d5cccad3996194db94ac1047209c69, type: 2}
   PassivePatterns:

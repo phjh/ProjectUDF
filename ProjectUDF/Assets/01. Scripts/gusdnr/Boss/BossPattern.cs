@@ -19,13 +19,7 @@ public class BossPattern : ScriptableObject
 	{
 		IsActive = true;
 	}
-	public virtual void ActivePattern()
-	{
-		if (IsActive == false)
-		{
-			ExitPattern();
-		}
-	}
+	public virtual void ActivePattern() { }
 	public virtual void ExitPattern()
 	{
 		IsActive = false;

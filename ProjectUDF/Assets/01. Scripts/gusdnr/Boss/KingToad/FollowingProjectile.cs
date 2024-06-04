@@ -15,6 +15,7 @@ public class FollowingProjectile : BulletMono
 	private bool isActiveRange = false;
 
 	private Transform Target;
+	private Coroutine ProjectileCoroutine;
 
 	public override void ResetPoolingItem()
 	{
@@ -42,34 +43,30 @@ public class FollowingProjectile : BulletMono
 	{
 		Target = direction;
 
-		StartCoroutine(ProjectileCoroutine());
+		ProjectileCoroutine = StartCoroutine(ChangeScale());
+		Invoke(nameof(PushBullet), BulletLifeTime);
 	}
 
-	private IEnumerator ProjectileCoroutine()
+	private IEnumerator ChangeScale()
 	{
 		for (int c= 0; c < repeatCount; c++)
 		{
-			yield return ActvieAttack();
+			if (attackRanges[attackCount] != null)
+			{
+				transform.localScale = attackRanges[attackCount];
+			}
+			else
+			{
+				Debug.LogWarning($"{gameObject.name}'s AttackRange is Not Set. OutOfRange [attackRanges]");
+			}
+			isActiveRange = true;
+			yield return new WaitForSeconds(activeTime);
+			isActiveRange = false;
 			attackCount += 1;
 			yield return new WaitForSeconds(attackTerm);
 		}
 
 		PushBullet();
-	}
-
-	private IEnumerator ActvieAttack()
-	{
-		if (attackRanges[attackCount] != null)
-		{
-			transform.localScale = attackRanges[attackCount];
-		}
-		else
-		{
-			Debug.LogWarning($"{gameObject.name}'s AttackRange is Not Set. OutOfRange [attackRanges]");
-		}
-		isActiveRange = true;
-		yield return new WaitForSeconds(activeTime);	
-		isActiveRange = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

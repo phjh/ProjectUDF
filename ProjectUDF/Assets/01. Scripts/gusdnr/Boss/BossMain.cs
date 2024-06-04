@@ -25,6 +25,7 @@ public class BossMain : MonoBehaviour
 
     [Header("Manage Pattern")]
     [Range(0, 10)] public float PatternTerm;
+    [Header("Insert Pattern")]
     public BossPattern IdlePattern;
     public BossPattern MovingPattern;
     public BossPattern CooldownPattern;
@@ -59,7 +60,7 @@ public class BossMain : MonoBehaviour
 		if (StateMachine == null) StateMachine = new BossStateMachine();
 
 		IdlePattern.Initialize(this);
-		if(CanMove) MovingPattern.Initialize(this);
+		MovingPattern.Initialize(this);
 		CooldownPattern.Initialize(this);               
 		InCCPattern.Initialize(this);
 
@@ -84,6 +85,7 @@ public class BossMain : MonoBehaviour
 
 	public void SetState(BossState bs)
 	{
+        Debug.Log($"Before State : [{CurBossState}]");
 		CurBossState = bs;
 		switch (CurBossState)
 		{
@@ -109,6 +111,7 @@ public class BossMain : MonoBehaviour
 				DieBoss();
 				break;
 		}
+        Debug.Log($"Before State : [{CurBossState}]");
 	}
 
 	#region Passive Methods
@@ -150,7 +153,7 @@ public class BossMain : MonoBehaviour
     {
         IsCooldown = true;
 		StateMachine.ChangeState(CooldownPattern);
-		StartCoroutine(ChangeStateOutTime(PatternTerm));
+		Invoke(nameof(ChangeStateOutTime), PatternTerm);
 	}
 
     private void DieBoss()
@@ -174,12 +177,11 @@ public class BossMain : MonoBehaviour
     {
 		IsHaveCC = true;
         SetState(BossState.InCC);
-        StartCoroutine(ChangeStateOutTime(ccTIme));
+        Invoke(nameof(ChangeStateOutTime),ccTIme);
 	}
 
-    private IEnumerator ChangeStateOutTime(float OutTime, BossState NextState = BossState.Idle)
+    private void ChangeStateOutTime(BossState NextState = BossState.Idle)
     {
-        yield return new WaitForSeconds(OutTime);
         SetState(NextState);
     }
 }

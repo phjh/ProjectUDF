@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af75abb2dc947104eb3fc89bdd54b48e, type: 3}
-  m_Name: Pattern_DropStone
+  m_Script: {fileID: 11500000, guid: 29e8fa5c855027840aa3a68fdbece8b3, type: 3}
+  m_Name: Pattern_KTShockWave
   m_EditorClassIdentifier: 
   IsActive: 0
-  IsThisPassive: 0
-  PassiveCool: 5
-  NextState: 01000000
+  IfPassiveCool: 0
+  NextState: 
+  RepeatCount: 4
+  AttackTerm: 0.5
+  ShockWaveZones: []

@@ -23,12 +23,11 @@ public class PatternShockWave : BossPattern
 		ResetValues();
 		AttackCoroutine = bossMain.StartCoroutine(ActiveShockWave());
 	}
-
 	public override void ActivePattern()
 	{
-		if(attackCount == RepeatCount + 1)
+		if (AttackCoroutine == null)
 		{
-
+			ExitPattern();
 		}
 	}
 
