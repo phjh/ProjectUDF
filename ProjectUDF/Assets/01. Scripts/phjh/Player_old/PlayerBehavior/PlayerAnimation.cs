@@ -3,6 +3,7 @@ using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -31,11 +32,9 @@ public class PlayerAnimation : MonoBehaviour
 
     #region SpineAnimations
 
-    [SpineAnimation]
-    public List<string> IdleAnimations;
+    public List<AnimationReferenceAsset> IdleAnimations;
 
-    [SpineAnimation]
-    public List<string> MoveAnimations;
+    public List<AnimationReferenceAsset> MoveAnimations;
 
     private List<AnimationReferenceAsset> leftAttackAnimations;
 
@@ -64,12 +63,14 @@ public class PlayerAnimation : MonoBehaviour
     protected void Start()
     {
         skeletonAnimation = GetComponent<SkeletonAnimation>();
+        PlayerMain.Instance.skeletonAnimation = skeletonAnimation;
         PlayerMain.Instance.inputReader.MovementEvent += SetMovement;
         PlayerMain.Instance.OnWeaponSetting += SetAnimations;
-        PlayerStats.OnDeadPlayer += OnDie;
-        timescale = skeletonAnimation.timeScale;
-        SetAnimations();
-        animationCoroutine = StartCoroutine(SetAnimation());
+        StartCoroutine(MoveAndIdle());
+        //PlayerStats.OnDeadPlayer += OnDie;
+        //timescale = skeletonAnimation.timeScale;
+        //SetAnimations();
+        //animationCoroutine = StartCoroutine(SetAnimation());
     }
 
 
@@ -85,9 +86,6 @@ public class PlayerAnimation : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(0, dieAnimation, false);
         skeletonAnimation.AnimationState.SetAnimation(1, dieAnimation, false);
     }
-
-
-
 
     bool isLeftPressed = false;
     bool isRightPressed = false;
@@ -108,34 +106,6 @@ public class PlayerAnimation : MonoBehaviour
             }
 
             skeletonAnimation.AnimationState.TimeScale = PlayerMain.Instance.stat.MoveSpeed.GetValue() / 3f;
-
-            bool isRight = _inputDirection.x > 0;
-            bool isUp = _inputDirection.y > 0;
-
-            if(_inputDirection == Vector2.zero)
-            {
-                //다른곳 바라보지 않게 막는용
-            }
-            else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
-            {
-                lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
-                //skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
-            }
-            else if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
-            {
-                lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
-                //skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
-            }
-            else if (isRight)
-            {
-                lastMoveDirection = isUp ? MoveDirectionList.RightBack : MoveDirectionList.Rightfront;
-                //skeletonAnimation.AnimationName = isUp ? moverightupAnimation : moverightdownAnimation;
-            }
-            else if(!isRight)
-            {
-                lastMoveDirection = isUp ? MoveDirectionList.LeftBack : MoveDirectionList.Leftfront;
-                //skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
-            }
 
             //회피 애니메이션
             if (PlayerMain.Instance.isDodging)
@@ -212,6 +182,7 @@ public class PlayerAnimation : MonoBehaviour
             }
             else if(isRightPressed)
             {
+                SpineAnimator.Instance.SetAnimation(skeletonAnimation, rightAttackAnimations[aimAngle], 1);
                 skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
                 skeletonAnimation.AnimationState.SetAnimation(1, rightAttackAnimations[aimAngle], false);
                 if (additionalAnimations.Count > 1)
@@ -226,49 +197,86 @@ public class PlayerAnimation : MonoBehaviour
                 isRightPressed = false;
             }
 
-            if (_inputDirection == Vector2.zero)
-            {
-                skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection] , false).AnimationStart = time;
-                skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[(int)lastMoveDirection] , false).AnimationStart = time;
-                //if (!(_player.CanAttack && _player.IsAttacking))
-                //    skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-                yield return new WaitForSeconds(fixedTime);
-                continue;
-            }
-
-            skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            //if (!(_player.CanAttack && _player.IsAttacking))
-            //    skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-
             yield return new WaitForSeconds(fixedTime/2);
         }
     }
 
-    void MoveAndIdle(float time)
+    void SetDirection()
     {
+        bool isRight = _inputDirection.x > 0;
+        bool isUp = _inputDirection.y > 0;
+
         if (_inputDirection == Vector2.zero)
         {
-            skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
-                skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            return;
+            //다른곳 바라보지 않게 막는용
         }
+        else if (Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
+        {
+            lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
+        }
+        else if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
+        }
+        else if (isRight)
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.RightBack : MoveDirectionList.Rightfront;
+        }
+        else if (!isRight)
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.LeftBack : MoveDirectionList.Leftfront;
+        }
+    }   //플레이어 방향 계산
 
-        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-        if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
-            skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
+    IEnumerator MoveAndIdle()   //움직임 애니메이션
+    {
+        float time = 0;
+
+        while (true)
+        {
+            time += Time.deltaTime;
+
+            float timeScale = PlayerMain.Instance.stat.MoveSpeed.GetValue() / 3f;
+
+            if (time > MoveAnimations[0].Animation.Duration)
+                time -= MoveAnimations[0].Animation.Duration;
+
+            if (PlayerMain.Instance.isDodging)
+            {
+                time = 0;
+                continue;
+            }
+
+            SetDirection();
+
+            if (_inputDirection == Vector2.zero)
+            {
+                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, IdleAnimations, lastMoveDirection, 1, startTime: time, speed: timescale);
+            }
+            else
+            {
+                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, lastMoveDirection, 1, startTime: time, speed: timescale);
+            }
+
+            if (WeaponIdleAnimations != null && WeaponIdleAnimations.Count != 0)
+                SpineAnimator.Instance.SetAnimation(skeletonAnimation, WeaponIdleAnimations[(int)lastMoveDirection], startTime: time, speed: timescale);
+            else
+                Debug.Log("no Animations");
+
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
     }
-
 
     private void Update()
     {
+        MoveAndIdle();
         if(Input.GetKeyDown(KeyCode.X))
         {
             SetAnimations();
             Debug.LogWarning("X Pressed");
         }
     }
+
 
     public void SetAnimations()
     {

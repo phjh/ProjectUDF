@@ -3,13 +3,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public enum PlayerStates
-{
-
-}
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
+    public SkeletonAnimation skeletonAnimation;
     public LayerMask ImmunityLayer;
     public PlayerStats stat;
     public InputReader inputReader;
@@ -21,8 +18,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public Action OnAttackEvent;
 
     public Action OnWeaponSetting;
-
-    public PlayerStates state;
 
     public bool IsUIPopuped = false;
 
@@ -73,10 +68,10 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 		OreInventory.Instance.OnChangeMainOre += EquipStone;
 	}
 
-	private void OnDisable()
-	{
-		//OreInventory.Instance.OnChangeMainOre -= EquipStone;
-	}
+    private void OnDestroy()
+    {
+        OreInventory.Instance.OnChangeMainOre -= EquipStone;
+    }
 
 	private void Awake()
     {
@@ -210,9 +205,15 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         nowWeapon = weapon;
         nowWeaponObj = Instantiate(nowWeapon.weaponObj, playerAim.transform);
         if(nowWeaponObj.TryGetComponent<PlayerBaseAttack>(out var baseAtk))
+        {
             baseAttack = baseAtk;
+            baseAttack.skele_Animator = skeletonAnimation;
+        }
         if (nowWeaponObj.TryGetComponent<PlayerChargeAttack>(out var chargeAtk))
+        {
             chargeAttack = chargeAtk;
+            chargeAttack.skele_Animator = skeletonAnimation;
+        }
         OnWeaponSetting?.Invoke();
 
         UnEquipStone();

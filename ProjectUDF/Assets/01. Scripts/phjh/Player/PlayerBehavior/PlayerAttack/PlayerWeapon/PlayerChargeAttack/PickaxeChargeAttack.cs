@@ -18,6 +18,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         charged += Time.deltaTime;
         float scale = GetChargedFactor(charged);
         attackRange.transform.DOScale(new Vector3(scale, scale, scale), 0.2f);
+        //SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackPrepareAnimation, )
         //float scale = Mathf.Lerp(1.4f, 1.8f, Mathf.Clamp(charged / 1, 0, 1));
         //attackRange.transform.localScale = new Vector3(scale, scale, scale);
     }
