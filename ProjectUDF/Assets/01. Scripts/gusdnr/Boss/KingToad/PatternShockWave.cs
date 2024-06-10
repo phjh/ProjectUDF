@@ -42,11 +42,13 @@ public class PatternShockWave : BossPattern
 		AttackPoses = new List<int>(RepeatCount);
 		attackCount = 0;
 
-		ShockWaveZones = bossMain.transform.Find("ShockWaves").GetComponentsInChildren<EnemyProjectile>();
-        foreach (var waveZone in ShockWaveZones)
-        {
-            waveZone.gameObject.SetActive(false);
-        }
+		Transform ZoneContainer = bossMain.transform.Find("ZoneContainer");
+		Debug.Log($"Find Zone Container : [{ZoneContainer != null}]");
+		for (int c= 0; c < ZoneContainer.childCount; c++)
+		{
+			ShockWaveZones[c] = ZoneContainer.GetChild(c)?.GetComponent<EnemyProjectile>();
+			ShockWaveZones[c]?.gameObject.SetActive(false);
+		}
     }
 
 	private IEnumerator ActiveShockWave()
