@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,10 @@ public class PatternShockWave : BossPattern
 {
 	[SerializeField] private int RepeatCount = 4;
 	[SerializeField] private float AttackTerm = 0.5f;
-	[SerializeField] private EnemyProjectile[] ShockWaveZones;
 	
 	private int attackCount = 0;
 	private List<int> AttackPoses;
+	private EnemyProjectile[] ShockWaveZones;
 	private Coroutine AttackCoroutine = null;
 	
 	public override void Initialize(BossMain bossMain)
@@ -40,12 +41,17 @@ public class PatternShockWave : BossPattern
 	{
 		AttackPoses = new List<int>(RepeatCount);
 		attackCount = 0;
-	}
+
+		ShockWaveZones = bossMain.transform.Find("ShockWaves").GetComponentsInChildren<EnemyProjectile>();
+        foreach (var waveZone in ShockWaveZones)
+        {
+            waveZone.gameObject.SetActive(false);
+        }
+    }
 
 	private IEnumerator ActiveShockWave()
 	{
 		yield return SetAttackOrder();
-
 		for(attackCount = 0; attackCount < RepeatCount; attackCount++)
 		{
 			if (ShockWaveZones[AttackPoses[attackCount]] == null)
@@ -54,6 +60,9 @@ public class PatternShockWave : BossPattern
 			}
 			else
 			{
+				SpriteRenderer wavezoneRender = ShockWaveZones[AttackPoses[attackCount]].gameObject.GetComponent<SpriteRenderer>();
+				wavezoneRender.color = new Vector4(0.4f, 0.4f, 0.4f, 0.5f);
+				yield return wavezoneRender.DOColor(new Vector4(1, 0, 0, 0.5f), AttackTerm);
 				ShockWaveZones[AttackPoses[attackCount]].gameObject.SetActive(true);
 				yield return new WaitForSeconds(AttackTerm);
 				ShockWaveZones[AttackPoses[attackCount]].gameObject.SetActive(false);

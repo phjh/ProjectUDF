@@ -27,7 +27,7 @@ public class FollowingProjectile : BulletMono
 
 	private void Update()
 	{
-        if (Target != null)
+        if (Target != null && isActiveRange == false)
         {
 			MoveProjctile();
 		}
