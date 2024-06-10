@@ -12,7 +12,7 @@ public class PatternShockWave : BossPattern
 	private int attackCount = 0;
 	private List<int> AttackPoses;
 	private Coroutine AttackCoroutine = null;
-
+	
 	public override void Initialize(BossMain bossMain)
 	{
 		ResetValues();

@@ -25,21 +25,17 @@ public class NormalChaseState : EnemyState
 
 	public override void EnterState()
 	{
-		base.EnterState();
 		enemy.UpdatePath();
 		enemy.InvokeRepeating(nameof(enemy.UpdatePath), 0f, pathUpdateTime);
 	}
 
 	public override void ExitState()
 	{
-		base.ExitState();
 		enemy.CancelInvoke();
 	}
 
 	public override void FrameUpdate()
 	{
-		base.FrameUpdate();
-		
 		//플레이어가 시야 내에 있을 때
 		if (enemy.IsWithStrikingDistance)
 		{

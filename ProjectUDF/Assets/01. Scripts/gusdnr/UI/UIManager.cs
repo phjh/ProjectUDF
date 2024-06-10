@@ -117,6 +117,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 			if(isRemoveOneIcon) break;
 		};
+
+		SetOreList();
 	}
 
 	private void CalculateInventory(List<int> baseList, List<OreSO> dataList) //Calculate To In OreInventoryList
