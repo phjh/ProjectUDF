@@ -31,7 +31,7 @@ public class EnemyAniamtior : MonoBehaviour
 	private IEnumerator SetStateAnimation()
 	{
 		if (ConnectedVisual == false) yield return ConnectedVisual;
-		while (EM.IsDead)
+		while (EM.IsDead == false)
 		{
 			switch (EM.StateMachine.CurrentState.MotionState)
 			{

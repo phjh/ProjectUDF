@@ -683,12 +683,12 @@ GameObject:
   - component: {fileID: 71327806}
   - component: {fileID: 71327807}
   m_Layer: 8
-  m_Name: TestBossObj
+  m_Name: Boss_KingToad
   m_TagString: Enemy
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &71327804
 Transform:
   m_ObjectHideFlags: 0
@@ -8765,6 +8765,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialysisStatue
       objectReference: {fileID: 0}
+    - target: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7879911316788705856, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.88
@@ -14116,7 +14120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6953739570643884676, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       propertyPath: m_LocalPosition.x
