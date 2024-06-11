@@ -112,7 +112,7 @@ public class GameManager : MonoSingleton<GameManager>
 				player.canMove = false;
 				break;
 			default:
-				Debug.LogError("Game Manager Have not State");
+				Debug.LogError("Game Manager Have not EnemyMotionState");
 				break;
 		}
 	}

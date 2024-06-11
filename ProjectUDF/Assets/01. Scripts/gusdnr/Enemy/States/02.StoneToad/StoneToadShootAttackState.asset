@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58269ac737379164894b546e54426bde, type: 3}
   m_Name: StoneToadShootAttackState
   m_EditorClassIdentifier: 
+  MotionState: 2
   ShootCount: 6
   ShootDelay: 1
   Bullet: {fileID: 4624706665982695528, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}

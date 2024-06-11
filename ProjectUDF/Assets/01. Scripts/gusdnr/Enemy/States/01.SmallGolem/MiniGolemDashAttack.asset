@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786f91fb34b8f704bb6337341164451b, type: 3}
   m_Name: MiniGolemDashAttack
   m_EditorClassIdentifier: 
+  MotionState: 2
   LockOnTime: 1
   DashTime: 1
   DashDistance: 4
+  WhatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 0
   WhatIsObstacle:
     serializedVersion: 2
     m_Bits: 512

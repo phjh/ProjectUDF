@@ -110,7 +110,7 @@ MonoBehaviour:
   BulletLifeTime: 3
   WhatIsEnemy: Player
   WhatIsObstacle: Obstacle
-  moveSpeed: 7.5
+  moveSpeed: 3.5
   repeatCount: 4
   activeTime: 0.5
   attackTerm: 1.5

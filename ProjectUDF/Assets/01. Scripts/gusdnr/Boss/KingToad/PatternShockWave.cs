@@ -8,16 +8,13 @@ public class PatternShockWave : BossPattern
 {
 	[SerializeField] private int RepeatCount = 4;
 	[SerializeField] private float AttackTerm = 0.5f;
-	
+	[SerializeField] private Color[] ZoneColors;
+
+
 	private int attackCount = 0;
 	private List<int> AttackPoses;
-	private EnemyProjectile[] ShockWaveZones;
+	private Collider2D[] ShockWaveZones;
 	private Coroutine AttackCoroutine = null;
-	
-	public override void Initialize(BossMain bossMain)
-	{
-		ResetValues();
-	}
 
 	public override void EnterPattern()
 	{
@@ -42,19 +39,25 @@ public class PatternShockWave : BossPattern
 		AttackPoses = new List<int>(RepeatCount);
 		attackCount = 0;
 
-		Transform ZoneContainer = bossMain.transform.Find("ZoneContainer");
-		Debug.Log($"Find Zone Container : [{ZoneContainer != null}]");
-		for (int c= 0; c < ZoneContainer.childCount; c++)
+		if (ShockWaveZones.Length <= 0)
 		{
-			ShockWaveZones[c] = ZoneContainer.GetChild(c)?.GetComponent<EnemyProjectile>();
-			ShockWaveZones[c]?.gameObject.SetActive(false);
+			Debug.Log($"Boss Object : [{bossMain.gameObject.name}]");
+			Transform ZoneContainer = bossMain.gameObject.transform.Find("ZoneContainer");
+			Debug.Log($"Find Zone Container : [{ZoneContainer != null}]");
+			ShockWaveZones = ZoneContainer?.GetComponentsInChildren<Collider2D>();
 		}
-    }
+		for (int c = 0; c < ShockWaveZones.Length; c++)
+		{
+			if (ShockWaveZones[c].enabled && ShockWaveZones[c] != null) ShockWaveZones[c].enabled = false;
+			SpriteRenderer render = ShockWaveZones[c].gameObject.GetComponent<SpriteRenderer>();
+			render.color = ZoneColors[0];
+		}
+	}
 
 	private IEnumerator ActiveShockWave()
 	{
 		yield return SetAttackOrder();
-		for(attackCount = 0; attackCount < RepeatCount; attackCount++)
+		for (attackCount = 0; attackCount < RepeatCount; attackCount++)
 		{
 			if (ShockWaveZones[AttackPoses[attackCount]] == null)
 			{
@@ -63,15 +66,17 @@ public class PatternShockWave : BossPattern
 			else
 			{
 				SpriteRenderer wavezoneRender = ShockWaveZones[AttackPoses[attackCount]].gameObject.GetComponent<SpriteRenderer>();
-				wavezoneRender.color = new Vector4(0.4f, 0.4f, 0.4f, 0.5f);
-				yield return wavezoneRender.DOColor(new Vector4(1, 0, 0, 0.5f), AttackTerm);
+				wavezoneRender.color = ZoneColors[1];
+				yield return wavezoneRender.DOColor(ZoneColors[2], AttackTerm);
 				ShockWaveZones[AttackPoses[attackCount]].gameObject.SetActive(true);
 				yield return new WaitForSeconds(AttackTerm);
-				ShockWaveZones[AttackPoses[attackCount]].gameObject.SetActive(false);
+				ShockWaveZones[AttackPoses[attackCount]].enabled = false;
+				wavezoneRender.color = ZoneColors[0];
 			}
 		}
 
 		IsActive = false;
+		AttackCoroutine = null;
 	}
 
 	private IEnumerator SetAttackOrder()
@@ -79,7 +84,7 @@ public class PatternShockWave : BossPattern
 		int whereIsAttack = -1;
 		for (int c = 0; c < RepeatCount; c++)
 		{
-			whereIsAttack = Random.Range(0, 4);
+			whereIsAttack = Random.Range(0, 3);
 			AttackPoses.Add(whereIsAttack);
 			yield return new WaitForSeconds(0.3f);
 		}

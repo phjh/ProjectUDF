@@ -16,4 +16,8 @@ MonoBehaviour:
   IfPassiveCool: 0
   NextState: 01000000
   RepeatCount: 4
-  AttackTerm: 0.5
+  AttackTerm: 1
+  ZoneColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.5622641, g: 0.5622641, b: 0.5622641, a: 0.4}
+  - {r: 1, g: 0, b: 0, a: 0.4}

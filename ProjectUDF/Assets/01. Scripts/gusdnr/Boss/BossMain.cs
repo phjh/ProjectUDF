@@ -64,9 +64,9 @@ public class BossMain : MonoBehaviour
 		CooldownPattern.Initialize(this);               
 		InCCPattern.Initialize(this);
 
-		foreach (var pattern in ActivePatterns)
+		for (int p = 0; p < ActivePatterns.Length; p++)
 		{
-            pattern.Initialize(this);
+            ActivePatterns[p].Initialize(this);
 		}
 		for(int p = 0; p < PassivePatterns.Length; p++)
 		{
@@ -85,7 +85,7 @@ public class BossMain : MonoBehaviour
 
 	public void SetState(BossState bs)
 	{
-        Debug.Log($"Before State : [{CurBossState}]");
+        Debug.Log($"Before EnemyMotionState : [{CurBossState}]");
 		CurBossState = bs;
 		switch (CurBossState)
 		{
@@ -111,7 +111,7 @@ public class BossMain : MonoBehaviour
 				DieBoss();
 				break;
 		}
-        Debug.Log($"Before State : [{CurBossState}]");
+        Debug.Log($"Before EnemyMotionState : [{CurBossState}]");
 	}
 
 	#region Passive Methods
@@ -162,6 +162,9 @@ public class BossMain : MonoBehaviour
         IsAlive = false;
 		StateMachine.CancelAttack();
 		StopPassive();
+
+        Debug.Log("Boss Die");
+        Destroy(gameObject);
 	}
 
     public void Damage(float damage)

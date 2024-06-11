@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SmallGolem Cooldown State", menuName = "SO/State/Cooldown/Stop")] 
+[CreateAssetMenu(fileName = "SmallGolem Cooldown EnemyMotionState", menuName = "SO/EnemyMotionState/Cooldown/Stop")] 
 public class StopCooldownState : EnemyState
 {
 	public override EnemyState Clone()
@@ -12,7 +12,7 @@ public class StopCooldownState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
-		Debug.Log("Enter Cooldown State");
+		Debug.Log("Enter Cooldown EnemyMotionState");
 		enemy.MoveEnemy(Vector2.zero);
 		enemy.StartCoroutine(enemy.StartCooldown());
 	}

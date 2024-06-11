@@ -2,7 +2,7 @@ using DG.Tweening;
 using Pathfinding;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Cooldown State", menuName = "SO/State/Cooldown/Wander")]
+[CreateAssetMenu(fileName = "New Cooldown EnemyMotionState", menuName = "SO/EnemyMotionState/Cooldown/Wander")]
 public class WanderCooldownState : EnemyState
 {
 	public float MinDistance = 1f;
