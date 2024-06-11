@@ -14110,6 +14110,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1178535978}
     m_Modifications:
+    - target: {fileID: 106949255027518677, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fe3668cb425ff254fbdea4a9461a74b1, type: 2}
     - target: {fileID: 2561628108278875523, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -14120,6 +14124,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219943680258847745, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      propertyPath: initialFlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219943680258847745, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      propertyPath: initialFlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219943680258847745, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e645c9fc57329e43af11e6e646c4b7a, type: 2}
+    - target: {fileID: 6953739570643884676, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6953739570643884676, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
