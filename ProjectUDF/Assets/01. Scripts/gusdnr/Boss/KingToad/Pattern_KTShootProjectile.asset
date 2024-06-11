@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af75abb2dc947104eb3fc89bdd54b48e, type: 3}
-  m_Name: Pattern_DropStone
+  m_Script: {fileID: 11500000, guid: 7d9668baaf210af44b69eea41ae688b0, type: 3}
+  m_Name: Pattern_KTShootProjectile
   m_EditorClassIdentifier: 
   IsActive: 0
-  IsThisPassive: 0
-  PassiveCool: 0
-  AttackRadius: 1.5
+  IfPassiveCool: 0
+  NextState: 01000000
+  ProjectileObjet: {fileID: 5590503244200413130, guid: f8eab62e60fe13f4e8124e1b3b3e0c01, type: 3}
+  ShootTerm: 0.7
+  ShootCount: 5

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772a1fd268fb2234cad6f4776c0e1607, type: 3}
   m_Name: MiniGolemNormalChase
   m_EditorClassIdentifier: 
+  MotionState: 1
   movementSpeed: 3
   pathUpdateTime: 0.5
   nextWaypointDistance: 3

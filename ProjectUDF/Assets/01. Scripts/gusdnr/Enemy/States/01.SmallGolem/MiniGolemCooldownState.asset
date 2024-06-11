@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f536c4b06ad802a49afd52960b508117, type: 3}
   m_Name: MiniGolemCooldownState
   m_EditorClassIdentifier: 
+  MotionState: 3

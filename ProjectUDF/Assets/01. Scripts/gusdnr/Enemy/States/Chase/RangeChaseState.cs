@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Chase State", menuName = "SO/State/Chase/Range")]
+[CreateAssetMenu(fileName = "New Chase EnemyMotionState", menuName = "SO/EnemyMotionState/Chase/Range")]
 public class RangeChaseState : EnemyState
 {
 	public float movementSpeed;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e0a60b18f2a334c89ecaae2f42f716, type: 3}
   m_Name: GagoyleAreaAttack
   m_EditorClassIdentifier: 
+  MotionState: 2
   ChargeTime: 2
   RepeatCount: 3
   WhatIsEnemy:

@@ -25,6 +25,7 @@ public class BossMain : MonoBehaviour
 
     [Header("Manage Pattern")]
     [Range(0, 10)] public float PatternTerm;
+    [Header("Insert Pattern")]
     public BossPattern IdlePattern;
     public BossPattern MovingPattern;
     public BossPattern CooldownPattern;
@@ -59,13 +60,13 @@ public class BossMain : MonoBehaviour
 		if (StateMachine == null) StateMachine = new BossStateMachine();
 
 		IdlePattern.Initialize(this);
-		if(CanMove) MovingPattern.Initialize(this);
+		MovingPattern.Initialize(this);
 		CooldownPattern.Initialize(this);               
 		InCCPattern.Initialize(this);
 
-		foreach (var pattern in ActivePatterns)
+		for (int p = 0; p < ActivePatterns.Length; p++)
 		{
-            pattern.Initialize(this);
+            ActivePatterns[p].Initialize(this);
 		}
 		for(int p = 0; p < PassivePatterns.Length; p++)
 		{
@@ -84,6 +85,7 @@ public class BossMain : MonoBehaviour
 
 	public void SetState(BossState bs)
 	{
+        Debug.Log($"Before EnemyMotionState : [{CurBossState}]");
 		CurBossState = bs;
 		switch (CurBossState)
 		{
@@ -109,13 +111,14 @@ public class BossMain : MonoBehaviour
 				DieBoss();
 				break;
 		}
+        Debug.Log($"Before EnemyMotionState : [{CurBossState}]");
 	}
 
 	#region Passive Methods
 
 	public void StartPassivePattern(BossPattern passive, int count)
     {
-        float tickTime = passive.PassiveCool;
+        float tickTime = passive.IfPassiveCool;
         PassiveWaits.Add(new WaitForSeconds(tickTime));
         PassiveCoroutines.Add(StartCoroutine(ActivePassive(passive, count)));
     }
@@ -150,7 +153,7 @@ public class BossMain : MonoBehaviour
     {
         IsCooldown = true;
 		StateMachine.ChangeState(CooldownPattern);
-		StartCoroutine(ChangeStateOutTime(PatternTerm));
+		Invoke(nameof(ChangeStateOutTime), PatternTerm);
 	}
 
     private void DieBoss()
@@ -159,6 +162,9 @@ public class BossMain : MonoBehaviour
         IsAlive = false;
 		StateMachine.CancelAttack();
 		StopPassive();
+
+        Debug.Log("Boss Die");
+        Destroy(gameObject);
 	}
 
     public void Damage(float damage)
@@ -174,12 +180,11 @@ public class BossMain : MonoBehaviour
     {
 		IsHaveCC = true;
         SetState(BossState.InCC);
-        StartCoroutine(ChangeStateOutTime(ccTIme));
+        Invoke(nameof(ChangeStateOutTime),ccTIme);
 	}
 
-    private IEnumerator ChangeStateOutTime(float OutTime, BossState NextState = BossState.Idle)
+    private void ChangeStateOutTime(BossState NextState = BossState.Idle)
     {
-        yield return new WaitForSeconds(OutTime);
         SetState(NextState);
     }
 }

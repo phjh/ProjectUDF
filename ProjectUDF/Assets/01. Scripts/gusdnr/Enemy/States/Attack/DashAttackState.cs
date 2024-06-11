@@ -3,7 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using Pathfinding;
 
-[CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/Dash")]
+[CreateAssetMenu(fileName = "New Attack EnemyMotionState", menuName = "SO/EnemyMotionState/Attack/Dash")]
 public class DashAttackState : EnemyState
 {
 	[Header("Ready Values")]

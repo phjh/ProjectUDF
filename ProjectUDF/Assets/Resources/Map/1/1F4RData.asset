@@ -12,8 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
   m_Name: 1F4RData
   m_EditorClassIdentifier: 
-  id: 0
-  TileObject: {fileID: 0}
+  id: 104
+  TileObject: {fileID: 5529552145403104633, guid: 9550d68e6d5840b45be3ce373575bf8d, type: 3}
   timeLimit: 120
-  RoomWaveData: []
-  exits: 
+  RoomWaveData:
+  - AddTime: 15
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 7.4, y: -4.5}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 1.49, y: 1.4}
+    - monsterObj: {fileID: 5394705337465943607, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
+      monsterPos: {x: -10, y: -1.7}
+    - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      monsterPos: {x: -2.6, y: -4.6}
+  - AddTime: 15
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 1.49, y: 1.4}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -4.5, y: -5.5}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -6.7, y: 1.7}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 10, y: 2.9}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -10.2, y: -3}
+  exits: 000000000100000002000000

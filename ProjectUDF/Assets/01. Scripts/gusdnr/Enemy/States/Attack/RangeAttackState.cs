@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Attack State", menuName = "SO/State/Attack/FWayShoot")]
+[CreateAssetMenu(fileName = "New Attack EnemyMotionState", menuName = "SO/EnemyMotionState/Attack/FWayShoot")]
 public class RangeAttackState : EnemyState
 {
 	public int ShootCount;

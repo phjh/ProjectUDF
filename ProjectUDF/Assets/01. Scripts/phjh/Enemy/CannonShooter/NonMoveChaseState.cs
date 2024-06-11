@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Chase State", menuName = "SO/State/Chase/Idle")]
+[CreateAssetMenu(fileName = "New Chase EnemyMotionState", menuName = "SO/EnemyMotionState/Chase/Idle")]
 public class NonMoveChaseState : EnemyState
 {
 

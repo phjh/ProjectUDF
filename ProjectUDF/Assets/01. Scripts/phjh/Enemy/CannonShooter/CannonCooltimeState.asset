@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3a5d658b213fc45b6ca0e9df0b777f, type: 3}
   m_Name: CannonCooltimeState
   m_EditorClassIdentifier: 
+  MotionState: 3

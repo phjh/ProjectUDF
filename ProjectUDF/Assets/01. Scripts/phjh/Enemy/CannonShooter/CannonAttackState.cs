@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "cannon Attack State", menuName = "SO/State/Attack/Throw")]
+[CreateAssetMenu(fileName = "cannon Attack EnemyMotionState", menuName = "SO/EnemyMotionState/Attack/Throw")]
 public class CannonAttackState : EnemyState
 {
     public float chargingTime = 1f;

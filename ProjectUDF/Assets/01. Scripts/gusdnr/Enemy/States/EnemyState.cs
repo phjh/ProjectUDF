@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class EnemyState : ScriptableObject
 {
+	public EnemyMain.EnemyMotionState MotionState;
+
 	protected EnemyMain enemy;
 	protected EnemyStateMachine enemyStateMachine;
 
@@ -9,6 +11,13 @@ public abstract class EnemyState : ScriptableObject
 	{
 		this.enemy = enemy;
 		enemyStateMachine = stateMachine;
+	}
+
+	public virtual void Initialize(EnemyMain enemy, EnemyStateMachine stateMachine, EnemyMain.EnemyMotionState MotionState)
+	{
+		this.enemy = enemy;
+		enemyStateMachine = stateMachine;
+		this.MotionState = MotionState;
 	}
 
 	public virtual void EnterState() { }
@@ -25,8 +34,8 @@ public abstract class EnemyState : ScriptableObject
 	protected EnemyState CloneBase()
 	{
 		EnemyState cloneState = Instantiate(this);
-		cloneState.Initialize(enemy, enemyStateMachine);
-		cloneState.name = "(Cloned)" + name.Replace("State", "");
+		cloneState.Initialize(enemy, enemyStateMachine, MotionState);
+		cloneState.name = "(Cloned)" + name.Replace("EnemyMotionState", "");
 		return cloneState;
 	}
 }

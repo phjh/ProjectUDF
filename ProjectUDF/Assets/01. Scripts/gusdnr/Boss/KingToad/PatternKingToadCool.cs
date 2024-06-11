@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Pattern_KingToadCool", menuName = "SO/Boss/KingToad/Pattern_KingToadCool")]
 public class PatternKingToadCool : BossPattern
 {
+	public override void ActivePattern()
+	{
+		Debug.Log("Boss CoolDown");
+	}
+
 	public override void ExitPattern()
 	{
 		if(bossMain.IsCooldown)

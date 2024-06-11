@@ -5,19 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Pattern_KingToadIdle", menuName = "SO/Boss/KingToad/Pattern_KingToadIdle")]
 public class PatternKingToadIdle : BossPattern
 {
-	public override void EnterPattern()
+	public override void ActivePattern()
 	{
-		if(bossMain.IsCooldown == false && bossMain.IsAttack == false)
+		if (bossMain.IsHaveCC == true)
 		{
+			ExitPattern();
+			bossMain.SetState(NextState[2]);
+		}
+
+		if (bossMain.IsCooldown == false && bossMain.IsAttack == false)
+		{
+			ExitPattern();
 			bossMain.SetState(NextState[0]);
 		}
 		else if (bossMain.IsCooldown == true)
 		{
+			ExitPattern();
 			bossMain.SetState(NextState[1]);
-		}
-		else if(bossMain.IsHaveCC == true)
-		{
-			bossMain.SetState(NextState[2]);
 		}
 	}
 }

@@ -8,40 +8,41 @@ public class PatternShootProjectile : BossPattern
     [SerializeField] private BulletMono ProjectileObjet;
     [SerializeField] private float ShootTerm = 0.5f;
 
-	[SerializeField] private Transform[] ShootPositions;
+	[SerializeField] private int ShootCount = 5;
 	
 	private Transform Target;
-	private Coroutine AttackCoroutine;
+	private Coroutine AttackCoroutine = null;
 
 	public override void EnterPattern()
 	{
 		Target = bossMain.TargetTrm;
-		IsActive = true;
 		//오브젝트 풀링을 이용해 발사할 오브젝트 미리 생성
 		AttackCoroutine = bossMain.StartCoroutine(Shooting());
 	}
 
 	public override void ActivePattern()
 	{
-		if(AttackCoroutine == null)
+		if (AttackCoroutine == null)
 		{
-			ExitPattern();
+			bossMain.SetState(NextState[0]);
 		}
 	}
 
 	public override void ExitPattern()
 	{
-		IsActive = false;
-		bossMain.SetState(NextState[0]);
 	}
 
 	private IEnumerator Shooting()
 	{
-		for (int i = 0; i < ShootPositions.Length; i++)
+		for (int i = 0; i < ShootCount; i++)
 		{
-			ProjectileObjet.CustomInstantiate(ShootPositions[i].position, ProjectileObjet.BulletEnum);
-			ProjectileObjet.Shoot(Target);
+			BulletMono follow = ProjectileObjet.InstantiateReturnObject(bossMain.transform.position, ProjectileObjet.BulletEnum).GetComponent<BulletMono>();
+			follow.Shoot(Target);
+			Debug.Log($"[{ShootCount}]");
 			yield return new WaitForSeconds(ShootTerm);
 		}
+		IsActive = false;
+
+		AttackCoroutine = null;
 	}
 }

@@ -6,6 +6,16 @@ using UnityEngine;
 [RequireComponent(typeof(Seeker))] //If Seeker Script is Null => Add Seeker
 public class EnemyMain : PoolableMono
 {
+	public enum EnemyMotionState
+	{
+		None = 0,
+		Move = 1,
+		Attack = 2,
+		Cooldown = 3,
+		Dead = 4,
+	}
+
+
 	#region Enemy Variables
 	public float MaxHealth { get; set; } //최대 체력
 	public float CurrentHealth { get; set; } //현재 체력
@@ -30,7 +40,7 @@ public class EnemyMain : PoolableMono
 	#region State Machine Variables
 	public EnemyStateMachine StateMachine { get; set; }
 
-	[Header("State Configuration")]
+	[Header("EnemyMotionState Configuration")]
 	public EnemyState ChaseState;
 	public EnemyState AttackState;
 	public EnemyState CooldownState;
@@ -84,7 +94,8 @@ public class EnemyMain : PoolableMono
 		CurrentHealth = MaxHealth;
 		Target = GameManager.Instance.player.transform;
 
-		MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
+		if(MovePoint == null) MovePoint = transform.Find("MovePoint").GetComponent<Transform>();
+		MovePoint.gameObject.SetActive(true);
 
 		if (EnemyRB == null) EnemyRB = GetComponent<Rigidbody2D>();
 		if (ESeeker == null) ESeeker = GetComponent<Seeker>();
@@ -92,6 +103,7 @@ public class EnemyMain : PoolableMono
 		IsDead = false;
 		canAttack = true;
 		StateMachine.Initialize(ChaseState);
+
 	}
 
 	private void Update()
@@ -146,12 +158,20 @@ public class EnemyMain : PoolableMono
 	public void Damage(float damageAmount)
 	{
 		CurrentHealth -= damageAmount;
-		if(CurrentHealth <= 0f) Die();
+		if(CurrentHealth <= 0f)
+		{
+			SetDead();
+		}
 	}
 
-	public void Die()
+	private void SetDead()
 	{
 		IsDead = true;
+		MovePoint.gameObject.SetActive(false);
+	}
+
+	public void OnDead()
+	{
 		StateMachine.CurrentState.ExitState();
 		MapSystem.Instance.OnMonsterDead();
 		StopAllCoroutines();

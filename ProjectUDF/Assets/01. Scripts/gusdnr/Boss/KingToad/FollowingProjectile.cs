@@ -15,6 +15,7 @@ public class FollowingProjectile : BulletMono
 	private bool isActiveRange = false;
 
 	private Transform Target;
+	private Coroutine ProjectileCoroutine;
 
 	public override void ResetPoolingItem()
 	{
@@ -26,7 +27,7 @@ public class FollowingProjectile : BulletMono
 
 	private void Update()
 	{
-        if (Target != null)
+        if (Target != null && isActiveRange == false)
         {
 			MoveProjctile();
 		}
@@ -34,42 +35,40 @@ public class FollowingProjectile : BulletMono
 
 	private void MoveProjctile()
 	{
-		Vector3 movedir = (transform.localPosition - Target.position).normalized;
+		Vector3 movedir = (Target.position - transform.localPosition).normalized;
 		transform.localPosition += movedir * moveSpeed * Time.deltaTime;
 	}
-
 	public override void Shoot(Transform direction)
 	{
+		if (gameObject.activeInHierarchy == false)
+		{
+			gameObject.SetActive(true);
+		}
 		Target = direction;
-
-		StartCoroutine(ProjectileCoroutine());
+		ProjectileCoroutine = StartCoroutine(ChangeScale());
+		Invoke(nameof(PushBullet), BulletLifeTime);
 	}
 
-	private IEnumerator ProjectileCoroutine()
+	private IEnumerator ChangeScale()
 	{
 		for (int c= 0; c < repeatCount; c++)
 		{
-			yield return ActvieAttack();
+			if (attackRanges[attackCount] != null)
+			{
+				transform.localScale = attackRanges[attackCount];
+			}
+			else
+			{
+				Debug.LogWarning($"{gameObject.name}'s AttackRange is Not Set. OutOfRange [attackRanges]");
+			}
+			isActiveRange = true;
+			yield return new WaitForSeconds(activeTime);
+			isActiveRange = false;
 			attackCount += 1;
 			yield return new WaitForSeconds(attackTerm);
 		}
 
 		PushBullet();
-	}
-
-	private IEnumerator ActvieAttack()
-	{
-		if (attackRanges[attackCount] != null)
-		{
-			transform.localScale = attackRanges[attackCount];
-		}
-		else
-		{
-			Debug.LogWarning($"{gameObject.name}'s AttackRange is Not Set. OutOfRange [attackRanges]");
-		}
-		isActiveRange = true;
-		yield return new WaitForSeconds(activeTime);	
-		isActiveRange = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

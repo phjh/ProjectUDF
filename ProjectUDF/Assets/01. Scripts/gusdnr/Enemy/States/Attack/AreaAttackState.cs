@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Area Atttack", menuName = "SO/State/Attack/Area")]
+[CreateAssetMenu(fileName = "New Area Atttack", menuName = "SO/EnemyMotionState/Attack/Area")]
 public class AreaAttackState : EnemyState
 {
 	[Header("공격 관련 변수")]
@@ -32,7 +32,7 @@ public class AreaAttackState : EnemyState
 	public override void EnterState()
 	{
 		base.EnterState();
-		Debug.Log("Enter Attack State");
+		Debug.Log("Enter Attack EnemyMotionState");
 		enemy.MoveEnemy(Vector2.zero);
 		AttackArea.SetActive(false);
 		AttackCoroutine = enemy.StartCoroutine(AreaSearch());
