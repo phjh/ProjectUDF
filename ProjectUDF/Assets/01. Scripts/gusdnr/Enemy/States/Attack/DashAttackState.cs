@@ -121,6 +121,7 @@ public class DashAttackState : EnemyState
 			player = Physics2D.OverlapCircle(enemy.EnemyRB.position, 4, WhatIsEnemy).GetComponent<PlayerMain>();
 			if (player != null)
 			{
+				Debug.LogWarning("player hit");
 				player.GetDamage();
 			}
 		})

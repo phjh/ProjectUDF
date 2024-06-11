@@ -1,10 +1,36 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DrillChargeAttack : PlayerChargeAttack
 {
+    [SerializeField]
+    AnimationReferenceAsset dig_Animation;
+    [SerializeField]
+    AnimationReferenceAsset digUp_Animation;
+
+    float time = 0;
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    void SetAnimation()
+    {
+        while(time <= dig_Animation.Animation.Duration)
+        {
+            SpineAnimator.Instance.SetAnimation(skele_Animator, dig_Animation, 0, startTime:time);
+            SpineAnimator.Instance.SetAnimation(skele_Animator, dig_Animation, 1, startTime:time);
+            time += Time.deltaTime;
+        }
+        SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, 1000);
+        SpineAnimator.Instance.AddAnimation(skele_Animator, AttackingAnimation[0], dig_Animation.Animation.Duration, 0, true);
+        
+    }
+
     public override void OnAttackPrepare()
     {
         Debug.Log("preparing");
@@ -13,8 +39,11 @@ public class DrillChargeAttack : PlayerChargeAttack
 
         _showRange = true;
         attackRange.SetActive(true);
+        PlayerMain.Instance.preparingAttack = true;
         charged += Time.deltaTime;
         PlayerMain.Instance.isInvincible = true;
+        if(time <= dig_Animation.Animation.Duration + 0.1)
+            SetAnimation();
     }
 
     protected override void OnAttackStart()
@@ -40,6 +69,8 @@ public class DrillChargeAttack : PlayerChargeAttack
 
         _damageFactor = baseFactor;
 
+        SpineAnimator.Instance.SetAnimation(skele_Animator, digUp_Animation, 0);
+
         Invoke(nameof(OnAttacking), timeToAttacking);
     }
 
@@ -51,6 +82,8 @@ public class DrillChargeAttack : PlayerChargeAttack
         atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
         PlayerMain.Instance.isInvincible = false;
+        PlayerMain.Instance.preparingAttack = false;
+        SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, 0.1f);
 
         Invoke(nameof(OnAttackEnd), timeToEnd);
     }
@@ -61,6 +94,7 @@ public class DrillChargeAttack : PlayerChargeAttack
         attackRange.gameObject.SetActive(false);
         PlayerMain.Instance.canAttack = true;
         PlayerMain.Instance.isAttacking = false;
+        time = 0;
         Debug.Log("chargeAttackend");
     }
 

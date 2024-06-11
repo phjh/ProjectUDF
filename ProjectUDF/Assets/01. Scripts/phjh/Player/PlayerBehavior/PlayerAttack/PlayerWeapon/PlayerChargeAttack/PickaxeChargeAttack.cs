@@ -18,7 +18,8 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         charged += Time.deltaTime;
         float scale = GetChargedFactor(charged);
         attackRange.transform.DOScale(new Vector3(scale, scale, scale), 0.2f);
-        //SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackPrepareAnimation, )
+        PlayerMain.Instance.preparingAttack = true;
+        SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackPrepareAnimation, PlayerMain.Instance.playerAim.Angle, 0);
         //float scale = Mathf.Lerp(1.4f, 1.8f, Mathf.Clamp(charged / 1, 0, 1));
         //attackRange.transform.localScale = new Vector3(scale, scale, scale);
     }
@@ -38,6 +39,9 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         //공격중
         PlayerMain.Instance.isAttacking = true;
         PlayerMain.Instance.canAttack = false;
+
+        SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, AttackingAnimation[0].Animation.Duration);
+        SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, PlayerMain.Instance.playerAim.Angle, 0);
 
         //데미지 구하기
         float damage = CalculateDamage(_damageFactor);
@@ -60,6 +64,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         PlayerMain.Instance.canMove = true;
         atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
+        PlayerMain.Instance.preparingAttack = false;
 
         //기존 함수 실행
         Invoke(nameof(OnAttackEnd), timeToEnd);
@@ -101,9 +106,6 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
 
     protected override void LuckyStoneAttack()
     {
-
-
-
         List<Stats> stones = PlayerMain.Instance.baseAttack.GetLuckyStones();
 
         float additionalFactor = 0;

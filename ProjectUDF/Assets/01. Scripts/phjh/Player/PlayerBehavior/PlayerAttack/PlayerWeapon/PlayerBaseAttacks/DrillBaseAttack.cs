@@ -8,14 +8,20 @@ public class DrillBaseAttack : PlayerBaseAttack
     private Collider2D baseCollider;
     private float moveMultiply = 1;
 
+    PlayerAim aim;
     private bool exceptionAttack = false;
+
+    int lastAimDir;
 
     protected override void Start()
     {
         baseAttackRange = attackRange;
         atkSpeedcol = AttackSpeedStoneObj.GetComponentInChildren<Collider2D>();
+        aim = PlayerMain.Instance.playerAim;
         base.Start();
     }
+
+    bool animationSet = false;
 
     public override void OnAttackPrepare()
     {
@@ -34,6 +40,14 @@ public class DrillBaseAttack : PlayerBaseAttack
 
         //공격범위 표시
         attackRange.gameObject.SetActive(true);
+
+        if (!animationSet || lastAimDir != aim.Angle || aim.Angle == 0)
+        {
+            SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, aim.Angle, 0, true);
+            SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, aim.Angle, 1, true);
+            SpineAnimator.Instance.isEmpty = true;
+            animationSet = true;
+        }
 
         //공격중
         PlayerMain.Instance.canAttack = false;
@@ -69,7 +83,9 @@ public class DrillBaseAttack : PlayerBaseAttack
     protected override void OnAttacking()
     {      
         Debug.Log("onattacking");
+        SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, 0.1f);
         attackRange.gameObject.SetActive(false);
+        animationSet = false;
         atkcollider.enabled = false;
         PlayerMain.Instance.preparingAttack = false;
         PlayerMain.Instance.playerMove.SetFixedDir(false, Vector2.zero);

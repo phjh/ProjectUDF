@@ -27,6 +27,8 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         stoneActived = true;
 
         //공격 범위 표시
+        SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackPrepareAnimation, PlayerMain.Instance.playerAim.Angle, 0);
+        PlayerMain.Instance.preparingAttack = true;
         Debug.Log("prepare");
         _showRange = true;
         attackRange.gameObject.SetActive(true);
@@ -39,6 +41,9 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
             Debug.LogWarning("Range is not enabled");
             return;
         }
+
+        SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, AttackingAnimation[0].Animation.Duration);
+        SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, PlayerMain.Instance.playerAim.Angle, 0);
 
         //공격중
         PlayerMain.Instance.isAttacking = true;
@@ -71,6 +76,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         PlayerMain.Instance.canMove = true;
         atkcollider.enabled = false;
         attackRange.gameObject.SetActive(false);
+        PlayerMain.Instance.preparingAttack = false;
 
         base.OnAttacking();
     }

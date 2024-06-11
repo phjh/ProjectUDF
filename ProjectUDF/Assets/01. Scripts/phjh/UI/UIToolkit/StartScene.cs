@@ -17,6 +17,9 @@ public class StartScene : MonoBehaviour
 
     private void OnEnable()
     {
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(0))
+            return;
+
         VisualElement root = _uiDocument.rootVisualElement;
         //이녀석은 UI Object다 . 모든 애들의 근간이 된다.
 

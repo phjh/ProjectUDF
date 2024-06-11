@@ -68,16 +68,14 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 		OreInventory.Instance.OnChangeMainOre += EquipStone;
 	}
 
-    private void OnDestroy()
-    {
-        OreInventory.Instance.OnChangeMainOre -= EquipStone;
-    }
-
 	private void Awake()
     {
         GameManager.Instance.player = this;
 
-        if(stat == null)
+        if(skeletonAnimation == null)
+            skeletonAnimation = GetComponent<SkeletonAnimation>();
+
+        if (stat == null)
             Debug.LogError("Stat is null!");
 
         if(inputReader == null)
@@ -147,13 +145,16 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         if (isDodging || isInvincible)
             return;
-        //stat.EditPlayerHP(-1);
+        stat.EditPlayerHP(-1);
         Debug.Log(stat.CurHP);
         StartCoroutine(Invincible());
         UIManager.Instance.ShowBloodScreen(invincibleTime);
 
         if (stat.CurHP <= 0)
+        {
+            OreInventory.Instance.OnChangeMainOre -= EquipStone;
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
     public void GetHeal()
