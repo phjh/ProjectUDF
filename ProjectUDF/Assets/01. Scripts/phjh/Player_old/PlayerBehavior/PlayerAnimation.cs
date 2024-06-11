@@ -3,6 +3,7 @@ using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -31,11 +32,9 @@ public class PlayerAnimation : MonoBehaviour
 
     #region SpineAnimations
 
-    [SpineAnimation]
-    public List<string> IdleAnimations;
+    public List<AnimationReferenceAsset> IdleAnimations;
 
-    [SpineAnimation]
-    public List<string> MoveAnimations;
+    public List<AnimationReferenceAsset> MoveAnimations;
 
     private List<AnimationReferenceAsset> leftAttackAnimations;
 
@@ -53,8 +52,6 @@ public class PlayerAnimation : MonoBehaviour
 
     #endregion
 
-    private List<AnimationReferenceAsset> additionalAnimations;
-
     public int aimAngle = 0;
 
     public Vector2 _inputDirection;
@@ -63,13 +60,13 @@ public class PlayerAnimation : MonoBehaviour
 
     protected void Start()
     {
-        skeletonAnimation = GetComponent<SkeletonAnimation>();
+        skeletonAnimation = PlayerMain.Instance.skeletonAnimation;
         PlayerMain.Instance.inputReader.MovementEvent += SetMovement;
         PlayerMain.Instance.OnWeaponSetting += SetAnimations;
         PlayerStats.OnDeadPlayer += OnDie;
         timescale = skeletonAnimation.timeScale;
         SetAnimations();
-        animationCoroutine = StartCoroutine(SetAnimation());
+        StartCoroutine(MoveAndIdle());
     }
 
 
@@ -86,183 +83,227 @@ public class PlayerAnimation : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(1, dieAnimation, false);
     }
 
-
-
-
     bool isLeftPressed = false;
     bool isRightPressed = false;
-    IEnumerator SetAnimation()
+
+    //원래 플레이어 애니메이션 코루틴
+    //IEnumerator SetAnimation()
+    //{
+    //    float time = 0;
+    //    float fixedTime = 0.01f;
+    //    while (true)
+    //    {
+    //        //애니메이션 재생/역재생용
+    //        if(time > 0.8f)
+    //        {
+    //            time = 0;
+    //        }
+    //        else
+    //        {
+    //            time += fixedTime;
+    //        }
+
+    //        skeletonAnimation.AnimationState.TimeScale = PlayerMain.Instance.stat.MoveSpeed.GetValue() / 3f;
+
+    //        //회피 애니메이션
+    //        if (PlayerMain.Instance.isDodging)
+    //        {
+    //            skeletonAnimation.AnimationState.SetAnimation(0, DodgeAnimation[(int)lastMoveDirection], false);
+    //            skeletonAnimation.AnimationState.SetAnimation(1, DodgeAnimation[(int)lastMoveDirection], false);
+    //            yield return new WaitForSeconds(0.5f);
+    //        }
+
+    //        if (Input.GetMouseButton(0) && (PlayerMain.Instance.preparingAttack||PlayerMain.Instance.canAttack))
+    //        {
+    //            isLeftPressed = true;
+    //            aimAngle = aim.Angle;
+    //            if (_inputDirection == Vector2.zero)
+    //            {
+    //                skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
+    //            }
+    //            else
+    //            {
+    //                int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
+    //                if (attackingdir >= 3 && attackingdir <= 5)
+    //                {
+    //                    skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
+    //                }
+    //                else
+    //                {
+    //                    skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
+    //                }
+    //            }
+    //            if (additionalAnimations.Count > 1)
+    //                skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
+    //            skeletonAnimation.AnimationState.SetAnimation(0, chargingAttack[aimAngle], true).AnimationStart = time;
+    //            yield return new WaitForSeconds(fixedTime);
+    //            continue;
+    //        }
+    //        else if(isLeftPressed)
+    //        {
+    //            skeletonAnimation.AnimationState.TimeScale = 1.2f;
+    //            isLeftPressed = false;
+    //            lastMoveDirection = (MoveDirectionList)aimAngle;
+    //            skeletonAnimation.AnimationState.SetAnimation(0, leftAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
+    //            skeletonAnimation.AnimationState.SetAnimation(1, leftAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
+    //            skeletonAnimation.AnimationState.AddEmptyAnimation(0, 0, 0);
+    //            yield return new WaitForSeconds(0.5f);
+    //        }
+
+    //        if (Input.GetMouseButton(1) && PlayerMain.Instance.canAttack)
+    //        {
+    //            aimAngle = aim.Angle;
+    //            if (_inputDirection == Vector2.zero)
+    //                skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
+    //            else
+    //            {
+    //                int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
+    //                if (attackingdir >= 3 && attackingdir <= 5)
+    //                    skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
+    //                else
+    //                    skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
+    //            }
+    //            if (additionalAnimations.Count > 1)
+    //                skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
+    //            skeletonAnimation.AnimationState.SetAnimation(0, WeaponIdleAnimations[aimAngle], false).AnimationStart = time;
+    //            if(additionalAnimations.Count != 0 && !isRightPressed)
+    //            {
+    //                //SetAnimation(skeletonAnimation, additionalAnimations[0], 0, false, 0);
+    //                PlayerMain.Instance.canMove = false;
+    //                yield return new WaitForSeconds(additionalAnimations[0].Animation.Duration/2);
+    //            }
+    //            PlayerMain.Instance.canMove = true;
+    //            isRightPressed = true;
+
+    //            yield return new WaitForSeconds(fixedTime);
+    //            continue;
+    //        }
+    //        else if(isRightPressed)
+    //        {
+    //            SpineAnimator.Instance.SetAnimation(skeletonAnimation, rightAttackAnimations[aimAngle], 1);
+    //            skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
+    //            skeletonAnimation.AnimationState.SetAnimation(1, rightAttackAnimations[aimAngle], false);
+    //            if (additionalAnimations.Count > 1)
+    //            {
+    //                //SetAnimation(skeletonAnimation, additionalAnimations[1], 0, false, 0);
+    //                PlayerMain.Instance.canMove = false;
+    //                yield return new WaitForSeconds(additionalAnimations[1].Animation.Duration/2);
+    //            }
+    //            PlayerMain.Instance.canMove = true;
+    //            yield return new WaitForSeconds(rightAttackAnimations[0].Animation.Duration + 0.1f);
+    //            lastMoveDirection = (MoveDirectionList)aimAngle;
+    //            isRightPressed = false;
+    //        }
+
+    //        yield return new WaitForSeconds(fixedTime/2);
+    //    }
+    //} //원래 플레이어 애니메이션
+
+    void SetDirection()
     {
-        float time = 0;
-        float fixedTime = 0.01f;
-        while (true)
+        bool isRight = _inputDirection.x > 0;
+        bool isUp = _inputDirection.y > 0;
+
+        if (_inputDirection == Vector2.zero)
         {
-            //애니메이션 재생/역재생용
-            if(time > 0.8f)
+            //다른곳 바라보지 않게 막는용
+        }
+        else if (Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
+        {
+            lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
+        }
+        else if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
+        }
+        else if (isRight)
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.RightBack : MoveDirectionList.Rightfront;
+        }
+        else if (!isRight)
+        {
+            lastMoveDirection = isUp ? MoveDirectionList.LeftBack : MoveDirectionList.Leftfront;
+        }
+    }   //플레이어 방향 계산
+
+    void OnAttackMoving(float time)
+    {
+        aimAngle = aim.Angle;
+        if (_inputDirection == Vector2.zero)
+        {
+            SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, IdleAnimations, aimAngle, 1, startTime: time);
+        }
+        else
+        {
+            int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
+            if (attackingdir >= 3 && attackingdir <= 5)
             {
-                time = 0;
+                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, aimAngle, 1, startTime: MoveAnimations[0].Animation.Duration - time, reversed: true);
             }
             else
             {
-                time += fixedTime;
+                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, aimAngle, 1, startTime: time);
+            }
+        }
+        lastMoveDirection = (MoveDirectionList)aimAngle;
+    }
+
+    IEnumerator MoveAndIdle()   //움직임 애니메이션
+    {
+        float time = 0;
+
+        while (true)
+        {
+            if (SpineAnimator.Instance.isEmpty)
+            {
+                yield return new WaitForSeconds(0.1f);
+                continue;
             }
 
-            skeletonAnimation.AnimationState.TimeScale = PlayerMain.Instance.stat.MoveSpeed.GetValue() / 3f;
+            time += Time.deltaTime;
 
-            bool isRight = _inputDirection.x > 0;
-            bool isUp = _inputDirection.y > 0;
+            if (time > MoveAnimations[0].Animation.Duration)
+                time -= MoveAnimations[0].Animation.Duration;
 
-            if(_inputDirection == Vector2.zero)
-            {
-                //다른곳 바라보지 않게 막는용
-            }
-            else if(Mathf.Abs(_inputDirection.x) > Mathf.Abs(_inputDirection.y))
-            {
-                lastMoveDirection = isRight ? MoveDirectionList.Right : MoveDirectionList.Left;
-                //skeletonAnimation.AnimationName = isRight ? moverightAnimation : moveleftAnimation;
-            }
-            else if (Mathf.Abs(_inputDirection.x) < Mathf.Abs(_inputDirection.y))
-            {
-                lastMoveDirection = isUp ? MoveDirectionList.Back : MoveDirectionList.Front;
-                //skeletonAnimation.AnimationName = isUp ? moveupAnimation : movedownAnimation;
-            }
-            else if (isRight)
-            {
-                lastMoveDirection = isUp ? MoveDirectionList.RightBack : MoveDirectionList.Rightfront;
-                //skeletonAnimation.AnimationName = isUp ? moverightupAnimation : moverightdownAnimation;
-            }
-            else if(!isRight)
-            {
-                lastMoveDirection = isUp ? MoveDirectionList.LeftBack : MoveDirectionList.Leftfront;
-                //skeletonAnimation.AnimationName = isUp ? moveleftupAnimation : moveleftdownAnimation;
-            }
-
-            //회피 애니메이션
             if (PlayerMain.Instance.isDodging)
             {
+                time = 0;
                 skeletonAnimation.AnimationState.SetAnimation(0, DodgeAnimation[(int)lastMoveDirection], false);
                 skeletonAnimation.AnimationState.SetAnimation(1, DodgeAnimation[(int)lastMoveDirection], false);
                 yield return new WaitForSeconds(0.5f);
-            }
-
-            if (Input.GetMouseButton(0) && (PlayerMain.Instance.preparingAttack||PlayerMain.Instance.canAttack))
-            {
-                isLeftPressed = true;
-                aimAngle = aim.Angle;
-                if (_inputDirection == Vector2.zero)
-                {
-                    skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
-                }
-                else
-                {
-                    int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
-                    if (attackingdir >= 3 && attackingdir <= 5)
-                    {
-                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
-                    }
-                    else
-                    {
-                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
-                    }
-                }
-                if (additionalAnimations.Count > 1)
-                    skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
-                skeletonAnimation.AnimationState.SetAnimation(0, chargingAttack[aimAngle], true).AnimationStart = time;
-                yield return new WaitForSeconds(fixedTime);
-                continue;
-            }
-            else if(isLeftPressed)
-            {
-                skeletonAnimation.AnimationState.TimeScale = 1.2f;
-                isLeftPressed = false;
-                lastMoveDirection = (MoveDirectionList)aimAngle;
-                skeletonAnimation.AnimationState.SetAnimation(0, leftAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
-                skeletonAnimation.AnimationState.SetAnimation(1, leftAttackAnimations[aimAngle], false).AnimationStart = 0.25f;
-                skeletonAnimation.AnimationState.AddEmptyAnimation(0, 0, 0);
-                yield return new WaitForSeconds(0.5f);
-            }
-
-            if (Input.GetMouseButton(1) && PlayerMain.Instance.canAttack)
-            {
-                aimAngle = aim.Angle;
-                if (_inputDirection == Vector2.zero)
-                    skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[aimAngle], false).AnimationStart = time;
-                else
-                {
-                    int attackingdir = Mathf.Abs((int)lastMoveDirection - aimAngle);
-                    if (attackingdir >= 3 && attackingdir <= 5)
-                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = 0.8f - time;
-                    else
-                        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[aimAngle], false).AnimationStart = time;
-                }
-                if (additionalAnimations.Count > 1)
-                    skeletonAnimation.AnimationState.SetEmptyAnimation(1, 0);
-                skeletonAnimation.AnimationState.SetAnimation(0, WeaponIdleAnimations[aimAngle], false).AnimationStart = time;
-                if(additionalAnimations.Count != 0 && !isRightPressed)
-                {
-                    SetAnimation(skeletonAnimation, additionalAnimations[0], 0, false, 0);
-                    PlayerMain.Instance.canMove = false;
-                    yield return new WaitForSeconds(additionalAnimations[0].Animation.Duration/2);
-                }
-                PlayerMain.Instance.canMove = true;
-                isRightPressed = true;
-
-                yield return new WaitForSeconds(fixedTime);
-                continue;
-            }
-            else if(isRightPressed)
-            {
-                skeletonAnimation.AnimationState.SetAnimation(0, rightAttackAnimations[aimAngle], false);
-                skeletonAnimation.AnimationState.SetAnimation(1, rightAttackAnimations[aimAngle], false);
-                if (additionalAnimations.Count > 1)
-                {
-                    SetAnimation(skeletonAnimation, additionalAnimations[1], 0, false, 0);
-                    PlayerMain.Instance.canMove = false;
-                    yield return new WaitForSeconds(additionalAnimations[1].Animation.Duration/2);
-                }
-                PlayerMain.Instance.canMove = true;
-                yield return new WaitForSeconds(rightAttackAnimations[0].Animation.Duration + 0.1f);
-                lastMoveDirection = (MoveDirectionList)aimAngle;
-                isRightPressed = false;
-            }
-
-            if (_inputDirection == Vector2.zero)
-            {
-                skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection] , false).AnimationStart = time;
-                skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[(int)lastMoveDirection] , false).AnimationStart = time;
-                //if (!(_player.CanAttack && _player.IsAttacking))
-                //    skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-                yield return new WaitForSeconds(fixedTime);
                 continue;
             }
 
-            skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            //if (!(_player.CanAttack && _player.IsAttacking))
-            //    skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
+            if (PlayerMain.Instance.preparingAttack || PlayerMain.Instance.isAttacking)
+            {
+                OnAttackMoving(time);
+                yield return new WaitForSeconds(Time.deltaTime);
+                continue;
+            }
 
-            yield return new WaitForSeconds(fixedTime/2);
+            SetDirection();
+
+            if (_inputDirection == Vector2.zero || !PlayerMain.Instance.canMove)
+            {
+                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, IdleAnimations, (int)lastMoveDirection, 1, startTime: time);
+            }
+            else
+            {
+                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, (int)lastMoveDirection, 1, startTime: time);
+            }
+
+            if (WeaponIdleAnimations != null && WeaponIdleAnimations.Count != 0)
+                SpineAnimator.Instance.SetAnimation(skeletonAnimation, WeaponIdleAnimations[(int)lastMoveDirection], startTime: time);
+            else
+                Debug.Log("no WeaponIdle Animations");
+
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
-
-    void MoveAndIdle(float time)
-    {
-        if (_inputDirection == Vector2.zero)
-        {
-            skeletonAnimation.AnimationState.SetAnimation(1, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
-                skeletonAnimation.AnimationState.SetAnimation(0, IdleAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-            return;
-        }
-
-        skeletonAnimation.AnimationState.SetAnimation(1, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-        if (!(PlayerMain.Instance.canAttack && PlayerMain.Instance.isAttacking))
-            skeletonAnimation.AnimationState.SetAnimation(0, MoveAnimations[(int)lastMoveDirection], false).AnimationStart = time;
-    }
-
 
     private void Update()
     {
+        MoveAndIdle();
         if(Input.GetKeyDown(KeyCode.X))
         {
             SetAnimations();
@@ -270,36 +311,12 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
+
     public void SetAnimations()
     {
         if (PlayerMain.Instance.nowWeapon == null)
             Debug.LogWarning("Playermain_nowWeapon Is null");
-        leftAttackAnimations = GetSortedAnimationList(PlayerMain.Instance.nowWeapon.leftAttackAnimations);
         WeaponIdleAnimations = GetSortedAnimationList(PlayerMain.Instance.nowWeapon.WeaponIdleAnimations);
-        chargingAttack = GetSortedAnimationList(PlayerMain.Instance.nowWeapon.chargingAttack);
-        rightAttackAnimations = GetSortedAnimationList(PlayerMain.Instance.nowWeapon.rightAttackAnimations);
-        additionalAnimations = PlayerMain.Instance.nowWeapon.AdditionalAnimations;
-    }
-
-    public void SetAnimation(SkeletonAnimation animator, AnimationReferenceAsset animation, int track = 0, bool loop = true, float startTime = 0f, float speed = 1f)
-    {
-        if (animation == null)
-            return;
-
-        animator.AnimationState.SetAnimation(track, animation, loop).Reverse = false;
-        animator.AnimationState.SetAnimation(track, animation, loop).AnimationStart = startTime;
-        animator.AnimationState.SetAnimation(track, animation, loop).TimeScale = speed;
-
-    }
-
-    public void SetReverseAnimation(SkeletonAnimation animator, AnimationReferenceAsset animation, int track = 0)
-    {
-        animator.AnimationState.SetAnimation(track, animation, true).Reverse = true;
-    }
-
-    public void SetAnimationAsEmpty(SkeletonAnimation animator, int track)
-    {
-        animator.AnimationState.SetEmptyAnimation(track, 0);
     }
 
     int[] arr = { 1, 7, 3, 5, 0, 4, 2, 6 };

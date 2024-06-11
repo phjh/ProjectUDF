@@ -58,7 +58,7 @@ public class UIManager : MonoSingleton<UIManager>
 	private void OnDisable()
 	{
 		MapSystem.Instance.RoomClearEvent -= ShowMining;
-		OreInventory.Instance.ChangeContents -= SetOreList;
+		//OreInventory.Instance.ChangeContents -= SetOreList;
 	}
 
 	#region Mining UI

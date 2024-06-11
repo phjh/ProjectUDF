@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Map
   - Enemy
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Player
   - Enemy
   - Obstacle
-  - 
-  - 
+  - Immuniate
+  - OutObstacle
   - 
   - 
   - 

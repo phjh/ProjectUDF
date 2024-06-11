@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -6,7 +7,12 @@ using UnityEngine;
 public abstract class PlayerWeaponAttack : PlayerAttack
 {
     public List<Action> AdditionalAttack = new();
-    
+
+    [SerializeField]
+    protected List<AnimationReferenceAsset> AttackPrepareAnimation;
+
+    [SerializeField]
+    protected List<AnimationReferenceAsset> AttackingAnimation;
 
     [SerializeField]
     protected float timeToAttacking;

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public abstract class PlayerAttack : MonoBehaviour
 {
+    public SkeletonAnimation skele_Animator;
+
     //데미지 관련
     protected float _damageFactor { get; set; }
     protected bool _isCritical = false;

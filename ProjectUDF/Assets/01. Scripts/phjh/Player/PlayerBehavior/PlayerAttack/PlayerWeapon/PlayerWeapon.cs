@@ -10,12 +10,6 @@ public class PlayerWeapon : ScriptableObject
 
     public GameObject weaponObj;
 
-    public List<AnimationReferenceAsset> leftAttackAnimations;
-
-    public List<AnimationReferenceAsset> chargingAttack;
-
-    public List<AnimationReferenceAsset> rightAttackAnimations;
-
     public List<AnimationReferenceAsset> WeaponIdleAnimations;
 
     public List<AnimationReferenceAsset> AdditionalAnimations;

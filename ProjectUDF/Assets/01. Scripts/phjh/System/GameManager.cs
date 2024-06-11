@@ -1,5 +1,6 @@
 using Cinemachine;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum GameStates
@@ -56,20 +57,8 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private void Awake()
 	{
-		PoolManager.Instance = new PoolManager();
-		foreach (var obj in poollistSO.PoolObjectLists)
-		{
-			PoolManager.Instance.CreatePool(obj, this.transform);
-			obj.prefab.pair = obj;
-		}
-		foreach(var obj in poollistSO.PoolEffectLists)
-		{
-            PoolManager.Instance.CreatePool(obj, this.transform);
-        }
-        foreach (var obj in poollistSO.PoolUILists)
-        {
-            PoolManager.Instance.CreatePool(obj, this.transform);
-        }
+		SetPoolManager();
+
 		if (player == null) player = PlayerMain.Instance;
 
         perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -77,6 +66,47 @@ public class GameManager : MonoSingleton<GameManager>
 	}
 
 	#region Methods
+
+	public void SetPoolManager()
+	{
+        PoolManager.Instance = new PoolManager();
+
+		#region 풀매니저 부모 세팅
+
+		GameObject PoolingParent = new GameObject()
+;        PoolingParent.name = "PoolingObjectParent";
+
+		List<GameObject> categoryParent = new();
+
+		categoryParent.Add(new GameObject());
+		categoryParent[categoryParent.Count - 1].transform.SetParent(PoolingParent.transform);
+		categoryParent[categoryParent.Count - 1].name = "ObjectsList";
+
+        categoryParent.Add(new GameObject());
+        categoryParent[categoryParent.Count - 1].transform.SetParent(PoolingParent.transform);
+        categoryParent[categoryParent.Count - 1].name = "EffectsList";
+
+        categoryParent.Add(new GameObject());
+        categoryParent[categoryParent.Count - 1].transform.SetParent(PoolingParent.transform);
+        categoryParent[categoryParent.Count - 1].name = "UILists";
+
+		#endregion
+
+		foreach (var obj in poollistSO.PoolObjectLists)
+		{
+			PoolManager.Instance.CreatePool(obj, categoryParent[0].transform);
+			obj.prefab.pair = obj;
+		}
+		foreach (var obj in poollistSO.PoolEffectLists)
+		{
+			PoolManager.Instance.CreatePool(obj, categoryParent[1].transform);
+		}
+		foreach (var obj in poollistSO.PoolUILists)
+		{
+			PoolManager.Instance.CreatePool(obj, categoryParent[2].transform);
+		}
+	}
+
 	public void UpdateState(GameStates SetState)
 	{
 		gameState = SetState;

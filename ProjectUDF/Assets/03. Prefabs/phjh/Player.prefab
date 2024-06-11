@@ -112,7 +112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1eb50b18baa7ca84ab3f847f23c3519e, type: 2}
+  - {fileID: 2100000, guid: 405cfce15aaf62d4685fed3bb03d4c9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 423ce9e993a1832418b472721db5aefc, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: a58587e8540ab9b468a72d507c1d5e66, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -188,23 +188,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aim: {fileID: 648398567910897771}
   IdleAnimations:
-  - idle_f
-  - idle_sf_r
-  - idle_s_r
-  - idle_sb_r
-  - idle_b
-  - idle_sb_l
-  - idle_s_l
-  - idle_sf_l
+  - {fileID: 11400000, guid: ddd5a90a5f0a6644998830af51e1bbce, type: 2}
+  - {fileID: 11400000, guid: cdc1b55aeb8612342a6be3c440ec9bb0, type: 2}
+  - {fileID: 11400000, guid: 96f1805e22801c945aae4e138898ec9b, type: 2}
+  - {fileID: 11400000, guid: 70002562f5cfdfb479413c9487a25e9d, type: 2}
+  - {fileID: 11400000, guid: ba3a869778e069d43a53e78d3577f0e2, type: 2}
+  - {fileID: 11400000, guid: 004738f995544554e96d9b32a9c26e39, type: 2}
+  - {fileID: 11400000, guid: 76888e884fa28b442bdfdae6e8e70a77, type: 2}
+  - {fileID: 11400000, guid: 0536d2b079fcad3409fc80b5ca78b982, type: 2}
   MoveAnimations:
-  - walk_f
-  - walk_sf_r
-  - walk_s_r
-  - walk_sb_r
-  - walk_b
-  - walk_sb_l
-  - walk_s_l
-  - walk_sf_l
+  - {fileID: 11400000, guid: 6c61e47439b8a0547aeac6adb767467f, type: 2}
+  - {fileID: 11400000, guid: 9aafa105bc626b742b1e233df10b919d, type: 2}
+  - {fileID: 11400000, guid: acf66408a2ddfb640bb977acac9613b4, type: 2}
+  - {fileID: 11400000, guid: 9d298f6f7e79b5f4fa6f1f4f9190dcd0, type: 2}
+  - {fileID: 11400000, guid: 21d8b3bb7db8b8b4f8758131a60c813f, type: 2}
+  - {fileID: 11400000, guid: 20270e93d2a8c77479681597e3fb9374, type: 2}
+  - {fileID: 11400000, guid: b75559f3908dbda4b8a512ed13aa565b, type: 2}
+  - {fileID: 11400000, guid: 3676837cc9eb64947ab01f4746b87b7d, type: 2}
   DodgeAnimation:
   - dash_f
   - dash_sf_r
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb82a128b4355dc4fb0978afab4a886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skeletonAnimation: {fileID: 0}
   stat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   brightness: 1.3
@@ -297,12 +298,12 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 5
     m_NumAlphaKeys: 5
-  hitMat: {fileID: 2100000, guid: 1eb50b18baa7ca84ab3f847f23c3519e, type: 2}
-  state: 0
+  hitMat: {fileID: 2100000, guid: 27c8e8b5cc379444a908a4276c850962, type: 2}
+  IsUIPopuped: 0
   nowWeapon: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
-  nowSkill: {fileID: 2548887514806271339, guid: 60727606b8374d640a44b74228014c8a, type: 3}
+  nowSkill: {fileID: 395593116046054860, guid: 60727606b8374d640a44b74228014c8a, type: 3}
   invincibleTime: 0.4
-  EquipMainOre: 3
+  EquipMainOre: 0
 --- !u!1 &2602279828284038195
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +489,7 @@ GameObject:
   - component: {fileID: 8744345411920787041}
   - component: {fileID: 5306210994658130486}
   - component: {fileID: 2683292138049835736}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -569,7 +570,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

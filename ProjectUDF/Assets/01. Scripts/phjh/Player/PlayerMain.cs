@@ -3,14 +3,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public enum PlayerStates
-{
-
-}
 
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
-    
+    public SkeletonAnimation skeletonAnimation;
     public PlayerStats stat;
     public InputReader inputReader;
 
@@ -21,8 +17,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     public Action OnAttackEvent;
 
     public Action OnWeaponSetting;
-
-    public PlayerStates state;
 
     public bool IsUIPopuped = false;
 
@@ -73,16 +67,14 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 		OreInventory.Instance.OnChangeMainOre += EquipStone;
 	}
 
-	private void OnDisable()
-	{
-		//OreInventory.Instance.OnChangeMainOre -= EquipStone;
-	}
-
 	private void Awake()
     {
         GameManager.Instance.player = this;
 
-        if(stat == null)
+        if(skeletonAnimation == null)
+            skeletonAnimation = GetComponent<SkeletonAnimation>();
+
+        if (stat == null)
             Debug.LogError("Stat is null!");
 
         if(inputReader == null)
@@ -152,13 +144,16 @@ public class PlayerMain : MonoSingleton<PlayerMain>
     {
         if (isDodging || isInvincible)
             return;
-        //stat.EditPlayerHP(-1);
+        stat.EditPlayerHP(-1);
         Debug.Log(stat.CurHP);
         StartCoroutine(Invincible());
         UIManager.Instance.ShowBloodScreen(invincibleTime);
 
         if (stat.CurHP <= 0)
+        {
+            OreInventory.Instance.OnChangeMainOre -= EquipStone;
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
     public void GetHeal()
@@ -210,9 +205,15 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         nowWeapon = weapon;
         nowWeaponObj = Instantiate(nowWeapon.weaponObj, playerAim.transform);
         if(nowWeaponObj.TryGetComponent<PlayerBaseAttack>(out var baseAtk))
+        {
             baseAttack = baseAtk;
+            baseAttack.skele_Animator = skeletonAnimation;
+        }
         if (nowWeaponObj.TryGetComponent<PlayerChargeAttack>(out var chargeAtk))
+        {
             chargeAttack = chargeAtk;
+            chargeAttack.skele_Animator = skeletonAnimation;
+        }
         OnWeaponSetting?.Invoke();
 
         UnEquipStone();

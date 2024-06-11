@@ -522,6 +522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 614694300}
+  - component: {fileID: 614694301}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -546,6 +547,19 @@ Transform:
   - {fileID: 1684782358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &614694301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614694299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbec1da1381660540a68f94dd3b25d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEmpty: 0
 --- !u!1 &621460448
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,18 +890,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 738440408}
     m_Modifications:
-    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: nowWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
-    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: EquipMainOre
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -8683,7 +8685,7 @@ GameObject:
   - component: {fileID: 8589510324210936949}
   - component: {fileID: 8844376792961951353}
   - component: {fileID: 3461357576037422322}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: WallTile
   m_TagString: Map
   m_Icon: {fileID: 0}

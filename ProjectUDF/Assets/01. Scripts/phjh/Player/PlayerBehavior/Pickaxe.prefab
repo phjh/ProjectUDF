@@ -744,6 +744,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5097f1bc0bc8248ac2a5d87b63a255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skele_Animator: {fileID: 0}
+  AttackPrepareAnimation:
+  - {fileID: 11400000, guid: d8d71f5441e704745b3e53c63607bb83, type: 2}
+  - {fileID: 11400000, guid: 3bb28b7307a60da46b3e5288bfc3a0fa, type: 2}
+  - {fileID: 11400000, guid: 4c3ffba0de7d46246a25bd34491b4a78, type: 2}
+  - {fileID: 11400000, guid: 2b7917f4f25d30f4cb90906b3bc486aa, type: 2}
+  - {fileID: 11400000, guid: fcd181a78d3b15645a63642a8126e760, type: 2}
+  - {fileID: 11400000, guid: a4b6a084c170a074784ce468edf1dd31, type: 2}
+  - {fileID: 11400000, guid: 8ac25b8ac56ab104d9243b1e6732b320, type: 2}
+  - {fileID: 11400000, guid: d5a7eb26cddef7649b664a870f08d1b0, type: 2}
+  AttackingAnimation:
+  - {fileID: 11400000, guid: 42d7218e322f76f4ebf24155086c64c1, type: 2}
+  - {fileID: 11400000, guid: 2a1652d1e9ac0b249bee74870663388a, type: 2}
+  - {fileID: 11400000, guid: a5cbdb86d8dd0a74db23c29934fdc3ec, type: 2}
+  - {fileID: 11400000, guid: 9f1de12b3c082f54b922a38780d44165, type: 2}
+  - {fileID: 11400000, guid: 4a3461bd58b72dd41afc7d082a48923d, type: 2}
+  - {fileID: 11400000, guid: f41b4ba7ccab5b745a6e3b9afb89fa82, type: 2}
+  - {fileID: 11400000, guid: 111fe4d9836a1e44da66a50346f10181, type: 2}
+  - {fileID: 11400000, guid: 3d036449cd972ad4ba8796169cbaacf1, type: 2}
   timeToAttacking: 0.4
   timeToEnd: 1
   isActiveonce: 0
@@ -769,6 +788,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dc486f1caae5b47b7deddbe8a39eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skele_Animator: {fileID: 0}
+  AttackPrepareAnimation:
+  - {fileID: 11400000, guid: da88a75bf352bd044aea30ecadd432ae, type: 2}
+  - {fileID: 11400000, guid: 0e859257060f4fc4e98cea26abec80c6, type: 2}
+  - {fileID: 11400000, guid: 777cbfe1c2697a1498f0f38e184f2e5e, type: 2}
+  - {fileID: 11400000, guid: b181cde4197b8bf4da420e895efa3080, type: 2}
+  - {fileID: 11400000, guid: 61d693f4804e5cd43964aacfeb11e0c5, type: 2}
+  - {fileID: 11400000, guid: b6353f1fcce40d849be91f79a901b932, type: 2}
+  - {fileID: 11400000, guid: fabe808a339af554298ac4fc7d60ec01, type: 2}
+  - {fileID: 11400000, guid: 3a3c3cb7e83fbe742b2b7cecb17fcc84, type: 2}
+  AttackingAnimation:
+  - {fileID: 11400000, guid: 3f0623b55a288524aa77c508ae77598b, type: 2}
+  - {fileID: 11400000, guid: 73e5af803a496674eb7fee592c12901d, type: 2}
+  - {fileID: 11400000, guid: d5a8c856f3b33054daa12efbaedcc1e8, type: 2}
+  - {fileID: 11400000, guid: f68a8f40998ae8244801825da4526e18, type: 2}
+  - {fileID: 11400000, guid: ba87df77681bab345ade8971b5564d28, type: 2}
+  - {fileID: 11400000, guid: eb2c7cb971d040246834bf85b98a92da, type: 2}
+  - {fileID: 11400000, guid: 9b523ddac7cfeaa43aa88593355a7cc5, type: 2}
+  - {fileID: 11400000, guid: cacfd81e60d131347b729b53ea5c33dc, type: 2}
   timeToAttacking: 0.6
   timeToEnd: 1
   isActiveonce: 0

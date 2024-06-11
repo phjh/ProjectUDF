@@ -126,32 +126,6 @@ public class PoolManager
         return item;
     }
 
-    public PoolableMono Pop(PoolObjectListEnum enumlist, Transform parent)
-    {
-        if (!ObjectPoolingList.ContainsKey(enumlist))
-        {
-            Debug.LogError("Prefab doesnt exist on pool");
-            return null;
-        }
-        PoolableMono item = ObjectPoolingList[enumlist].Pop();
-        item.transform.SetParent(parent);
-        item.ResetPoolingItem();
-        return item;
-    }
-
-    public PoolableMono Pop(PoolEffectListEnum enumlist, Transform parent)
-    {
-        if (!EffectPoolingList.ContainsKey(enumlist))
-        {
-            Debug.LogError("Prefab doesnt exist on pool");
-            return null;
-        }
-        PoolableMono item = EffectPoolingList[enumlist].Pop();
-        item.transform.SetParent(parent);
-        item.ResetPoolingItem();
-        return item;
-    }
-
     public void Push(PoolableMono obj, PoolObjectListEnum enumlist)
     {
         ObjectPoolingList[enumlist].Push(obj);
