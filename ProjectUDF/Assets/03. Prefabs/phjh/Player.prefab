@@ -265,9 +265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 0}
-  ImmunityLayer:
-    serializedVersion: 2
-    m_Bits: 0
   stat: {fileID: 11400000, guid: 157885d973072bd4db4354b322e20bf9, type: 2}
   inputReader: {fileID: 11400000, guid: c1d207b0cd092de4897e78fdb23dade1, type: 2}
   brightness: 1.3
@@ -301,10 +298,10 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 5
     m_NumAlphaKeys: 5
-  hitMat: {fileID: 2100000, guid: 1eb50b18baa7ca84ab3f847f23c3519e, type: 2}
+  hitMat: {fileID: 2100000, guid: 27c8e8b5cc379444a908a4276c850962, type: 2}
   IsUIPopuped: 0
   nowWeapon: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
-  nowSkill: {fileID: 2548887514806271339, guid: 60727606b8374d640a44b74228014c8a, type: 3}
+  nowSkill: {fileID: 395593116046054860, guid: 60727606b8374d640a44b74228014c8a, type: 3}
   invincibleTime: 0.4
   EquipMainOre: 0
 --- !u!1 &2602279828284038195
@@ -492,7 +489,7 @@ GameObject:
   - component: {fileID: 8744345411920787041}
   - component: {fileID: 5306210994658130486}
   - component: {fileID: 2683292138049835736}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -573,7 +570,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

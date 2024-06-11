@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerMain : MonoSingleton<PlayerMain>
 {
     public SkeletonAnimation skeletonAnimation;
-    public LayerMask ImmunityLayer;
     public PlayerStats stat;
     public InputReader inputReader;
 
