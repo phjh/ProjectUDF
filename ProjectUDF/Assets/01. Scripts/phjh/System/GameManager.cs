@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+	public GameResultData resultData;
+
 	#region Pooling
 	[Header("Pooling")]
 	public PoolingListSO poollistSO;
@@ -24,12 +26,23 @@ public class GameManager : MonoSingleton<GameManager>
 	#endregion
 
 	#region Game State Event
-	public static event Action OnLobby;
-	public static event Action OnStart;
-	public static event Action OnPlaying;
-	public static event Action OnNonPauseUI;
-	public static event Action OnPauseUI;
-	public static event Action OnEnd;
+	public event Action OnLobby;
+	public void LobbyEventHandler() { if (OnLobby != null) OnLobby.Invoke(); }
+
+	public event Action OnStart;
+	public void StartEventHandler() { if (OnStart != null) OnStart.Invoke(); }
+
+	public event Action OnPlaying;
+	public void PlayingEventHandler() { if (OnPlaying != null) OnPlaying.Invoke(); }
+
+	public event Action OnNonPauseUI;
+	public void NonPauseEventHandler() { if (OnNonPauseUI != null) OnNonPauseUI.Invoke(); }
+
+	public event Action OnPauseUI;
+	public void PauseEventHandler() { if (OnPauseUI != null) OnPauseUI.Invoke(); }
+
+	public event Action OnEnd;
+	public void EndEventHandler() { if (OnEnd != null) OnEnd.Invoke(); }
 	#endregion
 
 	#region etc
@@ -38,6 +51,16 @@ public class GameManager : MonoSingleton<GameManager>
 	CinemachineBasicMultiChannelPerlin perlin;
 
 	#endregion
+
+	private void OnEnable()
+	{
+		OnEnd += SetResultData;
+	}
+
+	private void OnDisable()
+	{
+		OnEnd -= SetResultData;
+	}
 
 	private void Awake()
 	{
@@ -133,15 +156,27 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public void UpdateResult(GameResults SetResult)
 	{
-		gameResult = SetResult;
-		if (gameResult != GameResults.Play) UpdateState(GameStates.End);
+		resultData.ResultState = SetResult;
+
+		if (resultData.ResultState != GameResults.Play) UpdateState(GameStates.End);
+	}
+
+	public void SetResultData()
+	{
+		resultData.ClearRoomCount = MapSystem.Instance.ClearRoomCount;
+
+		List<int> oreList = OreInventory.Instance?.OreList;
+		List<int> gemList = OreInventory.Instance?.GemList;
+
+		if(oreList != null)	resultData.CollectOres = oreList;
+		if(gemList != null)	resultData.CollectGems = gemList;
 	}
 
     #endregion
 
     #region CameraShake
 
-    public void ShakeCamera(float shakeIntencity = 3, float waittime = 0.2f)
+    public void ShakeCamera(float shakeIntencity = 3, float waitTime = 0.2f)
     {
         float frequency = 1f;
         if (PlayerMain.Instance.isCritical)
@@ -151,7 +186,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
         perlin.m_AmplitudeGain = shakeIntencity * 0.5f;
         perlin.m_FrequencyGain = frequency;
-		Invoke(nameof(CameraShakingOff), waittime);
+		Invoke(nameof(CameraShakingOff), waitTime);
     }
 
     void CameraShakingOff()

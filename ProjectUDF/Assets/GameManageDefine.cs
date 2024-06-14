@@ -28,8 +28,18 @@ namespace GameManageDefine
 		Play = 0,
 		TimeOut = 1,
 		DiePlayer = 2,
+		ClearGame = 3
 	}
 
-
 	#endregion
+
+	public struct GameResultData
+	{
+		public int ClearRoomCount { get; set; }
+		public GameResults ResultState { get; set; }
+
+		public List<int> CollectOres { get; set; }
+		public List<int> CollectGems { get; set; }
+	}
+
 }

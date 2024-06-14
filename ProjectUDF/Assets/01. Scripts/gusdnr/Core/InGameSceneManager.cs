@@ -8,6 +8,13 @@ using UnityEngine.SceneManagement;
 public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 {
 
+	#region Actions
+
+	public static event Action OnStartLoadScene;
+	public static event Action OnEndLoadScene;
+
+	#endregion
+
 	#region Public Values
 
 	public Scene ActiveScene() { return SceneManager.GetActiveScene(); }
@@ -27,12 +34,13 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	private void OnEnable()
 	{
-		//SceneManager.sceneLoaded += OnSceneLoaded;
+		SceneManager.sceneLoaded += OnSceneLoaded;
+		GameManager.Instance.OnEnd += () => SetSceneIndex((int)SceneList.Result);
 	}
 
 	private void OnDisable()
 	{
-		//SceneManager.sceneLoaded -= OnSceneLoaded;
+		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
 	private void Awake()
@@ -62,6 +70,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		asyncLoad.allowSceneActivation = false;
 
+		OnStartLoadScene?.Invoke();
+
 		while (!asyncLoad.isDone)
 		{
 			if (asyncLoad.progress >= 0.9f)
@@ -72,6 +82,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		}
 
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+
+		OnEndLoadScene?.Invoke();
 	}
 
 	#endregion
@@ -96,6 +108,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
 		asyncLoad.allowSceneActivation = false;
 
+		OnStartLoadScene?.Invoke();
+
 		while (!asyncLoad.isDone)
 		{
 			if (asyncLoad.progress >= 0.9f)
@@ -106,6 +120,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		}
 
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(index));
+
+		OnEndLoadScene?.Invoke();
 	}
 
 	#endregion
@@ -127,6 +143,7 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
+		Debug.Log("SceneLoad Complete : " + scene.name);
 	}
 
 	#endregion
