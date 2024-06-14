@@ -8,10 +8,10 @@ public class RangeAttackState : EnemyState
 	public int ShootCount;
 	public float ShootDelay;
 	public BulletMono Bullet;
-	
+
 	private Coroutine AttackCoroutine;
-	private Vector2 EnemyPos;
-	private Vector2 TargetPos;
+	private Vector3 EnemyPos;
+	private Vector3 TargetPos;
 
 	public override EnemyState Clone()
 	{
@@ -27,7 +27,6 @@ public class RangeAttackState : EnemyState
 		base.EnterState();
 		enemy.StopAllCoroutines();
 		enemy.MoveEnemy(Vector2.zero);
-		TargetPos = enemy.Target.position;
 		EnemyPos = enemy.transform.position;
 		AttackCoroutine = enemy.StartCoroutine(ShootBullet());
 	}
@@ -59,12 +58,32 @@ public class RangeAttackState : EnemyState
 		Vector2 directionToTarget;
 		for (int cnt = 0; cnt < ShootCount; cnt++)
 		{
+			// 타겟 위치 계산
+			Vector3 playerPos = enemy.Target.position;
+			Vector3 directionToPlayer = (playerPos - EnemyPos).normalized;
+			Vector3 perpendicularVector = new Vector3(-directionToPlayer.y, directionToPlayer.x, 0);
+
+			Vector3 leftTarget = playerPos + perpendicularVector;
+			Vector3 rightTarget = playerPos - perpendicularVector;
+
+			float distanceToLeft = Vector3.Distance(leftTarget, EnemyPos);
+			float distanceToRight = Vector3.Distance(rightTarget, EnemyPos);
+
+			if (distanceToLeft < distanceToRight)
+			{
+				TargetPos = leftTarget;
+			}
+			else
+			{
+				TargetPos = rightTarget;
+			}
+			enemy.CheckForFacing(TargetPos);
+
 			directionToTarget = (TargetPos - EnemyPos).normalized;
 			BulletMono bullet = PoolManager.Instance.Pop(Bullet.BulletEnum) as BulletMono;
 			bullet.gameObject.transform.position = new Vector3(EnemyPos.x, EnemyPos.y + 0.5f);
 			bullet.Shoot(directionToTarget);
 			yield return new WaitForSeconds(ShootDelay);
-			TargetPos = enemy.Target.position;
 		}
 		yield return AttackCoroutine = null;
 	}

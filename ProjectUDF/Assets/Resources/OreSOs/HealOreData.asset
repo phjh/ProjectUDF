@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339217327c6ec0b42ae1c5c38315f001, type: 3}
   m_Name: HealOreData
   m_EditorClassIdentifier: 
-  OreSprite: {fileID: 21300000, guid: e35c9121d2d05e745b1711107e10f1a3, type: 3}
+  OreSprite: {fileID: 21300000, guid: fc387e9cb93921a46b87027375d62f48, type: 3}
   OreName: "\uB9D8\uC554"
   OreDesc: "\uB9E4\uB048\uD55C \uCD08\uB85D\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
     \uD761\uC218\uD574 \uCCB4\uB825\uC744 1 \uC5BB\uB294\uB2E4."

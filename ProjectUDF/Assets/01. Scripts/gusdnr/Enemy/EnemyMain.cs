@@ -1,3 +1,4 @@
+using GameManageDefine;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -175,6 +176,7 @@ public class EnemyMain : PoolableMono
 	{
 		IsDead = true;
 		MovePoint.gameObject.SetActive(false);
+		OnDead();
 	}
 
 	public void OnDead()
