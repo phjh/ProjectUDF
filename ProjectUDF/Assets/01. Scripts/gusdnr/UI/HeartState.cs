@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public enum UIHeartState
 {
 	Empty = 0,
-	Full = 1
+	Half = 1,
+	Full = 2
 }
 
 public class HeartState : MonoBehaviour
 {
-	[SerializeField] private Sprite full, empty;
+	[SerializeField] private Sprite empty, half, full;
 	private Image heartImage;
 
 	private void Awake()
@@ -25,6 +26,9 @@ public class HeartState : MonoBehaviour
 		{
 			case UIHeartState.Empty:
 				heartImage.sprite = empty;
+				break;
+			case UIHeartState.Half:
+				heartImage.sprite = half;
 				break;
 			case UIHeartState.Full:
 				heartImage.sprite = full;

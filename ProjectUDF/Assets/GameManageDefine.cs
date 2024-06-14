@@ -25,7 +25,8 @@ namespace GameManageDefine
 
 	public enum GameResults
 	{
-		Play = 0,
+		None = -1,
+		Playing = 0,
 		TimeOut = 1,
 		DiePlayer = 2,
 		ClearGame = 3

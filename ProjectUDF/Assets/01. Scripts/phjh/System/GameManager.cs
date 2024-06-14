@@ -80,11 +80,13 @@ public class GameManager : MonoSingleton<GameManager>
 	private void Awake()
 	{
 		SetPoolManager();
-
 		if (player == null) player = PlayerMain.Instance;
 
         perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        AstarPath.active.Scan();
+		AstarPath.active.Scan();
+		
+		gameResult = GameResults.None;
+		resultData = new GameResultData() { ClearRoomCount = 0, ResultState = gameResult, CollectOres = new List<int>(), CollectGems = new List<int>() };
 	}
 
 	#region Methods
@@ -132,7 +134,7 @@ public class GameManager : MonoSingleton<GameManager>
 	public void UpdateState(GameStates SetState)
 	{
 		gameState = SetState;
-		//StateChecker();
+		StateChecker();
 	}
 
 	private void StateChecker()
@@ -141,7 +143,7 @@ public class GameManager : MonoSingleton<GameManager>
 		{
 			case GameStates.Lobby:
 				OnLobby?.Invoke();
-				UpdateResult(GameResults.Play);
+				UpdateResult(GameResults.Playing);
 				break;
 			case GameStates.Start:
 				OnStart?.Invoke();
@@ -173,7 +175,7 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		resultData.ResultState = SetResult;
 
-		if (resultData.ResultState != GameResults.Play) UpdateState(GameStates.End);
+		if (resultData.ResultState != GameResults.Playing) UpdateState(GameStates.End);
 	}
 
 	public void SetResultData()
