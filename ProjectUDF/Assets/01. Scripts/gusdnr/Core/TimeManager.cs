@@ -1,3 +1,4 @@
+using GameManageDefine;
 using Cinemachine;
 using System;
 using System.Collections;

@@ -1,3 +1,4 @@
+using GameManageDefine;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,13 @@ public class EnemyMain : PoolableMono
 		Dead = 4,
 	}
 
+	public enum CoolingState
+	{
+		None = 0,
+		Start = 1,
+		OnGoing = 2,
+		End = 3
+	}
 
 	#region Enemy Variables
 	public float MaxHealth { get; set; } //최대 체력
@@ -168,6 +176,7 @@ public class EnemyMain : PoolableMono
 	{
 		IsDead = true;
 		MovePoint.gameObject.SetActive(false);
+		OnDead();
 	}
 
 	public void OnDead()

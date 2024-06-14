@@ -7,21 +7,21 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public enum MoveDirectionList
-{
-    Front = 0,
-    Rightfront = 1,
-    Right = 2,
-    RightBack = 3,
-    Back = 4,
-    LeftBack = 5,
-    Left = 6,
-    Leftfront = 7,
-}
-
 public class PlayerAnimation : MonoBehaviour
 {
-    SkeletonAnimation skeletonAnimation;
+	public enum MoveDirectionList
+	{
+		Front = 0,
+		Rightfront = 1,
+		Right = 2,
+		RightBack = 3,
+		Back = 4,
+		LeftBack = 5,
+		Left = 6,
+		Leftfront = 7,
+	}
+
+	SkeletonAnimation skeletonAnimation;
 
     MoveDirectionList lastMoveDirection;
 

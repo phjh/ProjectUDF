@@ -66,6 +66,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     public int floorCount = 0;
     public int roomCount = 0;
 
+    public int ClearRoomCount { get; private set; } = 0;
+
 	[Header("InGame Room's Values")]
     public float roomStartTime = 0;
     public int waveCount = -1;
@@ -160,6 +162,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void OnRoomClear()
     {
+        ClearRoomCount = ClearRoomCount + 1;
         if (roomCount == CurFloorRoomList.Count)
         {
             OnFloorClear();

@@ -19,7 +19,7 @@ public class EnemyAniamtior : MonoBehaviour
 		if (EAnimator != null) ConnectedVisual = true;
 	}
 
-	public SkeletonAnimation EAnimator;
+	[HideInInspector] public SkeletonAnimation EAnimator;
 	private bool ConnectedVisual = false;
 
 	[SpineAnimation] public string IdleAnimation;

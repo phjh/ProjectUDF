@@ -1,3 +1,4 @@
+using GameManageDefine;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;

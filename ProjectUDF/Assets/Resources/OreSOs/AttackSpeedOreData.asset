@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339217327c6ec0b42ae1c5c38315f001, type: 3}
   m_Name: AttackSpeedOreData
   m_EditorClassIdentifier: 
-  OreSprite: {fileID: 21300000, guid: a2eba8c38b896fd46a69d39ad6274968, type: 3}
+  OreSprite: {fileID: 21300000, guid: dc7e8e190083e3044846483abb21401c, type: 3}
   OreName: "\uAD6C\uC774\uB204\uC2A4"
   OreDesc: "\uC2E0\uBE44\uD55C \uBCF4\uB77C\uC0C9 \uAD11\uC11D,\uD68D\uB4DD \uC2DC
     \uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD55C\uB2E4."
