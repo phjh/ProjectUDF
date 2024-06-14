@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class DrillBaseAttack : PlayerBaseAttack
+public class DrillBaseAttack : PlayerBaseAttack, IStopAttractable
 { 
     private GameObject baseAttackRange;
     private Collider2D baseCollider;
@@ -13,11 +14,14 @@ public class DrillBaseAttack : PlayerBaseAttack
 
     int lastAimDir;
 
+    float lastTime = 0;
+
     protected override void Start()
     {
         baseAttackRange = attackRange;
         atkSpeedcol = AttackSpeedStoneObj.GetComponentInChildren<Collider2D>();
         aim = PlayerMain.Instance.playerAim;
+        lastTime = Time.time;
         base.Start();
     }
 
@@ -25,6 +29,18 @@ public class DrillBaseAttack : PlayerBaseAttack
 
     public override void OnAttackPrepare()
     {
+        //여기다가 드릴 쿨 추가 및 인터페이스로 에임 받아와서 켰다껐다하기
+        if(Time.time - lastTime < Time.fixedDeltaTime && PlayerMain.Instance.preparingAttack)
+        {
+            Debug.LogWarning("drill return invoked");
+            StopAiming();
+            return;
+        }
+        else
+        {
+            StartAiming();
+        }
+
         if (PlayerMain.Instance.playerMove == null)
             Debug.LogError("move is null");
 
@@ -41,12 +57,13 @@ public class DrillBaseAttack : PlayerBaseAttack
         //공격범위 표시
         attackRange.gameObject.SetActive(true);
 
-        if (!animationSet || lastAimDir != aim.Angle || aim.Angle == 0)
+        if (!animationSet || (lastAimDir != aim.Angle || aim.Angle == 0))
         {
-            SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, aim.Angle, 0, true);
-            SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, aim.Angle, 1, true);
+            SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, aim.Angle, 0, true, Time.time % AttackingAnimation[0].Animation.Duration);
+            SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackingAnimation, aim.Angle, 1, true, Time.time % AttackingAnimation[0].Animation.Duration);
             SpineAnimator.Instance.isEmpty = true;
             animationSet = true;
+            lastTime = Time.time;
         }
 
         //공격중
@@ -151,5 +168,16 @@ public class DrillBaseAttack : PlayerBaseAttack
     {
         //없음
         Debug.Log("드릴 이속광석 효과는 없어요");
+    }
+
+    public void StartAiming()
+    {
+        PlayerMain.Instance.playerAim.enabled = true;
+    }
+
+    public void StopAiming()
+    {
+        PlayerMain.Instance.playerAim.enabled = false;
+        Debug.LogWarning("aimtracking stoped");
     }
 }

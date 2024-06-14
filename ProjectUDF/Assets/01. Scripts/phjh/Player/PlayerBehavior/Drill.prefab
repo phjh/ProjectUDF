@@ -49,7 +49,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skele_Animator: {fileID: 0}
-  AttackPrepareAnimation: []
+  AttackPrepareAnimation:
+  - {fileID: 11400000, guid: 77b05ed8da7dc474b831debee0a9451a, type: 2}
+  - {fileID: 11400000, guid: a2da66b48ff57c3448dac2e408c0ae4e, type: 2}
+  - {fileID: 11400000, guid: 6820ac83578099e4982c6b56448f85ad, type: 2}
+  - {fileID: 11400000, guid: 13fcb380436a7db4290fb390f07a596b, type: 2}
+  - {fileID: 11400000, guid: 2fcd304e765a4e847982d65188cea1d4, type: 2}
+  - {fileID: 11400000, guid: e21f7ef88fa7eba47aa8e90f7aef4056, type: 2}
+  - {fileID: 11400000, guid: f45430126b17e2248a90d2f21aa8236f, type: 2}
+  - {fileID: 11400000, guid: 82d1908d2550fe6478f6817eb1299bd6, type: 2}
   AttackingAnimation:
   - {fileID: 11400000, guid: 77b05ed8da7dc474b831debee0a9451a, type: 2}
   - {fileID: 11400000, guid: a2da66b48ff57c3448dac2e408c0ae4e, type: 2}
@@ -95,11 +103,8 @@ MonoBehaviour:
     factor: 1.3
   - time: 1
     factor: 1.7
-  dig_Animation: {fileID: 11400000, guid: 5b8b7711053b66844a2d83db59a65fbe, type: 2}
-  digUp_Animation: {fileID: 11400000, guid: 59f687dac4f810342a639de8db534f93, type: 2}
-  immuniateLayer:
-    serializedVersion: 2
-    m_Bits: 1024
+  dig_Animation: {fileID: 0}
+  digUp_Animation: {fileID: 0}
   curve:
     serializedVersion: 2
     m_Curve: []

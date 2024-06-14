@@ -12,7 +12,6 @@ public class StartScene : MonoBehaviour
     private void Awake()
     {
         _uiDocument = GetComponent<UIDocument>();
-
     }
 
     private void OnEnable()
@@ -36,9 +35,14 @@ public class StartScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && PlayerMain.Instance.nowWeapon != null)
+        {
             SceneManager.LoadScene((int)NextScene);
-
+        }
+        else
+        {
+            //무기를 선택하라는 메시지 출력
+        }
     }
 
 }

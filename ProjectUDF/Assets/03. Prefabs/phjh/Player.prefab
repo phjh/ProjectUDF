@@ -112,7 +112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 405cfce15aaf62d4685fed3bb03d4c9a, type: 2}
+  - {fileID: 2100000, guid: bf930757687a070499415da9e5d05c2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: a58587e8540ab9b468a72d507c1d5e66, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 3b6f2b503d483ee42bd96417f9772c5b, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 5
   hitMat: {fileID: 2100000, guid: 27c8e8b5cc379444a908a4276c850962, type: 2}
   IsUIPopuped: 0
-  nowWeapon: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
+  nowWeapon: {fileID: 0}
   nowSkill: {fileID: 395593116046054860, guid: 60727606b8374d640a44b74228014c8a, type: 3}
   invincibleTime: 0.4
   EquipMainOre: 0
@@ -313,7 +313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5915209177931120761}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 7392427430450504081}
   - component: {fileID: 2314388782673437675}
   - component: {fileID: 3477421156548948014}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 8744345411920787041}
   - component: {fileID: 5306210994658130486}
   - component: {fileID: 2683292138049835736}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -618,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4380510804294495546}
   - component: {fileID: 1280162830475341070}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: DashCoolDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7964545791201260084}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LuckyOreLists
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   - component: {fileID: 4336991088800853341}
   - component: {fileID: 2070217783254609477}
   - component: {fileID: 5091799023231717686}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

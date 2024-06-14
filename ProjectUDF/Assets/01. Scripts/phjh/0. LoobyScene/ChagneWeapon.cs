@@ -20,7 +20,7 @@ public class ChagneWeapon : MonoBehaviour
     {
         keysprite.transform.position = this.transform.position + Vector3.up / 2f;
         keysprite.gameObject.SetActive(true);
-        if (Input.GetKeyDown(KeyCode.F))
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKey(KeyCode.F)) && PlayerMain.Instance.nowWeapon != weapon)
         {
             PlayerMain.Instance.SetWeapon(weapon);
             LobbyToGame.Instance.SetNowWeapon(weapon);
@@ -29,7 +29,7 @@ public class ChagneWeapon : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetKey(KeyCode.F))
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKey(KeyCode.F)) && PlayerMain.Instance.nowWeapon != weapon)
         {
             PlayerMain.Instance.SetWeapon(weapon);
             LobbyToGame.Instance.SetNowWeapon(weapon);

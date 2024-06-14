@@ -229,6 +229,7 @@ public class PlayerAnimation : MonoBehaviour
     void OnAttackMoving(float time)
     {
         aimAngle = aim.Angle;
+        lastMoveDirection = (MoveDirectionList)aimAngle;
         if (_inputDirection == Vector2.zero)
         {
             SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, IdleAnimations, aimAngle, 1, startTime: time);
@@ -245,7 +246,6 @@ public class PlayerAnimation : MonoBehaviour
                 SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, aimAngle, 1, startTime: time);
             }
         }
-        lastMoveDirection = (MoveDirectionList)aimAngle;
     }
 
     IEnumerator MoveAndIdle()   //움직임 애니메이션
@@ -289,11 +289,22 @@ public class PlayerAnimation : MonoBehaviour
             }
             else
             {
-                SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, (int)lastMoveDirection, 1, startTime: time);
+                //여기서 왜 대체 그렇게 되는가ㅏㅏㅏㅏ
+                if ((int)lastMoveDirection == 7)
+                {
+                    Debug.LogWarning($"dir : {(int)lastMoveDirection}");
+                    SpineAnimator.Instance.SetAnimation(skeletonAnimation, MoveAnimations[6], 1, startTime: time);
+                }
+                else
+                    SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, MoveAnimations, (int)lastMoveDirection, 1, startTime: time);
             }
 
             if (WeaponIdleAnimations != null && WeaponIdleAnimations.Count != 0)
-                SpineAnimator.Instance.SetAnimation(skeletonAnimation, WeaponIdleAnimations[(int)lastMoveDirection], startTime: time);
+            {
+                if ((int)lastMoveDirection == 7)
+                    Debug.LogWarning($"dir : {(int)lastMoveDirection}, animation name : {WeaponIdleAnimations[(int)lastMoveDirection].Animation.Name}");
+                SpineAnimator.Instance.SetAnimation(skeletonAnimation, WeaponIdleAnimations[(int)lastMoveDirection], 0, startTime: time % WeaponIdleAnimations[0].Animation.Duration);
+            }
             else
                 Debug.Log("no WeaponIdle Animations");
 
@@ -315,7 +326,10 @@ public class PlayerAnimation : MonoBehaviour
     public void SetAnimations()
     {
         if (PlayerMain.Instance.nowWeapon == null)
+        {
             Debug.LogWarning("Playermain_nowWeapon Is null");
+            return;
+        }
         WeaponIdleAnimations = GetSortedAnimationList(PlayerMain.Instance.nowWeapon.WeaponIdleAnimations);
     }
 

@@ -10645,57 +10645,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1602233773}
     m_Modifications:
-    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: hitMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 27c8e8b5cc379444a908a4276c850962, type: 2}
-    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: nowSkill
-      value: 
-      objectReference: {fileID: 395593116046054860, guid: 60727606b8374d640a44b74228014c8a, type: 3}
-    - target: {fileID: 1561821813172104442, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: nowWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
-    - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: MainOreType
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: SubOreType.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: SubOreType.Array.data[0]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683292138049835736, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: SubOreType.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5306210994658130486, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5306210994658130486, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 5403100208602973642, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7495340682727693152, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9121443670462495017, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -22,7 +22,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     #region 움직임 관련 변수들
 
-    public PlayerWeapon nowWeapon;
+    public PlayerWeapon nowWeapon = null;
 
     public GameObject nowWeaponObj { get; private set; }
     public PlayerBaseAttack baseAttack {  get; private set; }
@@ -121,7 +121,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         if (Input.GetKeyDown(KeyCode.H))
             UnEquipStone();
 
-        if (IsUIPopuped)
+        if (IsUIPopuped || nowWeapon == null)
             return;
 
         if (Input.GetMouseButton(0))
@@ -201,6 +201,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
         if (isAttacking || !canAttack)
             return;
+
+        Destroy(nowWeaponObj);
 
         nowWeapon = weapon;
         nowWeaponObj = Instantiate(nowWeapon.weaponObj, playerAim.transform);

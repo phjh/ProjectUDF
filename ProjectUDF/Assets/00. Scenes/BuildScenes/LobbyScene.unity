@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6543a544fa1a4f409b9c5f650cc6da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowWeapon: {fileID: 11400000, guid: 48a8befde27c6a241a3640bd861163ea, type: 2}
+  nowWeapon: {fileID: 0}
 --- !u!4 &1030399333
 Transform:
   m_ObjectHideFlags: 0

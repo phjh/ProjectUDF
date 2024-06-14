@@ -22,8 +22,10 @@ public class DrillChargeAttack : PlayerChargeAttack
     {
         while(time <= dig_Animation.Animation.Duration)
         {
-            SpineAnimator.Instance.SetAnimation(skele_Animator, dig_Animation, 0, startTime:time);
-            SpineAnimator.Instance.SetAnimation(skele_Animator, dig_Animation, 1, startTime:time);
+            SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 0, 0.1f);
+            SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, 0.1f);
+            SpineAnimator.Instance.SetAnimation(skele_Animator, dig_Animation, 0, startTime:time - dig_Animation.Animation.Duration);
+            SpineAnimator.Instance.SetAnimation(skele_Animator, dig_Animation, 1, startTime:time - dig_Animation.Animation.Duration);
             time += Time.deltaTime;
         }
         SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 1, 1000);
