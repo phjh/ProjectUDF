@@ -75,6 +75,8 @@ public class PoolManager
     public void CreatePool(PoolingPair pair, Transform parent)
     {
         Pool<PoolableMono> pool = new Pool<PoolableMono>(pair.prefab, parent, pair.count);
+        if (pool == null)
+            Debug.LogError("pool is null");
         ObjectPoolingList.Add(pair.enumtype, pool);
     }
 

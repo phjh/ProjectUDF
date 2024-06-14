@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoolObjectLists:
   - enumtype: 1
-    prefab: {fileID: 3026124319365870582, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+    prefab: {fileID: 4290392551278346690, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
     name: MiniGolem
-    count: 10
+    count: 15
     description: "\uBBF8\uB2C8\uACE8\uB818"
   - enumtype: 2
     prefab: {fileID: 4764951802140800641, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
     name: StoneToad
     count: 10
-    description: "\uB3CC \uB450\uAEBC\uBE44"
+    description: "\uAC1C\uAD6C\uB9AC\uC11D\uC0C1"
   - enumtype: 3
     prefab: {fileID: 4624706665982695528, guid: 77d29ed9bcc66cc4d988b2b6a4304ce9, type: 3}
     name: ToadBullet
@@ -36,8 +36,8 @@ MonoBehaviour:
   - enumtype: 5
     prefab: {fileID: 2021701440125315277, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
     name: Gagoyle
-    count: 10
-    description: "\uAC00\uACE0\uC77C"
+    count: 15
+    description: "\uAC00\uACE0"
   - enumtype: 6
     prefab: {fileID: 5590503244200413130, guid: f8eab62e60fe13f4e8124e1b3b3e0c01, type: 3}
     name: KingToadFollow
