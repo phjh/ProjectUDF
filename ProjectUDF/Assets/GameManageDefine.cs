@@ -33,7 +33,7 @@ namespace GameManageDefine
 
 	#endregion
 
-	public struct GameResultData
+	public class GameResultData
 	{
 		public int ClearRoomCount { get; set; }
 		public GameResults ResultState { get; set; }

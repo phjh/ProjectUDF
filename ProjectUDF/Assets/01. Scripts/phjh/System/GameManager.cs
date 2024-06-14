@@ -6,7 +6,22 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-	public GameResultData resultData;
+	public GameResultData resultData
+	{
+		get
+		{
+			return resultData;
+		}
+
+		private set
+		{
+			resultData.ResultState = value.ResultState;
+			resultData.ClearRoomCount = value.ClearRoomCount;
+
+			resultData.CollectOres = value.CollectOres;
+			resultData.CollectGems = value.CollectGems;
+		}
+	}
 
 	#region Pooling
 	[Header("Pooling")]
