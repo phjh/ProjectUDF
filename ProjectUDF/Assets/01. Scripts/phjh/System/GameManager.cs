@@ -26,22 +26,22 @@ public class GameManager : MonoSingleton<GameManager>
 	#endregion
 
 	#region Game State Event
-	public event Action OnLobby;
+	public static event Action OnLobby;
 	public void LobbyEventHandler() { if (OnLobby != null) OnLobby.Invoke(); }
 
-	public event Action OnStart;
+	public static event Action OnStart;
 	public void StartEventHandler() { if (OnStart != null) OnStart.Invoke(); }
 
-	public event Action OnPlaying;
-	public void PlayingEventHandler() { if (OnPlaying != null) OnPlaying.Invoke(); }
+	public static event Action OnPlaying;
+	public static void PlayingEventHandler() { if (OnPlaying != null) OnPlaying.Invoke(); }
 
-	public event Action OnNonPauseUI;
+	public static event Action OnNonPauseUI;
 	public void NonPauseEventHandler() { if (OnNonPauseUI != null) OnNonPauseUI.Invoke(); }
 
-	public event Action OnPauseUI;
+	public static event Action OnPauseUI;
 	public void PauseEventHandler() { if (OnPauseUI != null) OnPauseUI.Invoke(); }
 
-	public event Action OnEnd;
+	public static event Action OnEnd;
 	public void EndEventHandler() { if (OnEnd != null) OnEnd.Invoke(); }
 	#endregion
 

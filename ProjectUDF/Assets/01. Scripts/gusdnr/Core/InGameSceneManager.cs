@@ -35,7 +35,7 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 	private void OnEnable()
 	{
 		SceneManager.sceneLoaded += OnSceneLoaded;
-		GameManager.Instance.OnEnd += () => SetSceneIndex((int)SceneList.Result);
+		GameManager.OnEnd += () => SetSceneIndex((int)SceneList.Result);
 	}
 
 	private void OnDisable()
