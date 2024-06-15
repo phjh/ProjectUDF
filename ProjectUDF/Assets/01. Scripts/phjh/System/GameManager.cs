@@ -6,23 +6,6 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-	public GameResultData resultData
-	{
-		get
-		{
-			return resultData;
-		}
-
-		private set
-		{
-			resultData.ResultState = value.ResultState;
-			resultData.ClearRoomCount = value.ClearRoomCount;
-
-			resultData.CollectOres = value.CollectOres;
-			resultData.CollectGems = value.CollectGems;
-		}
-	}
-
 	#region Pooling
 	[Header("Pooling")]
 	public PoolingListSO poollistSO;
@@ -69,12 +52,10 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private void OnEnable()
 	{
-		OnEnd += SetResultData;
 	}
 
 	private void OnDisable()
 	{
-		OnEnd -= SetResultData;
 	}
 
 	private void Awake()
@@ -86,7 +67,6 @@ public class GameManager : MonoSingleton<GameManager>
 		AstarPath.active.Scan();
 
 		UpdateResult(GameResults.None);
-		resultData = new GameResultData() { ClearRoomCount = 0, ResultState = gameResult, CollectOres = new List<int>(), CollectGems = new List<int>() };
 	}
 
 	#region Methods
@@ -163,7 +143,6 @@ public class GameManager : MonoSingleton<GameManager>
 				break;
 			case GameStates.End:
 				OnEnd?.Invoke();
-				SetResultData();
 				player.canMove = false;
 				break;
 			default:
@@ -174,20 +153,25 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public void UpdateResult(GameResults SetResult)
 	{
-		resultData.ResultState = SetResult;
+		gameResult = SetResult;
 
-		if (resultData.ResultState != GameResults.Playing && resultData.ResultState != GameResults.None) UpdateState(GameStates.End);
+		if (gameResult != GameResults.Playing && gameResult != GameResults.None) UpdateState(GameStates.End);
 	}
 
-	public void SetResultData()
+	public GameResultData ReturnGameResultData()
 	{
-		resultData.ClearRoomCount = MapSystem.Instance.ClearRoomCount;
-
 		List<int> oreList = OreInventory.Instance?.OreList;
 		List<int> gemList = OreInventory.Instance?.GemList;
+		
+		GameResultData PackedResultData = new GameResultData()
+		{
+			ResultState = gameResult,
+			ClearRoomCount = MapSystem.Instance.ClearRoomCount,
+			CollectOres = oreList,
+			CollectGems = gemList
+		};
 
-		if(oreList != null)	resultData.CollectOres = oreList;
-		if(gemList != null)	resultData.CollectGems = gemList;
+		return PackedResultData;
 	}
 
     #endregion

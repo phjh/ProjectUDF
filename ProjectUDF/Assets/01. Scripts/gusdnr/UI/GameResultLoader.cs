@@ -24,7 +24,7 @@ public class GameResultLoader : MonoBehaviour
 	public void GetResultDataInGameManager()
     {
         ResultData = new GameResultData();
-        ResultData = GameManager.Instance.resultData;
+        ResultData = GameManager.Instance.ReturnGameResultData();
 
         if(ResultData != null) SetResultUI();
 	}
