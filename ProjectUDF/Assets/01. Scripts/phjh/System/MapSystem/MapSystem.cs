@@ -228,7 +228,9 @@ public class MapSystem : MonoSingleton<MapSystem>
                 Debug.LogWarning(SpawnList[summonCount].monsterObj.name + $"({SpawnList[summonCount].monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
             }
         }
-    }
+
+		AstarPath.active.Scan();
+	}
 
 	//Å»Ãâ±¸ ·£´ý½ºÆù 
 	private void PortalSpawn()
@@ -310,9 +312,10 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
+            AstarPath.active.Scan();
         }
-        AstarPath.active.Scan();
-        
+		AstarPath.active.Scan();
+
 		RoomTimerInit();
 		RoomEffectInit();
 	}
