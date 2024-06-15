@@ -85,8 +85,6 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         else
             Debug.LogError("Error while get PlayerMovement in Playermain");
 
-        EquipMainOre = 1;
-
         canMove = true;
         canDodging = true;
 
