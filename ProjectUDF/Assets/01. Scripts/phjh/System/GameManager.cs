@@ -84,8 +84,8 @@ public class GameManager : MonoSingleton<GameManager>
 
         perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 		AstarPath.active.Scan();
-		
-		gameResult = GameResults.None;
+
+		UpdateResult(GameResults.None);
 		resultData = new GameResultData() { ClearRoomCount = 0, ResultState = gameResult, CollectOres = new List<int>(), CollectGems = new List<int>() };
 	}
 
@@ -163,6 +163,7 @@ public class GameManager : MonoSingleton<GameManager>
 				break;
 			case GameStates.End:
 				OnEnd?.Invoke();
+				SetResultData();
 				player.canMove = false;
 				break;
 			default:
@@ -175,7 +176,7 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		resultData.ResultState = SetResult;
 
-		if (resultData.ResultState != GameResults.Playing) UpdateState(GameStates.End);
+		if (resultData.ResultState != GameResults.Playing && resultData.ResultState != GameResults.None) UpdateState(GameStates.End);
 	}
 
 	public void SetResultData()

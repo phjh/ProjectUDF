@@ -126,6 +126,17 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	#endregion
 
+	#region Load Scene SceneList
+
+	public void SetSceneSceneList(SceneList afterScene)
+	{
+		int SceneListToInt = (int)afterScene;
+		if (ActiveScene().buildIndex == SceneListToInt) return;
+		StartCoroutine(TransitionScene(SceneListToInt));
+	}
+
+	#endregion
+
 	private IEnumerator UnloadSceneAsync(int index)
 	{
 		AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(index);
@@ -140,6 +151,10 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 	#endregion
 
 	#region Methods
+	public void QuitTheGame()
+	{
+		Application.Quit();
+	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
