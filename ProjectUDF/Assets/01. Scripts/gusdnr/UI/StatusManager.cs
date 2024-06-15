@@ -45,7 +45,7 @@ public class StatusManager : MonoBehaviour
 	{
 		playerStat = GameManager.Instance.player.stat;
 		Debug.Assert(playerStat != null, "Player Stat is null");
-		int heartToMake = playerStat.MaxHP;
+		int heartToMake = playerStat.MaxHP / 2;
 		for (int i = 0; i < heartToMake; i++)
 		{
 			CreateEmptyHearts();
@@ -55,10 +55,9 @@ public class StatusManager : MonoBehaviour
 
 	public void DrawHearts()
 	{
-		Debug.Log("Draw Player HP");
 		for(int i = 0; i < hearts.Count; i++)
 		{
-			int heartStatusRemainder = (int)Mathf.Clamp(playerStat.CurHP - i, 0 , 1);
+			int heartStatusRemainder = (int)Mathf.Clamp(playerStat.CurHP - i * 2,  0 , 2);
 			hearts[i].SetHeartImage((UIHeartState)heartStatusRemainder);
 		}
 	}
