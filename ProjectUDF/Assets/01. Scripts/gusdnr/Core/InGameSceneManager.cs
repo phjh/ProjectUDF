@@ -151,7 +151,7 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 	#endregion
 
 	#region Methods
-	public void QuitTheGame()
+	public void QuitGame()
 	{
 		Application.Quit();
 	}

@@ -82,12 +82,15 @@ public class OreInfo : UIMono
 			SlotList[2].SlotButton.interactable = false;
 		}
 
+		SlotList[0].SlotButton.onClick.RemoveAllListeners();
 		SlotList[0].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(-1));
 		SlotList[0].SlotButton.onClick.AddListener(() => SlotList[0].SlotObject?.ShowUI());
 
+		SlotList[1].SlotButton.onClick.RemoveAllListeners();
 		SlotList[1].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(0));
 		SlotList[1].SlotButton.onClick.AddListener(() => SlotList[1].SlotObject?.ShowUI());
 
+		SlotList[2].SlotButton.onClick.RemoveAllListeners();
 		SlotList[2].SlotButton.onClick.AddListener(() => SelectIcon?.EquipOreData(1));
 		SlotList[2].SlotButton.onClick.AddListener(() => SlotList[2].SlotObject?.ShowUI());
 	}

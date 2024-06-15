@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: It's Result Text
+  m_text: It's Room Count Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b9dd05be57768c45b7e9f17e8930db6, type: 2}
   m_sharedMaterial: {fileID: -2231837024520905498, guid: 1b9dd05be57768c45b7e9f17e8930db6, type: 2}
@@ -956,7 +956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1065558820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1473,6 +1473,10 @@ MonoBehaviour:
   DieText: "\uBAAC\uC2A4\uD130\uC5D0\uAC8C \uB2F9\uD574 \uAE30\uC808\uD588\uB2E4..."
   TimeOutText: "\uAD11\uC0B0\uC774 \uBB34\uB108\uC838 \uBC84\uB838\uB2E4..."
   ClearText: "\uD0C8\uCD9C\uC5D0 \uC131\uACF5\uD588\uB2E4!"
+  ResultText: {fileID: 1108515133}
+  ClearRoomCountText: {fileID: 107769950}
+  ReStartButton: {fileID: 559717254}
+  QuitButton: {fileID: 197044046}
 --- !u!1 &1715738581
 GameObject:
   m_ObjectHideFlags: 0
