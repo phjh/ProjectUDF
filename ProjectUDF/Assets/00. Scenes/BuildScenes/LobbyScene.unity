@@ -890,6 +890,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 738440408}
     m_Modifications:
+    - target: {fileID: 2332812580580773288, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3968285693306686658, guid: ef4e451a21835094385bd14c65ee641d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -977,7 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6543a544fa1a4f409b9c5f650cc6da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowWeapon: {fileID: 0}
+  nowWeapon: {fileID: 11400000, guid: 085ac81895cdffa47be5b1cd7c828446, type: 2}
 --- !u!4 &1030399333
 Transform:
   m_ObjectHideFlags: 0
