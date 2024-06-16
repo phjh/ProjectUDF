@@ -30,12 +30,13 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 	{
 		return ActiveScene() == SceneManager.GetSceneByName(name);
 	}
+
+	private bool isLoadingStart = false;
 	#endregion
 
 	private void OnEnable()
 	{
 		SceneManager.sceneLoaded += OnSceneLoaded;
-		GameManager.OnEnd += () => SetSceneIndex((int)SceneList.Result);
 	}
 
 	private void OnDisable()
@@ -45,7 +46,7 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	private void Awake()
 	{
-		
+
 	}
 
 	#region Load Scene
@@ -54,7 +55,7 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	public void SetSceneName(string sceneName)
 	{
-		if (ActiveScene().name == sceneName) return;
+		if (ActiveScene().name == sceneName || isLoadingStart) return;
 		StartCoroutine(TransitionScene(sceneName));
 	}
 
@@ -67,6 +68,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	private IEnumerator LoadSceneAsync(string sceneName)
 	{
+		isLoadingStart = true;
+
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		asyncLoad.allowSceneActivation = false;
 
@@ -82,6 +85,11 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		}
 
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+		
+		if (GameManager.Instance != null)
+		{
+			GameManager.OnEnd += () => SetSceneIndex((int)SceneList.Result);
+		}
 
 		OnEndLoadScene?.Invoke();
 	}
@@ -92,7 +100,7 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	public void SetSceneIndex(int index)
 	{
-		if (ActiveScene().buildIndex == index) return;
+		if (ActiveScene().buildIndex == index || isLoadingStart) return;
 		StartCoroutine(TransitionScene(index));
 	}
 
@@ -105,6 +113,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	private IEnumerator LoadSceneAsync(int index)
 	{
+		isLoadingStart = true;
+
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
 		asyncLoad.allowSceneActivation = false;
 
@@ -120,6 +130,11 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		}
 
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(index));
+
+		if (GameManager.Instance != null)
+		{
+			GameManager.OnEnd += () => SetSceneIndex((int)SceneList.Result);
+		}
 
 		OnEndLoadScene?.Invoke();
 	}
@@ -146,6 +161,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 			yield return null;
 		}
 		Debug.Log($"UnLoad Complete : {SceneManager.GetSceneByBuildIndex(index).name}");
+
+		isLoadingStart = false;
 	}
 
 	#endregion

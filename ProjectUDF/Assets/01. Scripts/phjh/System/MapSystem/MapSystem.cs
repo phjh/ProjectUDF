@@ -208,7 +208,6 @@ public class MapSystem : MonoSingleton<MapSystem>
 
         for (int summonCount = 0; summonCount < leftMonsters; summonCount++)
         {
-			Debug.Log("Start Making Monster " + SpawnList[summonCount].monsterObj.name);
 			if (SpawnList[summonCount].monsterObj == null)
 			{
 				Debug.LogWarning($"{CurRoom.name}'s in WaveData[{summonCount}] Object is Null");
@@ -218,11 +217,10 @@ public class MapSystem : MonoSingleton<MapSystem>
 			{
 				Debug.LogWarning($"{CurRoom.name}'s in WaveData[{summonCount}] Position is Null");
 			}
-			Debug.Log("Pass Null Check");
 
 			if (SpawnList[summonCount].monsterObj.TryGetComponent(out EnemyMain obj))
             {
-                Debug.Log("Spawn Enemy EnumType : " + obj.pair.enumtype);
+                if(obj.pair.enumtype == PoolObjectListEnum.None) continue;
                 obj.CustomInstantiate(SpawnList[summonCount].monsterPos, obj.pair.enumtype);
 
 				Debug.Log($"Summon Success : NAME[{SpawnList[summonCount].monsterObj.name}] POS[{SpawnList[summonCount].monsterObj.transform.position}]");
@@ -231,8 +229,6 @@ public class MapSystem : MonoSingleton<MapSystem>
             {
                 Debug.LogWarning(SpawnList[summonCount].monsterObj.name + $"({SpawnList[summonCount].monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
             }
-
-			Debug.Log("Pass Instatiate");
         }
 
 		AstarPath.active.Scan();
@@ -321,8 +317,6 @@ public class MapSystem : MonoSingleton<MapSystem>
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
 		}
-
-        Debug.LogWarning("Scanning Map out If");
 
 		AstarPath.active.Scan();
 
