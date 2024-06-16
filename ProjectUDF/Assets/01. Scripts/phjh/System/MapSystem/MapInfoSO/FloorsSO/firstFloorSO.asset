@@ -15,6 +15,8 @@ MonoBehaviour:
   ReachToBoss: 0
   roomList:
   - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
+  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
+  - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
   BossRoom: {fileID: 0}
   floorRoomInfo:
   - {fileID: 11400000, guid: 44230ab3e24de344eb33b1814b5b1b9a, type: 2}

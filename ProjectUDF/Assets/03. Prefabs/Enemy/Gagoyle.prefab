@@ -408,8 +408,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
-    prefab: {fileID: 0}
+    enumtype: 5
+    prefab: {fileID: 2021701440125315277}
     name: 
     count: 15
     description: 

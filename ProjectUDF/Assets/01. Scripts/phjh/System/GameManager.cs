@@ -64,11 +64,15 @@ public class GameManager : MonoSingleton<GameManager>
 		if (player == null) player = PlayerMain.Instance;
 
         perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-		AstarPath.active.Scan();
+		
 
 		UpdateResult(GameResults.None);
 	}
 
+	private void Start()
+	{
+		AstarPath.active.Scan();
+	}
 	#region Methods
 
 	public void SetPoolManager()
@@ -99,6 +103,7 @@ public class GameManager : MonoSingleton<GameManager>
 		foreach (var obj in poollistSO.PoolObjectLists)
 		{
 			PoolManager.Instance.CreatePool(obj, categoryParent[0].transform);
+			obj.prefab.pair.enumtype = obj.enumtype;
 			obj.prefab.pair = obj;
 		}
 		foreach (var obj in poollistSO.PoolEffectLists)
@@ -127,6 +132,7 @@ public class GameManager : MonoSingleton<GameManager>
 				break;
 			case GameStates.Start:
 				OnStart?.Invoke();
+				AstarPath.active.Scan();
 				player.canMove = true;
 				break;
 			case GameStates.Playing:

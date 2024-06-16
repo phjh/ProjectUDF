@@ -1,10 +1,10 @@
 public enum PoolObjectListEnum 
 {
 	None = 0,
-	MiniGolem,
+	SmallGolem,
 	StoneToad,
 	ToadBullet,
-	TuseokStatue,
+	DialysisStatue,
 	Gagoyle,
 	KingToadFollow,
 }
