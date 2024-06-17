@@ -60,12 +60,10 @@ public class ToadBullet : BulletMono
 	{
 		if(collision.gameObject.layer == LayerMask.NameToLayer(WhatIsObstacle))
 		{
-			Debug.Log("Hit Obstacle");
 			PushBullet();
 		}
 		if(collision.gameObject.layer == LayerMask.NameToLayer(WhatIsEnemy))
 		{
-			Debug.Log("Hit Player");
 			if(collision.TryGetComponent(out PlayerMain player)) player.GetDamage();
 			PushBullet();
 		}

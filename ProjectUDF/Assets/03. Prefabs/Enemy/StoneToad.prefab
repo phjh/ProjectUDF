@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
+    enumtype: 2
     prefab: {fileID: 4764951802140800641}
     name: StoneToad
     count: 10

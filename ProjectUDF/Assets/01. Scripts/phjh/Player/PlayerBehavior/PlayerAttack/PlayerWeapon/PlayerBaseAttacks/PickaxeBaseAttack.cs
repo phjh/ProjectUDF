@@ -29,7 +29,7 @@ public class PickaxeBaseAttack : PlayerBaseAttack, IStopAttractable
         //공격 범위 표시
         SpineAnimator.Instance.SetSortedAnimation(skele_Animator, AttackPrepareAnimation, PlayerMain.Instance.playerAim.Angle, 0);
         PlayerMain.Instance.preparingAttack = true;
-        Debug.Log("prepare");
+        //Debug.Log("prepare");
         _showRange = true;
         attackRange.gameObject.SetActive(true);
     }

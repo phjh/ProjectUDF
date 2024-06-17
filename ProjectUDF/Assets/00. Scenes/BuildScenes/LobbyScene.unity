@@ -2418,8 +2418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeartPrefab: {fileID: 1483927943229941244, guid: 3b9732962d113db4a88cbb4e04f4a87d, type: 3}
-  xSpacing: 58
-  ySpacing: 85
+  xSpacing: 120
+  ySpacing: 0
 --- !u!4 &1416840214582345553
 Transform:
   m_ObjectHideFlags: 0

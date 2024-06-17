@@ -198,11 +198,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pair:
-    enumtype: 0
-    prefab: {fileID: 0}
-    name: 
+    enumtype: 1
+    prefab: {fileID: 3026124319365870582}
+    name: SmallGolem
     count: 15
-    description: 
+    description: "\uC791\uC740 \uACE8\uB818"
   ChaseState: {fileID: 11400000, guid: 0cf92567c056db04890bccb811a7060b, type: 2}
   AttackState: {fileID: 11400000, guid: d658bf21e596aee45824ca539ce5efe4, type: 2}
   CooldownState: {fileID: 11400000, guid: 02d936591c9b37842b9e9f45b0ee4915, type: 2}

@@ -5,6 +5,7 @@ using UnityEngine;
 namespace GameManageDefine
 {
 	#region Enums
+	[System.Serializable]
 	public enum SceneList
 	{
 		Start = 0,

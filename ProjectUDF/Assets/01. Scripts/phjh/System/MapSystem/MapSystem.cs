@@ -73,18 +73,18 @@ public class MapSystem : MonoSingleton<MapSystem>
     public int waveCount = -1;
     public int leftMonsters = 0;
     public bool IsRandomExit = false;
+    public RoomInfoSO CurRoomInfo;
+    public List<MonsterInfo> CurRoomSpawnList;
 
-    private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //현재 층의 방 목록
+	private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //현재 층의 방 목록
     private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //현재 층의 방 목록 중 선택된 방
 
 	private void OnEnable()
 	{
-		MapSystem.Instance.MonsterKilledEvent += OnMonsterDead;
 	}
 
 	private void OnDisable()
 	{
-		MapSystem.Instance.MonsterKilledEvent -= OnMonsterDead;
 	}
 
 	private void Start()
@@ -107,7 +107,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            roomStartTime -= 10;
+            AstarPath.active.Scan();
         }
         if (Time.time - roomStartTime > CurRoom.timeLimit)
         {
@@ -203,6 +203,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 		}
 
 		List<MonsterInfo> SpawnList = CurRoom.RoomWaveData[waveCount].AppearMonsterInfo;
+		CurRoomSpawnList = CurRoom.RoomWaveData[waveCount].AppearMonsterInfo;
 		leftMonsters = SpawnList.Count;
 
         for (int summonCount = 0; summonCount < leftMonsters; summonCount++)
@@ -217,8 +218,9 @@ public class MapSystem : MonoSingleton<MapSystem>
 				Debug.LogWarning($"{CurRoom.name}'s in WaveData[{summonCount}] Position is Null");
 			}
 
-			if (SpawnList[summonCount].monsterObj.TryGetComponent<PoolableMono>(out PoolableMono obj))
+			if (SpawnList[summonCount].monsterObj.TryGetComponent(out EnemyMain obj))
             {
+                if(obj.pair.enumtype == PoolObjectListEnum.None) continue;
                 obj.CustomInstantiate(SpawnList[summonCount].monsterPos, obj.pair.enumtype);
 
 				Debug.Log($"Summon Success : NAME[{SpawnList[summonCount].monsterObj.name}] POS[{SpawnList[summonCount].monsterObj.transform.position}]");
@@ -304,7 +306,9 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void SetNextRoom()
     {
-        foreach (var portal in Portals)
+		CurRoomInfo = CurRoom;
+
+		foreach (var portal in Portals)
         {
             portal.SetActive(false);
         }
@@ -312,8 +316,8 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
-            AstarPath.active.Scan();
-        }
+		}
+
 		AstarPath.active.Scan();
 
 		RoomTimerInit();
@@ -333,7 +337,9 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
             SetTilemap.SetTile(LoadData.PlacedPoses[count], LoadData.PlacedTiles[count]);
         }
-    }
+
+		AstarPath.active.Scan();
+	}
 
     #region Flow Methods
 

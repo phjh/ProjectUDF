@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public abstract class PoolableMono : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public PoolingPair pair;
 
     private void Start()
@@ -13,6 +13,7 @@ public abstract class PoolableMono : MonoBehaviour
 
     public void CustomInstantiate(Vector2 pos, PoolObjectListEnum objenum)
     {
+        Debug.Log("CustomInstantiate : " + objenum);
         PoolableMono poolItem = PoolManager.Instance.Pop(objenum);
         poolItem.transform.localPosition = pos;
     }

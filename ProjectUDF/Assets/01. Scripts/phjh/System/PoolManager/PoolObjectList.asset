@@ -15,9 +15,9 @@ MonoBehaviour:
   PoolObjectLists:
   - enumtype: 1
     prefab: {fileID: 4290392551278346690, guid: e1f4bc15d9ae437438b7e230984129d5, type: 3}
-    name: MiniGolem
+    name: SmallGolem
     count: 15
-    description: "\uBBF8\uB2C8\uACE8\uB818"
+    description: "\uC791\uC740\uACE8\uB818"
   - enumtype: 2
     prefab: {fileID: 4764951802140800641, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
     name: StoneToad
@@ -30,14 +30,14 @@ MonoBehaviour:
     description: "\uB450\uAEBC\uBE44 \uCD1D\uC54C"
   - enumtype: 4
     prefab: {fileID: 1202540577100628141, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
-    name: TuseokStatue
+    name: DialysisStatue
     count: 10
     description: "\uB3CC \uB358\uC9C0\uB294\uBAB9"
   - enumtype: 5
     prefab: {fileID: 2021701440125315277, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
     name: Gagoyle
     count: 15
-    description: "\uAC00\uACE0"
+    description: "\uAC00\uACE0\uC77C"
   - enumtype: 6
     prefab: {fileID: 5590503244200413130, guid: f8eab62e60fe13f4e8124e1b3b3e0c01, type: 3}
     name: KingToadFollow
