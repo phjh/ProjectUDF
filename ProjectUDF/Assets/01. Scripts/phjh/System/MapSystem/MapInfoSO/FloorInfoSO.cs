@@ -32,7 +32,7 @@ public class FloorInfoSO : ScriptableObject
 
 			// 방 정보 추가
 			if(isRandom) floorRoomInfo.Add(roomList[roomNumber].CloneAndSetting(true));
-			else floorRoomInfo.Add(roomList[roomList.Count - i].CloneAndSetting(false));
+			else floorRoomInfo.Add(roomList[i - (roomList.Count / i * roomList.Count)].CloneAndSetting(false));
 
 			// 리스트 업데이트
 			SelectedRooms.Add(roomList[roomNumber].id);

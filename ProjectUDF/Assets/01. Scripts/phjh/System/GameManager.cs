@@ -45,7 +45,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 	#region etc
 
-	//ī�޶� ��鶧 ���̴� ��
+	//ī�޶� ���?���̴� ��
 	CinemachineBasicMultiChannelPerlin perlin;
 
 	#endregion
@@ -72,9 +72,16 @@ public class GameManager : MonoSingleton<GameManager>
 	private void Start()
 	{
 		AstarPath.active.Scan();
+		player.DeadEvent += SetDeadInfo; 
 	}
 
 	#region Methods
+
+	void SetDeadInfo()
+	{
+		GameResult.Instance.result = gameResult;
+		GameResult.Instance.clearRoomCount = MapSystem.Instance.ClearRoomCount;
+	}
 
 	public void SetPoolManager()
 	{

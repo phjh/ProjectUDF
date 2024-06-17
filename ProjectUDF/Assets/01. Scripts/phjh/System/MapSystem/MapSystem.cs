@@ -87,7 +87,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void Start()
     {
-        floors[floorCount] = floors[floorCount].CloneAndSetting();      //���� Random���̸� ��
+        floors[floorCount] = floors[floorCount].CloneAndSetting(true);      //���� Random���̸� ��
         dirtEffect.Play();
         WaveClear();
         SetNextRoom();
