@@ -73,8 +73,6 @@ public class MapSystem : MonoSingleton<MapSystem>
     public int waveCount = -1;
     public int leftMonsters = 0;
     public bool IsRandomExit = false;
-    public RoomInfoSO CurRoomInfo;
-    public List<MonsterInfo> CurRoomSpawnList;
 
 	private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿?
     private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½
@@ -207,7 +205,6 @@ public class MapSystem : MonoSingleton<MapSystem>
 		}
 
 		List<MonsterInfo> SpawnList = CurRoom.RoomWaveData[waveCount].AppearMonsterInfo;
-		CurRoomSpawnList = CurRoom.RoomWaveData[waveCount].AppearMonsterInfo;
 		leftMonsters = SpawnList.Count;
 
         for (int summonCount = 0; summonCount < leftMonsters; summonCount++)
@@ -308,8 +305,6 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void SetNextRoom()
     {
-		CurRoomInfo = CurRoom;
-
 		foreach (var portal in Portals)
         {
             portal.SetActive(false);

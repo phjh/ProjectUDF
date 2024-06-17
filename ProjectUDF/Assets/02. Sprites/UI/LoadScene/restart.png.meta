@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:ProjectUDF/Assets/02. Sprites/stones.png.meta
-guid: 7e7837904e3c6ee41b164b86a339f489
-========
-guid: 2710d21287ed1904bbaab5b7f916ccfa
->>>>>>>> origin/Testing_gusdnr(0616):ProjectUDF/Assets/02. Sprites/UI/LoadScene/rockbg0.png.meta
+guid: cad09f05aee53c84abba828569006989
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -52,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
