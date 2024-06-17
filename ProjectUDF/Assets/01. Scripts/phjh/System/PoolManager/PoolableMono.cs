@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 public abstract class PoolableMono : MonoBehaviour
 {
-    [HideInInspector]
     public PoolingPair pair;
 
     private void Start()

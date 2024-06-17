@@ -63,8 +63,7 @@ public class GameManager : MonoSingleton<GameManager>
 		SetPoolManager();
 		if (player == null) player = PlayerMain.Instance;
 
-        perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-		AstarPath.active.Scan();
+        perlin = GameManager.Instance.VirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();	
 
 		UpdateResult(GameResults.None);
 	}

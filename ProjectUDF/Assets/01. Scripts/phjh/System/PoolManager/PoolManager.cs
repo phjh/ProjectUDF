@@ -94,6 +94,12 @@ public class PoolManager
 
     public PoolableMono Pop(PoolObjectListEnum enumlist)
     {
+        if (enumlist == PoolObjectListEnum.None)
+        {
+            Debug.LogError("enumlist is null");
+            return null;
+        }
+
         if (!ObjectPoolingList.ContainsKey(enumlist))
         {
             Debug.LogError($"Prefab {enumlist.ToString()} doesnt exist on pool");

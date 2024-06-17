@@ -91,20 +91,12 @@ public class MapSystem : MonoSingleton<MapSystem>
     {
         floors[floorCount] = floors[floorCount].CloneAndSetting();      //여기 Random붙이면 됨
         dirtEffect.Play();
-        WaveClear();
         SetNextRoom();
+        Invoke("WaveClear", 2f);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            WaveClear();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OnMonsterDead();
-        }
         if (Input.GetKeyDown(KeyCode.O))
         {
             roomStartTime -= 10;
@@ -187,6 +179,11 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	#endregion
 
+    void MapScan()
+    {
+        AstarPath.active.Scan();
+    }
+
     //몬스터 소환하는 메서드
     private void SpawnMonsters()
     {
@@ -228,8 +225,6 @@ public class MapSystem : MonoSingleton<MapSystem>
                 Debug.LogWarning(SpawnList[summonCount].monsterObj.name + $"({SpawnList[summonCount].monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
             }
         }
-
-		AstarPath.active.Scan();
 	}
 
 	//탈출구 랜덤스폰 
@@ -314,9 +309,9 @@ public class MapSystem : MonoSingleton<MapSystem>
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
             AstarPath.active.Scan();
         }
-		AstarPath.active.Scan();
+        Invoke("MapScan", 0.1f);
 
-		RoomTimerInit();
+        RoomTimerInit();
 		RoomEffectInit();
 	}
     
