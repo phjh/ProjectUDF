@@ -45,16 +45,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DoDodge()
     {   
-        Debug.LogWarning("0");
         PlayerMain.Instance.isDodging = true;
         PlayerMain.Instance.canMove = false;
-        Debug.LogWarning("a");
         _rigidbody.velocity = lastinputDir * _currentSpeed * 1.8f;
         slider.value = 0;
-        Debug.LogWarning("b");
         slider.gameObject.SetActive(true);
         StartCoroutine(DodgeCooltimeSet());
-        Debug.LogWarning("c");
         yield return new WaitForSeconds(0.5f);
         PlayerMain.Instance.isDodging = false;
         PlayerMain.Instance.canMove = true;

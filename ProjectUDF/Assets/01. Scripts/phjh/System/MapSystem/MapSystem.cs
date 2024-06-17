@@ -184,11 +184,16 @@ public class MapSystem : MonoSingleton<MapSystem>
         AstarPath.active.Scan();
     }
 
-    void SpawnMonsters(float time) => Invoke(nameof(SpawnMonsters), time);
+    void SpawnMonsters(float time)
+    {
+        TimeManager.Instance.StopTimer();
+        Invoke(nameof(SpawnMonsters), time);
+    }
 
     //���� ��ȯ�ϴ� �޼���
     private void SpawnMonsters()
     {
+        TimeManager.Instance.StartTimer();
         if(CurRoom.RoomWaveData == null)
         {
 			Debug.LogWarning($"{CurRoom.name}'s WaveData is Null");
@@ -314,9 +319,9 @@ public class MapSystem : MonoSingleton<MapSystem>
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
         }
-        Invoke(nameof(MapScan), 3f);
+        Invoke(nameof(MapScan), 0.1f);
 
-        RoomTimerInit();
+        //ZRoomTimerInit();
 		RoomEffectInit();
 	}
     
@@ -333,8 +338,6 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
             SetTilemap.SetTile(LoadData.PlacedPoses[count], LoadData.PlacedTiles[count]);
         }
-
-		AstarPath.active.Scan();
 	}
 
     #region Flow Methods
