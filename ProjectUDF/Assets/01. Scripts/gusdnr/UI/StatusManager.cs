@@ -17,14 +17,14 @@ public class StatusManager : MonoBehaviour
 	private void OnEnable()
 	{
 		PlayerStats.HpChanged += DrawHearts;
-		PlayerStats.OnDeadPlayer += HideStatus;
+		PlayerMain.Instance.DeadEvent += HideStatus;
 		GameManager.OnStart += GameSet;
 	}
 
 	private void OnDisable()
 	{
 		PlayerStats.HpChanged -= DrawHearts;
-		PlayerStats.OnDeadPlayer -= HideStatus;
+		PlayerMain.Instance.DeadEvent -= HideStatus;
 		GameManager.OnStart -= GameSet;
 	}
 

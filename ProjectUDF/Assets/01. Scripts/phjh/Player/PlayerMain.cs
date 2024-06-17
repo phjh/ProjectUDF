@@ -18,6 +18,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public Action OnWeaponSetting;
 
+    public Action DeadEvent;
+
     public bool IsUIPopuped = false;
 
     #region 움직임 관련 변수들
@@ -150,7 +152,7 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         if (stat.CurHP <= 0)
         {
             OreInventory.Instance.OnChangeMainOre -= EquipStone;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            DeadEvent?.Invoke();
         }
     }
 

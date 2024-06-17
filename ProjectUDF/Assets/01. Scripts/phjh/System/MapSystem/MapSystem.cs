@@ -8,21 +8,21 @@ using UnityEngine.Tilemaps;
 
 public class MapSystem : MonoSingleton<MapSystem>
 {
-    //º¸½º¸¦ Á¦¿ÜÇÑ ÇÑ ÃþÀÇ Á¤º¸¸¦ ´ã°íÀÖ´Ù (°¢ ¹æÀÇ Á¤º¸)
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     //public List<MapInfoSO> StageInfo;
 
-    //Ãþ µû¶ó ½ÃÀÛµÇ´Â ÀÌº¥Æ® (»èÁ¦ ¿¹Á¤)
-    public event Action FloorStartEvent; //1¹ø  -> ÃþÀ» »õÀÛÇÒ¶§ ½ÇÇàµÈ´Ù.  ·£´ýÃþ »ý¼ºÀÌ ¿©±â¼­ ÀÌ·ç¾îÁ³´Ù.
-    //public event Action FloorClearEvent; //2¹ø  ->  °¢ ÃþÀ» Å¬¸®¾î ÇßÀ»¶§ ½ÇÇàµÈ´Ù. ´ÙÀ½ÃþÀ¸·Î °¡´Â Æ÷Å» »ý¼ºÀ» ¿©±â¼­ ÇÒ ¿¹Á¤ÀÌ´Ù
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ´ï¿½ ï¿½Ìºï¿½Æ® (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    public event Action FloorStartEvent; //1ï¿½ï¿½  -> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+    //public event Action FloorClearEvent; //2ï¿½ï¿½  ->  ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
 
-    //¹æ ¸¶´Ù ½ÃÀÛµÇ´Â ÀÌº¥Æ®
-    public event Action RoomStartEvent;  //3¹ø   ->  °¢ ¹æ¿¡ µé¾î°¥¶§ ½ÇÇàµÈ´Ù.  ½Ã°£Á¦ÇÑÀÌ ¿©±â Æ÷ÇÔµÈ´Ù
-    public event Action RoomClearEvent;  //4¹ø  ->   °¢ ¹æÀ» Å¬¸®¾î ÇßÀ»¶§ ³ª¿Â´Ù.  Ã¤±¤°°Àº°Ô ¿©±â Æ÷ÇÔµÈ´Ù
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ´ï¿½ ï¿½Ìºï¿½Æ®
+    public event Action RoomStartEvent;  //3ï¿½ï¿½   ->  ï¿½ï¿½ ï¿½æ¿¡ ï¿½ï¿½î°¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.  ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÈ´ï¿½
+    public event Action RoomClearEvent;  //4ï¿½ï¿½  ->   ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.  Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÈ´ï¿½
 
-    //¸ó½ºÅÍ ¿þÀÌºê ±ý¶§¸¶´Ù ½ÃÀÛµÇ´Â ÀÌº¥Æ®
-    public Action MonsterWaveClearEvent;  //5¹ø  ->  ¿þÀÌºê¿¡ ¸ðµç ¸ó½ºÅÍ¸¦ ´Ù Àâ¾ÒÀ»½Ã ½ÇÇàµÈ´Ù.  ´ÙÀ½ ¿þÀÌºê ¸ó½ºÅÍ ¼ÒÈ¯ µîÀ» ÇÒ¶§ ¾²ÀÎ´Ù
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ´ï¿½ ï¿½Ìºï¿½Æ®
+    public Action MonsterWaveClearEvent;  //5ï¿½ï¿½  ->  ï¿½ï¿½ï¿½Ìºê¿¡ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½Î´ï¿½
 
-    public event Action MonsterKilledEvent; //6¹ø -> ¸÷ÀÌ Á×À»¶§¸¶´Ù ½ÇÇàÇÒ ÀÌº¥Æ®, ¸÷ÀÌ Á×À»¶§ ¿¬°áÇØÁÖ¸é µÈ´Ù.
+    public event Action MonsterKilledEvent; //6ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 
     //public void ActionInvoker(MapEvents e)
     //{
@@ -76,8 +76,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     public RoomInfoSO CurRoomInfo;
     public List<MonsterInfo> CurRoomSpawnList;
 
-	private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //ÇöÀç ÃþÀÇ ¹æ ¸ñ·Ï
-    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //ÇöÀç ÃþÀÇ ¹æ ¸ñ·Ï Áß ¼±ÅÃµÈ ¹æ
+	private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
+    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½
 
 	private void OnEnable()
 	{
@@ -89,22 +89,14 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void Start()
     {
-        floors[floorCount] = floors[floorCount].CloneAndSetting();      //¿©±â RandomºÙÀÌ¸é µÊ
+        floors[floorCount] = floors[floorCount].CloneAndSetting();      //ï¿½ï¿½ï¿½ï¿½ Randomï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½
         dirtEffect.Play();
-        WaveClear();
         SetNextRoom();
+        Invoke("WaveClear", 2f);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            WaveClear();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OnMonsterDead();
-        }
         if (Input.GetKeyDown(KeyCode.O))
         {
             AstarPath.active.Scan();
@@ -187,7 +179,12 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	#endregion
 
-    //¸ó½ºÅÍ ¼ÒÈ¯ÇÏ´Â ¸Þ¼­µå
+    void MapScan()
+    {
+        AstarPath.active.Scan();
+    }
+
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     private void SpawnMonsters()
     {
         if(CurRoom.RoomWaveData == null)
@@ -230,11 +227,9 @@ public class MapSystem : MonoSingleton<MapSystem>
                 Debug.LogWarning(SpawnList[summonCount].monsterObj.name + $"({SpawnList[summonCount].monsterObj.GetInstanceID()})" + "was not isSpawnPortal");
             }
         }
-
-		AstarPath.active.Scan();
 	}
 
-	//Å»Ãâ±¸ ·£´ý½ºÆù 
+	//Å»ï¿½â±¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	private void PortalSpawn()
     {
         bool isSpawnPortal = false;
@@ -297,7 +292,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         dirtEffect.Play();
     }
 
-	//Ãþ ¸¶´Ù »ý¼º
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private void StageGenerate()
     {
         FloorInfoSO newMap = floors[floorCount].CloneAndSetting(false);
@@ -316,15 +311,15 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
-		}
+            AstarPath.active.Scan();
+        }
+        Invoke("MapScan", 0.1f);
 
-		AstarPath.active.Scan();
-
-		RoomTimerInit();
+        RoomTimerInit();
 		RoomEffectInit();
 	}
     
-    private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData) //ÇöÀç ÃþÀÇ ÇöÀç ¹æÀÌ °¡Áö°í ÀÖ´Â ¹èÄ¡ Å¸ÀÏ µ¥ÀÌÅÍ¸¦ È£ÃâÇØ ¹èÄ¡ÇÔ
+    private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ä¡ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½
     {
         if(LoadData == null)
         {
@@ -350,7 +345,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     void FloorClear()
     {
-        //´ëÃæ ´ÙÀ½ÃþÀ¸·Î ³Ñ¾î°¡Áö´Â ±æ ¸¸µé±â
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     #endregion

@@ -18,7 +18,6 @@ public enum Stats
 public class PlayerStats : ScriptableObject
 {
 	public static event Action HpChanged;
-	public static event Action OnDeadPlayer;
 
 	public static Action OnStatChanged;
 
@@ -59,7 +58,7 @@ public class PlayerStats : ScriptableObject
 			}
 		}
 
-		if(TimeManager.Instance != null)TimeManager.Instance.OnTimerEnd += DiePlayer;
+		if(TimeManager.Instance != null)TimeManager.Instance.OnTimerEnd += PlayerMain.Instance.DeadEvent;
 	}
 
 	public PlayerStats Clone() //Player 스탯을 복제 후, 돌려준다.
@@ -113,13 +112,6 @@ public class PlayerStats : ScriptableObject
 		curHP += value;
 		if (curHP > MaxHP) { curHP = MaxHP; }
 		else { HpChanged?.Invoke(); }
-
-		if(curHP <= 0) { DiePlayer(); } //플레이어 쪽에서 죽는 이벤트 실행
-	}
-
-	public void DiePlayer()
-	{
-		OnDeadPlayer?.Invoke();
 	}
 
 	#endregion

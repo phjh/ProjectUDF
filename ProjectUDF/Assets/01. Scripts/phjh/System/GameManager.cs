@@ -14,7 +14,7 @@ public class GameManager : MonoSingleton<GameManager>
 	#region Player Info
 	[Header("Player")]
 	public PlayerMain player;
-	[Tooltip("Ä«¸Þ¶ó")]
+	[Tooltip("Ä«ï¿½Þ¶ï¿½")]
 	public CinemachineVirtualCamera VirtualCam;
 	#endregion
 
@@ -45,7 +45,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 	#region etc
 
-	//Ä«¸Þ¶ó Èçµé¶§ ¾²ÀÌ´Â °Å
+	//Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½é¶§ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½
 	CinemachineBasicMultiChannelPerlin perlin;
 
 	#endregion
@@ -79,7 +79,7 @@ public class GameManager : MonoSingleton<GameManager>
 	{
         PoolManager.Instance = new PoolManager();
 
-		#region Ç®¸Å´ÏÀú ºÎ¸ð ¼¼ÆÃ
+		#region Ç®ï¿½Å´ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		GameObject PoolingParent = new GameObject()
 ;        PoolingParent.name = "PoolingObjectParent";
