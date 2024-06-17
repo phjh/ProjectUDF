@@ -46,7 +46,7 @@ public class StatusManager : MonoBehaviour
 		int NeedHeartCount = playerStat.MaxHP / 2;
 		for (int i = 0; i < NeedHeartCount; i++)
 		{
-			if (hearts.Count >= heartToMake)
+			if (hearts.Count >= NeedHeartCount)
 				break;
 			CreateEmptyHearts();
 		}

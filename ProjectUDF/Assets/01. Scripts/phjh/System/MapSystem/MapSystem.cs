@@ -89,8 +89,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     {
         floors[floorCount] = floors[floorCount].CloneAndSetting();      //���� Random���̸� ��
         dirtEffect.Play();
-        SetNextRoom();
         WaveClear();
+        SetNextRoom();
     }
 
     private void Update()
@@ -282,8 +282,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     public void RoomTimerInit()
     {
         TimeManager.Instance.StopTimer();
-		TimeManager.Instance.RemainTime = CurRoom.timeLimit;
         TimeManager.Instance.StartTimer();
+		TimeManager.Instance.RemainTime = CurRoom.timeLimit;
     }
 
     public void RoomEffectInit()
@@ -305,7 +305,8 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void SetNextRoom()
     {
-		foreach (var portal in Portals)
+        TimeManager.Instance.StopTimer();
+        foreach (var portal in Portals)
         {
             portal.SetActive(false);
         }
@@ -316,8 +317,8 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
         Invoke(nameof(MapScan), 0.1f);
 
-        //ZRoomTimerInit();
-		RoomEffectInit();
+        RoomTimerInit();
+        RoomEffectInit();
 	}
     
     private void SetTileData(Tilemap SetTilemap, PlacedTileData LoadData) //���� ���� ���� ���� ������ �ִ� ��ġ Ÿ�� �����͸� ȣ���� ��ġ��
