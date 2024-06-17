@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/08.%20UIToolKit/StartScene/startScene.uss?fileID=7433441132597879392&amp;guid=7839f724e3eef2245bbdc7cab3af3672&amp;type=3#startScene" />
-    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: space-around; align-self: auto; flex-wrap: nowrap; flex-direction: column-reverse;">
-        <ui:Button text="게임 시작" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartBtn" class="btn" style="-unity-font: url(&quot;project://database/Assets/79.%20Font/fonts/gamtanche.ttf?fileID=12800000&amp;guid=56d0e144acd5bc24cb70a0fab40fea00&amp;type=3#gamtanche&quot;); -unity-font-definition: url(&quot;project://database/Assets/79.%20Font/fonts/gamtanche%20SDF%201.asset?fileID=11400000&amp;guid=8838b41d9098cd548a04fa7e3a02b439&amp;type=2#gamtanche SDF 1&quot;);" />
-    </ui:VisualElement>
-</ui:UXML>

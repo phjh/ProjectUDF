@@ -73,6 +73,7 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		AstarPath.active.Scan();
 	}
+
 	#region Methods
 
 	public void SetPoolManager()
@@ -166,15 +167,15 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public GameResultData ReturnGameResultData()
 	{
-		List<int> oreList = OreInventory.Instance?.OreList;
-		List<int> gemList = OreInventory.Instance?.GemList;
+		List<int> getOreList = OreInventory.Instance?.OreList;
+		List<int> getGemList = OreInventory.Instance?.GemList;
 		
 		GameResultData PackedResultData = new GameResultData()
 		{
 			ResultState = gameResult,
 			ClearRoomCount = MapSystem.Instance.ClearRoomCount,
-			CollectOres = oreList,
-			CollectGems = gemList
+			CollectOres = getOreList,
+			CollectGems = getGemList
 		};
 
 		return PackedResultData;

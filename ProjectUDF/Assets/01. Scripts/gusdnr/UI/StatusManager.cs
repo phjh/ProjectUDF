@@ -45,8 +45,8 @@ public class StatusManager : MonoBehaviour
 	{
 		playerStat = GameManager.Instance.player.stat;
 		Debug.Assert(playerStat != null, "Player Stat is null");
-		int heartToMake = playerStat.MaxHP / 2;
-		for (int i = 0; i < heartToMake; i++)
+		int NeedHeartCount = playerStat.MaxHP / 2;
+		for (int i = 0; i < NeedHeartCount; i++)
 		{
 			CreateEmptyHearts();
 		}
@@ -64,6 +64,7 @@ public class StatusManager : MonoBehaviour
 
 	public void CreateEmptyHearts()
 	{
+		if(hearts.Count > playerStat.MaxHP / 2) return;
 		GameObject newHeart = Instantiate(HeartPrefab);
 		newHeart.transform.SetParent(gameObject.transform);
 		newHeart.name = newHeart.name.Replace("(Clone)", "");
@@ -76,10 +77,7 @@ public class StatusManager : MonoBehaviour
 		else
 		{
 			Vector2 prevHeartPos = hearts[heartIndex - 1].transform.GetComponent<RectTransform>().anchoredPosition;
-			Vector2 pos = Vector2.zero;
-
-			if(heartIndex % 2 == 0) pos = new Vector2(prevHeartPos.x + xSpacing, prevHeartPos.y + ySpacing);
-			else pos = new Vector2(prevHeartPos.x + xSpacing, prevHeartPos.y - ySpacing);
+			Vector2 pos = new Vector2(prevHeartPos.x + xSpacing, prevHeartPos.y);
 
 			newHeart.GetComponent<RectTransform>().anchoredPosition = pos;
 		}
