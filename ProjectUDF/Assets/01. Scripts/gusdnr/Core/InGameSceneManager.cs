@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 {
@@ -32,6 +33,10 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 	}
 
 	private bool isLoadingStart = false;
+
+	public Image Stone_Background;
+	public Image Ore_Background;
+
 	#endregion
 
 	private void OnEnable()
@@ -39,12 +44,23 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
-	private void OnDisable()
+    private void Start()
+    {
+        DontDestroyOnLoad(this);	
+    }
+
+    private void OnDisable()
 	{
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
 	private void Awake()
+	{
+
+	}
+
+	float x = 1920;
+	private void SetBackground(float percent)
 	{
 
 	}
@@ -79,6 +95,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 		{
 			if (asyncLoad.progress >= 0.9f)
 				asyncLoad.allowSceneActivation = true;
+
+			SetBackground(Mathf.Lerp(0, 1, asyncLoad.progress));
 
 			Debug.Log($"Loading : [{asyncLoad.progress * 100}]%");
 			yield return null;
