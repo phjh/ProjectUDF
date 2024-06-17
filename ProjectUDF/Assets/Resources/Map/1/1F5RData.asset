@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
+  m_Name: 1F5RData
+  m_EditorClassIdentifier: 
+  id: 105
+  TileObject: {fileID: 7376076219231564197, guid: f395bc2483d5b6a49b370467f118d4e8, type: 3}
+  timeLimit: 120
+  RoomWaveData:
+  - AddTime: 10
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: 9.27, y: -2.15}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: 5.73, y: 2.68}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: -4.43, y: -4.73}
+    - monsterObj: {fileID: 4421750118253429143, guid: 730317e465dcbcd438a6d039579870f5, type: 3}
+      monsterPos: {x: -0.44, y: -4.06}
+  - AddTime: 15
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -6.95, y: 3.07}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -9.76, y: -0.35}
+    - monsterObj: {fileID: 2958134122714308492, guid: 6269f7a2a2b1f5740a8800a7c4426036, type: 3}
+      monsterPos: {x: -1.45, y: -4.73}
+    - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      monsterPos: {x: 8.2, y: -2.2}
+    - monsterObj: {fileID: 2765472037297908001, guid: dac9dd4a2be35004c8d30d8ae4aa7548, type: 3}
+      monsterPos: {x: -0.61, y: 2.8}
+  - AddTime: 5
+    AppearMonsterInfo:
+    - monsterObj: {fileID: 5394705337465943607, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
+      monsterPos: {x: -2.86, y: -4.27}
+    - monsterObj: {fileID: 5394705337465943607, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
+      monsterPos: {x: 8.31, y: -2.59}
+    - monsterObj: {fileID: 5394705337465943607, guid: 9b09aa8269bcc38458323c7e1afeffb3, type: 3}
+      monsterPos: {x: -5.16, y: -4.89}
+  exits: 0200000003000000
