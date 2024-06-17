@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class GameResult : MonoSingleton<GameResult>
 {
-    public GameResults result;
-    public List<OreInfo> ores;
-    public int clearRoomCount;
+    public GameResultData resultData;
+
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);

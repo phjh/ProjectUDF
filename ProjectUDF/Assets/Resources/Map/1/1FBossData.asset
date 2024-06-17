@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1623d017357b014da52b94786342569, type: 3}
   m_Name: 1FBossData
   m_EditorClassIdentifier: 
-  id: 0
+  id: 199
   TileObject: {fileID: 3982433070071454274, guid: 618ae5d47c1f76047a14413d39ce90cd, type: 3}
   timeLimit: 120
   RoomWaveData:

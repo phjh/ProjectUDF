@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f563a02afb69b40862aee6eb7f04e2, type: 3}
   m_Name: firstFloorSO
   m_EditorClassIdentifier: 
-  ReachToBoss: 3
+  ReachToBoss: 6
   roomList:
   - {fileID: 11400000, guid: 3f9a3cbdd0064ad438fecdd6547b8d6e, type: 2}
   - {fileID: 11400000, guid: 44230ab3e24de344eb33b1814b5b1b9a, type: 2}
@@ -20,7 +20,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 03e0eb3b4f02a834ab1e2f0221e53f65, type: 2}
   - {fileID: 11400000, guid: 8e2e67f892bc1ce4690a5fb2c5c8fbc8, type: 2}
   - {fileID: 11400000, guid: 5dda3403d6c993c41b92f24b58345f97, type: 2}
-  - {fileID: 11400000, guid: f128559dd0255e54b837fa3cc0228c1b, type: 2}
   BossRoom: {fileID: 11400000, guid: c0dae41956167114e9c5fd83e7d4a5df, type: 2}
   floorRoomInfo:
   - {fileID: 11400000, guid: 44230ab3e24de344eb33b1814b5b1b9a, type: 2}

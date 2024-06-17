@@ -79,8 +79,8 @@ public class GameManager : MonoSingleton<GameManager>
 
 	void SetDeadInfo()
 	{
-		GameResult.Instance.result = gameResult;
-		GameResult.Instance.clearRoomCount = MapSystem.Instance.ClearRoomCount;
+		GameResult.Instance.resultData.ResultState = GameResults.DiePlayer;
+		GameResult.Instance.resultData.ClearRoomCount = MapSystem.Instance.ClearRoomCount;
 	}
 
 	public void SetPoolManager()

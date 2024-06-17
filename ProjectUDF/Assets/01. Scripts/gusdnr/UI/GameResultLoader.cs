@@ -30,10 +30,16 @@ public class GameResultLoader : MonoBehaviour
 		InGameSceneManager.OnStartLoadScene -= GetResultDataInGameManager;
 	}
 
-	public void GetResultDataInGameManager()
+    private void Start()
     {
-        ResultData = new GameResultData();
-        ResultData = GameManager.Instance.ReturnGameResultData();
+        ResultData = GameResult.Instance.resultData;
+        SetResultUI();
+    }
+
+    public void GetResultDataInGameManager()
+    {
+        //ResultData = new GameResultData();
+        //ResultData = GameManager.Instance.ReturnGameResultData();
 
         if(ResultData != null) SetResultUI();
 	}
@@ -88,7 +94,7 @@ public class GameResultLoader : MonoBehaviour
 
     private string ConvertClearRoomCount(int count)
     {
-        string uiText = "[클리어한 방 개수 : count ];";
+        string uiText = (count/10).ToString() + (count%10).ToString();
         uiText.Replace("count", count.ToString());
 
         return uiText;

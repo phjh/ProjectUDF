@@ -78,9 +78,9 @@ public class AreaAttackState : EnemyState
 			if (playerCol != null)
 			{
 				Debug.Log("Attack Player");
-				/*Player PlayerMain;
+				PlayerMain PlayerMain;
 				playerCol.gameObject.TryGetComponent(out PlayerMain);
-				PlayerMain.GetDamage();*/
+				PlayerMain.GetDamage();
 			}
 			else
 			{

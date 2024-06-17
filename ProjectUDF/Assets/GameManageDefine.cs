@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace GameManageDefine
 
 	#endregion
 
+	[Serializable]
 	public class GameResultData
 	{
 		public int ClearRoomCount { get; set; }
