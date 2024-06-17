@@ -1,5 +1,6 @@
 using Spine;
 using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,19 +35,12 @@ public class PlayerAnimation : MonoBehaviour
 
     public List<AnimationReferenceAsset> MoveAnimations;
 
-    private List<AnimationReferenceAsset> leftAttackAnimations;
-
-    private List<AnimationReferenceAsset> chargingAttack;
-    
-    private List<AnimationReferenceAsset> rightAttackAnimations;
-
     private List<AnimationReferenceAsset> WeaponIdleAnimations;
 
     [SpineAnimation]
     public List<string> DodgeAnimation;
 
-    [SpineAnimation]
-    public string dieAnimation;
+    public AnimationReferenceAsset dieAnimation;
 
     #endregion
 
@@ -74,9 +68,25 @@ public class PlayerAnimation : MonoBehaviour
 
     public void OnDie()
     {
+        SpineAnimator.Instance.isEmpty = true;
         skeletonAnimation.timeScale = 0.5f;
-        skeletonAnimation.AnimationState.SetAnimation(0, dieAnimation, false);
-        skeletonAnimation.AnimationState.SetAnimation(1, dieAnimation, false);
+        SpineAnimator.Instance.SetAnimation(skeletonAnimation, dieAnimation, 0);
+        SpineAnimator.Instance.SetAnimation(skeletonAnimation, dieAnimation, 1);
+
+        Debug.LogWarning(dieAnimation.name);
+        Debug.LogWarning(nameof(SetDeadScene) + " andn " + dieAnimation.Animation.Duration);
+
+        Invoke(nameof(SetDeadScene) , dieAnimation.Animation.Duration);
+    }
+
+    void SetDeadScene()
+    {
+        if (InGameSceneManager.Instance == null)
+        {
+            Debug.LogWarning("ingmaescene is null");
+            return;
+        }
+        InGameSceneManager.Instance.SetSceneName("GameResultScene");
     }
 
     void SetDirection()
@@ -163,7 +173,7 @@ public class PlayerAnimation : MonoBehaviour
 
             SetDirection();
 
-            if (_inputDirection == Vector2.zero || !PlayerMain.Instance.canMove)
+            if ((_inputDirection == Vector2.zero || !PlayerMain.Instance.canMove) && !SpineAnimator.Instance.Skip)
             {
                 SpineAnimator.Instance.SetSortedAnimation(skeletonAnimation, IdleAnimations, (int)lastMoveDirection, 1, startTime: time);
             }
@@ -172,7 +182,6 @@ public class PlayerAnimation : MonoBehaviour
                 //여기서 왜 대체 그렇게 되는가ㅏㅏㅏㅏ
                 if ((int)lastMoveDirection == 7)
                 {
-                    Debug.LogWarning($"dir : {(int)lastMoveDirection}");
                     SpineAnimator.Instance.SetAnimation(skeletonAnimation, MoveAnimations[6], 1, startTime: time);
                 }
                 else

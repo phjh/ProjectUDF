@@ -17,14 +17,12 @@ public class StatusManager : MonoBehaviour
 	private void OnEnable()
 	{
 		PlayerStats.HpChanged += DrawHearts;
-		PlayerMain.Instance.DeadEvent += HideStatus;
 		GameManager.OnStart += GameSet;
 	}
 
 	private void OnDisable()
 	{
 		PlayerStats.HpChanged -= DrawHearts;
-		PlayerMain.Instance.DeadEvent -= HideStatus;
 		GameManager.OnStart -= GameSet;
 	}
 
@@ -48,6 +46,8 @@ public class StatusManager : MonoBehaviour
 		int heartToMake = playerStat.MaxHP / 2;
 		for (int i = 0; i < heartToMake; i++)
 		{
+			if (hearts.Count >= heartToMake)
+				break;
 			CreateEmptyHearts();
 		}
 		DrawHearts();

@@ -63,8 +63,9 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         Debug.Log("onattacking");
         PlayerMain.Instance.canMove = true;
         atkcollider.enabled = false;
-        attackRange.gameObject.SetActive(false);
         PlayerMain.Instance.preparingAttack = false;
+        SpineAnimator.Instance.SetEmptyAnimation(skele_Animator, 0, 0.1f, true);
+        attackRange.gameObject.SetActive(false);
 
         //기존 함수 실행
         Invoke(nameof(OnAttackEnd), timeToEnd);
@@ -77,6 +78,7 @@ public class PickaxeChargeAttack : PlayerChargeAttack, IStopAttractable
         attackRange.gameObject.SetActive(false);
         PlayerMain.Instance.canAttack = true;
         PlayerMain.Instance.isAttacking = false;
+        SpineAnimator.Instance.Skip = false;
     }
 
     public void StartAiming()

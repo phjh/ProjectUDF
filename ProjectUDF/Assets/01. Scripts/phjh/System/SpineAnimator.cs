@@ -8,6 +8,7 @@ using UnityEngine;
 public class SpineAnimator : MonoSingleton<SpineAnimator>
 {
     public bool isEmpty = false;
+    public bool Skip = false;
 
     public void SetAnimation(SkeletonAnimation animator, AnimationReferenceAsset animation, int track = 0, bool loop = false, float startTime = 0f, float speed = 1f, bool reversed = false, float mixtime = 0.0f)
     {
@@ -31,10 +32,11 @@ public class SpineAnimator : MonoSingleton<SpineAnimator>
         tracks.AnimationStart = startTime;
     }
 
-    public void SetEmptyAnimation(SkeletonAnimation animator, int track = 0, float time = 0f)
+    public void SetEmptyAnimation(SkeletonAnimation animator, int track = 0, float time = 0f, bool skip = false)
     {
         isEmpty = true;
         animator.AnimationState.SetEmptyAnimation(track, time + 0.1f);
+        Skip = skip;
         Task.Run(async() =>
         {
             await Task.Delay(Mathf.RoundToInt(time * 1000));
@@ -59,8 +61,6 @@ public class SpineAnimator : MonoSingleton<SpineAnimator>
             Debug.LogError(dir);
             return null;
         }
-        if (arr[dir] == 6)
-            Debug.LogWarning($"dir : {arr[dir]}, input dir : {dir}, animation name : {animation[arr[dir]].Animation.Name}");
         return animation[arr[dir]];
     }
 }

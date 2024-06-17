@@ -151,7 +151,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
         if (stat.CurHP <= 0)
         {
-            OreInventory.Instance.OnChangeMainOre -= EquipStone;
+            isInvincible = true;
+            //OreInventory.Instance.OnChangeMainOre -= EquipStone;
             DeadEvent?.Invoke();
         }
     }

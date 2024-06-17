@@ -214,7 +214,7 @@ MonoBehaviour:
   - dash_sb_l
   - dash_s_l
   - dash_sf_l
-  dieAnimation: die
+  dieAnimation: {fileID: 11400000, guid: b8728c5b524e94f4191b4bad38d6b142, type: 2}
   aimAngle: 0
   _inputDirection: {x: 0, y: 0}
 --- !u!70 &7495340682727693152

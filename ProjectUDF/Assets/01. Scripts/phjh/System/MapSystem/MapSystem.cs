@@ -8,19 +8,19 @@ using UnityEngine.Tilemaps;
 
 public class MapSystem : MonoSingleton<MapSystem>
 {
-    //������ ������ �� ���� ������ ����ִ� (�� ���� ����)
+    //������ ������ �� ���� ������ ����ִ�?(�� ���� ����)
     //public List<MapInfoSO> StageInfo;
 
     //�� ���� ���۵Ǵ� �̺�Ʈ (���� ����)
-    public event Action FloorStartEvent; //1��  -> ���� �����Ҷ� ����ȴ�.  ������ ������ ���⼭ �̷������.
-    //public event Action FloorClearEvent; //2��  ->  �� ���� Ŭ���� ������ ����ȴ�. ���������� ���� ��Ż ������ ���⼭ �� �����̴�
+    public event Action FloorStartEvent; //1��  -> ���� �����Ҷ� ����ȴ�?  ������ ������ ���⼭ �̷������?
+    //public event Action FloorClearEvent; //2��  ->  �� ���� Ŭ���� ������ ����ȴ�? ���������� ���� ��Ż ������ ���⼭ �� �����̴�
 
     //�� ���� ���۵Ǵ� �̺�Ʈ
-    public event Action RoomStartEvent;  //3��   ->  �� �濡 ���� ����ȴ�.  �ð������� ���� ���Եȴ�
+    public event Action RoomStartEvent;  //3��   ->  �� �濡 ����?����ȴ�?  �ð������� ���� ���Եȴ�
     public event Action RoomClearEvent;  //4��  ->   �� ���� Ŭ���� ������ ���´�.  ä�������� ���� ���Եȴ�
 
     //���� ���̺� �������� ���۵Ǵ� �̺�Ʈ
-    public Action MonsterWaveClearEvent;  //5��  ->  ���̺꿡 ��� ���͸� �� ������� ����ȴ�.  ���� ���̺� ���� ��ȯ ���� �Ҷ� ���δ�
+    public Action MonsterWaveClearEvent;  //5��  ->  ���̺꿡 ���?���͸� �� �������?����ȴ�?  ���� ���̺� ���� ��ȯ ���� �Ҷ� ���δ�
 
     public event Action MonsterKilledEvent; //6�� -> ���� ���������� ������ �̺�Ʈ, ���� ������ �������ָ� �ȴ�.
 
@@ -76,8 +76,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     public RoomInfoSO CurRoomInfo;
     public List<MonsterInfo> CurRoomSpawnList;
 
-	private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //���� ���� �� ���
-    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //���� ���� �� ��� �� ���õ� ��
+	private List<RoomInfoSO> CurFloorRoomList => floors[floorCount].floorRoomInfo; //���� ���� �� ���?
+    private RoomInfoSO CurRoom => CurFloorRoomList[roomCount]; //���� ���� �� ���?�� ���õ� ��
 
 	private void OnEnable()
 	{
@@ -92,7 +92,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         floors[floorCount] = floors[floorCount].CloneAndSetting();      //���� Random���̸� ��
         dirtEffect.Play();
         SetNextRoom();
-        Invoke("WaveClear", 2f);
+        WaveClear();
     }
 
     private void Update()
@@ -138,7 +138,7 @@ public class MapSystem : MonoSingleton<MapSystem>
         }
         else if(waveCount < CurRoom.RoomWaveData.Count)
         {
-			SpawnMonsters();
+			SpawnMonsters(2f);
 		}
         else if(waveCount > CurRoom.RoomWaveData.Count)
         {
@@ -149,7 +149,7 @@ public class MapSystem : MonoSingleton<MapSystem>
     public void OnRoomStart()
     {
         SetNextRoom();
-        SpawnMonsters();
+        SpawnMonsters(2f);
 	}
 
 	private void OnRoomClear()
@@ -183,6 +183,8 @@ public class MapSystem : MonoSingleton<MapSystem>
     {
         AstarPath.active.Scan();
     }
+
+    void SpawnMonsters(float time) => Invoke(nameof(SpawnMonsters), time);
 
     //���� ��ȯ�ϴ� �޼���
     private void SpawnMonsters()
@@ -311,9 +313,8 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
-            AstarPath.active.Scan();
         }
-        Invoke("MapScan", 0.1f);
+        Invoke(nameof(MapScan), 3f);
 
         RoomTimerInit();
 		RoomEffectInit();
@@ -345,7 +346,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
     void FloorClear()
     {
-        //���� ���������� �Ѿ���� �� �����
+        //���� ���������� �Ѿ���� �� �����?
     }
 
     #endregion

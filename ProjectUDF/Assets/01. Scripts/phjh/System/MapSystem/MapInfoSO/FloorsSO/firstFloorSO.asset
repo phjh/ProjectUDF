@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
   - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
   - {fileID: 11400000, guid: a0dd56e475ecb244086f80e340d3ab90, type: 2}
-  BossRoom: {fileID: 0}
+  BossRoom: {fileID: 11400000, guid: c0dae41956167114e9c5fd83e7d4a5df, type: 2}
   floorRoomInfo:
   - {fileID: 11400000, guid: 44230ab3e24de344eb33b1814b5b1b9a, type: 2}
   - {fileID: 11400000, guid: 44230ab3e24de344eb33b1814b5b1b9a, type: 2}
