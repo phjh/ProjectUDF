@@ -54,7 +54,7 @@ MonoBehaviour:
   pair:
     enumtype: 4
     prefab: {fileID: 1202540577100628141}
-    name: TuseokStatue
+    name: DialysisStatue
     count: 10
     description: "\uB3CC \uB358\uC9C0\uB294\uBAB9"
   ChaseState: {fileID: 11400000, guid: 4bca58862af4afe4288c740eed939135, type: 2}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  drawGizmos: 1
+  drawGizmos: 0
   detailedGizmos: 0
   startEndModifier:
     addPoints: 0

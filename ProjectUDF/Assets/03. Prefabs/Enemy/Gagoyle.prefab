@@ -410,9 +410,9 @@ MonoBehaviour:
   pair:
     enumtype: 5
     prefab: {fileID: 2021701440125315277}
-    name: 
+    name: Gagoyle
     count: 15
-    description: 
+    description: "\uAC00\uACE0\uC77C"
   ChaseState: {fileID: 11400000, guid: 7e061091a1e021046867f8eb9369a419, type: 2}
   AttackState: {fileID: 11400000, guid: 4eac0c9e2c721e44d97779cf4b2a97fd, type: 2}
   CooldownState: {fileID: 11400000, guid: fee786eae5a1c454799acf5af4218cf5, type: 2}
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  drawGizmos: 1
+  drawGizmos: 0
   detailedGizmos: 0
   startEndModifier:
     addPoints: 0
