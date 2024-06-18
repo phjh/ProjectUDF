@@ -13,12 +13,12 @@ ___
 ## [프로젝트 내 주 작업 폴더](https://github.com/phjh/ProjectUDF/tree/main/ProjectUDF/Assets/01.%20Scripts/phjh)
 ### 플레이어, 맵 시스템, 인게임 흐름 관리 시스템 개발
 
-
 ___
 # 박현욱: 개발, 기획
 ### 박현욱 - [학교 포트폴리오 사이트](https://ggm.gondr.net/user/profile/183) 
 ## [프로젝트 내 주 작업 폴더](https://github.com/phjh/ProjectUDF/tree/main/ProjectUDF/Assets/01.%20Scripts/gusdnr)
-### 적, 인게임 흐름 관리 시스템, 전체적인 UI 개발, 맵 시스템 수정
+### 적, 인게임 흐름 관리 시스템, 전체적인 UI 개발
+### 맵 시스템 수정
 
 ___
 # 김보민: 아트
