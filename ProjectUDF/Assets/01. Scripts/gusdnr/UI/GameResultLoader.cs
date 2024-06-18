@@ -20,20 +20,21 @@ public class GameResultLoader : MonoBehaviour
 
     private GameResultData ResultData { get; set;  } = new GameResultData();
 
-	private void OnEnable()
-	{
-		InGameSceneManager.OnStartLoadScene += GetResultDataInGameManager;
-	}
+	//private void OnEnable()
+	//{
+	//	InGameSceneManager.OnStartLoadScene += GetResultDataInGameManager;
+	//}
 
-	private void OnDisable()
-	{
-		InGameSceneManager.OnStartLoadScene -= GetResultDataInGameManager;
-	}
+	//private void OnDisable()
+	//{
+	//	InGameSceneManager.OnStartLoadScene -= GetResultDataInGameManager;
+	//}
 
     private void Start()
     {
         ResultData = GameResult.Instance.resultData;
         SetResultUI();
+        GameResult.Instance.DeleteThis();
     }
 
     public void GetResultDataInGameManager()
@@ -99,4 +100,10 @@ public class GameResultLoader : MonoBehaviour
 
         return uiText;
     }
+
+    public void SetSceneIndex(int index)
+    {
+        InGameSceneManager.Instance.SetSceneIndex(index);
+    }
+
 }
