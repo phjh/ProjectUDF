@@ -22,6 +22,8 @@ public class PlayerMain : MonoSingleton<PlayerMain>
 
     public bool IsUIPopuped = false;
 
+    bool isLobby = true;
+
     #region 움직임 관련 변수들
 
     public PlayerWeapon nowWeapon = null;
@@ -102,10 +104,14 @@ public class PlayerMain : MonoSingleton<PlayerMain>
         stat.SetOwner(this);
         stat = stat.Clone();
 
-        if(LobbyToGame.Instance != null)
+        if(LobbyToGame.Instance != null && !isLobby)
         {
             nowWeapon = LobbyToGame.Instance.GetnowWeapon();
-            //LobbyToGame.Instance.DeleteThis();
+            LobbyToGame.Instance.DeleteThis();
+        }
+        else if(LobbyToGame.Instance != null)
+        {
+            nowWeapon = LobbyToGame.Instance.GetnowWeapon();
         }
         SetWeapon(nowWeapon);
         SkillChange(nowSkill);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1F5RData
   m_EditorClassIdentifier: 
   id: 105
-  TileObject: {fileID: 7376076219231564197, guid: f395bc2483d5b6a49b370467f118d4e8, type: 3}
+  TileObject: {fileID: 7376076219231564197, guid: c17709d5c40acd84590b5aceed410259, type: 3}
   timeLimit: 120
   RoomWaveData:
   - AddTime: 10

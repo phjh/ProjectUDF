@@ -83,7 +83,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (InGameSceneManager.Instance == null)
         {
-            Debug.LogWarning("ingmaescene is null");
+            Debug.LogWarning("ingamescene is null");
             return;
         }
         InGameSceneManager.Instance.SetSceneName("GameResultScene");

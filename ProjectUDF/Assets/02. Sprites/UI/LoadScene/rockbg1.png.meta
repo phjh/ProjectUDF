@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:ProjectUDF/Assets/02. Sprites/result_Image.png.meta
 guid: 3063bc07169b6994dbf3a91616e78195
-========
-guid: 2187fc88ad97acf4ba98f11f1840f4a3
->>>>>>>> origin/Testing_gusdnr(0616):ProjectUDF/Assets/02. Sprites/UI/LoadScene/rockbg1.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -38,16 +34,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<<< HEAD:ProjectUDF/Assets/02. Sprites/result_Image.png.meta
-    filterMode: 0
-========
     filterMode: 1
->>>>>>>> origin/Testing_gusdnr(0616):ProjectUDF/Assets/02. Sprites/UI/LoadScene/rockbg1.png.meta
     aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -71,16 +63,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 2
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0

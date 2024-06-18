@@ -87,7 +87,7 @@ public class MapSystem : MonoSingleton<MapSystem>
 
 	private void Start()
     {
-        floors[floorCount] = floors[floorCount].CloneAndSetting();      //���� Random���̸� ��
+        floors[floorCount] = floors[floorCount].CloneAndSetting(true);      //���� Random���̸� ��
         dirtEffect.Play();
         WaveClear();
         SetNextRoom();
@@ -310,10 +310,16 @@ public class MapSystem : MonoSingleton<MapSystem>
         {
             portal.SetActive(false);
         }
-        if (roomCount != CurFloorRoomList.Count)
+        if (roomCount != CurFloorRoomList.Count - 1) 
         {
 		    SetTileData(ObstacleTileMap, CurRoom.Obstacle);
 		    SetTileData(DecorateTileMap, CurRoom.Decorate);
+        }
+        else
+        {
+            GameResult.Instance.resultData.ClearRoomCount = ClearRoomCount;
+            GameResult.Instance.resultData.ResultState = GameManageDefine.GameResults.ClearGame;
+            InGameSceneManager.Instance.SetSceneIndex(3);
         }
         Invoke(nameof(MapScan), 0.1f);
 

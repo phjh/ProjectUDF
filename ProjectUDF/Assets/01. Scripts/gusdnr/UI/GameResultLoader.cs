@@ -20,20 +20,27 @@ public class GameResultLoader : MonoBehaviour
 
     private GameResultData ResultData { get; set;  } = new GameResultData();
 
-	private void OnEnable()
-	{
-		InGameSceneManager.OnStartLoadScene += GetResultDataInGameManager;
-	}
+	//private void OnEnable()
+	//{
+	//	InGameSceneManager.OnStartLoadScene += GetResultDataInGameManager;
+	//}
 
-	private void OnDisable()
-	{
-		InGameSceneManager.OnStartLoadScene -= GetResultDataInGameManager;
-	}
+	//private void OnDisable()
+	//{
+	//	InGameSceneManager.OnStartLoadScene -= GetResultDataInGameManager;
+	//}
 
-	public void GetResultDataInGameManager()
+    private void Start()
     {
-        ResultData = new GameResultData();
-        ResultData = GameManager.Instance.ReturnGameResultData();
+        ResultData = GameResult.Instance.resultData;
+        SetResultUI();
+        GameResult.Instance.DeleteThis();
+    }
+
+    public void GetResultDataInGameManager()
+    {
+        //ResultData = new GameResultData();
+        //ResultData = GameManager.Instance.ReturnGameResultData();
 
         if(ResultData != null) SetResultUI();
 	}
@@ -88,9 +95,15 @@ public class GameResultLoader : MonoBehaviour
 
     private string ConvertClearRoomCount(int count)
     {
-        string uiText = "[클리어한 방 개수 : count ];";
+        string uiText = (count/10).ToString() + (count%10).ToString();
         uiText.Replace("count", count.ToString());
 
         return uiText;
     }
+
+    public void SetSceneIndex(int index)
+    {
+        InGameSceneManager.Instance.SetSceneIndex(index);
+    }
+
 }

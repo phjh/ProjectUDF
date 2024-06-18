@@ -43,7 +43,6 @@ public class RoomInfoSO : ScriptableObject
 			Debug.LogError("exits room is not exist");
 		}
 
-		Debug.Assert(CloneInfo == null, $"Success To Clone RoomInfo : ID [{CloneInfo.id}]");
         return CloneInfo;
     }
 

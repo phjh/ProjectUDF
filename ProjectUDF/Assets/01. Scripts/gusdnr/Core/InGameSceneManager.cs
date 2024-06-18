@@ -46,7 +46,13 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
     private void Start()
     {
-        DontDestroyOnLoad(this);	
+		Debug.Log("Start SceneManager In " + ActiveScene().name);
+		if (Instance != null && Instance != this)
+		{
+			this.StopAllCoroutines();
+			Destroy(this.gameObject);
+        }
+		if (Instance == this) DontDestroyOnLoad(this);
     }
 
     private void OnDisable()
@@ -131,6 +137,8 @@ public class InGameSceneManager : MonoSingleton<InGameSceneManager>
 
 	private IEnumerator LoadSceneAsync(int index)
 	{
+		Debug.LogWarning("2345556453");
+
 		isLoadingStart = true;
 
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
