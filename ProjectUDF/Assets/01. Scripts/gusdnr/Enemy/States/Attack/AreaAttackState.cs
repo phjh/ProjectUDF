@@ -73,21 +73,21 @@ public class AreaAttackState : EnemyState
 			AttackArea.SetActive(true);
 			Debug.Log($"Attack : {doCount + 1}");
 			yield return WaitCharge;
-			AttackArea.SetActive(false);
 			playerCol = Physics2D.OverlapArea(AttackAreaCollider.bounds.min, AttackAreaCollider.bounds.max, WhatIsEnemy);
 			if (playerCol != null)
 			{
 				Debug.Log("Attack Player");
-				/*Player PlayerMain;
-				playerCol.gameObject.TryGetComponent(out PlayerMain);
-				PlayerMain.GetDamage();*/
+				if(playerCol.TryGetComponent(out PlayerMain pm))
+				{
+					pm.GetDamage();
+				}
 			}
 			else
 			{
 				Debug.Log("Fail to Attack Player");
 			}
+			AttackArea.SetActive(false);
 			doCount = doCount + 1;
-			yield return null;
 		}
 		while (RepeatCount > doCount);
 		yield return AttackCoroutine = null;
