@@ -8344,8 +8344,6 @@ MonoBehaviour:
   waveCount: -1
   leftMonsters: 0
   IsRandomExit: 1
-  CurRoomInfo: {fileID: 0}
-  CurRoomSpawnList: []
 --- !u!1 &1345383959
 GameObject:
   m_ObjectHideFlags: 0

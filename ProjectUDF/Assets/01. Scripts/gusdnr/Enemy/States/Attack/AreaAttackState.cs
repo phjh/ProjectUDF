@@ -76,10 +76,10 @@ public class AreaAttackState : EnemyState
 			playerCol = Physics2D.OverlapArea(AttackAreaCollider.bounds.min, AttackAreaCollider.bounds.max, WhatIsEnemy);
 			if (playerCol != null)
 			{
-				Debug.Log("Attack Player");
 				if(playerCol.TryGetComponent(out PlayerMain pm))
 				{
 					pm.GetDamage();
+					Debug.Log("Attack Player");
 				}
 			}
 			else
